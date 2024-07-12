@@ -4,3 +4,11 @@
 @import url(pages/header.css);
 @import url(pages/home.css);
 @import url(pages/project.css);
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+    color: #fff;
+}
