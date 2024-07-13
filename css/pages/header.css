@@ -1,5 +1,5 @@
 .header {
-    background-color: #333;
+    background-color: var(--black);
     padding: 20px 0;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .navigation a {
-    color: #fff;
+    color: var(--anti-flash-white);
     text-decoration: none;
     font-weight: bold;
 }
