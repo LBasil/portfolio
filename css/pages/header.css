@@ -1,6 +1,9 @@
 .header {
     background-color: var(--black);
     padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .logo {
@@ -25,10 +28,4 @@
 .navigation li {
     display: inline-block;
     margin-left: 20px;
-}
-
-.navigation a {
-    color: var(--anti-flash-white);
-    text-decoration: none;
-    font-weight: bold;
 }
