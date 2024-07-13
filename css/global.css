@@ -10,6 +10,7 @@
     --tiffany-blue: #97D8C4;
     --anti-flash-white: #EFF2F1;
     --xanthous: #F4B942;
+    --xanthous-light: #fbe4b7;
     --crayola: #F9627D;
     --black: #002233;
     --button: #3f51b5;
@@ -20,7 +21,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--black);
+    background-color: var(--xanthous-light);
     color: var(--anti-flash-white);
 }
 
@@ -29,6 +30,10 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+}
+
+.title {
+    justify-self: center;
 }
 
 /* https://coolors.co/0b63fe-97d8c4-eff2f1-f4b942-f9627d */
