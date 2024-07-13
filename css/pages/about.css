@@ -1,0 +1,15 @@
+.about {
+    display: grid;
+    color: var(--black);
+}
+
+.about-container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.about-p {
+    width: 50%;
+}
