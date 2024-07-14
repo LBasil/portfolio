@@ -73,7 +73,7 @@ a {
 }
 
 #message {
-    background-color: white;
+    background-color: var(--anti-flash-white);
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -83,7 +83,7 @@ a {
 
 #close-button {
     padding: 5px 10px;
-    background-color: #ccc;
+    background-color: var(--anti-flash-white);
     border: none;
     border-radius: 5px;
     cursor: pointer;

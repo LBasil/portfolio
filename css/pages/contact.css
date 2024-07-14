@@ -1,0 +1,55 @@
+
+.contact {
+    padding: 50px;
+    text-align: center;
+    color: var(--black);
+}
+
+#contactForm {
+    border: 5px solid var(--black);
+    border-radius: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.name {
+    margin-top: 2%;
+}
+
+input, textarea {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.submit {
+    margin-bottom: 2%;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+.contact {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+input, textarea {
+    width: 95%;
+    }
+}
+  
