@@ -59,4 +59,35 @@ a {
     font-weight: bold;
 }
 
+#mobile-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#message {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: black;
+}
+
+#close-button {
+    padding: 5px 10px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
 /* https://coolors.co/0b63fe-97d8c4-eff2f1-f4b942-f9627d */
