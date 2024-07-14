@@ -3,11 +3,6 @@
     color: var(--black);
 }
 
-.projects-container {
-    position: relative;
-    top: 25%;
-}
-
 .card {
     width: 25%;
     background-color: var(--tiffany-blue);
