@@ -83,3 +83,7 @@ footer {
     background-color: #333;
     color: #fff;
 }
+
+.image {
+    border-radius: 50px;
+}
