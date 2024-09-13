@@ -116,3 +116,29 @@ footer {
 .under {
     margin-top: 50px;
 }
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+.dark-mode .navbar {
+    background-color: rgba(34, 34, 34, 0.8) !important;
+}
+
+.dark-mode #portfolio {
+    background-color: rgba(34, 34, 34, 0.8) !important;
+}
+
+.dark-mode #contact {
+    background-color: rgba(34, 34, 34, 0.8) !important;
+}
+
+.dark-mode .navbar-nav .nav-link {
+    color: #f1f1f1;
+}
+
+.dark-mode .navbar-nav .nav-link:hover {
+    color: var(--neon-blue);
+}
