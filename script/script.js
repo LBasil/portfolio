@@ -1,4 +1,4 @@
-// Initialize ScrollReveal with more modern settings
+// Initialize ScrollReveal
 const sr = ScrollReveal({
     origin: 'bottom',
     distance: '25px',
@@ -104,22 +104,20 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Archives toggle functionality - Version améliorée
+// Archives toggle functionality
 const toggleArchivesBtn = document.getElementById('toggle-archives');
 const archivesContent = document.getElementById('archives-content');
 const archivesSection = document.getElementById('archives');
 
-// Fonction pour basculer l'état des archives
+// Toggle archives
 function toggleArchives() {
     const isHidden = archivesContent.style.display === 'none' || !archivesContent.style.display;
     
     if (isHidden) {
-        // Afficher les archives
         archivesContent.style.display = 'flex';
         archivesSection.classList.add('show-content');
         toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-up me-2"></i> Masquer les projets archivés';
         
-        // Animation d'apparition
         setTimeout(() => {
             const archivedProjects = document.querySelectorAll('.archived');
             archivedProjects.forEach((project, index) => {
@@ -130,17 +128,15 @@ function toggleArchives() {
             });
         }, 10);
     } else {
-        // Masquer les archives
         archivesContent.style.display = 'none';
         archivesSection.classList.remove('show-content');
         toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-down me-2"></i> Voir les projets archivés';
     }
 }
 
-// Événement de clic
 toggleArchivesBtn.addEventListener('click', toggleArchives);
 
-// Initialisation des styles pour l'animation
+// Useful for the animation
 document.addEventListener('DOMContentLoaded', () => {
     const archivedProjects = document.querySelectorAll('.archived');
     archivedProjects.forEach(project => {

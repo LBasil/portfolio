@@ -167,10 +167,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--light);
 }
 
-/*[data-bs-theme="dark"] .nav-link.active {
-    color: var(--primary);
-}*/
-
 .nav-link.active {
     color: var(--primary) !important;
 }
@@ -269,7 +265,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5rem;
 }
 
-/* Styles pour la section archives */
+/* Archives */
 #archives-content {
     transition: all 0.5s ease;
 }
@@ -299,7 +295,7 @@ h1, h2, h3, h4, h5, h6 {
     filter: grayscale(0%);
 }
 
-/* Bouton toggle */
+/* Tooggle */
 #toggle-archives {
     transition: all 0.3s ease;
 }
