@@ -90,22 +90,8 @@
     <section id="portfolio" class="py-5">
         <div class="container">
             <h2 class="section-title text-center mb-5">Mes Projets</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 project-card">
-                        <div class="card-img-wrapper">
-                            <img src="images/pokemon.png" class="card-img-top" alt="Pokemon Card Viewer" loading="lazy">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title h5">
-                                <a href="https://pokemon-card-viewer-ashy.vercel.app/" target="_blank" rel="noopener">Pokemon Card Viewer</a>
-                            </h3>
-                            <p class="card-text">Application pour visualiser des cartes Pokémon avec manipulation d'API.</p>
-                            <div class="badge bg-primary">JavaScript</div>
-                            <div class="badge bg-secondary">API</div>
-                        </div>
-                    </div>
-                </div>
+            <div id="non-archived-projects" class="row g-4">
+                <!-- Les projets non archivés seront injectés ici -->
             </div>
         </div>
     </section>
@@ -122,95 +108,7 @@
             </div>
 
             <div id="archives-content" class="row g-4" style="display: none;">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 project-card archived">
-                        <div class="card-img-wrapper">
-                            <img src="images/reigns.png" class="card-img-top" alt="Reigns Prototype" loading="lazy">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title h5">
-                                <a href="https://reigns-prototype.vercel.app/" target="_blank" rel="noopener">Reigns - Prototype</a>
-                            </h3>
-                            <p class="card-text">Prototype reproduisant le jeu Reigns - Her Majesty.</p>
-                            <div class="badge bg-secondary">Archivé</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 project-card archived">
-                        <div class="card-img-wrapper">
-                            <img src="images/shifumi.png" class="card-img-top" alt="Shifumi" loading="lazy">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title h5">
-                                <a href="https://shifumi-nine.vercel.app/" target="_blank" rel="noopener">Shifumi</a>
-                            </h3>
-                            <p class="card-text">Remasterisation moderne du jeu classique Pierre-Papier-Ciseaux.</p>
-                            <div class="badge bg-secondary">Archivé</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 project-card archived">
-                        <div class="card-img-wrapper">
-                            <img src="images/pile-face.png" class="card-img-top" alt="Pile ou Face" loading="lazy">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title h5">
-                                <a href="https://pile-face.vercel.app/" target="_blank" rel="noopener">Pile ou Face</a>
-                            </h3>
-                            <p class="card-text">Version extrême du jeu classique de pile ou face.</p>
-                            <div class="badge bg-secondary">Archivé</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 project-card archived">
-                        <div class="card-img-wrapper">
-                            <img src="images/plus-moins.png" class="card-img-top" alt="Plus ou Moins" loading="lazy">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title h5">
-                                <a href="https://plus-moins.vercel.app/" target="_blank" rel="noopener">Plus ou Moins</a>
-                            </h3>
-                            <p class="card-text">Jeu de déduction numérique avec une touche moderne.</p>
-                            <div class="badge bg-secondary">Archivé</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 project-card archived">
-                        <div class="card-img-wrapper">
-                            <img src="images/dextreme.png" class="card-img-top" alt="DeXtreme" loading="lazy">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title h5">
-                                <a href="https://de-xtreme.vercel.app/" target="_blank" rel="noopener">DeXtreme</a>
-                            </h3>
-                            <p class="card-text">Jeu de dé avec des mécaniques innovantes.</p>
-                            <div class="badge bg-secondary">Archivé</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 project-card archived">
-                        <div class="card-img-wrapper">
-                            <img src="images/memory.png" class="card-img-top" alt="Memory Extrême" loading="lazy">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title h5">
-                                <a href="https://memory-rosy.vercel.app/" target="_blank" rel="noopener">Memory Extrême</a>
-                            </h3>
-                            <p class="card-text">Version moderne du jeu de mémoire avec différents modes.</p>
-                            <div class="badge bg-secondary">Archivé</div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Les projets archivés seront injectés ici -->
             </div>
         </div>
     </section>
@@ -252,10 +150,10 @@
                             <ul class="list-unstyled">
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Travail d'équipe</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Autonomie</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Esprit d'initiative</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Curiosité</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Adaptabilité</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Résolution de problèmes</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Communication</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Respect des délais</li>
                             </ul>
                         </div>
                     </div>
@@ -264,40 +162,16 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="section-title mb-4">Contactez-moi</h2>
-                    <p class="lead mb-5">Vous avez un projet ou une question ? N'hésitez pas à me contacter !</p>
-                    
-                    <div class="d-flex flex-wrap justify-content-center gap-3">
-                        <a href="https://github.com/LBasil" class="btn btn-dark btn-lg rounded-pill px-4" target="_blank" rel="noopener">
-                            <i class="fab fa-github me-2"></i> GitHub
-                        </a>
-                        <a href="https://www.linkedin.com/in/basil-l-h%C3%B4te" class="btn btn-primary btn-lg rounded-pill px-4" target="_blank" rel="noopener">
-                            <i class="fab fa-linkedin-in me-2"></i> LinkedIn
-                        </a>
-                        <a href="mailto:basil.lhote@gmail.com" class="btn btn-secondary btn-lg rounded-pill px-4">
-                            <i class="fas fa-envelope me-2"></i> Email
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-4 text-center">
-        <div class="container">
-            <p class="mb-0">&copy; <span id="current-year">2024</span> Portfolio - Basil L'HÔTE. Tous droits réservés.</p>
+    <footer class="py-4 bg-dark text-light">
+        <div class="container text-center">
+            <p class="mb-0">© 2025 Basil L'Hôte - Tous droits réservés.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="script/projects.js"></script>
     <script src="script/script.js"></script>
 </body>
 </html>
