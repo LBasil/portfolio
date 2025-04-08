@@ -167,6 +167,15 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--light);
 }
 
+/*[data-bs-theme="dark"] .nav-link.active {
+    color: var(--primary);
+}*/
+
+.nav-link.active {
+    color: var(--primary) !important;
+}
+
+
 .nav-link::after {
     content: '';
     position: absolute;
