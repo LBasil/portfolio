@@ -1,22 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio de Basil L'Hôte, développeur client en JS">
-    <meta name="keywords" content="Basil L'Hôte, développeur client, portfolio, web development, VueJS, JS, HTML, CSS, Git">
-    <title>Portfolio - Basil L'HÔTE</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta name="description" content="Portfolio de Basil L'Hôte, développeur front-end spécialisé en JavaScript">
+    <meta name="keywords" content="Développeur front-end, JavaScript, VueJS, Portfolio, Basil L'Hôte">
+    <title>Portfolio | Basil L'HÔTE - Développeur Front-end</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/avatar.jpg" type="image/jpeg">
+    
+    <noscript>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    </noscript>
+    
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#header">
-                <img src="images/avatar.jpg" width="40" height="40" alt="" class="image">
+    <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="light">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#header" aria-label="Accueil">
+                <img src="images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte" class="rounded-circle me-2">
+                <span class="d-none d-md-inline">Basil L'HÔTE</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,123 +40,172 @@
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item"><button id="theme-toggle" class="nav-link btn">Basculer en mode sombre</button></li>
+                    <li class="nav-item">
+                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2" aria-label="Changer le thème">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Header -->
-    <header id="header" class="vh-100 text-white text-center d-flex align-items-center justify-content-center">
+    <!-- Hero Section -->
+    <header id="header" class="vh-100 d-flex align-items-center justify-content-center position-relative">
         <div class="overlay"></div>
-        <div class="menu-container">
-            <h1 class="game-title">Bonjour,je suis Basil L'hôte</h1>
-            <p class="lead">Développeur Client</p>
-            <a href="#portfolio" class="btn game-btn">Voir mon travail</a>
+        <div class="container text-center position-relative z-index-2">
+            <h1 class="display-4 fw-bold mb-3">Bonjour, je suis <span class="text-gradient">Basil L'hôte</span></h1>
+            <p class="lead mb-4">Développeur Front-end</p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="#portfolio" class="btn game-btn px-4 py-3">
+                    <i class="fas fa-laptop-code me-2"></i>Voir mon travail
+                </a>
+                <a href="#contact" class="btn btn-outline-light px-4 py-3">
+                    <i class="fas fa-paper-plane me-2"></i>Me contacter
+                </a>
+            </div>
         </div>
+        <a href="#about" class="position-absolute bottom-0 start-50 translate-x mb-5 scroll-down" aria-label="Aller à la section suivante">
+            <i class="fas fa-chevron-down fa-2x"></i>
+        </a>
     </header>
 
     <!-- About Section -->
     <section id="about" class="py-5">
         <div class="container">
-            <h2 class="text-center">À propos de moi</h2>
-            <p class="lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id est non tortor lobortis sollicitudin.</p>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title mb-4">À propos de moi</h2>
+                    <div class="avatar-lg mb-4 mx-auto">
+                        <img src="images/avatar.jpg" alt="Basil L'Hôte" class="rounded-circle img-thumbnail">
+                    </div>
+                    <p class="lead">Passionné par le développement front-end, je crée des expériences web interactives et performantes avec JavaScript et Vue.js.</p>
+                    <p>Mon approche combine créativité et rigueur technique pour concevoir des interfaces à la fois esthétiques et fonctionnelles.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-5 bg-light">
+    <section id="portfolio" class="py-5">
         <div class="container">
-            <h2 class="text-center">Mon Portfolio</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="images/pokemon.png" class="card-img-top" alt="Projet 1">
+            <h2 class="section-title text-center mb-5">Mes Projets</h2>
+            <div class="row g-4">
+                <!-- Projet 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 project-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/pokemon.png" class="card-img-top" alt="Pokemon Card Viewer" loading="lazy">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a target="_blank" href="https://pokemon-card-viewer-ashy.vercel.app/">PCV</a>
-                            </h5>
-                            <p class="card-text">Pokemon Card Viewer est un projet permettant de manipuler les appel API</p>
+                            <h3 class="card-title h5">
+                                <a href="https://pokemon-card-viewer-ashy.vercel.app/" target="_blank" rel="noopener">Pokemon Card Viewer</a>
+                            </h3>
+                            <p class="card-text">Application pour visualiser des cartes Pokémon avec manipulation d'API.</p>
+                            <div class="badge bg-primary">JavaScript</div>
+                            <div class="badge bg-secondary">API</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="images/reigns.png" class="card-img-top" alt="Projet 2">
+                
+                <!-- Projet 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 project-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/reigns.png" class="card-img-top" alt="Reigns Prototype" loading="lazy">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a target="_blank" href="https://reigns-prototype.vercel.app/">
-                                    Reigns - Prototype
-                                </a>
-                            </h5>
-                            <p class="card-text">Prototype afin de reproduire le jeu Reigns - Her Majesty</p>
+                            <h3 class="card-title h5">
+                                <a href="https://reigns-prototype.vercel.app/" target="_blank" rel="noopener">Reigns - Prototype</a>
+                            </h3>
+                            <p class="card-text">Prototype reproduisant le jeu Reigns - Her Majesty.</p>
+                            <div class="badge bg-primary">JavaScript</div>
+                            <div class="badge bg-secondary">Game Dev</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="images/shifumi.png" class="card-img-top" alt="Projet 3">
+                
+                <!-- Projet 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 project-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/shifumi.png" class="card-img-top" alt="Shifumi" loading="lazy">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a target="_blank" href="https://shifumi-nine.vercel.app/">
-                                    Shifumi
-                                </a>
-                            </h5>
-                            <p class="card-text">Premier volet des remasters de jeux classiques</p>
+                            <h3 class="card-title h5">
+                                <a href="https://shifumi-nine.vercel.app/" target="_blank" rel="noopener">Shifumi</a>
+                            </h3>
+                            <p class="card-text">Remasterisation moderne du jeu classique Pierre-Papier-Ciseaux.</p>
+                            <div class="badge bg-primary">JavaScript</div>
+                            <div class="badge bg-secondary">Game Dev</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="images/pile-face.png" class="card-img-top" alt="Projet 4">
+                
+                <!-- Projet 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 project-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/pile-face.png" class="card-img-top" alt="Pile ou Face" loading="lazy">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a target="_blank" href="https://pile-face.vercel.app/">
-                                    Pile ou face : Le duel extrême
-                                </a>
-                            </h5>
-                            <p class="card-text">Deuxième volet des remasters des jeux classiques</p>
+                            <h3 class="card-title h5">
+                                <a href="https://pile-face.vercel.app/" target="_blank" rel="noopener">Pile ou Face</a>
+                            </h3>
+                            <p class="card-text">Version extrême du jeu classique de pile ou face.</p>
+                            <div class="badge bg-primary">JavaScript</div>
+                            <div class="badge bg-secondary">Game Dev</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="images/plus-moins.png" class="card-img-top" alt="Projet 5">
+                
+                <!-- Projet 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 project-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/plus-moins.png" class="card-img-top" alt="Plus ou Moins" loading="lazy">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a target="_blank" href="https://plus-moins.vercel.app/">
-                                    Plus ou Moins : L'Ascension
-                                </a>
-                            </h5>
-                            <p class="card-text">Le troisième volet des remasters des jeux classique.</p>
+                            <h3 class="card-title h5">
+                                <a href="https://plus-moins.vercel.app/" target="_blank" rel="noopener">Plus ou Moins</a>
+                            </h3>
+                            <p class="card-text">Jeu de déduction numérique avec une touche moderne.</p>
+                            <div class="badge bg-primary">JavaScript</div>
+                            <div class="badge bg-secondary">Game Dev</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="images/dextreme.png" class="card-img-top" alt="Projet 6">
+                
+                <!-- Projet 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 project-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/dextreme.png" class="card-img-top" alt="DeXtreme" loading="lazy">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a target="_blank" href="https://de-xtreme.vercel.app/">
-                                    DeXtreme : Le jeu du Dé Extrême
-                                </a>
-                            </h5>
-                            <p class="card-text">Le quatrième volet des remasters des jeux classique.</p>
+                            <h3 class="card-title h5">
+                                <a href="https://de-xtreme.vercel.app/" target="_blank" rel="noopener">DeXtreme</a>
+                            </h3>
+                            <p class="card-text">Jeu de dé avec des mécaniques innovantes.</p>
+                            <div class="badge bg-primary">JavaScript</div>
+                            <div class="badge bg-secondary">Game Dev</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row"></div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="images/memory.png" class="card-img-top" alt="Projet 7">
+                
+                <!-- Projet 7 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 project-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/memory.png" class="card-img-top" alt="Memory Extrême" loading="lazy">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a target="_blank" href="https://memory-rosy.vercel.app/">Memory - Extrême</a>
-                            </h5>
-                            <p class="card-text">Cinquième volet des remasters des jeux classiques, le mémory avec des chiffres et celui avec des cartes</p>
+                            <h3 class="card-title h5">
+                                <a href="https://memory-rosy.vercel.app/" target="_blank" rel="noopener">Memory Extrême</a>
+                            </h3>
+                            <p class="card-text">Version moderne du jeu de mémoire avec différents modes.</p>
+                            <div class="badge bg-primary">JavaScript</div>
+                            <div class="badge bg-secondary">Game Dev</div>
                         </div>
                     </div>
                 </div>
@@ -152,67 +214,88 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-5">
+    <section id="skills" class="py-5 bg-light">
         <div class="container">
-            <h2 class="text-center">Hard skills</h2>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <i class="bi bi-code-slash display-4"></i>
-                    <h3>JS / VueJS / HTML / CSS / Less</h3>
+            <h2 class="section-title text-center mb-5">Mes Compétences</h2>
+            
+            <div class="row g-4">
+                <!-- Hard Skills -->
+                <div class="col-md-6">
+                    <div class="card h-100 skill-card">
+                        <div class="card-body text-center">
+                            <div class="skill-icon mb-3">
+                                <i class="fas fa-code fa-3x"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Techniques</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> JavaScript (ES6+)</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Vue.js</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> HTML5 / CSS3</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Less/Sass</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Intégration web</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Git</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <i class="bi bi-brush display-4"></i>
-                    <h3>Intégration d'interface</h3>
-                </div>
-                <div class="col-md-4">
-                    <i class="bi bi-server display-4"></i>
-                    <h3>Git</h3>
-                </div>
-            </div>
-        </div>
-        <div class="container under">
-            <h2 class="text-center">Soft skills</h2>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <i class="bi bi-code-slash display-4"></i>
-                    <h3>Travail d'équipe</h3>
-                </div>
-                <div class="col-md-4">
-                    <i class="bi bi-brush display-4"></i>
-                    <h3>Autonomie</h3>
-                </div>
-                <div class="col-md-4">
-                    <i class="bi bi-server display-4"></i>
-                    <h3>Esprit d'initiative</h3>
+                
+                <!-- Soft Skills -->
+                <div class="col-md-6">
+                    <div class="card h-100 skill-card">
+                        <div class="card-body text-center">
+                            <div class="skill-icon mb-3">
+                                <i class="fas fa-users fa-3x"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Personnelles</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Travail d'équipe</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Autonomie</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Esprit d'initiative</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Curiosité</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Adaptabilité</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Résolution de problèmes</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-5 bg-light">
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4">Contactez-moi</h2>
-            <div class="d-flex justify-content-center">
-                <a href="https://github.com/LBasil" class="btn btn-outline-dark rounded-circle mx-2" target="_blank">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/basil-l-h%C3%B4te" class="btn btn-outline-dark rounded-circle mx-2" target="_blank">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="mailto:basil.lhote@gmail.com" class="btn btn-outline-dark rounded-circle mx-2">
-                    <i class="fas fa-envelope"></i>
-                </a>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title mb-4">Contactez-moi</h2>
+                    <p class="lead mb-5">Vous avez un projet ou une question ? N'hésitez pas à me contacter !</p>
+                    
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="https://github.com/LBasil" class="btn btn-dark btn-lg rounded-pill px-4" target="_blank" rel="noopener">
+                            <i class="fab fa-github me-2"></i> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/basil-l-h%C3%B4te" class="btn btn-primary btn-lg rounded-pill px-4" target="_blank" rel="noopener">
+                            <i class="fab fa-linkedin-in me-2"></i> LinkedIn
+                        </a>
+                        <a href="mailto:basil.lhote@gmail.com" class="btn btn-secondary btn-lg rounded-pill px-4">
+                            <i class="fas fa-envelope me-2"></i> Email
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-3 bg-dark text-white text-center">
-        <p>&copy; 2024 Portfolio - Basil L'HÔTE. Tous droits réservés.</p>
+    <footer class="py-4 text-center">
+        <div class="container">
+            <p class="mb-0">&copy; <span id="current-year">2024</span> Portfolio - Basil L'HÔTE. Tous droits réservés.</p>
+        </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="script/script.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
