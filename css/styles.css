@@ -24,7 +24,6 @@
     --primary: #4cc9f0;
     --secondary: #4895ef;
     --dark: #121212;
-    --light: #212529;
 }
 
 /* Base styles */
@@ -40,6 +39,11 @@ body {
     color: var(--dark);
     background-color: var(--light);
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-bs-theme="dark"] body {
+    color: white;
+    background-color: var(--dark);
 }
 
 /* Typography */
@@ -149,10 +153,18 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
+[data-bs-theme="dark"] .navbar-brand {
+    color: var(--light);
+}
+
 .nav-link {
     font-weight: 500;
     padding: 0.5rem 1rem;
     position: relative;
+}
+
+[data-bs-theme="dark"] .nav-link {
+    color: var(--light);
 }
 
 .nav-link::after {
@@ -248,35 +260,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5rem;
 }
 
-/* Skills */
-.skill-card {
-    border: none;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
-}
-
-[data-bs-theme="dark"] .skill-card {
-    background-color: var(--dark);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.skill-card:hover {
-    transform: translateY(-5px);
-}
-
-.skill-icon {
-    color: var(--primary);
-}
-
-/* Footer */
-footer {
-    background-color: var(--dark);
-    color: white;
-    padding: 2rem 0;
-}
-
 /* Styles pour la section archives */
 #archives-content {
     transition: all 0.5s ease;
@@ -315,6 +298,35 @@ footer {
 #toggle-archives:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Skills */
+.skill-card {
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+[data-bs-theme="dark"] .skill-card {
+    background-color: var(--dark);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+}
+
+.skill-icon {
+    color: var(--primary);
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark);
+    color: white;
+    padding: 2rem 0;
 }
 
 /* Responsive adjustments */
