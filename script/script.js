@@ -104,3 +104,49 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+// Archives toggle functionality - Version améliorée
+const toggleArchivesBtn = document.getElementById('toggle-archives');
+const archivesContent = document.getElementById('archives-content');
+const archivesSection = document.getElementById('archives');
+
+// Fonction pour basculer l'état des archives
+function toggleArchives() {
+    const isHidden = archivesContent.style.display === 'none' || !archivesContent.style.display;
+    
+    if (isHidden) {
+        // Afficher les archives
+        archivesContent.style.display = 'flex';
+        archivesSection.classList.add('show-content');
+        toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-up me-2"></i> Masquer les projets archivés';
+        
+        // Animation d'apparition
+        setTimeout(() => {
+            const archivedProjects = document.querySelectorAll('.archived');
+            archivedProjects.forEach((project, index) => {
+                setTimeout(() => {
+                    project.style.opacity = '1';
+                    project.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }, 10);
+    } else {
+        // Masquer les archives
+        archivesContent.style.display = 'none';
+        archivesSection.classList.remove('show-content');
+        toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-down me-2"></i> Voir les projets archivés';
+    }
+}
+
+// Événement de clic
+toggleArchivesBtn.addEventListener('click', toggleArchives);
+
+// Initialisation des styles pour l'animation
+document.addEventListener('DOMContentLoaded', () => {
+    const archivedProjects = document.querySelectorAll('.archived');
+    archivedProjects.forEach(project => {
+        project.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        project.style.opacity = '0';
+        project.style.transform = 'translateY(20px)';
+    });
+});

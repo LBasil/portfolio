@@ -277,6 +277,46 @@ footer {
     padding: 2rem 0;
 }
 
+/* Styles pour la section archives */
+#archives-content {
+    transition: all 0.5s ease;
+}
+
+.archived {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+#archives.show-content .archived {
+    opacity: 0.9;
+    transform: translateY(0);
+}
+
+#archives.show-content .archived:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.archived .card-img-top {
+    filter: grayscale(30%);
+    transition: filter 0.3s ease;
+}
+
+.archived:hover .card-img-top {
+    filter: grayscale(0%);
+}
+
+/* Bouton toggle */
+#toggle-archives {
+    transition: all 0.3s ease;
+}
+
+#toggle-archives:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .section-title {
