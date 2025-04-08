@@ -1,27 +1,26 @@
 // Initialize ScrollReveal with more modern settings
 const sr = ScrollReveal({
     origin: 'bottom',
-    distance: '30px',
-    duration: 800,
-    delay: 200,
+    distance: '25px',
+    duration: 400,
+    delay: 100,
     reset: false,
     mobile: true
 });
 
-// Reveal elements with different configurations
 sr.reveal('.section-title, h2, h3', {
-    interval: 100,
+    interval: 50,
     origin: 'top'
 });
 
 sr.reveal('.card, .skill-card', {
-    interval: 200,
+    interval: 50,
     origin: 'bottom',
-    distance: '50px'
+    distance: '30px'
 });
 
 sr.reveal('.lead, p', {
-    interval: 150,
+    interval: 50,
     origin: 'left'
 });
 
