@@ -1,11 +1,19 @@
 const projects = [
   {
+    title: "Dependency Analyzer",
+    description: "Application pour visualiser les dépendances entre les composants.",
+    url: "https://github.com/LBasil/analyze-dependencies",
+    image: "images/dependency_analyzer.png",
+    badges: ["JavaScript", "API"],
+    archived: false
+  },
+  {
     title: "Pokemon Card Viewer",
     description: "Application pour visualiser des cartes Pokémon avec manipulation d'API.",
     url: "https://pokemon-card-viewer-ashy.vercel.app/",
     image: "images/pokemon.png",
     badges: ["JavaScript", "API"],
-    archived: false
+    archived: true
   },
   {
     title: "Reigns - Prototype",
