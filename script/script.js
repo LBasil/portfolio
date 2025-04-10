@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // === ScrollReveal ===
+    // ===========================
+    // ScrollReveal Animations
+    // ===========================
     const sr = ScrollReveal({
         origin: 'bottom',
         distance: '25px',
@@ -25,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         origin: 'left'
     });
 
-    // === Theme toggle ===
+    // ===========================
+    // Theme Toggle (Light/Dark)
+    // ===========================
     const toggleButton = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
     const currentTheme = localStorage.getItem('theme') || 'light';
@@ -43,73 +47,80 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateThemeIcon(theme) {
         const icon = toggleButton.querySelector('svg');
         if (!icon) return;
-    
-        const newIcon = theme === 'dark' ? 'sun' : 'moon';
-        icon.setAttribute('data-icon', newIcon);
-        toggleButton.setAttribute(
-            'aria-label',
-            theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre'
-        );
+
+        const iconType = theme === 'dark' ? 'sun' : 'moon';
+        icon.setAttribute('data-icon', iconType);
+        toggleButton.setAttribute('aria-label', theme === 'dark' ? 'Passer en mode clair' : 'Passer en mode sombre');
     }
 
-    // === Copyright year ===
-    //document.getElementById('current-year').textContent = new Date().getFullYear();
-
-    // === Smooth scroll ===
+    // ===========================
+    // Smooth Scroll on Anchor Click
+    // ===========================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+            const targetId = anchor.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 window.scrollTo({
                     top: targetElement.offsetTop - 70,
                     behavior: 'smooth'
                 });
-                if (history.pushState) {
-                    history.pushState(null, null, targetId);
-                } else {
-                    location.hash = targetId;
-                }
+
+                history.pushState?.(null, null, targetId);
             }
         });
     });
 
-    // === Active section on scroll ===
+    // ===========================
+    // Navigation Active on Scroll
+    // ===========================
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-link');
 
     window.addEventListener('scroll', () => {
-        let current = '';
+        let currentSection = '';
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
+            const sectionHeight = section.offsetHeight;
+            if (window.pageYOffset >= sectionTop - 100) {
+                currentSection = section.getAttribute('id');
             }
         });
+
         navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${current}`) {
-                item.classList.add('active');
-            }
+            item.classList.toggle('active', item.getAttribute('href') === `#${currentSection}`);
         });
     });
 
-    // === Archives ===
+    // ===========================
+    // Archives Toggle Section
+    // ===========================
     const toggleArchivesBtn = document.getElementById('toggle-archives');
     const archivesContent = document.getElementById('archives-content');
     const archivesSection = document.getElementById('archives');
+    const archivedProjects = document.querySelectorAll('.archived');
 
-    function toggleArchives() {
+    // Init transitions
+    archivedProjects.forEach(project => {
+        project.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        project.style.opacity = '0';
+        project.style.transform = 'translateY(20px)';
+    });
+
+    // Toggle logic
+    toggleArchivesBtn.addEventListener('click', () => {
         const isHidden = archivesContent.style.display === 'none' || !archivesContent.style.display;
+
         if (isHidden) {
             archivesContent.style.display = 'flex';
             archivesSection.classList.add('show-content');
             toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-up me-2"></i> Masquer les projets archivés';
+
             setTimeout(() => {
-                const archivedProjects = document.querySelectorAll('.archived');
                 archivedProjects.forEach((project, index) => {
                     setTimeout(() => {
                         project.style.opacity = '1';
@@ -122,15 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
             archivesSection.classList.remove('show-content');
             toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-down me-2"></i> Voir les projets archivés';
         }
-    }
-
-    toggleArchivesBtn.addEventListener('click', toggleArchives);
-
-    // === Archived project transitions ===
-    const archivedProjects = document.querySelectorAll('.archived');
-    archivedProjects.forEach(project => {
-        project.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        project.style.opacity = '0';
-        project.style.transform = 'translateY(20px)';
     });
+
+    // ===========================
+    // (Optional) Set current year
+    // ===========================
+    // document.getElementById('current-year').textContent = new Date().getFullYear();
 });

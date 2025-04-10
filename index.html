@@ -1,45 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="light">
 <head>
+    <!-- Set character encoding and responsive design settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO meta tags for better visibility on search engines -->
     <meta name="description" content="Portfolio de Basil L'Hôte, développeur front-end spécialisé en JavaScript">
     <meta name="keywords" content="Développeur front-end, JavaScript, VueJS, Portfolio, Basil L'Hôte">
+
+    <!-- Page title -->
     <title>Portfolio | Basil L'HÔTE - Développeur Front-end</title>
-    
-    <!-- Preload critical resources -->
+
+    <!-- Preload critical external stylesheets to improve performance -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    
-    <!-- Favicon -->
+
+    <!-- Favicon for browser tab -->
     <link rel="icon" href="images/avatar.jpg" type="image/jpeg">
-    
+
+    <!-- Fallback stylesheets for users with JavaScript disabled -->
     <noscript>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     </noscript>
-    
+
+    <!-- Main custom styles -->
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation bar (sticky and responsive) -->
     <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="light">
         <div class="container">
+            <!-- Brand/logo linking to top of page -->
             <a class="navbar-brand d-flex align-items-center" href="#header" aria-label="Accueil">
                 <img src="images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte" class="rounded-circle me-2">
                 <span class="d-none d-md-inline">Basil L'HÔTE</span>
             </a>
+
+            <!-- Toggle button for mobile navigation -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Navigation links -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
+                    <!-- Theme toggle button (light/dark) -->
                     <li class="nav-item">
                         <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2" aria-label="Changer le thème">
                             <i class="fas fa-moon"></i>
@@ -50,9 +64,11 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero section with introduction and call to action -->
     <header id="header" class="vh-100 d-flex align-items-center justify-content-center position-relative">
+        <!-- Optional overlay for background effects -->
         <div class="overlay"></div>
+
         <div class="container text-center position-relative z-index-2">
             <h1 class="display-4 fw-bold mb-3">Bonjour, je suis <span class="text-gradient">Basil L'hôte</span></h1>
             <p class="lead mb-4">Développeur Front-end</p>
@@ -65,12 +81,14 @@
                 </a>
             </div>
         </div>
+
+        <!-- Scroll indicator button -->
         <a href="#about" class="position-absolute bottom-0 start-50 translate-x mb-5 scroll-down" aria-label="Aller à la section suivante">
             <i class="fas fa-chevron-down fa-2x"></i>
         </a>
     </header>
 
-    <!-- About Section -->
+    <!-- About section: brief introduction and values -->
     <section id="about" class="py-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -86,40 +104,41 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- Portfolio section: showcases main projects -->
     <section id="portfolio" class="py-5">
         <div class="container">
             <h2 class="section-title text-center mb-5">Mes Projets</h2>
             <div id="non-archived-projects" class="row g-4">
-                <!-- Les projets non archivés seront injectés ici -->
+                <!-- Non-archived projects will be dynamically injected here -->
             </div>
         </div>
     </section>
 
-    <!-- Archives Section-->
+    <!-- Archived projects: optional hidden section for older work -->
     <section id="archives" class="py-5">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="section-title">Projets Archivés</h2>
                 <p class="lead">Anciens projets toujours disponibles mais non maintenus</p>
+                <!-- Toggle button to show/hide archived projects -->
                 <button id="toggle-archives" class="btn btn-outline-primary mt-3">
                     <i class="fas fa-chevron-down me-2"></i> Voir les projets archivés
                 </button>
             </div>
 
             <div id="archives-content" class="row g-4" style="display: none;">
-                <!-- Les projets archivés seront injectés ici -->
+                <!-- Archived projects will be dynamically injected here -->
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills section: divided into hard and soft skills -->
     <section id="skills" class="py-5">
         <div class="container">
             <h2 class="section-title text-center mb-5">Mes Compétences</h2>
-            
+
             <div class="row g-4">
-                <!-- Hard Skills -->
+                <!-- Technical skills -->
                 <div class="col-md-6">
                     <div class="card h-100 skill-card">
                         <div class="card-body text-center">
@@ -128,6 +147,7 @@
                             </div>
                             <h3 class="h4 mb-3">Techniques</h3>
                             <ul class="list-unstyled">
+                                <!-- List of front-end technical skills -->
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> JavaScript (ES6+)</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Vue.js</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> HTML5 / CSS3</li>
@@ -138,8 +158,8 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Soft Skills -->
+
+                <!-- Soft skills -->
                 <div class="col-md-6">
                     <div class="card h-100 skill-card">
                         <div class="card-body text-center">
@@ -148,6 +168,7 @@
                             </div>
                             <h3 class="h4 mb-3">Personnelles</h3>
                             <ul class="list-unstyled">
+                                <!-- Key interpersonal and professional strengths -->
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Travail d'équipe</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Autonomie</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Adaptabilité</li>
@@ -162,15 +183,16 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact section with links to email and social media -->
     <section id="contact" class="py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
                     <h2 class="section-title mb-4">Contactez-moi</h2>
                     <p class="lead mb-5">Vous avez un projet ou une question ? N'hésitez pas à me contacter !</p>
-                    
+
                     <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <!-- External links open in a new tab with secure attributes -->
                         <a href="https://github.com/LBasil" class="btn btn-dark btn-lg rounded-pill px-4" target="_blank" rel="noopener">
                             <i class="fab fa-github me-2"></i> GitHub
                         </a>
@@ -186,17 +208,20 @@
         </div>
     </section>
 
+    <!-- Footer with copyright -->
     <footer class="py-4 bg-dark text-light">
         <div class="container text-center">
             <p class="mb-0">© 2025 Basil L'Hôte - Tous droits réservés.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- JavaScript dependencies and custom scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="script/projects.js"></script>
-    <script src="script/script.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="script/projects.js"></script> <!-- Handles dynamic project injection -->
+    <script src="script/script.js"></script>   <!-- Theme toggle and additional interactivity -->
 </body>
 </html>
