@@ -113,8 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Toggle logic
     toggleArchivesBtn.addEventListener('click', () => {
-        const isHidden = archivesContent.style.display === 'none' || !archivesContent.style.display;
-
+        const isHidden = archivesContent.style.display === 'flex' || !archivesContent.style.display;
         if (isHidden) {
             archivesContent.style.display = 'flex';
             archivesSection.classList.add('show-content');
