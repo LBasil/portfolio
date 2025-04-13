@@ -11,6 +11,14 @@ const projects = [
     archived: false
   },
   {
+    title: "BaseX",
+    description: "Mobile game",
+    url: "https://github.com/LBasil/baseX",
+    image: "images/baseX.png",
+    badges: ["Godot", "Game"],
+    archived: false
+  },
+  {
     title: "Pokemon Card Viewer",
     description: "App to view Pokémon cards using an external API.",
     url: "https://pokemon-card-viewer-ashy.vercel.app/",
