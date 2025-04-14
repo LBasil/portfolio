@@ -298,13 +298,16 @@ h6 {
 ======================= */
 pre {
     background-color: #f0f0f0;
+    /* Fond clair pour les blocs de code */
     color: #212529;
     padding: 1rem;
     border-radius: 8px;
     overflow-x: auto;
     font-family: 'Fira Code', monospace;
+    /* Utilisation d'une police monospace stylée */
     font-size: 0.95rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    /* Légère ombre autour du code */
 }
 
 code {
@@ -315,6 +318,7 @@ code {
     font-size: 0.95em;
 }
 
+/* Dark Mode (ajustements visuels si activé) */
 [data-bs-theme="dark"] pre {
     background-color: #1e1e1e;
     color: #d4d4d4;
@@ -324,7 +328,35 @@ code {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+/* =======================
+    Blog Styles
+======================= */
+.blog-header {
+    cursor: pointer;
+}
 
+.blog-header button {
+    font-size: 1.5rem;
+    color: #007bff;
+    background: none;
+    border: none;
+}
+
+.blog-content {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: none;
+}
+
+.blog-content p,
+.blog-content pre {
+    margin-top: 1rem;
+}
+
+.blog-content {
+    transition: all 0.3s ease;
+}
 
 /* =======================
     Archives Styles
