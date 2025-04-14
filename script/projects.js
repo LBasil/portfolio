@@ -110,20 +110,44 @@ function displayProjects() {
 }
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', displayProjects);
-
-// ===========================
-// Toggle Archived Projects
-// ===========================
-function toggleArchives() {
-  const archivesContent = document.getElementById('archives-content');
+document.addEventListener('DOMContentLoaded', () => {
+  displayProjects();
+  // ===========================
+  // Archives Toggle Section
+  // ===========================
   const toggleArchivesBtn = document.getElementById('toggle-archives');
-  const isHidden = archivesContent.style.display === 'none' || !archivesContent.style.display;
+  const archivesContent = document.getElementById('archives-content');
+  const archivesSection = document.getElementById('archives');
+  const archivedProjects = document.querySelectorAll('.archived');
 
-  archivesContent.style.display = isHidden ? 'flex' : 'none';
-  toggleArchivesBtn.innerHTML = isHidden
-    ? '<i class="fas fa-chevron-up me-2"></i> Hide archived projects'
-    : '<i class="fas fa-chevron-down me-2"></i> Show archived projects';
-}
+  // Init transitions
+  archivedProjects.forEach(project => {
+    project.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    project.style.opacity = '0';
+    project.style.transform = 'translateY(20px)';
+  });
 
-document.getElementById('toggle-archives').addEventListener('click', toggleArchives);
+  // Toggle logic
+  toggleArchivesBtn.addEventListener('click', () => {
+    const isHidden = archivesContent.style.display === 'none' || !archivesContent.style.display;
+
+    if (isHidden) {
+      archivesContent.style.display = 'flex';
+      archivesSection.classList.add('show-content');
+      toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-up me-2"></i> Masquer les projets archivés';
+
+      setTimeout(() => {
+        archivedProjects.forEach((project, index) => {
+          setTimeout(() => {
+            project.style.opacity = '1';
+            project.style.transform = 'translateY(0)';
+          }, index * 100);
+        });
+      }, 10);
+    } else {
+      archivesContent.style.display = 'none';
+      archivesSection.classList.remove('show-content');
+      toggleArchivesBtn.innerHTML = '<i class="fas fa-chevron-down me-2"></i> Voir les projets archivés';
+    }
+  });
+});

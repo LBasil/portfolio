@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="light">
+
 <head>
     <!-- Set character encoding and responsive design settings -->
     <meta charset="UTF-8">
@@ -13,9 +14,13 @@
     <title>Portfolio | Basil L'HÔTE - Développeur Front-end</title>
 
     <!-- Preload critical external stylesheets to improve performance -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
 
     <!-- Favicon for browser tab -->
     <link rel="icon" href="images/avatar.jpg" type="image/jpeg">
@@ -23,25 +28,29 @@
     <!-- Fallback stylesheets for users with JavaScript disabled -->
     <noscript>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap"
+            rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     </noscript>
 
     <!-- Main custom styles -->
     <link href="css/styles.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Navigation bar (sticky and responsive) -->
     <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="light">
         <div class="container">
             <!-- Brand/logo linking to top of page -->
             <a class="navbar-brand d-flex align-items-center" href="#header" aria-label="Accueil">
-                <img src="images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte" class="rounded-circle me-2">
+                <img src="images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte"
+                    class="rounded-circle me-2">
                 <span class="d-none d-md-inline">Basil L'HÔTE</span>
             </a>
 
             <!-- Toggle button for mobile navigation -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -55,7 +64,8 @@
 
                     <!-- Theme toggle button (light/dark) -->
                     <li class="nav-item">
-                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2" aria-label="Changer le thème">
+                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2"
+                            aria-label="Changer le thème">
                             <i class="fas fa-moon"></i>
                         </button>
                     </li>
@@ -83,7 +93,8 @@
         </div>
 
         <!-- Scroll indicator button -->
-        <a href="#about" class="position-absolute bottom-0 start-50 translate-x mb-5 scroll-down" aria-label="Aller à la section suivante">
+        <a href="#about" class="position-absolute bottom-0 start-50 translate-x mb-5 scroll-down"
+            aria-label="Aller à la section suivante">
             <i class="fas fa-chevron-down fa-2x"></i>
         </a>
     </header>
@@ -97,8 +108,10 @@
                     <div class="avatar-lg mb-4 mx-auto">
                         <img src="images/avatar.jpg" alt="Basil L'Hôte" class="rounded-circle img-thumbnail">
                     </div>
-                    <p class="lead">Passionné par le développement front-end, je crée des expériences web interactives et performantes avec JavaScript et Vue.js.</p>
-                    <p>Mon approche combine créativité et rigueur technique pour concevoir des interfaces à la fois esthétiques et fonctionnelles.</p>
+                    <p class="lead">Passionné par le développement front-end, je crée des expériences web interactives
+                        et performantes avec JavaScript et Vue.js.</p>
+                    <p>Mon approche combine créativité et rigueur technique pour concevoir des interfaces à la fois
+                        esthétiques et fonctionnelles.</p>
                 </div>
             </div>
         </div>
@@ -148,11 +161,13 @@
                             <h3 class="h4 mb-3">Techniques</h3>
                             <ul class="list-unstyled">
                                 <!-- List of front-end technical skills -->
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> JavaScript (ES6+)</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> JavaScript (ES6+)
+                                </li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Vue.js</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> HTML5 / CSS3</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Less</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Intégration web</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Intégration web
+                                </li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Git</li>
                             </ul>
                         </div>
@@ -169,12 +184,16 @@
                             <h3 class="h4 mb-3">Personnelles</h3>
                             <ul class="list-unstyled">
                                 <!-- Key interpersonal and professional strengths -->
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Travail d'équipe</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Travail d'équipe
+                                </li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Autonomie</li>
                                 <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Adaptabilité</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Résolution de problèmes</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Communication</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Respect des délais</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Résolution de
+                                    problèmes</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Communication
+                                </li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Respect des
+                                    délais</li>
                             </ul>
                         </div>
                     </div>
@@ -193,10 +212,12 @@
 
                     <div class="d-flex flex-wrap justify-content-center gap-3">
                         <!-- External links open in a new tab with secure attributes -->
-                        <a href="https://github.com/LBasil" class="btn btn-dark btn-lg rounded-pill px-4" target="_blank" rel="noopener">
+                        <a href="https://github.com/LBasil" class="btn btn-dark btn-lg rounded-pill px-4"
+                            target="_blank" rel="noopener">
                             <i class="fab fa-github me-2"></i> GitHub
                         </a>
-                        <a href="https://www.linkedin.com/in/basil-l-h%C3%B4te-a653b8213/" class="btn btn-primary btn-lg rounded-pill px-4" target="_blank" rel="noopener">
+                        <a href="https://www.linkedin.com/in/basil-l-h%C3%B4te-a653b8213/"
+                            class="btn btn-primary btn-lg rounded-pill px-4" target="_blank" rel="noopener">
                             <i class="fab fa-linkedin-in me-2"></i> LinkedIn
                         </a>
                         <a href="mailto:basil.lhote@gmail.com" class="btn btn-secondary btn-lg rounded-pill px-4">
@@ -221,8 +242,8 @@
     <script src="https://unpkg.com/scrollreveal"></script>
 
     <!-- Custom scripts -->
-    <script src="script/projects.js"></script> <!-- Handles dynamic project injection -->
-    <script src="script/script.js"></script>
+    <script src="script/projects.js"></script>
+    <script src="script/scrollReveal.js"></script>
     <script src="script/navigation.js"></script>
 </body>
 </html>
