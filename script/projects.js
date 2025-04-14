@@ -16,7 +16,9 @@ const projects = [
     url: "https://github.com/LBasil/baseX",
     image: "images/baseX.png",
     badges: ["Godot", "Game"],
-    archived: false
+    archived: false,
+    hasBlog: true,
+    blogUrl: "projects/base-x.html"
   },
   {
     title: "Pokemon Card Viewer",
@@ -97,7 +99,8 @@ function displayProjects() {
         <div class="card-body">
           <h5 class="card-title">${project.title}</h5>
           <p class="card-text">${project.description}</p>
-          <a href="${project.url}" class="btn btn-primary" target="_blank" rel="noopener">View Project</a>
+          <a href="${project.url}" class="btn btn-primary me-2" target="_blank" rel="noopener">Voir le projet</a>
+          ${project.hasBlog ? `<a href="${project.blogUrl}" class="btn btn-outline-secondary">Voir le blog</a>` : ''}
         </div>
       </div>
     `;

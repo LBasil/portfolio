@@ -1,0 +1,122 @@
+<!-- projects/base-x.html -->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Base-X - Blog</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Base-X</h1>
+        <p class="text-center text-muted mb-5">Un jeu mobile 3D développé avec Godot. Suivez ici son évolution technique
+            et créative.</p>
+
+        <div class="text-center mt-5">
+            <a href="https://github.com/LBasil/baseX" target="_blank" class="btn btn-outline-secondary">← Lien vers le projet</a>
+        </div>
+
+        <section id="blog">
+            <h2 class="mb-4">Journal de développement</h2>
+
+            <!-- 12 avril -->
+            <article class="mb-5 p-4 border rounded shadow-sm">
+                <h3 class="h5">Déplacement 3D et vue plongeante dynamique</h3>
+                <p class="text-muted small">Publié le 12 avril 2025</p>
+
+                <p>
+                    Aujourd’hui, j’ai posé les bases du système de déplacement 3D du personnage, ainsi qu’une caméra
+                    dynamique en vue plongeante. Ces deux éléments sont essentiels car ils définissent à la fois le
+                    gameplay et la sensation de navigation dans l’univers suspendu de <strong>Base-X</strong>.
+                </p>
+
+                <p>
+                    Pour le déplacement, j’utilise un <code>CharacterBody3D</code> dans Godot. L’objectif était d’avoir
+                    un mouvement fluide, réactif, mais pas rigide. J’ai donc intégré une accélération avec
+                    <code>lerp</code> pour adoucir les transitions, et un système de rotation automatique du personnage
+                    dans la direction du mouvement :
+                </p>
+
+                <pre><code>
+velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
+rotation.y = lerp_angle(rotation.y, atan2(velocity.x, velocity.z), 10.0 * delta)
+        </code></pre>
+
+                <p>
+                    Ce système permet de créer une vraie inertie dans le contrôle : le personnage ne tourne pas
+                    instantanément mais s’oriente progressivement, ce qui est plus naturel en 3D. La gravité est
+                    également gérée manuellement pour plus de contrôle, en particulier dans des environnements suspendus
+                    où le sol n’est pas toujours garanti.
+                </p>
+
+                <p>
+                    Côté caméra, j’ai mis en place un script simple basé sur un <code>Camera3D</code> qui suit en temps
+                    réel le joueur grâce à une référence exportée <code>@export var target: Node3D</code>. La caméra est
+                    positionnée avec un décalage (offset) au-dessus et derrière le personnage, pour créer une
+                    <strong>vue plongée</strong> immersive :
+                </p>
+
+                <pre><code>
+global_transform.origin = target.global_transform.origin + offset
+        </code></pre>
+
+                <p>
+                    Ce système est léger, adaptable et parfait pour un jeu mobile où la lisibilité est cruciale. La vue
+                    plongeante donne une bonne perception de l’environnement tout en gardant le joueur toujours visible
+                    et centré.
+                </p>
+            </article>
+
+            <!-- 13 mai -->
+            <article class="mb-5 p-4 border rounded shadow-sm">
+                <h3 class="h5">Collisions précises avec les murs</h3>
+                <p class="text-muted small">Publié le 13 avril 2025</p>
+
+                <p>
+                    Aujourd’hui, j’ai implémenté un système de collision réaliste entre le joueur et les murs. Jusqu’à
+                    présent, le personnage pouvait traverser tout librement, ce qui convenait aux tests de navigation,
+                    mais empêchait toute notion de level design. C’est désormais corrigé.
+                </p>
+
+                <p>
+                    Les murs sont modélisés avec des <code>MeshInstance3D</code> (des cubes pour le moment), et chaque
+                    mesh est accompagné d’un <code>CollisionShape3D</code> (généralement une boîte) pour gérer les
+                    interactions physiques. Ces formes sont simples mais suffisantes pour détecter les chocs et empêcher
+                    toute traversée.
+                </p>
+
+                <p>
+                    J’ai constaté que Godot gère très bien la détection, mais que certaines subtilités apparaissent
+                    lorsqu'on se déplace en diagonale ou avec une vitesse variable. Il a donc fallu peaufiner les
+                    valeurs d’accélération et appliquer un <strong>glissement contrôlé</strong> le long des surfaces au
+                    lieu d’un blocage brut.
+                </p>
+
+                <p>
+                    En pratique, cela change radicalement la sensation de jeu : le joueur sent qu’il évolue dans un
+                    espace structuré, avec des limites claires et des contraintes à respecter. C’est aussi la première
+                    étape vers des niveaux plus complexes avec des zones fermées, des couloirs, voire des puzzles
+                    physiques.
+                </p>
+
+                <p>
+                    Pour les prochaines étapes, je prévois d’ajouter des retours visuels lors des collisions (effet
+                    d’impact, son, vibration haptique si possible) afin de rendre l’interaction encore plus tangible.
+                </p>
+            </article>
+        </section>
+
+        <div class="text-center mt-5">
+            <a href="../index.html" class="btn btn-outline-secondary">← Retour au portfolio</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
+S
