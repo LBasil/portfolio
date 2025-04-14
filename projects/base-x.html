@@ -12,9 +12,36 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="light">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../index.html#header" aria-label="Accueil">
+                <img src="../images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte" class="rounded-circle me-2">
+                <span class="d-none d-md-inline">Basil L'HÔTE</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#skills">Compétences</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#contact">Contact</a></li>
+
+                    <li class="nav-item">
+                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2" aria-label="Changer le thème">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="container py-5">
-        <h1 class="text-center mb-4">Base-X</h1>
+        <h1 class="text-center mb-4 mt-4">Base-X</h1>
         <p class="text-center text-muted mb-5">Un jeu mobile 3D développé avec Godot. Suivez ici son évolution technique
             et créative.</p>
 
@@ -152,7 +179,7 @@
             });
         });
     </script>
-
+    <script src="../script/navigation.js"></script>
 </body>
 
 </html>
