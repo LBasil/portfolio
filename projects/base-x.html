@@ -19,7 +19,8 @@
             et créative.</p>
 
         <div class="text-center mt-5 mb-5">
-            <a href="https://github.com/LBasil/baseX" target="_blank" class="btn btn-outline-secondary">← Lien vers le projet</a>
+            <a href="https://github.com/LBasil/baseX" target="_blank" class="btn btn-outline-secondary">← Lien vers le
+                projet</a>
         </div>
 
         <section id="blog">
@@ -41,40 +42,47 @@
                         dynamique en vue plongeante. Ces deux éléments sont essentiels car ils définissent à la fois le
                         gameplay et la sensation de navigation dans l’univers suspendu de <strong>Base-X</strong>.
                     </p>
-    
+
                     <p>
-                        Pour le déplacement, j’utilise un <code>CharacterBody3D</code> dans Godot. L’objectif était d’avoir
+                        Pour le déplacement, j’utilise un <code>CharacterBody3D</code> dans Godot. L’objectif était
+                        d’avoir
                         un mouvement fluide, réactif, mais pas rigide. J’ai donc intégré une accélération avec
-                        <code>lerp</code> pour adoucir les transitions, et un système de rotation automatique du personnage
+                        <code>lerp</code> pour adoucir les transitions, et un système de rotation automatique du
+                        personnage
                         dans la direction du mouvement :
                     </p>
-    
+
                     <!-- Bloc de code -->
                     <pre><code class="language-gdscript">velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
     rotation.y = lerp_angle(rotation.y, atan2(velocity.x, velocity.z), 10.0 * delta)
                     </code></pre>
-    
+
                     <p>
                         Ce système permet de créer une vraie inertie dans le contrôle : le personnage ne tourne pas
                         instantanément mais s’oriente progressivement, ce qui est plus naturel en 3D. La gravité est
-                        également gérée manuellement pour plus de contrôle, en particulier dans des environnements suspendus
+                        également gérée manuellement pour plus de contrôle, en particulier dans des environnements
+                        suspendus
                         où le sol n’est pas toujours garanti.
                     </p>
-    
+
                     <p>
-                        Côté caméra, j’ai mis en place un script simple basé sur un <code>Camera3D</code> qui suit en temps
-                        réel le joueur grâce à une référence exportée <code>@export var target: Node3D</code>. La caméra est
+                        Côté caméra, j’ai mis en place un script simple basé sur un <code>Camera3D</code> qui suit en
+                        temps
+                        réel le joueur grâce à une référence exportée <code>@export var target: Node3D</code>. La caméra
+                        est
                         positionnée avec un décalage (offset) au-dessus et derrière le personnage, pour créer une
                         <strong>vue plongeante</strong> immersive :
                     </p>
-    
+
                     <!-- Bloc de code -->
                     <pre><code class="language-gdscript">global_transform.origin = target.global_transform.origin + offset
                     </code></pre>
-    
+
                     <p>
-                        Ce système est léger, adaptable et parfait pour un jeu mobile où la lisibilité est cruciale. La vue
-                        plongeante donne une bonne perception de l’environnement tout en gardant le joueur toujours visible
+                        Ce système est léger, adaptable et parfait pour un jeu mobile où la lisibilité est cruciale. La
+                        vue
+                        plongeante donne une bonne perception de l’environnement tout en gardant le joueur toujours
+                        visible
                         et centré.
                     </p>
                 </div>
@@ -92,35 +100,28 @@
 
                 <div class="blog-content" style="display: none;">
                     <p>
-                        Aujourd’hui, j’ai implémenté un système de collision réaliste entre le joueur et les murs. Jusqu’à
-                        présent, le personnage pouvait traverser tout librement, ce qui convenait aux tests de navigation,
+                        Aujourd’hui, j’ai implémenté un système de collision réaliste entre le joueur et les murs.
+                        Jusqu’à
+                        présent, le personnage pouvait traverser tout librement, ce qui convenait aux tests de
+                        navigation,
                         mais empêchait toute notion de level design. C’est désormais corrigé.
                     </p>
-    
+
                     <p>
-                        Les murs sont modélisés avec des <code>MeshInstance3D</code> (des cubes pour le moment), et chaque
+                        Les murs sont modélisés avec des <code>MeshInstance3D</code> (des cubes pour le moment), et
+                        chaque
                         mesh est accompagné d’un <code>CollisionShape3D</code> (généralement une boîte) pour gérer les
-                        interactions physiques. Ces formes sont simples mais suffisantes pour détecter les chocs et empêcher
+                        interactions physiques. Ces formes sont simples mais suffisantes pour détecter les chocs et
+                        empêcher
                         toute traversée.
                     </p>
-    
-                    <p>
-                        J’ai constaté que Godot gère très bien la détection, mais que certaines subtilités apparaissent
-                        lorsqu'on se déplace en diagonale ou avec une vitesse variable. Il a donc fallu peaufiner les
-                        valeurs d’accélération et appliquer un <strong>glissement contrôlé</strong> le long des surfaces au
-                        lieu d’un blocage brut.
-                    </p>
-    
+
                     <p>
                         En pratique, cela change radicalement la sensation de jeu : le joueur sent qu’il évolue dans un
-                        espace structuré, avec des limites claires et des contraintes à respecter. C’est aussi la première
+                        espace structuré, avec des limites claires et des contraintes à respecter. C’est aussi la
+                        première
                         étape vers des niveaux plus complexes avec des zones fermées, des couloirs, voire des puzzles
                         physiques.
-                    </p>
-    
-                    <p>
-                        Pour les prochaines étapes, je prévois d’ajouter des retours visuels lors des collisions (effet
-                        d’impact, son, vibration haptique si possible) afin de rendre l’interaction encore plus tangible.
                     </p>
                 </div>
             </article>
@@ -136,7 +137,7 @@
     <script>
         // Fonction de bascule pour afficher/masquer le contenu
         document.querySelectorAll('.toggle-content').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const content = this.closest('article').querySelector('.blog-content');
                 const icon = this.querySelector('span');
                 if (content.style.display === 'none' || content.style.display === '') {
