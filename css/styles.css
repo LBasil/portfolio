@@ -294,21 +294,36 @@ h6 {
 }
 
 /* =======================
-    Blog Styles
+    Code Block Styles
 ======================= */
-
-#blog article:hover {
-    background-color: #f8f9fa;
-    transition: background-color 0.3s;
+pre {
+    background-color: #f0f0f0;
+    color: #212529;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-#blog h3 {
-    color: #333;
+code {
+    font-family: 'Fira Code', monospace;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    font-size: 0.95em;
 }
 
-#blog p {
-    line-height: 1.6;
+[data-bs-theme="dark"] pre {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
 }
+
+[data-bs-theme="dark"] code {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
 
 
 /* =======================
