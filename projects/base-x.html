@@ -15,11 +15,13 @@
     <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="light">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="../index.html#header" aria-label="Accueil">
-                <img src="../images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte" class="rounded-circle me-2">
+                <img src="../images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte"
+                    class="rounded-circle me-2">
                 <span class="d-none d-md-inline">Basil L'HÔTE</span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -31,7 +33,8 @@
                     <li class="nav-item"><a class="nav-link" href="../index.html#contact">Contact</a></li>
 
                     <li class="nav-item">
-                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2" aria-label="Changer le thème">
+                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2"
+                            aria-label="Changer le thème">
                             <i class="fas fa-moon"></i>
                         </button>
                     </li>
@@ -53,7 +56,6 @@
         <section id="blog">
             <h2 class="mb-4">Journal de développement</h2>
 
-            <!-- 12 avril -->
             <article class="mb-5 p-4 border rounded shadow-sm">
                 <div class="blog-header d-flex justify-content-between align-items-center">
                     <h3 class="h5">Déplacement 3D et vue plongeante dynamique</h3>
@@ -79,7 +81,6 @@
                         dans la direction du mouvement :
                     </p>
 
-                    <!-- Bloc de code -->
                     <pre><code class="language-gdscript">velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
     rotation.y = lerp_angle(rotation.y, atan2(velocity.x, velocity.z), 10.0 * delta)
                     </code></pre>
@@ -101,7 +102,6 @@
                         <strong>vue plongeante</strong> immersive :
                     </p>
 
-                    <!-- Bloc de code -->
                     <pre><code class="language-gdscript">global_transform.origin = target.global_transform.origin + offset
                     </code></pre>
 
@@ -115,7 +115,6 @@
                 </div>
             </article>
 
-            <!-- 13 mai -->
             <article class="mb-5 p-4 border rounded shadow-sm">
                 <div class="blog-header d-flex justify-content-between align-items-center">
                     <h3 class="h5">Collisions précises avec les murs</h3>
@@ -152,6 +151,105 @@
                     </p>
                 </div>
             </article>
+
+            <article class="mb-5 p-4 border rounded shadow-sm">
+                <div class="blog-header d-flex justify-content-between align-items-center">
+                    <h3 class="h5">Essais multijoueur avec Godot</h3>
+                    <button class="btn btn-link toggle-content">
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                </div>
+                <p class="text-muted small">Publié le 14 avril 2025</p>
+
+                <div class="blog-content" style="display: none;">
+                    <p>
+                        J’ai commencé à expérimenter avec le multijoueur dans Godot pour mieux comprendre comment
+                        fonctionne leur système réseau intégré.
+                        Même si le projet final utilisera sûrement un serveur plus robuste (Node.js ou autre), je
+                        voulais me faire la main sur l'approche
+                        "serveur embarqué" de Godot, en mode peer-to-peer avec autorité.
+                    </p>
+
+                    <p>
+                        Pour ça, j’ai codé un petit gestionnaire réseau capable de lancer soit un serveur, soit un
+                        client. La communication passe par
+                        <code>ENetMultiplayerPeer</code>, qui gère les connexions, la synchro, etc.
+                    </p>
+
+                    <p>Le cœur du serveur ressemble à ça :</p>
+
+                    <pre><code class="language-gdscript">func start_server():
+                  var peer = ENetMultiplayerPeer.new()
+                  var error = peer.create_server(PORT, MAX_PLAYERS)
+                  if error:
+                      print("Erreur serveur : ", error)
+                      return
+                  multiplayer.multiplayer_peer = peer
+                  multiplayer.peer_connected.connect(_on_peer_connected)
+                  multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+                  print("Serveur démarré sur le port ", PORT)</code></pre>
+
+                    <p>
+                        Et côté client, même principe, sauf qu’on appelle <code>create_client</code> et on connecte
+                        immédiatement après :
+                    </p>
+
+                    <pre><code class="language-gdscript">func start_client(ip):
+                  var peer = ENetMultiplayerPeer.new()
+                  var error = peer.create_client(ip, PORT)
+                  if error:
+                      print("Erreur client : ", error)
+                      return
+                  multiplayer.multiplayer_peer = peer
+                  multiplayer.peer_connected.connect(_on_peer_connected)
+                  multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+                  print("Client connecté à ", ip)
+                  spawn_player(multiplayer.get_unique_id())</code></pre>
+
+                    <p>
+                        Une fois connecté, le serveur (ou le client lui-même s’il est seul) instancie un joueur depuis
+                        une scène <code>player.tscn</code>,
+                        et le positionne aléatoirement dans l’espace :
+                    </p>
+
+                    <pre><code class="language-gdscript">func spawn_player(id):
+                  var player_scene = load("res://player.tscn")
+                  var player = player_scene.instantiate()
+                  player.name = str(id)
+                  player.position = Vector3(randi_range(-5, 5), 1.5, randi_range(-5, 5))
+                  var root = get_tree().root.get_node("Node3D")
+                  root.add_child(player)
+                  players[id] = player
+                  player.set_multiplayer_authority(id)</code></pre>
+
+                    <p>
+                        Côté joueur, j’ai ajouté une petite logique de mouvement, et surtout une synchronisation
+                        manuelle de la position/rotation via un RPC.
+                        Le joueur local envoie sa position, et les autres la mettent à jour :
+                    </p>
+
+                    <pre><code class="language-gdscript">@rpc("any_peer", "call_remote")
+              func update_position(pos, rot):
+                  if multiplayer.get_unique_id() != get_multiplayer_authority():
+                      position = pos
+                      rotation = rot</code></pre>
+
+                    <p>
+                        Ça marche plutôt bien pour un test local ! Les mouvements sont fluides, les joueurs apparaissent
+                        bien au niveau du serveur, et la logique
+                        d’autorité réseau est respectée. Par contre pas encore de collision, d’interaction ou de
+                        persistance : c’est vraiment un test de base. Le seul soucis rencontré provient du fait que le client ne 
+                        voyait que son instance.
+                    </p>
+
+                    <p>
+                        La prochaine étape : rajouter de l’interaction avec l’environnement ! J’aimerais que chaque
+                        joueur puisse poser et casser des blocs
+                        (type murs destructibles).
+                    </p>
+                </div>
+            </article>
+
         </section>
 
         <div class="text-center mt-5">
