@@ -284,6 +284,91 @@
                 </div>
             </article>
 
+            <article class="mb-5 p-4 border rounded shadow-sm">
+                <div class="blog-header d-flex justify-content-between align-items-center">
+                  <h3 class="h5">Destruction & Rebuild de murs</h3>
+                  <button class="btn btn-link toggle-content">
+                    <i class="fa fa-chevron-down"></i>
+                  </button>
+                </div>
+                <p class="text-muted small">Publié le 15 avril 2025</p>
+              
+                <div class="blog-content" style="display: none;">
+                  <p>
+                    Nouvelle fonctionnalité testée : la possibilité de détruire un mur quand on vise dessus et qu'on est assez proche,
+                    puis de le reconstruire au même endroit avec une autre touche.
+                  </p>
+              
+                  <h6>🎮 Objectif</h6>
+                  <ul>
+                    <li>Interaction au clic clavier selon la distance et la visée.</li>
+                    <li>Masquage visuel (<code>hide()</code>) et désactivation de collision.</li>
+                    <li>Possibilité de restaurer l’objet au même endroit.</li>
+                  </ul>
+              
+                  <h6>👁️ Détection du regard + distance</h6>
+                  <p>
+                    J’utilise un raycast depuis la souris pour savoir si le joueur "vise" bien le mur.
+                    On vérifie aussi qu’il est assez proche via la distance 3D.
+                  </p>
+              
+                  <pre><code class="language-gdscript">func is_aimed_by_mouse() -> bool:
+                  var mouse_pos = get_viewport().get_mouse_position()
+                  var ray_origin = camera.project_ray_origin(mouse_pos)
+                  var ray_direction = camera.project_ray_normal(mouse_pos)
+                  var ray_end = ray_origin + ray_direction * 100.0
+                  var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+                  query.collision_mask = 1
+                  var result = get_world_3d().direct_space_state.intersect_ray(query)
+                  
+                  if not is_destroyed:
+                      return result and result.collider == self
+                  else:
+                      if result:
+                          var hit_point = result.position
+                          return hit_point.distance_to(original_position) < aim_tolerance
+                  return false</code></pre>
+              
+                  <h6>🧱 Fonctionnement</h6>
+                  <p>
+                    Le mur est un <code>StaticBody3D</code> avec un collider. Il peut être caché et désactivé
+                    (simulation de "détruit"), ou visible et actif ("reconstruit").
+                  </p>
+              
+                  <pre><code class="language-gdscript">func destroy_wall():
+                  hide()
+                  $WallCollision.disabled = true
+                  is_destroyed = true
+              
+              func rebuild_wall():
+                  show()
+                  $WallCollision.disabled = false
+                  global_transform.origin = original_position
+                  is_destroyed = false</code></pre>
+              
+                  <h6>🧒 Interaction du joueur</h6>
+                  <p>
+                    La touche <code>destroy_wall</code> permet de détruire si on vise bien, assez proche, et que le mur est encore debout.
+                    Inversement pour <code>rebuild_wall</code>.
+                  </p>
+              
+                  <pre><code class="language-gdscript">func _process(delta):
+                  if Input.is_action_just_pressed("destroy_wall") and not is_destroyed and distance_to_player < interaction_distance and is_aimed:
+                      destroy_wall()
+                  if Input.is_action_just_pressed("rebuild_wall") and is_destroyed and distance_to_player < interaction_distance and is_aimed:
+                      rebuild_wall()</code></pre>
+              
+                  <h6>🧬 Instanciation de plusieurs murs</h6>
+                  <p>
+                    Je me suis aussi penché sur comment instancier plusieurs murs dynamiquement dans la scène.
+                    J'ai donc instancié le noeud Wall et j'ai  crée un noeud Walls qui appelle des instances de Wall.
+                    Ainsi sous "Walls", j'ai un enfant "Wall1" et un enfant "Wall2"
+                    Ça ouvre la voie à une vraie base de construction, avec placement dynamique, interaction, destruction, etc.
+                  </p>
+                </div>
+              </article>
+              
+
         </section>
 
         <div class="text-center mt-5">
