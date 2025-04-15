@@ -165,18 +165,19 @@
                     <p>
                         J’ai commencé à expérimenter avec le multijoueur dans Godot pour mieux comprendre comment
                         fonctionne leur système réseau intégré.
-                        Même si le projet final utilisera sûrement un serveur plus robuste (Node.js ou autre), je
-                        voulais me faire la main sur l'approche
+                        Même si le projet final utilisera sûrement un serveur plus robuste, je voulais me faire la main
+                        sur l'approche
                         "serveur embarqué" de Godot, en mode peer-to-peer avec autorité.
                     </p>
 
-                    <p>
-                        Pour ça, j’ai codé un petit gestionnaire réseau capable de lancer soit un serveur, soit un
-                        client. La communication passe par
-                        <code>ENetMultiplayerPeer</code>, qui gère les connexions, la synchro, etc.
-                    </p>
+                    <h6>🧪 Architecture de base</h6>
 
-                    <p>Le cœur du serveur ressemble à ça :</p>
+                    <p>
+                        J’ai mis en place une logique de client/serveur assez simple avec
+                        <code>ENetMultiplayerPeer</code>. Selon si on héberge ou rejoint,
+                        on configure le peer comme serveur ou client. Ensuite, on gère les connexions et les
+                        déconnexions, et on instancie les joueurs.
+                    </p>
 
                     <pre><code class="language-gdscript">func start_server():
                   var peer = ENetMultiplayerPeer.new()
@@ -186,12 +187,10 @@
                       return
                   multiplayer.multiplayer_peer = peer
                   multiplayer.peer_connected.connect(_on_peer_connected)
-                  multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-                  print("Serveur démarré sur le port ", PORT)</code></pre>
+                  multiplayer.peer_disconnected.connect(_on_peer_disconnected)</code></pre>
 
                     <p>
-                        Et côté client, même principe, sauf qu’on appelle <code>create_client</code> et on connecte
-                        immédiatement après :
+                        Le client, lui, se connecte et instancie son joueur local directement :
                     </p>
 
                     <pre><code class="language-gdscript">func start_client(ip):
@@ -203,13 +202,13 @@
                   multiplayer.multiplayer_peer = peer
                   multiplayer.peer_connected.connect(_on_peer_connected)
                   multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-                  print("Client connecté à ", ip)
                   spawn_player(multiplayer.get_unique_id())</code></pre>
 
+                    <h6>👾 Spawning & autorité</h6>
+
                     <p>
-                        Une fois connecté, le serveur (ou le client lui-même s’il est seul) instancie un joueur depuis
-                        une scène <code>player.tscn</code>,
-                        et le positionne aléatoirement dans l’espace :
+                        Dès qu’un joueur rejoint, on crée une instance de son personnage avec une autorité réseau unique
+                        (son ID) :
                     </p>
 
                     <pre><code class="language-gdscript">func spawn_player(id):
@@ -222,10 +221,26 @@
                   players[id] = player
                   player.set_multiplayer_authority(id)</code></pre>
 
+                    <h6>📡 Synchronisation et RPCs</h6>
+
                     <p>
-                        Côté joueur, j’ai ajouté une petite logique de mouvement, et surtout une synchronisation
-                        manuelle de la position/rotation via un RPC.
-                        Le joueur local envoie sa position, et les autres la mettent à jour :
+                        Pour que les positions des joueurs soient partagées entre tous les clients, j’ai mis en place un
+                        système de synchronisation
+                        manuelle à base de RPCs.
+                    </p>
+
+                    <p>
+                        D'abord, seul le client qui possède l'autorité réseau sur son personnage (souvent lui-même)
+                        envoie sa position :
+                    </p>
+
+                    <pre><code class="language-gdscript">func _physics_process(delta):
+                  if multiplayer.get_unique_id() == get_multiplayer_authority():
+                      ...
+                      rpc("update_position", position, rotation)</code></pre>
+
+                    <p>
+                        Et côté réception, tous les autres clients mettent à jour leur version du joueur :
                     </p>
 
                     <pre><code class="language-gdscript">@rpc("any_peer", "call_remote")
@@ -234,18 +249,37 @@
                       position = pos
                       rotation = rot</code></pre>
 
-                    <p>
-                        Ça marche plutôt bien pour un test local ! Les mouvements sont fluides, les joueurs apparaissent
-                        bien au niveau du serveur, et la logique
-                        d’autorité réseau est respectée. Par contre pas encore de collision, d’interaction ou de
-                        persistance : c’est vraiment un test de base. Le seul soucis rencontré provient du fait que le client ne 
-                        voyait que son instance.
-                    </p>
+                    <h6>📌 Quelques précisions sur les annotations @rpc</h6>
 
                     <p>
-                        La prochaine étape : rajouter de l’interaction avec l’environnement ! J’aimerais que chaque
-                        joueur puisse poser et casser des blocs
-                        (type murs destructibles).
+                        La magie dans tout ça, ce sont les annotations <code>@rpc</code>. C’est ce qui rend une fonction
+                        appelable à distance.
+                        Tu peux préciser plusieurs choses :
+                    </p>
+
+                    <ul>
+                        <li><code>@rpc("any_peer")</code> : signifie que cette méthode peut être appelée par n’importe
+                            quel peer, pas uniquement le serveur.</li>
+                        <li><code>@rpc("authority")</code> : seule l’autorité du nœud peut appeler la fonction à
+                            distance.</li>
+                        <li><code>@rpc("call_remote")</code> : force à exécuter la fonction uniquement sur les autres
+                            peers, pas localement.</li>
+                    </ul>
+
+                    <p>
+                        Donc dans notre cas, <code>@rpc("any_peer", "call_remote")</code> permet à chaque joueur
+                        d’envoyer sa position aux autres, mais
+                        de ne pas exécuter <code>update_position()</code> sur lui-même. C’est super utile pour éviter
+                        les doublons ou les comportements bizarres.
+                    </p>
+
+                    <h6>🧱 Prochaine étape</h6>
+
+                    <p>
+                        Là, tout le monde peut se déplacer mais seul le serveur voit les deux en même temps (peut être
+                        car j'aurais du créer un troisième projet client). C’est fluide, pas de désynchro visible.
+                        Prochaine étape :
+                        rendre l’environnement interactif (casser, poser des blocs, etc).
                     </p>
                 </div>
             </article>
