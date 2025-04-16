@@ -9,6 +9,36 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid #dee2e6;
+            margin-left: 1rem;
+        }
+
+        .timeline article {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline article::before {
+            content: "";
+            position: absolute;
+            top: 1.5rem;
+            left: -1.1rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: #0d6efd;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px white;
+        }
+
+        .timeline article:last-of-type::before {
+            background-color: #00d8a6;
+            box-shadow: 0 0 0 4px white, 0 0 10px #00d8a6;
+        }
+    </style>
 </head>
 
 <body>
@@ -56,130 +86,140 @@
         <section id="blog">
             <h2 class="mb-4">Journal de développement</h2>
 
-            <article class="mb-5 p-4 border rounded shadow-sm">
-                <div class="blog-header d-flex justify-content-between align-items-center">
-                    <h3 class="h5">Déplacement 3D et vue plongeante dynamique</h3>
-                    <button class="btn btn-link toggle-content">
-                        <span class="fa fa-chevron-down"></span>
-                    </button>
-                </div>
-                <p class="text-muted small">Publié le 12 avril 2025</p>
+            <section id="blog" class="timeline">
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Déplacement 3D et vue plongeante dynamique</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 12 avril 2025</p>
 
-                <div class="blog-content" style="display: none;">
-                    <p>
-                        Aujourd’hui, j’ai posé les bases du système de déplacement 3D du personnage, ainsi qu’une caméra
-                        dynamique en vue plongeante. Ces deux éléments sont essentiels car ils définissent à la fois le
-                        gameplay et la sensation de navigation dans l’univers suspendu de <strong>Base-X</strong>.
-                    </p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Aujourd’hui, j’ai posé les bases du système de déplacement 3D du personnage, ainsi qu’une
+                            caméra
+                            dynamique en vue plongeante. Ces deux éléments sont essentiels car ils définissent à la fois
+                            le
+                            gameplay et la sensation de navigation dans l’univers suspendu de <strong>Base-X</strong>.
+                        </p>
 
-                    <p>
-                        Pour le déplacement, j’utilise un <code>CharacterBody3D</code> dans Godot. L’objectif était
-                        d’avoir
-                        un mouvement fluide, réactif, mais pas rigide. J’ai donc intégré une accélération avec
-                        <code>lerp</code> pour adoucir les transitions, et un système de rotation automatique du
-                        personnage
-                        dans la direction du mouvement :
-                    </p>
+                        <p>
+                            Pour le déplacement, j’utilise un <code>CharacterBody3D</code> dans Godot. L’objectif était
+                            d’avoir
+                            un mouvement fluide, réactif, mais pas rigide. J’ai donc intégré une accélération avec
+                            <code>lerp</code> pour adoucir les transitions, et un système de rotation automatique du
+                            personnage
+                            dans la direction du mouvement :
+                        </p>
 
-                    <pre><code class="language-gdscript">velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
+                        <pre><code class="language-gdscript">velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
     rotation.y = lerp_angle(rotation.y, atan2(velocity.x, velocity.z), 10.0 * delta)
                     </code></pre>
 
-                    <p>
-                        Ce système permet de créer une vraie inertie dans le contrôle : le personnage ne tourne pas
-                        instantanément mais s’oriente progressivement, ce qui est plus naturel en 3D. La gravité est
-                        également gérée manuellement pour plus de contrôle, en particulier dans des environnements
-                        suspendus
-                        où le sol n’est pas toujours garanti.
-                    </p>
+                        <p>
+                            Ce système permet de créer une vraie inertie dans le contrôle : le personnage ne tourne pas
+                            instantanément mais s’oriente progressivement, ce qui est plus naturel en 3D. La gravité est
+                            également gérée manuellement pour plus de contrôle, en particulier dans des environnements
+                            suspendus
+                            où le sol n’est pas toujours garanti.
+                        </p>
 
-                    <p>
-                        Côté caméra, j’ai mis en place un script simple basé sur un <code>Camera3D</code> qui suit en
-                        temps
-                        réel le joueur grâce à une référence exportée <code>@export var target: Node3D</code>. La caméra
-                        est
-                        positionnée avec un décalage (offset) au-dessus et derrière le personnage, pour créer une
-                        <strong>vue plongeante</strong> immersive :
-                    </p>
+                        <p>
+                            Côté caméra, j’ai mis en place un script simple basé sur un <code>Camera3D</code> qui suit
+                            en
+                            temps
+                            réel le joueur grâce à une référence exportée <code>@export var target: Node3D</code>. La
+                            caméra
+                            est
+                            positionnée avec un décalage (offset) au-dessus et derrière le personnage, pour créer une
+                            <strong>vue plongeante</strong> immersive :
+                        </p>
 
-                    <pre><code class="language-gdscript">global_transform.origin = target.global_transform.origin + offset
+                        <pre><code class="language-gdscript">global_transform.origin = target.global_transform.origin + offset
                     </code></pre>
 
-                    <p>
-                        Ce système est léger, adaptable et parfait pour un jeu mobile où la lisibilité est cruciale. La
-                        vue
-                        plongeante donne une bonne perception de l’environnement tout en gardant le joueur toujours
-                        visible
-                        et centré.
-                    </p>
-                </div>
-            </article>
+                        <p>
+                            Ce système est léger, adaptable et parfait pour un jeu mobile où la lisibilité est cruciale.
+                            La
+                            vue
+                            plongeante donne une bonne perception de l’environnement tout en gardant le joueur toujours
+                            visible
+                            et centré.
+                        </p>
+                    </div>
+                </article>
 
-            <article class="mb-5 p-4 border rounded shadow-sm">
-                <div class="blog-header d-flex justify-content-between align-items-center">
-                    <h3 class="h5">Collisions précises avec les murs</h3>
-                    <button class="btn btn-link toggle-content">
-                        <span class="fa fa-chevron-down"></span>
-                    </button>
-                </div>
-                <p class="text-muted small">Publié le 13 avril 2025</p>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Collisions précises avec les murs</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 13 avril 2025</p>
 
-                <div class="blog-content" style="display: none;">
-                    <p>
-                        Aujourd’hui, j’ai implémenté un système de collision réaliste entre le joueur et les murs.
-                        Jusqu’à
-                        présent, le personnage pouvait traverser tout librement, ce qui convenait aux tests de
-                        navigation,
-                        mais empêchait toute notion de level design. C’est désormais corrigé.
-                    </p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Aujourd’hui, j’ai implémenté un système de collision réaliste entre le joueur et les murs.
+                            Jusqu’à
+                            présent, le personnage pouvait traverser tout librement, ce qui convenait aux tests de
+                            navigation,
+                            mais empêchait toute notion de level design. C’est désormais corrigé.
+                        </p>
 
-                    <p>
-                        Les murs sont modélisés avec des <code>MeshInstance3D</code> (des cubes pour le moment), et
-                        chaque
-                        mesh est accompagné d’un <code>CollisionShape3D</code> (généralement une boîte) pour gérer les
-                        interactions physiques. Ces formes sont simples mais suffisantes pour détecter les chocs et
-                        empêcher
-                        toute traversée.
-                    </p>
+                        <p>
+                            Les murs sont modélisés avec des <code>MeshInstance3D</code> (des cubes pour le moment), et
+                            chaque
+                            mesh est accompagné d’un <code>CollisionShape3D</code> (généralement une boîte) pour gérer
+                            les
+                            interactions physiques. Ces formes sont simples mais suffisantes pour détecter les chocs et
+                            empêcher
+                            toute traversée.
+                        </p>
 
-                    <p>
-                        En pratique, cela change radicalement la sensation de jeu : le joueur sent qu’il évolue dans un
-                        espace structuré, avec des limites claires et des contraintes à respecter. C’est aussi la
-                        première
-                        étape vers des niveaux plus complexes avec des zones fermées, des couloirs, voire des puzzles
-                        physiques.
-                    </p>
-                </div>
-            </article>
+                        <p>
+                            En pratique, cela change radicalement la sensation de jeu : le joueur sent qu’il évolue dans
+                            un
+                            espace structuré, avec des limites claires et des contraintes à respecter. C’est aussi la
+                            première
+                            étape vers des niveaux plus complexes avec des zones fermées, des couloirs, voire des
+                            puzzles
+                            physiques.
+                        </p>
+                    </div>
+                </article>
 
-            <article class="mb-5 p-4 border rounded shadow-sm">
-                <div class="blog-header d-flex justify-content-between align-items-center">
-                    <h3 class="h5">Essais multijoueur avec Godot</h3>
-                    <button class="btn btn-link toggle-content">
-                        <i class="fa fa-chevron-down"></i>
-                    </button>
-                </div>
-                <p class="text-muted small">Publié le 14 avril 2025</p>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Essais multijoueur avec Godot</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 14 avril 2025</p>
 
-                <div class="blog-content" style="display: none;">
-                    <p>
-                        J’ai commencé à expérimenter avec le multijoueur dans Godot pour mieux comprendre comment
-                        fonctionne leur système réseau intégré.
-                        Même si le projet final utilisera sûrement un serveur plus robuste, je voulais me faire la main
-                        sur l'approche
-                        "serveur embarqué" de Godot, en mode peer-to-peer avec autorité.
-                    </p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            J’ai commencé à expérimenter avec le multijoueur dans Godot pour mieux comprendre comment
+                            fonctionne leur système réseau intégré.
+                            Même si le projet final utilisera sûrement un serveur plus robuste, je voulais me faire la
+                            main
+                            sur l'approche
+                            "serveur embarqué" de Godot, en mode peer-to-peer avec autorité.
+                        </p>
 
-                    <h6>🧪 Architecture de base</h6>
+                        <h6>🧪 Architecture de base</h6>
 
-                    <p>
-                        J’ai mis en place une logique de client/serveur assez simple avec
-                        <code>ENetMultiplayerPeer</code>. Selon si on héberge ou rejoint,
-                        on configure le peer comme serveur ou client. Ensuite, on gère les connexions et les
-                        déconnexions, et on instancie les joueurs.
-                    </p>
+                        <p>
+                            J’ai mis en place une logique de client/serveur assez simple avec
+                            <code>ENetMultiplayerPeer</code>. Selon si on héberge ou rejoint,
+                            on configure le peer comme serveur ou client. Ensuite, on gère les connexions et les
+                            déconnexions, et on instancie les joueurs.
+                        </p>
 
-                    <pre><code class="language-gdscript">func start_server():
+                        <pre><code class="language-gdscript">func start_server():
                   var peer = ENetMultiplayerPeer.new()
                   var error = peer.create_server(PORT, MAX_PLAYERS)
                   if error:
@@ -189,11 +229,11 @@
                   multiplayer.peer_connected.connect(_on_peer_connected)
                   multiplayer.peer_disconnected.connect(_on_peer_disconnected)</code></pre>
 
-                    <p>
-                        Le client, lui, se connecte et instancie son joueur local directement :
-                    </p>
+                        <p>
+                            Le client, lui, se connecte et instancie son joueur local directement :
+                        </p>
 
-                    <pre><code class="language-gdscript">func start_client(ip):
+                        <pre><code class="language-gdscript">func start_client(ip):
                   var peer = ENetMultiplayerPeer.new()
                   var error = peer.create_client(ip, PORT)
                   if error:
@@ -204,14 +244,15 @@
                   multiplayer.peer_disconnected.connect(_on_peer_disconnected)
                   spawn_player(multiplayer.get_unique_id())</code></pre>
 
-                    <h6>👾 Spawning & autorité</h6>
+                        <h6>👾 Spawning & autorité</h6>
 
-                    <p>
-                        Dès qu’un joueur rejoint, on crée une instance de son personnage avec une autorité réseau unique
-                        (son ID) :
-                    </p>
+                        <p>
+                            Dès qu’un joueur rejoint, on crée une instance de son personnage avec une autorité réseau
+                            unique
+                            (son ID) :
+                        </p>
 
-                    <pre><code class="language-gdscript">func spawn_player(id):
+                        <pre><code class="language-gdscript">func spawn_player(id):
                   var player_scene = load("res://player.tscn")
                   var player = player_scene.instantiate()
                   player.name = str(id)
@@ -221,98 +262,105 @@
                   players[id] = player
                   player.set_multiplayer_authority(id)</code></pre>
 
-                    <h6>📡 Synchronisation et RPCs</h6>
+                        <h6>📡 Synchronisation et RPCs</h6>
 
-                    <p>
-                        Pour que les positions des joueurs soient partagées entre tous les clients, j’ai mis en place un
-                        système de synchronisation
-                        manuelle à base de RPCs.
-                    </p>
+                        <p>
+                            Pour que les positions des joueurs soient partagées entre tous les clients, j’ai mis en
+                            place un
+                            système de synchronisation
+                            manuelle à base de RPCs.
+                        </p>
 
-                    <p>
-                        D'abord, seul le client qui possède l'autorité réseau sur son personnage (souvent lui-même)
-                        envoie sa position :
-                    </p>
+                        <p>
+                            D'abord, seul le client qui possède l'autorité réseau sur son personnage (souvent lui-même)
+                            envoie sa position :
+                        </p>
 
-                    <pre><code class="language-gdscript">func _physics_process(delta):
+                        <pre><code class="language-gdscript">func _physics_process(delta):
                   if multiplayer.get_unique_id() == get_multiplayer_authority():
                       ...
                       rpc("update_position", position, rotation)</code></pre>
 
-                    <p>
-                        Et côté réception, tous les autres clients mettent à jour leur version du joueur :
-                    </p>
+                        <p>
+                            Et côté réception, tous les autres clients mettent à jour leur version du joueur :
+                        </p>
 
-                    <pre><code class="language-gdscript">@rpc("any_peer", "call_remote")
+                        <pre><code class="language-gdscript">@rpc("any_peer", "call_remote")
               func update_position(pos, rot):
                   if multiplayer.get_unique_id() != get_multiplayer_authority():
                       position = pos
                       rotation = rot</code></pre>
 
-                    <h6>📌 Quelques précisions sur les annotations @rpc</h6>
+                        <h6>📌 Quelques précisions sur les annotations @rpc</h6>
 
-                    <p>
-                        La magie dans tout ça, ce sont les annotations <code>@rpc</code>. C’est ce qui rend une fonction
-                        appelable à distance.
-                        Tu peux préciser plusieurs choses :
-                    </p>
+                        <p>
+                            La magie dans tout ça, ce sont les annotations <code>@rpc</code>. C’est ce qui rend une
+                            fonction
+                            appelable à distance.
+                            Tu peux préciser plusieurs choses :
+                        </p>
 
-                    <ul>
-                        <li><code>@rpc("any_peer")</code> : signifie que cette méthode peut être appelée par n’importe
-                            quel peer, pas uniquement le serveur.</li>
-                        <li><code>@rpc("authority")</code> : seule l’autorité du nœud peut appeler la fonction à
-                            distance.</li>
-                        <li><code>@rpc("call_remote")</code> : force à exécuter la fonction uniquement sur les autres
-                            peers, pas localement.</li>
-                    </ul>
+                        <ul>
+                            <li><code>@rpc("any_peer")</code> : signifie que cette méthode peut être appelée par
+                                n’importe
+                                quel peer, pas uniquement le serveur.</li>
+                            <li><code>@rpc("authority")</code> : seule l’autorité du nœud peut appeler la fonction à
+                                distance.</li>
+                            <li><code>@rpc("call_remote")</code> : force à exécuter la fonction uniquement sur les
+                                autres
+                                peers, pas localement.</li>
+                        </ul>
 
-                    <p>
-                        Donc dans notre cas, <code>@rpc("any_peer", "call_remote")</code> permet à chaque joueur
-                        d’envoyer sa position aux autres, mais
-                        de ne pas exécuter <code>update_position()</code> sur lui-même. C’est super utile pour éviter
-                        les doublons ou les comportements bizarres.
-                    </p>
+                        <p>
+                            Donc dans notre cas, <code>@rpc("any_peer", "call_remote")</code> permet à chaque joueur
+                            d’envoyer sa position aux autres, mais
+                            de ne pas exécuter <code>update_position()</code> sur lui-même. C’est super utile pour
+                            éviter
+                            les doublons ou les comportements bizarres.
+                        </p>
 
-                    <h6>🧱 Prochaine étape</h6>
+                        <h6>🧱 Prochaine étape</h6>
 
-                    <p>
-                        Là, tout le monde peut se déplacer mais seul le serveur voit les deux en même temps (peut être
-                        car j'aurais du créer un troisième projet client). C’est fluide, pas de désynchro visible.
-                        Prochaine étape :
-                        rendre l’environnement interactif (casser, poser des blocs, etc).
-                    </p>
-                </div>
-            </article>
+                        <p>
+                            Là, tout le monde peut se déplacer mais seul le serveur voit les deux en même temps (peut
+                            être
+                            car j'aurais du créer un troisième projet client). C’est fluide, pas de désynchro visible.
+                            Prochaine étape :
+                            rendre l’environnement interactif (casser, poser des blocs, etc).
+                        </p>
+                    </div>
+                </article>
 
-            <article class="mb-5 p-4 border rounded shadow-sm">
-                <div class="blog-header d-flex justify-content-between align-items-center">
-                  <h3 class="h5">Destruction & Rebuild de murs</h3>
-                  <button class="btn btn-link toggle-content">
-                    <i class="fa fa-chevron-down"></i>
-                  </button>
-                </div>
-                <p class="text-muted small">Publié le 15 avril 2025</p>
-              
-                <div class="blog-content" style="display: none;">
-                  <p>
-                    Nouvelle fonctionnalité testée : la possibilité de détruire un mur quand on vise dessus et qu'on est assez proche,
-                    puis de le reconstruire au même endroit avec une autre touche.
-                  </p>
-              
-                  <h6>🎮 Objectif</h6>
-                  <ul>
-                    <li>Interaction au clic clavier selon la distance et la visée.</li>
-                    <li>Masquage visuel (<code>hide()</code>) et désactivation de collision.</li>
-                    <li>Possibilité de restaurer l’objet au même endroit.</li>
-                  </ul>
-              
-                  <h6>👁️ Détection du regard + distance</h6>
-                  <p>
-                    J’utilise un raycast depuis la souris pour savoir si le joueur "vise" bien le mur.
-                    On vérifie aussi qu’il est assez proche via la distance 3D.
-                  </p>
-              
-                  <pre><code class="language-gdscript">func is_aimed_by_mouse() -> bool:
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Destruction & Rebuild de murs</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 15 avril 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Nouvelle fonctionnalité testée : la possibilité de détruire un mur quand on vise dessus et
+                            qu'on est assez proche,
+                            puis de le reconstruire au même endroit avec une autre touche.
+                        </p>
+
+                        <h6>🎮 Objectif</h6>
+                        <ul>
+                            <li>Interaction au clic clavier selon la distance et la visée.</li>
+                            <li>Masquage visuel (<code>hide()</code>) et désactivation de collision.</li>
+                            <li>Possibilité de restaurer l’objet au même endroit.</li>
+                        </ul>
+
+                        <h6>👁️ Détection du regard + distance</h6>
+                        <p>
+                            J’utilise un raycast depuis la souris pour savoir si le joueur "vise" bien le mur.
+                            On vérifie aussi qu’il est assez proche via la distance 3D.
+                        </p>
+
+                        <pre><code class="language-gdscript">func is_aimed_by_mouse() -> bool:
                   var mouse_pos = get_viewport().get_mouse_position()
                   var ray_origin = camera.project_ray_origin(mouse_pos)
                   var ray_direction = camera.project_ray_normal(mouse_pos)
@@ -328,14 +376,14 @@
                           var hit_point = result.position
                           return hit_point.distance_to(original_position) < aim_tolerance
                   return false</code></pre>
-              
-                  <h6>🧱 Fonctionnement</h6>
-                  <p>
-                    Le mur est un <code>StaticBody3D</code> avec un collider. Il peut être caché et désactivé
-                    (simulation de "détruit"), ou visible et actif ("reconstruit").
-                  </p>
-              
-                  <pre><code class="language-gdscript">func destroy_wall():
+
+                        <h6>🧱 Fonctionnement</h6>
+                        <p>
+                            Le mur est un <code>StaticBody3D</code> avec un collider. Il peut être caché et désactivé
+                            (simulation de "détruit"), ou visible et actif ("reconstruit").
+                        </p>
+
+                        <pre><code class="language-gdscript">func destroy_wall():
                   hide()
                   $WallCollision.disabled = true
                   is_destroyed = true
@@ -345,29 +393,33 @@
                   $WallCollision.disabled = false
                   global_transform.origin = original_position
                   is_destroyed = false</code></pre>
-              
-                  <h6>🧒 Interaction du joueur</h6>
-                  <p>
-                    La touche <code>destroy_wall</code> permet de détruire si on vise bien, assez proche, et que le mur est encore debout.
-                    Inversement pour <code>rebuild_wall</code>.
-                  </p>
-              
-                  <pre><code class="language-gdscript">func _process(delta):
+
+                        <h6>🧒 Interaction du joueur</h6>
+                        <p>
+                            La touche <code>destroy_wall</code> permet de détruire si on vise bien, assez proche, et que
+                            le mur est encore debout.
+                            Inversement pour <code>rebuild_wall</code>.
+                        </p>
+
+                        <pre><code class="language-gdscript">func _process(delta):
                   if Input.is_action_just_pressed("destroy_wall") and not is_destroyed and distance_to_player < interaction_distance and is_aimed:
                       destroy_wall()
                   if Input.is_action_just_pressed("rebuild_wall") and is_destroyed and distance_to_player < interaction_distance and is_aimed:
                       rebuild_wall()</code></pre>
-              
-                  <h6>🧬 Instanciation de plusieurs murs</h6>
-                  <p>
-                    Je me suis aussi penché sur comment instancier plusieurs murs dynamiquement dans la scène.
-                    J'ai donc instancié le noeud Wall et j'ai  crée un noeud Walls qui appelle des instances de Wall.
-                    Ainsi sous "Walls", j'ai un enfant "Wall1" et un enfant "Wall2"
-                    Ça ouvre la voie à une vraie base de construction, avec placement dynamique, interaction, destruction, etc.
-                  </p>
-                </div>
-              </article>
-              
+
+                        <h6>🧬 Instanciation de plusieurs murs</h6>
+                        <p>
+                            Je me suis aussi penché sur comment instancier plusieurs murs dynamiquement dans la scène.
+                            J'ai donc instancié le noeud Wall et j'ai crée un noeud Walls qui appelle des instances de
+                            Wall.
+                            Ainsi sous "Walls", j'ai un enfant "Wall1" et un enfant "Wall2"
+                            Ça ouvre la voie à une vraie base de construction, avec placement dynamique, interaction,
+                            destruction, etc.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
 
         </section>
 
@@ -377,9 +429,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/prism.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Pour les icônes de flèche -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script>
-        // Fonction de bascule pour afficher/masquer le contenu
         document.querySelectorAll('.toggle-content').forEach(button => {
             button.addEventListener('click', function () {
                 const content = this.closest('article').querySelector('.blog-content');
