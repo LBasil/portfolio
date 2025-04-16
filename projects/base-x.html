@@ -114,7 +114,7 @@
                             dans la direction du mouvement :
                         </p>
 
-                        <pre><code class="language-gdscript">velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
+                        <pre><code >velocity.x = lerp(velocity.x, direction.x * speed, acceleration * delta)
     rotation.y = lerp_angle(rotation.y, atan2(velocity.x, velocity.z), 10.0 * delta)
                     </code></pre>
 
@@ -137,7 +137,7 @@
                             <strong>vue plongeante</strong> immersive :
                         </p>
 
-                        <pre><code class="language-gdscript">global_transform.origin = target.global_transform.origin + offset
+                        <pre><code >global_transform.origin = target.global_transform.origin + offset
                     </code></pre>
 
                         <p>
@@ -219,7 +219,7 @@
                             déconnexions, et on instancie les joueurs.
                         </p>
 
-                        <pre><code class="language-gdscript">func start_server():
+                        <pre><code >func start_server():
                   var peer = ENetMultiplayerPeer.new()
                   var error = peer.create_server(PORT, MAX_PLAYERS)
                   if error:
@@ -233,7 +233,7 @@
                             Le client, lui, se connecte et instancie son joueur local directement :
                         </p>
 
-                        <pre><code class="language-gdscript">func start_client(ip):
+                        <pre><code >func start_client(ip):
                   var peer = ENetMultiplayerPeer.new()
                   var error = peer.create_client(ip, PORT)
                   if error:
@@ -252,7 +252,7 @@
                             (son ID) :
                         </p>
 
-                        <pre><code class="language-gdscript">func spawn_player(id):
+                        <pre><code >func spawn_player(id):
                   var player_scene = load("res://player.tscn")
                   var player = player_scene.instantiate()
                   player.name = str(id)
@@ -276,7 +276,7 @@
                             envoie sa position :
                         </p>
 
-                        <pre><code class="language-gdscript">func _physics_process(delta):
+                        <pre><code >func _physics_process(delta):
                   if multiplayer.get_unique_id() == get_multiplayer_authority():
                       ...
                       rpc("update_position", position, rotation)</code></pre>
@@ -285,7 +285,7 @@
                             Et côté réception, tous les autres clients mettent à jour leur version du joueur :
                         </p>
 
-                        <pre><code class="language-gdscript">@rpc("any_peer", "call_remote")
+                        <pre><code >@rpc("any_peer", "call_remote")
               func update_position(pos, rot):
                   if multiplayer.get_unique_id() != get_multiplayer_authority():
                       position = pos
@@ -360,7 +360,7 @@
                             On vérifie aussi qu’il est assez proche via la distance 3D.
                         </p>
 
-                        <pre><code class="language-gdscript">func is_aimed_by_mouse() -> bool:
+                        <pre><code >func is_aimed_by_mouse() -> bool:
                   var mouse_pos = get_viewport().get_mouse_position()
                   var ray_origin = camera.project_ray_origin(mouse_pos)
                   var ray_direction = camera.project_ray_normal(mouse_pos)
@@ -383,7 +383,7 @@
                             (simulation de "détruit"), ou visible et actif ("reconstruit").
                         </p>
 
-                        <pre><code class="language-gdscript">func destroy_wall():
+                        <pre><code >func destroy_wall():
                   hide()
                   $WallCollision.disabled = true
                   is_destroyed = true
@@ -401,7 +401,7 @@
                             Inversement pour <code>rebuild_wall</code>.
                         </p>
 
-                        <pre><code class="language-gdscript">func _process(delta):
+                        <pre><code >func _process(delta):
                   if Input.is_action_just_pressed("destroy_wall") and not is_destroyed and distance_to_player < interaction_distance and is_aimed:
                       destroy_wall()
                   if Input.is_action_just_pressed("rebuild_wall") and is_destroyed and distance_to_player < interaction_distance and is_aimed:

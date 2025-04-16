@@ -8,11 +8,13 @@ const projects = [
     url: "https://github.com/LBasil/analyze-dependencies",
     image: "images/dependency_analyzer.png",
     badges: ["JavaScript", "API"],
-    archived: false
+    archived: false,
+    hasBlog: true,
+    blogUrl: "projects/dependency-analyzer.html"
   },
   {
     title: "BaseX",
-    description: "Mobile game",
+    description: "Survival / Base building mobile game with Godot Engine",
     url: "https://github.com/LBasil/baseX",
     image: "images/baseX.png",
     badges: ["Godot", "Game"],
