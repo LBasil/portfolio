@@ -418,6 +418,87 @@
                         </p>
                     </div>
                 </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Ajout de l'inventaire et gestion de ressources</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 16 avril 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Afin de renforcer la mécanique de jeu autour de la construction et la destruction,
+                            un système d'inventaire simple a été intégré. Le joueur peut désormais récupérer des
+                            ressources
+                            en détruisant certains éléments du décor, puis les réutiliser pour reconstruire ces mêmes
+                            éléments.
+                            Chaque action a un coût ou un bénéfice clair, ce qui introduit une logique de gestion légère
+                            mais stratégique.
+                        </p>
+
+                        <h6>🎒 Ajout de ressources au joueur</h6>
+                        <p>
+                            Quand un mur est détruit, on ajoute une ressource au joueur. La méthode suivante a été
+                            ajoutée dans <code>player.gd</code>.
+                        </p>
+                        <pre><code>func add_resources(amount):
+                    resources += amount
+                    print("Resources:", resources)</code></pre>
+
+                        <h6>📊 Affichage dans l'UI</h6>
+                        <p>
+                            Le script <code>ui.gd</code> met à jour dynamiquement une étiquette affichant le nombre
+                            actuel de ressources.
+                        </p>
+                        <pre><code>extends Control
+                
+                @export var player: Node3D
+                @onready var resource_label = $ResourceLabel
+                
+                func _process(delta):
+                    if player:
+                        resource_label.text = "Resources: " + str(player.resources)</code></pre>
+
+                        <h6>🧱 Détruire et reconstruire en consommant</h6>
+                        <p>
+                            Voici les méthodes intégrées à <code>wall.gd</code> qui gèrent la récupération ou
+                            l'utilisation des ressources.
+                        </p>
+                        <pre><code>func destroy_wall():
+                    hide()
+                    $WallCollision.disabled = true
+                    is_destroyed = true
+                    player.add_resources(1)  # Donne 1 ressource au joueur
+                
+                func rebuild_wall():
+                    if player.resources >= 1:  # Nécessite 1 ressource
+                        show()
+                        $WallCollision.disabled = false
+                        global_transform.origin = original_position
+                        is_destroyed = false
+                        player.resources -= 1
+                        print("Wall rebuilt, resources left:", player.resources)</code></pre>
+
+                        <h6>🧠 Logique derrière</h6>
+                        <ul>
+                            <li><strong>Détruire</strong> rapporte 1 ressource au joueur.</li>
+                            <li><strong>Reconstruire</strong> consomme 1 ressource si le joueur en possède au moins une.
+                            </li>
+                            <li>La reconstruction se fait exactement à l'emplacement d'origine, avec collision
+                                réactivée.</li>
+                        </ul>
+
+                        <p>
+                            Ce système forme les bases d’un gameplay orienté “base building” où les ressources ont de la
+                            valeur,
+                            et chaque action a un coût réel.
+                        </p>
+                    </div>
+                </article>
+
             </section>
 
 
