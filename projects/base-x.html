@@ -499,6 +499,49 @@
                     </div>
                 </article>
 
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                      <h3 class="h5">🌳 Ajout d’un arbre 3D destructible</h3>
+                      <button class="btn btn-link toggle-content">
+                        <i class="fa fa-chevron-down"></i>
+                      </button>
+                    </div>
+                    <p class="text-muted small">Publié le 15 avril 2025</p>
+                  
+                    <div class="blog-content" style="display: none;">
+                      <p>
+                        Extension naturelle du système de murs destructibles : j’ai ajouté un arbre 3D avec un <code>.obj</code> + <code>.mtl</code> en guise de mesh. L’arbre fonctionne comme un mur : il peut être détruit pour récolter des ressources (2 au total), et reconstruit si le joueur a au moins 1 ressource.
+                      </p>
+                  
+                      <div class="ratio ratio-16x9 mb-4">
+                        <video controls>
+                          <source src="../videos/arbre_demo.mp4" type="video/mp4" />
+                          Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                      </div>
+                  
+                      <h6>🗂️ Ressources .obj / .mtl</h6>
+                      <p>
+                        J’ai importé un modèle d’arbre avec un fichier <code>tree.obj</code> accompagné de son <code>tree.mtl</code> pour la texture. Le node racine est un <code>StaticBody3D</code> comme pour les murs.
+                      </p>
+                  
+                      <h6>🪓 Récolte & reconstruction</h6>
+                      <p>
+                        Quand le joueur détruit l’arbre, il obtient <strong>2 ressources</strong>. Pour le reconstruire, une seule ressource est nécessaire. Le comportement est presque identique au mur, répliqué dans un nouveau script dédié.
+                      </p>
+                  
+                      <h6>👁️ Interaction avec la souris</h6>
+                      <p>
+                        Comme pour les murs, la visée se fait avec un raycast depuis la souris. On vérifie la distance et l’alignement avec l’objet avant de permettre la destruction ou la reconstruction.
+                      </p>
+                  
+                      <h6>🧪 Prochaine étape ?</h6>
+                      <p>
+                        Le système étant déjà modulaire, il sera facile d’ajouter d’autres éléments récoltables dans le monde (roches, plantes…). Chaque élément pourrait avoir son propre coût/bénéfice, ouvrant la voie à un mini système de craft.
+                      </p>
+                    </div>
+                  </article>
+
             </section>
 
 
