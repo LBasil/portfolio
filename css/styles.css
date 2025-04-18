@@ -218,7 +218,6 @@ h6 {
 .game-btn {
     font-family: 'Press Start 2P', cursive;
     padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
     color: white;
     background-color: var(--crayola);
     border: none;
