@@ -13,14 +13,24 @@ const projects = [
     blogUrl: "projects/dependency-analyzer.html"
   },
   {
+    title: "Sporyx",
+    description: "Idle mobile game. Survive in a fungal world where mutations are everywhere.",
+    url: "https://github.com/LBasil/sporyx",
+    image: "images/sporyx.png",
+    badges: ["Godot", "Game"],
+    archived: false,
+    hasBlog: true,
+    blogUrl: "projects/sporyx.html"
+  },
+  {
     title: "BaseX",
     description: "Survival / Base building mobile game with Godot Engine",
     url: "https://github.com/LBasil/baseX",
     image: "images/baseX.png",
-    badges: ["Godot", "Game"],
-    archived: false,
+    badges: ["Godot", "Game", "Paused"],
+    archived: false/*,
     hasBlog: true,
-    blogUrl: "projects/base-x.html"
+    blogUrl: "projects/base-x.html"*/
   },
   {
     title: "Pokemon Card Viewer",

@@ -74,12 +74,12 @@
     </nav>
 
     <div class="container py-5">
-        <h1 class="text-center mb-4 mt-4">Base-X</h1>
+        <h1 class="text-center mb-4 mt-4">Sporyx</h1>
         <p class="text-center text-muted mb-5">Un jeu mobile 3D développé avec Godot. Suivez ici son évolution technique
             et créative.</p>
 
         <div class="text-center mt-5 mb-5">
-            <a href="https://github.com/LBasil/baseX" target="_blank" class="btn btn-outline-secondary">← Lien vers le
+            <a href="https://github.com/LBasil/sporyx" target="_blank" class="btn btn-outline-secondary">← Lien vers le
                 projet</a>
         </div>
 
@@ -501,46 +501,114 @@
 
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                      <h3 class="h5">🌳 Ajout d’un arbre 3D destructible</h3>
-                      <button class="btn btn-link toggle-content">
-                        <i class="fa fa-chevron-down"></i>
-                      </button>
+                        <h3 class="h5">🌳 Ajout d’un arbre 3D destructible</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
                     </div>
                     <p class="text-muted small">Publié le 18 avril 2025</p>
-                  
+
                     <div class="blog-content" style="display: none;">
-                      <p>
-                        Extension naturelle du système de murs destructibles : j’ai ajouté un arbre 3D avec un <code>.obj</code> + <code>.mtl</code> en guise de mesh. L’arbre fonctionne comme un mur : il peut être détruit pour récolter des ressources (2 au total), et reconstruit si le joueur a au moins 1 ressource.
-                      </p>
-                  
-                      <div class="ratio ratio-16x9 mb-4">
-                        <video controls>
-                          <source src="../videos/arbre_demo.mp4" type="video/mp4" />
-                          Votre navigateur ne supporte pas la lecture de vidéos.
-                        </video>
-                      </div>
-                  
-                      <h6>🗂️ Ressources .obj / .mtl</h6>
-                      <p>
-                        J’ai importé un modèle d’arbre avec un fichier <code>tree.obj</code> accompagné de son <code>tree.mtl</code> pour la texture. Le node racine est un <code>StaticBody3D</code> comme pour les murs.
-                      </p>
-                  
-                      <h6>🪓 Récolte & reconstruction</h6>
-                      <p>
-                        Quand le joueur détruit l’arbre, il obtient <strong>2 ressources</strong>. Pour le reconstruire, une seule ressource est nécessaire. Le comportement est presque identique au mur, répliqué dans un nouveau script dédié.
-                      </p>
-                  
-                      <h6>👁️ Interaction avec la souris</h6>
-                      <p>
-                        Comme pour les murs, la visée se fait avec un raycast depuis la souris. On vérifie la distance et l’alignement avec l’objet avant de permettre la destruction ou la reconstruction.
-                      </p>
-                  
-                      <h6>🧪 Prochaine étape ?</h6>
-                      <p>
-                        Le système étant déjà modulaire, il sera facile d’ajouter d’autres éléments récoltables dans le monde (roches, plantes…). Chaque élément pourrait avoir son propre coût/bénéfice, ouvrant la voie à un mini système de craft.
-                      </p>
+                        <p>
+                            Extension naturelle du système de murs destructibles : j’ai ajouté un arbre 3D avec un
+                            <code>.obj</code> + <code>.mtl</code> en guise de mesh. L’arbre fonctionne comme un mur : il
+                            peut être détruit pour récolter des ressources (2 au total), et reconstruit si le joueur a
+                            au moins 1 ressource.
+                        </p>
+
+                        <div class="ratio ratio-16x9 mb-4">
+                            <video controls>
+                                <source src="../videos/arbre_demo.mp4" type="video/mp4" />
+                                Votre navigateur ne supporte pas la lecture de vidéos.
+                            </video>
+                        </div>
+
+                        <h6>🗂️ Ressources .obj / .mtl</h6>
+                        <p>
+                            J’ai importé un modèle d’arbre avec un fichier <code>tree.obj</code> accompagné de son
+                            <code>tree.mtl</code> pour la texture. Le node racine est un <code>StaticBody3D</code> comme
+                            pour les murs.
+                        </p>
+
+                        <h6>🪓 Récolte & reconstruction</h6>
+                        <p>
+                            Quand le joueur détruit l’arbre, il obtient <strong>2 ressources</strong>. Pour le
+                            reconstruire, une seule ressource est nécessaire. Le comportement est presque identique au
+                            mur, répliqué dans un nouveau script dédié.
+                        </p>
+
+                        <h6>👁️ Interaction avec la souris</h6>
+                        <p>
+                            Comme pour les murs, la visée se fait avec un raycast depuis la souris. On vérifie la
+                            distance et l’alignement avec l’objet avant de permettre la destruction ou la
+                            reconstruction.
+                        </p>
+
+                        <h6>🧪 Prochaine étape ?</h6>
+                        <p>
+                            Le système étant déjà modulaire, il sera facile d’ajouter d’autres éléments récoltables dans
+                            le monde (roches, plantes…). Chaque élément pourrait avoir son propre coût/bénéfice, ouvrant
+                            la voie à un mini système de craft.
+                        </p>
                     </div>
-                  </article>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🧬 Virage de projet : de BaseX à Sporyx</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 22 avril 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            BaseX devait être un projet ambitieux mêlant construction, multijoueur et interactions
+                            complexes. Ce blog lui était d'ailleurs consacré.
+                            Mais la densité de la tâche a clairement freiné la progression. Plutôt que de rester bloqué,
+                            j’ai décidé
+                            de prendre un virage stratégique pour concrétiser plus rapidement une version jouable.
+                        </p>
+
+                        <h6>📱 Sporyx : une version mobile plus light</h6>
+                        <p>
+                            Sporyx est né de cette envie de simplifier : un jeu mobile, basé sur les fondations que j’ai
+                            posées avec BaseX,
+                            mais allégé en complexité. L’idée ? Un gameplay centré sur :
+                        </p>
+                        <ul>
+                            <li>🧭 Exploration de zones asynchrone</li>
+                            <li>⚔️ PVP asynchrone entre joueurs</li>
+                            <li>🧪 Mutations, spores, ressources et évolution</li>
+                        </ul>
+
+                        <h6>🔁 Ce que je garde de BaseX</h6>
+                        <p>
+                            Même si je change de cap, beaucoup de mécaniques restent utiles :
+                        </p>
+                        <ul>
+                            <li>Le système de ressources et d'inventaire</li>
+                            <li>Tout le principe asnchrone</li>
+                        </ul>
+
+                        <h6>🚀 Objectif à court terme</h6>
+                        <p>
+                            Sporyx doit me permettre de livrer rapidement une version testable.C’est aussi un bon
+                            terrain d’expérimentation pour toutes les idées que je
+                            voulais implémenter dans BaseX mais de façon plus légère.
+                        </p>
+
+                        <blockquote class="blockquote">
+                            "Mieux vaut un petit jeu fini qu’un grand projet qui dort dans un dossier."
+                        </blockquote>
+
+                        <p class="mt-3">
+                            À suivre très vite avec les premiers éléments visuels de Sporyx.
+                        </p>
+                    </div>
+                </article>
+
 
             </section>
 
