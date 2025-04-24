@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Base-X - Blog</title>
+    <title>Sporyx - Blog</title>
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
@@ -609,6 +609,71 @@
                     </div>
                 </article>
 
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🚧 Premiers pas visuels sur Sporyx</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 15 avril 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            C’est officiel : Sporyx est lancé ! 🎉 Le tout premier prototype prend forme avec un menu
+                            simple
+                            et un personnage en 3D visible à gauche de l’écran. L’idée ici est d’explorer le layout
+                            général,
+                            avec une interface épurée adaptée à un jeu mobile.
+                        </p>
+
+                        <h6>👁️ Prototype du menu</h6>
+                        <p>
+                            J’ai positionné trois boutons à droite de l’écran, servant pour l’instant de placeholder
+                            pour le futur menu (inventaire, exploration, arène). À gauche, un personnage en 3D
+                            s'affiche
+                            dans une pose idle. Ce prototype me permet de tester l'ergonomie sur écran tactile.
+                        </p>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <a href="#" onclick="showImageInModal('../images/proto1.png'); return false;">
+                                    <img src="../images/proto1.png" class="img-fluid rounded border"
+                                        alt="Prototype Sporyx 1">
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#" onclick="showImageInModal('../images/proto2.png'); return false;">
+                                    <img src="../images/proto2.png" class="img-fluid rounded border"
+                                        alt="Prototype Sporyx 2">
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#" onclick="showImageInModal('../images/proto3.png'); return false;">
+                                    <img src="../images/proto3.png" class="img-fluid rounded border"
+                                        alt="Prototype Sporyx 3">
+                                </a>
+                            </div>
+                        </div>
+
+                        <h6>🎨 Problèmes actuels</h6>
+                        <ul>
+                            <li>Le personnage passe parfois derrière le fond 2D quand j’essaie de styliser l’UI.</li>
+                            <li>Pas encore de vraie navigation fonctionnelle entre les menus.</li>
+                            <li>Besoin de définir une direction artistique cohérente (fond, éclairage, typos, couleurs).
+                            </li>
+                        </ul>
+
+                        <h6>🛠️ Prochaine étape</h6>
+                        <p>
+                            Je vais retravailler la structure du menu pour qu’il soit à la fois utilisable et stylé. Je
+                            vais
+                            probablement mixer des éléments 2D (UI) et 3D (personnage central) sur un fond personnalisé.
+                            Je tenterai aussi un full 3D si c'est plus simple et cohérent.
+                        </p>
+                    </div>
+                </article>
+
 
             </section>
 
@@ -618,15 +683,27 @@
         <div class="text-center mt-5">
             <a href="../index.html" class="btn btn-outline-secondary">← Retour au portfolio</a>
         </div>
+
+        <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content bg-dark position-relative p-2">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img id="modalImage" src="" class="w-100 rounded" alt="Agrandissement">
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/prism.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script>
         document.querySelectorAll('.toggle-content').forEach(button => {
             button.addEventListener('click', function () {
                 const content = this.closest('article').querySelector('.blog-content');
-                const icon = this.querySelector('span');
+                const icon = this.querySelector('i');
                 if (content.style.display === 'none' || content.style.display === '') {
                     content.style.display = 'block';
                     icon.classList.remove('fa-chevron-down');
@@ -638,6 +715,14 @@
                 }
             });
         });
+
+        function showImageInModal(imagePath) {
+            const modalImg = document.getElementById("modalImage");
+            modalImg.src = imagePath;
+
+            const modal = new bootstrap.Modal(document.getElementById("lightboxModal"));
+            modal.show();
+        }
     </script>
     <script src="../script/navigation.js"></script>
 </body>
