@@ -682,6 +682,51 @@
 
             </section>
 
+            <article class="mb-5 p-4 border rounded shadow-sm">
+                <div class="blog-header d-flex justify-content-between align-items-center">
+                  <h3 class="h5">🖼️ Tests de fond dans Sporyx</h3>
+                  <button class="btn btn-link toggle-content">
+                    <i class="fa fa-chevron-down"></i>
+                  </button>
+                </div>
+                <p class="text-muted small">Publié le 24 avril 2025</p>
+              
+                <div class="blog-content" style="display: none;">
+                  <p>
+                    Petite session de test visuel aujourd’hui : j’ai essayé différents types de fond derrière le personnage principal.
+                    L’idée était de trouver un rendu sympa et lisible sur mobile, sans nuire à la lisibilité de l’UI ni noyer l’action.
+                  </p>
+              
+                  <h6>🎨 Fond 2D</h6>
+                  <p>
+                    Premier test avec un fond 2D fixe. En théorie, c’est simple, léger et joli… mais dans la pratique, j’ai eu des soucis.
+                    Le personnage 3D passait parfois derrière, probablement un souci de couche ou de CanvasLayer mal configuré.
+                  </p>
+                  <div class="text-center mb-3">
+                    <a href="#" onclick="showImageInModal('../images/fond2d-test.png'); return false;">
+                        <img src="../images/fond2d-test.png" class="../images/fond2d-test.png"
+                            alt="Test fond 2D">
+                    </a>
+                  </div>
+              
+                  <h6>🌌 Fond 3D</h6>
+                  <p>
+                    Deuxième essai avec un environnement 3D très simple en arrière-plan. Le rendu est un peu plus cohérent pour
+                    le moment, mais je ne suis pas encore convaincu à 100%. Il faudra tester avec des assets plus stylisés.
+                  </p>
+                  <div class="text-center mb-3">
+                    <a href="#" onclick="showImageInModal('../images/fond3d-test.png'); return false;">
+                        <img src="../images/fond3d-test.png" class="../images/fond3d-test.png"
+                            alt="Test fond 3D">
+                    </a>
+                  </div>
+              
+                  <h6>🔄 Prochaine étape</h6>
+                  <p>
+                    Prochain focus : améliorer l’inventaire du joueur, le rendre plus lisible et fonctionnel dans l’interface de jeu.
+                  </p>
+                </div>
+              </article>              
 
         </section>
 
