@@ -614,7 +614,7 @@
                     </div>
                 </article>
 
-                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">🚧 Premiers pas visuels sur Sporyx</h3>
                         <button class="btn btn-link toggle-content">
@@ -679,55 +679,104 @@
                     </div>
                 </article>
 
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🖼️ Tests de fond dans Sporyx</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 24 avril 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Petite session de test visuel aujourd’hui : j’ai essayé différents types de fond derrière le
+                            personnage principal.
+                            L’idée était de trouver un rendu sympa et lisible sur mobile, sans nuire à la lisibilité de
+                            l’UI ni noyer l’action.
+                        </p>
+
+                        <h6>🎨 Fond 2D</h6>
+                        <p>
+                            Premier test avec un fond 2D fixe. En théorie, c’est simple, léger et joli… mais dans la
+                            pratique, j’ai eu des soucis.
+                            Le personnage 3D passait parfois derrière, probablement un souci de couche ou de CanvasLayer
+                            mal configuré.
+                        </p>
+                        <div class="text-center mb-3">
+                            <a href="#" onclick="showImageInModal('../images/fond2d-test.png'); return false;">
+                                <img src="../images/fond2d-test.png" class="img-fluid rounded border"
+                                    alt="Test fond 2D">
+                            </a>
+                        </div>
+
+                        <h6>🌌 Fond 3D</h6>
+                        <p>
+                            Deuxième essai avec un environnement 3D très simple en arrière-plan. Le rendu est un peu
+                            plus cohérent pour
+                            le moment, mais je ne suis pas encore convaincu à 100%. Il faudra tester avec des assets
+                            plus stylisés.
+                        </p>
+                        <div class="text-center mb-3">
+                            <a href="#" onclick="showImageInModal('../images/fond3d-test.png'); return false;">
+                                <img src="../images/fond3d-test.png" class="img-fluid rounded border"
+                                    alt="Test fond 3D">
+                            </a>
+                        </div>
+
+                        <h6>🔄 Prochaine étape</h6>
+                        <p>
+                            Prochain focus : améliorer l’inventaire du joueur, le rendre plus lisible et fonctionnel
+                            dans l’interface de jeu.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🌀 Réflexion : Vers un Sporyx 100% 2D ?</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 24 avril 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Petite pause conceptuelle aujourd’hui. Après plusieurs tests en 3D (personnage, fond,
+                            environnement), je me pose sérieusement la question : est-ce que ça vaut vraiment le coup de
+                            continuer en 3D ? 🤔
+                        </p>
+
+                        <h6>🎭 La 3D : quels avantages ?</h6>
+                        <p>
+                            Le personnage en 3D donne une belle profondeur et un style visuel un peu plus “premium”...
+                            mais c’est aussi le seul élément du jeu actuellement à utiliser la 3D. Le reste (interface,
+                            menus, fonds) est à dominante 2D. Et en jeu mobile, la lisibilité prime.
+                        </p>
+
+                        <h6>🖌️ Pourquoi envisager la 2D ?</h6>
+                        <ul>
+                            <li>Plus simple à gérer techniquement (pas de souci de couches, de caméra ou de lumière).
+                            </li>
+                            <li>Meilleure performance sur des appareils mobiles moins puissants.</li>
+                            <li>Direction artistique plus cohérente si tout est 2D.</li>
+                            <li>Le personnage pourrait être redessiné en sprite stylisé ou animé avec Spine ou Godot
+                                directement.</li>
+                        </ul>
+
+                        <h6>💭 Conclusion provisoire</h6>
+                        <p>
+                            Rien n’est encore décidé, mais je penche de plus en plus vers une DA 2D complète. Sporyx est
+                            un jeu mobile avant tout, et la 2D permettrait de se concentrer sur le gameplay et
+                            l’identité graphique sans trop se disperser.
+                        </p>
+
+                        <p class="fst-italic text-muted">Affaire à suivre très bientôt… 👀</p>
+                    </div>
+                </article>
 
             </section>
-
-            <article class="mb-5 p-4 border rounded shadow-sm">
-                <div class="blog-header d-flex justify-content-between align-items-center">
-                  <h3 class="h5">🖼️ Tests de fond dans Sporyx</h3>
-                  <button class="btn btn-link toggle-content">
-                    <i class="fa fa-chevron-down"></i>
-                  </button>
-                </div>
-                <p class="text-muted small">Publié le 24 avril 2025</p>
-              
-                <div class="blog-content" style="display: none;">
-                  <p>
-                    Petite session de test visuel aujourd’hui : j’ai essayé différents types de fond derrière le personnage principal.
-                    L’idée était de trouver un rendu sympa et lisible sur mobile, sans nuire à la lisibilité de l’UI ni noyer l’action.
-                  </p>
-              
-                  <h6>🎨 Fond 2D</h6>
-                  <p>
-                    Premier test avec un fond 2D fixe. En théorie, c’est simple, léger et joli… mais dans la pratique, j’ai eu des soucis.
-                    Le personnage 3D passait parfois derrière, probablement un souci de couche ou de CanvasLayer mal configuré.
-                  </p>
-                  <div class="text-center mb-3">
-                    <a href="#" onclick="showImageInModal('../images/fond2d-test.png'); return false;">
-                        <img src="../images/fond2d-test.png" class="../images/fond2d-test.png"
-                            alt="Test fond 2D">
-                    </a>
-                  </div>
-              
-                  <h6>🌌 Fond 3D</h6>
-                  <p>
-                    Deuxième essai avec un environnement 3D très simple en arrière-plan. Le rendu est un peu plus cohérent pour
-                    le moment, mais je ne suis pas encore convaincu à 100%. Il faudra tester avec des assets plus stylisés.
-                  </p>
-                  <div class="text-center mb-3">
-                    <a href="#" onclick="showImageInModal('../images/fond3d-test.png'); return false;">
-                        <img src="../images/fond3d-test.png" class="../images/fond3d-test.png"
-                            alt="Test fond 3D">
-                    </a>
-                  </div>
-              
-                  <h6>🔄 Prochaine étape</h6>
-                  <p>
-                    Prochain focus : améliorer l’inventaire du joueur, le rendre plus lisible et fonctionnel dans l’interface de jeu.
-                  </p>
-                </div>
-              </article>              
-
         </section>
 
         <div class="text-center mt-5">
