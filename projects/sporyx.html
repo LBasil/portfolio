@@ -776,6 +776,78 @@
                     </div>
                 </article>
 
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                      <h3 class="h5">🌐 Communication Godot ↔ Serveur Java (Ping → Pong)</h3>
+                      <button class="btn btn-link toggle-content">
+                        <i class="fa fa-chevron-down"></i>
+                      </button>
+                    </div>
+                    <p class="text-muted small">Publié le 29 avril 2025</p>
+                  
+                    <div class="blog-content" style="display: none;">
+                      <p>
+                        J’ai mis en place une communication simple entre <strong>Godot</strong> et un
+                        <strong>serveur Java local</strong>, pour poser les bases de futures interactions réseau (arène, échanges, etc.).
+                      </p>
+                  
+                      <h6>🔧 Côté serveur (Java)</h6>
+                      <p>Le serveur Java écoute sur le port <code>8080</code> et répond "pong" quand il reçoit une requête <code>GET /ping</code> :</p>
+                      <pre><code class="language-java">ServerSocket serverSocket = new ServerSocket(8080);
+                  Socket clientSocket = serverSocket.accept();
+                  BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                  String requestLine = in.readLine(); // Ex: "GET /ping HTTP/1.1"
+                  ...
+                  if (requestLine.startsWith("GET /ping")) {
+                      out.println("pong");
+                  }
+                  </code></pre>
+                  
+                      <h6>🎮 Côté client (Godot)</h6>
+                      <p>Dans Godot, j’utilise un <code>HTTPRequest</code> pour envoyer la requête <em>quand le bouton "Arène"</em> est pressé :</p>
+                  
+                      <pre><code class="language-gdscript">func _on_arena_button_pressed():
+                      arena_ui.visible = true
+                      send_ping_request()
+                  
+                  func send_ping_request():
+                      var http_request = HTTPRequest.new()
+                      add_child(http_request)
+                      http_request.request_completed.connect(_on_request_completed)
+                      http_request.request("http://localhost:8080/ping")
+                  
+                  func _on_request_completed(result, response_code, headers, body):
+                      if response_code == 200:
+                          var response = body.get_string_from_utf8()
+                          arena_ui.update_response(response)
+                  </code></pre>
+                  
+                      <p>
+                        Le label dans l’interface Arène est ensuite mis à jour avec la réponse du serveur, ce qui permet d’afficher dynamiquement le <code>"pong"</code> retourné.
+                      </p>
+                  
+                      <h6>🖼️ Interface Godot (Aperçu)</h6>
+                      <p>Un aperçu du panneau Arène dans Godot :</p>
+                      <ul>
+                        <li>Un bouton "Défier un joueur"</li>
+                        <li>Un <code>Label</code> affichant "En attente de réponse..." ou "Réponse du serveur : pong"</li>
+                      </ul>
+                  
+                      <h6>🎥 Démo vidéo</h6>
+                      <div class="ratio ratio-16x9 mb-3">
+                        <iframe src="../videos/test_server.mp4" title="Ping-Pong Godot/Java" allowfullscreen></iframe>
+                      </div>
+                  
+                      <h6>🔭 Ce que ça ouvre</h6>
+                      <ul>
+                        <li>Début d’une logique serveur pour le combat ou la gestion de données persistantes</li>
+                        <li>Test réseau simple sans WebSocket ni base de données</li>
+                        <li>Possibilité d’étendre ça à une arène asynchrone ou des envois de stats</li>
+                      </ul>
+                    </div>
+                  </article>
+                                  
+
             </section>
         </section>
 
