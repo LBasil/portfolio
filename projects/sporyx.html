@@ -918,7 +918,7 @@
                     </div>
                 </article>
 
-                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                       <h3 class="h5">⚔️ Combat dynamique Godot ↔ Serveur Java</h3>
                       <button class="btn btn-link toggle-content">
@@ -998,6 +998,113 @@
                         <li>Réutilisable pour du PvP ou du PvE</li>
                         <li>Facilement extensible : XP, compétences, équipements...</li>
                       </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🌍 Centralisation et Refactorisation de l’Exploration dans Sporyx</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 04 mai 2025</p>
+                
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Aujourd’hui, nous avons fait évoluer **Sporyx** en centralisant toutes les données d’exploration côté serveur et en refactorisant le code Java pour le rendre plus modulaire et maintenable. Voici un résumé des améliorations apportées.
+                        </p>
+                
+                        <h6>🔧 Côté serveur (Java) : Centralisation des données</h6>
+                        <p>
+                            Nous avons déplacé toutes les informations sur les mondes (noms, descriptions, rencontres possibles, loots) dans <code>ExplorationManager.java</code>. Le client ne stocke plus rien localement et récupère tout via des requêtes HTTP. Une nouvelle route <code>GET /worlds</code> a été ajoutée pour fournir la liste des mondes disponibles.
+                        </p>
+                
+                        <pre><code>private static final Map&lt;String, World&gt; WORLDS = new HashMap&lt;&gt;();
+                
+                private void initializeWorlds() {
+                    WORLDS.put("Mycelic Forest", new World("Mycelic Forest", 
+                        "A lush forest filled with giant mushrooms and floating spores.", 
+                        List.of("Giant Mushroom", "Floating Spore"), 
+                        Map.of("Spores", 5, "Mushroom Cap", 2)));
+                    // Autres mondes...
+                }
+                
+                public String getWorldsList() {
+                    StringBuilder response = new StringBuilder();
+                    response.append("Available worlds:\n");
+                    for (String worldName : WORLDS.keySet()) {
+                        response.append(worldName).append("\n");
+                    }
+                    return response.toString();
+                }
+                        </code></pre>
+                
+                        <h6>🎮 Côté client (Godot) : Dynamisation de l’interface</h6>
+                        <p>
+                            Dans <code>explore.gd</code>, nous avons supprimé la liste statique des mondes. À la place, le client envoie une requête GET à <code>/worlds</code> au démarrage pour récupérer dynamiquement la liste des mondes et remplir la <code>WorldsList</code>.
+                        </p>
+                
+                        <pre><code>func fetch_worlds_list():
+                    var http_request = HTTPRequest.new()
+                    add_child(http_request)
+                    http_request.request_completed.connect(_on_worlds_request_completed)
+                    var error = http_request.request("http://127.0.0.1:8080/worlds")
+                
+                func _on_worlds_request_completed(result, response_code, headers, body):
+                    if response_code == 200:
+                        var response = body.get_string_from_utf8()
+                        available_worlds = []
+                        for line in response.split("\n"):
+                            if line != "Available worlds:" and line.strip_edges() != "":
+                                available_worlds.append(line.strip_edges())
+                                $Panel/VBoxContainer/WorldsList.add_item(line.strip_edges())
+                        update_combat_log("Worlds loaded successfully!")
+                        </code></pre>
+                
+                        <p>
+                            L’interface d’exploration comprend maintenant :
+                        </p>
+                        <ul>
+                            <li>Une <code>WorldsList</code> remplie dynamiquement avec les mondes du serveur</li>
+                            <li>Un bouton <strong>"Explore"</strong> pour lancer une exploration</li>
+                            <li>Un <code>CombatLog</code> qui affiche les résultats après 10 secondes</li>
+                        </ul>
+                
+                        <h6>🧠 Refactorisation du serveur</h6>
+                        <p>
+                            Le code Java a été entièrement refactorisé pour séparer les responsabilités. <code>Server.java</code> a été divisé en plusieurs classes : <code>HttpServer</code>, <code>PlayerManager</code>, <code>CombatManager</code>, et <code>ExplorationManager</code>. Les conventions de nommage (camelCase, PascalCase) ont été appliquées.
+                        </p>
+                
+                        <pre><code>public class HttpServer {
+                    private final PlayerManager playerManager;
+                    private final CombatManager combatManager;
+                    private final ExplorationManager explorationManager;
+                
+                    public HttpServer() {
+                        this.playerManager = new PlayerManager();
+                        this.combatManager = new CombatManager(playerManager);
+                        this.explorationManager = new ExplorationManager();
+                    }
+                }
+                        </code></pre>
+                
+                        <h6>🌟 Améliorations de l’exploration</h6>
+                        <p>
+                            L’exploration a été enrichie côté serveur avec des mondes plus détaillés (rencontres possibles, loots). Le serveur simule l’exploration pendant 10 secondes et renvoie un résultat complet, comme :
+                        </p>
+                
+                        <pre><code>Exploration of Mycelic Forest completed!
+                A lush forest filled with giant mushrooms and floating spores.
+                You found 5 Spores!
+                        </code></pre>
+                
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Centralisation complète des données : le client est plus léger et dépendant du serveur</li>
+                            <li>Facilité d’ajout de nouveaux mondes ou mécaniques côté serveur</li>
+                            <li>Prochaine étape : lier les loots (ex. : Spores) à un inventaire côté client</li>
+                        </ul>
                     </div>
                 </article>
                   
