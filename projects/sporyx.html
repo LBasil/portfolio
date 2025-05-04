@@ -778,22 +778,24 @@
 
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                      <h3 class="h5">🌐 Communication Godot ↔ Serveur Java (Ping → Pong)</h3>
-                      <button class="btn btn-link toggle-content">
-                        <i class="fa fa-chevron-down"></i>
-                      </button>
+                        <h3 class="h5">🌐 Communication Godot ↔ Serveur Java (Ping → Pong)</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
                     </div>
                     <p class="text-muted small">Publié le 29 avril 2025</p>
-                  
+
                     <div class="blog-content" style="display: none;">
-                      <p>
-                        J’ai mis en place une communication simple entre <strong>Godot</strong> et un
-                        <strong>serveur Java local</strong>, pour poser les bases de futures interactions réseau (arène, échanges, etc.).
-                      </p>
-                  
-                      <h6>🔧 Côté serveur (Java)</h6>
-                      <p>Le serveur Java écoute sur le port <code>8080</code> et répond "pong" quand il reçoit une requête <code>GET /ping</code> :</p>
-                      <pre><code>ServerSocket serverSocket = new ServerSocket(8080);
+                        <p>
+                            J’ai mis en place une communication simple entre <strong>Godot</strong> et un
+                            <strong>serveur Java local</strong>, pour poser les bases de futures interactions réseau
+                            (arène, échanges, etc.).
+                        </p>
+
+                        <h6>🔧 Côté serveur (Java)</h6>
+                        <p>Le serveur Java écoute sur le port <code>8080</code> et répond "pong" quand il reçoit une
+                            requête <code>GET /ping</code> :</p>
+                        <pre><code>ServerSocket serverSocket = new ServerSocket(8080);
                   Socket clientSocket = serverSocket.accept();
                   BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                   String requestLine = in.readLine(); // Ex: "GET /ping HTTP/1.1"
@@ -802,11 +804,12 @@
                       out.println("pong");
                   }
                   </code></pre>
-                  
-                      <h6>🎮 Côté client (Godot)</h6>
-                      <p>Dans Godot, j’utilise un <code>HTTPRequest</code> pour envoyer la requête <em>quand le bouton "Arène"</em> est pressé :</p>
-                  
-                      <pre><code>func _on_arena_button_pressed():
+
+                        <h6>🎮 Côté client (Godot)</h6>
+                        <p>Dans Godot, j’utilise un <code>HTTPRequest</code> pour envoyer la requête <em>quand le bouton
+                                "Arène"</em> est pressé :</p>
+
+                        <pre><code>func _on_arena_button_pressed():
                       arena_ui.visible = true
                       send_ping_request()
                   
@@ -821,58 +824,65 @@
                           var response = body.get_string_from_utf8()
                           arena_ui.update_response(response)
                   </code></pre>
-                  
-                      <p>
-                        Le label dans l’interface Arène est ensuite mis à jour avec la réponse du serveur, ce qui permet d’afficher dynamiquement le <code>"pong"</code> retourné.
-                      </p>
-                  
-                      <h6>🖼️ Interface Godot (Aperçu)</h6>
-                      <p>Un aperçu du panneau Arène dans Godot :</p>
-                      <ul>
-                        <li>Un bouton "Défier un joueur"</li>
-                        <li>Un <code>Label</code> affichant "En attente de réponse..." ou "Réponse du serveur : pong"</li>
-                      </ul>
-                  
-                      <h6>🎥 Démo vidéo</h6>
-                      <div class="ratio ratio-16x9 mb-3">
-                        <iframe src="../videos/test_server.mp4" title="Ping-Pong Godot/Java" allowfullscreen></iframe>
-                      </div>
-                  
-                      <h6>🔭 Ce que ça ouvre</h6>
-                      <ul>
-                        <li>Début d’une logique serveur pour le combat ou la gestion de données persistantes</li>
-                        <li>Test réseau simple sans WebSocket ni base de données</li>
-                        <li>Possibilité d’étendre ça à une arène asynchrone ou des envois de stats</li>
-                      </ul>
+
+                        <p>
+                            Le label dans l’interface Arène est ensuite mis à jour avec la réponse du serveur, ce qui
+                            permet d’afficher dynamiquement le <code>"pong"</code> retourné.
+                        </p>
+
+                        <h6>🖼️ Interface Godot (Aperçu)</h6>
+                        <p>Un aperçu du panneau Arène dans Godot :</p>
+                        <ul>
+                            <li>Un bouton "Défier un joueur"</li>
+                            <li>Un <code>Label</code> affichant "En attente de réponse..." ou "Réponse du serveur :
+                                pong"</li>
+                        </ul>
+
+                        <h6>🎥 Démo vidéo</h6>
+                        <div class="ratio ratio-16x9 mb-3">
+                            <iframe src="../videos/test_server.mp4" title="Ping-Pong Godot/Java"
+                                allowfullscreen></iframe>
+                        </div>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Début d’une logique serveur pour le combat ou la gestion de données persistantes</li>
+                            <li>Test réseau simple sans WebSocket ni base de données</li>
+                            <li>Possibilité d’étendre ça à une arène asynchrone ou des envois de stats</li>
+                        </ul>
                     </div>
                 </article>
 
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                      <h3 class="h5">⚔️ Faux combat Godot ↔ Java : simulateur en local</h3>
-                      <button class="btn btn-link toggle-content">
-                        <i class="fa fa-chevron-down"></i>
-                      </button>
+                        <h3 class="h5">⚔️ Faux combat Godot ↔ Java : simulateur en local</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
                     </div>
                     <p class="text-muted small">Publié le 01 mai 2025</p>
-                  
+
                     <div class="blog-content" style="display: none;">
-                      <p>
-                        Après le test de communication simple entre Godot et un serveur Java (ping → pong), j’ai implémenté un <strong>simulateur de combat</strong>.
-                        Le client Godot envoie les stats du joueur en JSON, et le serveur Java simule un affrontement contre un adversaire généré dynamiquement.
-                      </p>
-                  
-                      <h6>🔧 Côté serveur (Java)</h6>
-                      <p>
-                        Le serveur écoute toujours sur <code>8080</code> et répond maintenant à une requête <code>POST /fight</code> avec un résultat de combat :
-                      </p>
-                      <pre><code>else if (requestLine.startsWith("POST /fight")) {
+                        <p>
+                            Après le test de communication simple entre Godot et un serveur Java (ping → pong), j’ai
+                            implémenté un <strong>simulateur de combat</strong>.
+                            Le client Godot envoie les stats du joueur en JSON, et le serveur Java simule un
+                            affrontement contre un adversaire généré dynamiquement.
+                        </p>
+
+                        <h6>🔧 Côté serveur (Java)</h6>
+                        <p>
+                            Le serveur écoute toujours sur <code>8080</code> et répond maintenant à une requête
+                            <code>POST /fight</code> avec un résultat de combat :
+                        </p>
+                        <pre><code>else if (requestLine.startsWith("POST /fight")) {
                       responseBody = simulateFight(body.toString());
                   }</code></pre>
-                  
-                      <p>La méthode <code>simulateFight()</code> parse les stats du joueur, génère un adversaire aux stats proches, et boucle jusqu'à la victoire ou la défaite :</p>
-                  
-                      <pre><code>int opponentHp = playerHp + rand.nextInt(5) - 2;
+
+                        <p>La méthode <code>simulateFight()</code> parse les stats du joueur, génère un adversaire aux
+                            stats proches, et boucle jusqu'à la victoire ou la défaite :</p>
+
+                        <pre><code>int opponentHp = playerHp + rand.nextInt(5) - 2;
                   int opponentAttack = playerAttack + rand.nextInt(3) - 1;
                   
                   while (playerHp > 0 && opponentHp > 0) {
@@ -884,77 +894,68 @@
                   }
                   
                   return (playerHp > 0) ? "Vous avez gagné !" : "Vous avez perdu !";</code></pre>
-                  
-                      <h6>🎮 Côté client (Godot)</h6>
-                      <p>
-                        L’interface Arène affiche les stats du joueur et un bouton "Défier un joueur". Lors du clic, une requête <code>POST</code> est envoyée avec les stats en JSON.
-                      </p>
-                  
-                      <pre><code>func _on_challenge_button_pressed():
+
+                        <h6>🎮 Côté client (Godot)</h6>
+                        <p>
+                            L’interface Arène affiche les stats du joueur et un bouton "Défier un joueur". Lors du clic,
+                            une requête <code>POST</code> est envoyée avec les stats en JSON.
+                        </p>
+
+                        <pre><code>func _on_challenge_button_pressed():
                       var player_stats = {"hp": 10, "attack": 3}
                       emit_signal("fight_request", player_stats)
                   
                   func update_response(response):
                       $Panel/VBoxContainer/ResponseLabel.text = response</code></pre>
-                  
-                      <p>
-                        La requête est traitée par un script global via le signal <code>fight_request</code>, qui déclenche un <code>HTTPRequest</code> vers <code>http://localhost:8080/fight</code> avec les données du joueur.
-                      </p>
-                  
-                      <h6>🖼️ Interface Godot (Aperçu)</h6>
-                      <ul>
-                        <li>Label <code>Joueur : HP 10, Attaque 3</code></li>
-                        <li>Label <code>Adversaire : HP 10, Attaque 3</code> (modifiable dynamiquement)</li>
-                        <li>Bouton <strong>Défier un joueur</strong></li>
-                        <li>Label réponse : <code>"En attente de réponse..."</code> → <em>"Vous avez gagné !"</em></li>
-                      </ul>
-                  
-                      <h6>🔭 Ce que ça ouvre</h6>
-                      <ul>
-                        <li>Simulations côté serveur : combats, tour par tour, stats</li>
-                        <li>Évolution possible : buffs, critiques, stats variées</li>
-                        <li>Architecture client-serveur pour un jeu PvP (async)</li>
-                      </ul>
+
+                        <p>
+                            La requête est traitée par un script global via le signal <code>fight_request</code>, qui
+                            déclenche un <code>HTTPRequest</code> vers <code>http://localhost:8080/fight</code> avec les
+                            données du joueur.
+                        </p>
+
+                        <h6>🖼️ Interface Godot (Aperçu)</h6>
+                        <ul>
+                            <li>Label <code>Joueur : HP 10, Attaque 3</code></li>
+                            <li>Label <code>Adversaire : HP 10, Attaque 3</code> (modifiable dynamiquement)</li>
+                            <li>Bouton <strong>Défier un joueur</strong></li>
+                            <li>Label réponse : <code>"En attente de réponse..."</code> → <em>"Vous avez gagné !"</em>
+                            </li>
+                        </ul>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Simulations côté serveur : combats, tour par tour, stats</li>
+                            <li>Évolution possible : buffs, critiques, stats variées</li>
+                            <li>Architecture client-serveur pour un jeu PvP (async)</li>
+                        </ul>
                     </div>
                 </article>
 
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                      <h3 class="h5">⚔️ Combat dynamique Godot ↔ Serveur Java</h3>
-                      <button class="btn btn-link toggle-content">
-                        <i class="fa fa-chevron-down"></i>
-                      </button>
+                        <h3 class="h5">⚔️ Combat dynamique Godot ↔ Serveur Java</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
                     </div>
                     <p class="text-muted small">Publié le 01 mai 2025</p>
-                  
+
                     <div class="blog-content" style="display: none;">
-                      <p>
-                        Après avoir mis en place le ping-pong réseau, j’ai enrichi la communication entre Godot et le serveur Java pour gérer un <strong>combat tour par tour</strong>, avec génération aléatoire de l’adversaire, affichage des stats et <strong>log en direct du combat</strong>.
-                      </p>
-                  
-                      <h6>🔧 Côté serveur (Java)</h6>
-                      <p>
-                        Le serveur écoute toujours sur le port <code>8080</code>, mais gère maintenant les requêtes <code>POST /fight</code>. Il extrait les stats du joueur depuis le corps JSON, génère un adversaire, simule un combat aléatoire et retourne le log du combat.
-                      </p>
-                  
-                      <pre><code>if (requestLine.startsWith("POST /fight")) {
-                      responseBody = simulateFight(body.toString());
-                  }
-                  
-                  private static String simulateFight(String requestBody) {
-                      // Stats du joueur extraites du JSON
-                      // Génération d’un adversaire aux stats proches
-                      // Simulation du combat avec probabilités de toucher et dégâts variables
-                      // Retour d’un log texte complet (gagné/perdu)
-                  }
-                      </code></pre>
-                  
-                      <h6>🎮 Côté client (Godot)</h6>
-                      <p>
-                        Dans Godot, une UI simple permet de déclencher le combat avec un bouton, affiche les stats du joueur et de l’adversaire, et met à jour dynamiquement le <code>TextEdit</code> contenant le log :
-                      </p>
-                  
-                      <pre><code>func _on_challenge_button_pressed():
+                        <p>
+                            Après avoir mis en place un premier test, j’ai enrichi la communication entre Godot et le
+                            serveur Java pour gérer un <strong>combat tour par tour</strong>, avec génération aléatoire
+                            de l’adversaire, affichage des stats et <strong>log en direct du combat</strong>.
+                        </p>
+
+                        <h6>🎮 Côté client (Godot)</h6>
+                        <p>
+                            Dans Godot, une UI simple permet de déclencher le combat avec un bouton, affiche les stats
+                            du joueur et de l’adversaire, et met à jour dynamiquement le <code>TextEdit</code> contenant
+                            le log :
+                        </p>
+
+                        <pre><code>func _on_challenge_button_pressed():
                       var player_stats = {"hp": 10, "attack": 3}
                       $CombatLog.text = "Combat en cours...\n"
                       emit_signal("fight_request", player_stats)
@@ -965,22 +966,23 @@
                   func update_opponent_stats(hp, attack):
                       $OpponentStats.text = "Adversaire : HP %d, Attaque %d" % [hp, attack]
                       </code></pre>
-                  
-                      <p>
-                        L’interface comprend :
-                      </p>
-                      <ul>
-                        <li>Un bouton <strong>"Défier un joueur"</strong></li>
-                        <li>Deux <code>Label</code> pour les stats du joueur et de l’adversaire</li>
-                        <li>Un <code>TextEdit</code> non éditable qui affiche le log du combat</li>
-                      </ul>
-                  
-                      <h6>🧠 Simulation du combat (côté serveur)</h6>
-                      <p>
-                        Le combat est simulé tour par tour avec des chances d’échec (~30%) et des dégâts semi-aléatoires (±1). Le log du combat détaille chaque action :
-                      </p>
-                  
-                      <pre><code>Début du combat !
+
+                        <p>
+                            L’interface comprend :
+                        </p>
+                        <ul>
+                            <li>Un bouton <strong>"Défier un joueur"</strong></li>
+                            <li>Deux <code>Label</code> pour les stats du joueur et de l’adversaire</li>
+                            <li>Un <code>TextEdit</code> non éditable qui affiche le log du combat</li>
+                        </ul>
+
+                        <h6>🧠 Simulation du combat (côté serveur)</h6>
+                        <p>
+                            Le combat est simulé tour par tour avec des chances d’échec (~30%) et des dégâts
+                            semi-aléatoires (±1). Le log du combat détaille chaque action :
+                        </p>
+
+                        <pre><code>Début du combat !
                   Joueur: HP=10, Attaque=3
                   Adversaire: HP=9, Attaque=2
                   ---
@@ -991,16 +993,17 @@
                   ...
                   Vous avez gagné !
                       </code></pre>
-                  
-                      <h6>🔭 Ce que ça ouvre</h6>
-                      <ul>
-                        <li>Affichage dynamique du combat dans l’interface</li>
-                        <li>Réutilisable pour du PvP ou du PvE</li>
-                        <li>Facilement extensible : XP, compétences, équipements...</li>
-                      </ul>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Affichage dynamique du combat dans l’interface</li>
+                            <li>Réutilisable pour du PvP ou du PvE</li>
+                            <li>Facilement extensible : XP, compétences, équipements...</li>
+                        </ul>
                     </div>
                 </article>
 
+<<<<<<< HEAD
                 <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">🌍 Centralisation et Refactorisation de l’Exploration dans Sporyx</h3>
@@ -1108,6 +1111,8 @@
                     </div>
                 </article>
                   
+=======
+>>>>>>> 4058ebde08d9916705a366e06913af5ac1a8d480
             </section>
         </section>
 
