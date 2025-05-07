@@ -13,6 +13,16 @@ const projects = [
     blogUrl: "projects/dependency-analyzer.html"
   },
   {
+    title: "Brawl chess",
+    description: "1v1 chess battler like you never seen before",
+    url: "#",
+    image: "images/no_img.png",
+    badges: ["Love2D", "Game"],
+    archived: false,/*
+    hasBlog: true,
+    blogUrl: "projects/dependency-analyzer.html"*/
+  },
+  {
     title: "Sporyx",
     description: "Idle mobile game. Survive in a fungal world where mutations are everywhere.",
     url: "https://github.com/LBasil/sporyx",
@@ -28,7 +38,7 @@ const projects = [
     url: "https://github.com/LBasil/baseX",
     image: "images/baseX.png",
     badges: ["Godot", "Game", "Paused"],
-    archived: false/*,
+    archived: true/*,
     hasBlog: true,
     blogUrl: "projects/base-x.html"*/
   },

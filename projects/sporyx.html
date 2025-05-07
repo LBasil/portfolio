@@ -1003,7 +1003,7 @@
                     </div>
                 </article>
 
-                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">🌍 Centralisation et Refactorisation de l’Exploration dans Sporyx</h3>
                         <button class="btn btn-link toggle-content">
@@ -1011,17 +1011,22 @@
                         </button>
                     </div>
                     <p class="text-muted small">Publié le 04 mai 2025</p>
-                
+
                     <div class="blog-content" style="display: none;">
                         <p>
-                            Aujourd’hui, nous avons fait évoluer Sporyx en centralisant toutes les données d’exploration côté serveur et en refactorisant le code Java pour le rendre plus modulaire et maintenable. Voici un résumé des améliorations apportées.
+                            Aujourd’hui, nous avons fait évoluer Sporyx en centralisant toutes les données d’exploration
+                            côté serveur et en refactorisant le code Java pour le rendre plus modulaire et maintenable.
+                            Voici un résumé des améliorations apportées.
                         </p>
-                
+
                         <h6>🔧 Côté serveur (Java) : Centralisation des données</h6>
                         <p>
-                            Nous avons déplacé toutes les informations sur les mondes (noms, descriptions, rencontres possibles, loots) dans <code>ExplorationManager.java</code>. Le client ne stocke plus rien localement et récupère tout via des requêtes HTTP. Une nouvelle route <code>GET /worlds</code> a été ajoutée pour fournir la liste des mondes disponibles.
+                            Nous avons déplacé toutes les informations sur les mondes (noms, descriptions, rencontres
+                            possibles, loots) dans <code>ExplorationManager.java</code>. Le client ne stocke plus rien
+                            localement et récupère tout via des requêtes HTTP. Une nouvelle route
+                            <code>GET /worlds</code> a été ajoutée pour fournir la liste des mondes disponibles.
                         </p>
-                
+
                         <pre><code>private static final Map&lt;String, World&gt; WORLDS = new HashMap&lt;&gt;();
                 
                 private void initializeWorlds() {
@@ -1041,12 +1046,14 @@
                     return response.toString();
                 }
                         </code></pre>
-                
+
                         <h6>🎮 Côté client (Godot) : Dynamisation de l’interface</h6>
                         <p>
-                            Dans <code>explore.gd</code>, nous avons supprimé la liste statique des mondes. À la place, le client envoie une requête GET à <code>/worlds</code> au démarrage pour récupérer dynamiquement la liste des mondes et remplir la <code>WorldsList</code>.
+                            Dans <code>explore.gd</code>, nous avons supprimé la liste statique des mondes. À la place,
+                            le client envoie une requête GET à <code>/worlds</code> au démarrage pour récupérer
+                            dynamiquement la liste des mondes et remplir la <code>WorldsList</code>.
                         </p>
-                
+
                         <pre><code>func fetch_worlds_list():
                     var http_request = HTTPRequest.new()
                     add_child(http_request)
@@ -1063,7 +1070,7 @@
                                 $Panel/VBoxContainer/WorldsList.add_item(line.strip_edges())
                         update_combat_log("Worlds loaded successfully!")
                         </code></pre>
-                
+
                         <p>
                             L’interface d’exploration comprend maintenant :
                         </p>
@@ -1072,12 +1079,15 @@
                             <li>Un bouton <strong>"Explore"</strong> pour lancer une exploration</li>
                             <li>Un <code>CombatLog</code> qui affiche les résultats après 10 secondes</li>
                         </ul>
-                
+
                         <h6>🧠 Refactorisation du serveur</h6>
                         <p>
-                            Le code Java a été entièrement refactorisé pour séparer les responsabilités. <code>Server.java</code> a été divisé en plusieurs classes : <code>HttpServer</code>, <code>PlayerManager</code>, <code>CombatManager</code>, et <code>ExplorationManager</code>. Les conventions de nommage (camelCase, PascalCase) ont été appliquées.
+                            Le code Java a été entièrement refactorisé pour séparer les responsabilités.
+                            <code>Server.java</code> a été divisé en plusieurs classes : <code>HttpServer</code>,
+                            <code>PlayerManager</code>, <code>CombatManager</code>, et <code>ExplorationManager</code>.
+                            Les conventions de nommage (camelCase, PascalCase) ont été appliquées.
                         </p>
-                
+
                         <pre><code>public class HttpServer {
                     private final PlayerManager playerManager;
                     private final CombatManager combatManager;
@@ -1090,12 +1100,14 @@
                     }
                 }
                         </code></pre>
-                
+
                         <h6>🌟 Améliorations de l’exploration</h6>
                         <p>
-                            L’exploration a été enrichie côté serveur avec des mondes plus détaillés (rencontres possibles, loots). Le serveur simule l’exploration pendant 10 secondes et renvoie un résultat complet, comme :
+                            L’exploration a été enrichie côté serveur avec des mondes plus détaillés (rencontres
+                            possibles, loots). Le serveur simule l’exploration pendant 10 secondes et renvoie un
+                            résultat complet, comme :
                         </p>
-                
+
                         <pre><code>Exploration of Mycelic Forest completed!
                 A lush forest filled with giant mushrooms and floating spores.
                 You found 5 Spores!
@@ -1106,16 +1118,65 @@
                             <iframe src="../videos/explore_and_pvp.mp4" title="Explore and PvP demo"
                                 allowfullscreen></iframe>
                         </div>
-                
+
                         <h6>🔭 Ce que ça ouvre</h6>
                         <ul>
-                            <li>Centralisation complète des données : le client est plus léger et dépendant du serveur</li>
+                            <li>Centralisation complète des données : le client est plus léger et dépendant du serveur
+                            </li>
                             <li>Facilité d’ajout de nouveaux mondes ou mécaniques côté serveur</li>
                             <li>Prochaine étape : lier les loots (ex. : Spores) à un inventaire côté client</li>
                         </ul>
                     </div>
                 </article>
-                  
+
+                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🏁 Fin de la démo Sporyx</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 07 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après plusieurs semaines de développement intense, la démo technique de
+                            <strong>Sporyx</strong> touche à sa fin. Le projet a bien évolué : système de combat
+                            <strong>Godot ↔ Java</strong>, phases d’exploration, refactorisation serveur et intégration
+                            propre côté client. Chaque ajout a été l’occasion d’expérimenter, de clarifier la structure,
+                            et de poser les bases d’un éventuel futur jeu.
+                        </p>
+
+                        <h6>✅ Ce qui a été accompli</h6>
+                        <ul>
+                            <li>Combat tour par tour entre Godot et serveur Java</li>
+                            <li>Exploration asynchrone avec génération procédurale d'événements</li>
+                            <li>Interface utilisateur dynamique pour afficher stats et logs</li>
+                            <li>Journalisation du combat et affichage en direct</li>
+                            <li>Architecture côté serveur découpée en modules (combat, exploration, joueur)</li>
+                        </ul>
+
+                        <h6>🧠 Pourquoi s’arrêter ici ?</h6>
+                        <p>
+                            L’objectif initial était de tester la viabilité d’un échange client-serveur entre un moteur
+                            de jeu et un backend Java. Le prototype a atteint ce but, et il est désormais suffisamment
+                            complet pour servir de base à un projet plus ambitieux… plus tard.
+                        </p>
+
+                        <h6>🚧 Et après ?</h6>
+                        <ul>
+                            <li>Repartir sur une base plus complète en multijoueur réel</li>
+                            <li>Introduire un système de progression : compétences, équipements, génération persistante
+                            </li>
+                            <li>Explorer davantage l’univers de Sporyx avec lore et mutations évolutives</li>
+                        </ul>
+
+                        <p>
+                            Merci d’avoir suivi ce petit bout de chemin. La graine a été plantée. 🌱
+                        </p>
+                    </div>
+                </article>
+
             </section>
         </section>
 
