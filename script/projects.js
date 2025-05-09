@@ -7,7 +7,7 @@ const projects = [
     description: "Tool to visualize dependencies between components.",
     url: "https://github.com/LBasil/analyze-dependencies",
     image: "images/dependency_analyzer.png",
-    badges: ["JavaScript", "API"],
+    badges: ["JavaScript", "API", "Finished"],
     archived: false,
     hasBlog: true,
     blogUrl: "projects/dependency-analyzer.html"
@@ -27,7 +27,7 @@ const projects = [
     description: "Idle mobile game. Survive in a fungal world where mutations are everywhere.",
     url: "https://github.com/LBasil/sporyx",
     image: "images/godot.png",
-    badges: ["Godot", "Game"],
+    badges: ["Godot", "Game", "Finished"],
     archived: false,
     hasBlog: true,
     blogUrl: "projects/sporyx.html"
@@ -44,10 +44,10 @@ const projects = [
   },
   {
     title: "Pokemon Card Viewer",
-    description: "App to view Pokémon cards using an external API.",
+    description: "Application to view Pokémon cards using an external API.",
     url: "https://pokemon-card-viewer-ashy.vercel.app/",
     image: "images/pokemon.png",
-    badges: ["JavaScript", "API"],
+    badges: ["JavaScript", "API", "Finished"],
     archived: true
   },
   {
@@ -55,7 +55,7 @@ const projects = [
     description: "A prototype inspired by the game Reigns - Her Majesty.",
     url: "https://reigns-prototype.vercel.app/",
     image: "images/reigns.png",
-    badges: ["Archived"],
+    badges: ["JavaScript", "Game", "Finished"],
     archived: true
   },
   {
@@ -63,7 +63,7 @@ const projects = [
     description: "Modern take on the classic Rock-Paper-Scissors game.",
     url: "https://shifumi-nine.vercel.app/",
     image: "images/shifumi.png",
-    badges: ["Archived"],
+    badges: ["JavaScript", "Game", "Finished"],
     archived: true
   },
   {
@@ -71,7 +71,7 @@ const projects = [
     description: "An extreme version of the classic heads-or-tails game.",
     url: "https://pile-face.vercel.app/",
     image: "images/pile-face.png",
-    badges: ["Archived"],
+    badges: ["JavaScript", "Game", "Finished"],
     archived: true
   },
   {
@@ -79,7 +79,7 @@ const projects = [
     description: "A number guessing game with a modern touch.",
     url: "https://plus-moins.vercel.app/",
     image: "images/plus-moins.png",
-    badges: ["Archived"],
+    badges: ["JavaScript", "Game", "Finished"],
     archived: true
   },
   {
@@ -87,7 +87,7 @@ const projects = [
     description: "A dice game with innovative mechanics.",
     url: "https://de-xtreme.vercel.app/",
     image: "images/dextreme.png",
-    badges: ["Archived"],
+    badges: ["JavaScript", "Game", "Finished"],
     archived: true
   },
   {
@@ -95,7 +95,7 @@ const projects = [
     description: "Modern memory game with multiple modes.",
     url: "https://memory-rosy.vercel.app/",
     image: "images/memory.png",
-    badges: ["Archived"],
+    badges: ["JavaScript", "Game", "Finished"],
     archived: true
   }
 ];
@@ -116,16 +116,18 @@ function displayProjects() {
     projectElement.classList.add('col-lg-4', 'col-md-6');
 
     projectElement.innerHTML = `
-      <div class="card shadow-sm">
-        <img src="${project.image}" class="card-img-top" alt="${project.title}">
-        <div class="card-body">
-          <h5 class="card-title">${project.title}</h5>
-          <p class="card-text">${project.description}</p>
-          <a href="${project.url}" class="btn btn-primary me-2" target="_blank" rel="noopener">Voir le projet</a>
-          ${project.hasBlog ? `<a href="${project.blogUrl}" class="btn btn-outline-secondary">Voir le blog</a>` : ''}
+    <div class="card shadow-sm">
+      <img src="${project.image}" class="card-img-top" alt="${project.title}">
+      <div class="card-body">
+        <h5 class="card-title">${project.title}</h5>
+        <p class="card-text">${project.description}</p>
+        <div class="mb-2">
+          ${project.badges.map(badge => `<span class="badge bg-secondary me-1">${badge}</span>`).join('')}
         </div>
+        <a href="${project.url}" class="btn btn-primary me-2" target="_blank" rel="noopener">Voir le projet</a>
+        ${project.hasBlog ? `<a href="${project.blogUrl}" class="btn btn-outline-secondary">Voir le blog</a>` : ''}
       </div>
-    `;
+    </div>`;
 
     (project.archived ? archivedContainer : nonArchivedContainer).appendChild(projectElement);
   });
