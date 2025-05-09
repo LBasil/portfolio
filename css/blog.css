@@ -1,0 +1,33 @@
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid #dee2e6;
+    margin-left: 1rem;
+}
+
+.timeline article {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.timeline article::before {
+    content: "";
+    position: absolute;
+    top: 1.5rem;
+    left: -1.1rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: #0d6efd;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px white;
+}
+
+.timeline article:last-of-type::before {
+    background-color: #00d8a6;
+    box-shadow: 0 0 0 4px white, 0 0 10px #00d8a6;
+}
+
+.btn-floating {
+    z-index: 1050;
+    border-radius: 50px;
+}

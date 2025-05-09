@@ -14,19 +14,19 @@ const projects = [
   },
   {
     title: "Brawl chess",
-    description: "1v1 chess battler like you never seen before",
-    url: "#",
-    image: "images/no_img.png",
+    description: "Mobile 1v1 chess battler like you never seen before.",
+    url: "https://github.com/LBasil/Brawl-Chess",
+    image: "images/brawl_chess.png",
     badges: ["Love2D", "Game"],
-    archived: false,/*
+    archived: false,
     hasBlog: true,
-    blogUrl: "projects/dependency-analyzer.html"*/
+    blogUrl: "projects/brawl-chess.html"
   },
   {
     title: "Sporyx",
     description: "Idle mobile game. Survive in a fungal world where mutations are everywhere.",
     url: "https://github.com/LBasil/sporyx",
-    image: "images/sporyx.png",
+    image: "images/godot.png",
     badges: ["Godot", "Game"],
     archived: false,
     hasBlog: true,
