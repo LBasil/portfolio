@@ -494,7 +494,7 @@
                     </div>
                 </article>
 
-                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">📋 Centralisation des Règles dans Brawl Chess</h3>
                         <button class="btn btn-link toggle-content">
@@ -538,6 +538,188 @@
                             <li>Facilité à ajouter de nouveaux pions</li>
                             <li>Maintenance simplifiée des règles</li>
                             <li>Préparation pour une IA ou des variantes</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">📂 Organisation des Fichiers dans Brawl Chess</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 07 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Pour améliorer la structure du projet, nous avons réorganisé les fichiers Lua et optimisé la navigation dans le code.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Les fichiers Lua principaux ont été déplacés dans des sous-dossiers logiques sous <code>src/</code> :
+                        </p>
+                        <ul>
+                            <li><code>board.lua</code> → <code>src/board/</code></li>
+                            <li><code>input.lua</code> → <code>src/input/</code></li>
+                            <li><code>network.lua</code> → <code>src/network/</code></li>
+                            <li><code>pieces.lua</code> → <code>src/pieces/</code></li>
+                            <li><code>render.lua</code> → <code>src/render/</code></li>
+                            <li><code>turn.lua</code> → <code>src/turn/</code></li>
+                        </ul>
+                        <p>
+                            <code>combat.lua</code> a également été déplacé dans <code>src/combat/</code>, et les <code>require</code> ont été mis à jour pour refléter les nouveaux chemins, par exemple :
+                        </p>
+                        <pre><code>combat.board = require("src.board.board")</code></pre>
+
+                        <p>
+                            Le dossier <code>assets/</code> a été structuré avec des sous-dossiers comme <code>assets/images/</code> et <code>assets/fonts/</code>.
+                        </p>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Cette organisation rend le projet plus modulaire et prêt à accueillir de nouvelles fonctionnalités.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Facilité d’ajout de nouveaux modules</li>
+                            <li>Meilleure collaboration avec d’autres développeurs</li>
+                            <li>Préparation pour des tests unitaires</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🏆 Création d’un Menu Classement dans Brawl Chess</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 08 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Nous avons ajouté un menu de classement pour afficher les meilleurs joueurs, avec un design visuel inspiré d’un thème médiéval.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Le fichier <code>views/leaderboard.lua</code> a été créé pour afficher un tableau de classement avec les colonnes "Rang", "Pseudo", et "Score". Voici un extrait du rendu :
+                        </p>
+                        <pre><code>love.graphics.setColor(headerColor)
+                love.graphics.rectangle("fill", tableX, tableY, tableWidth, headerHeight)
+                love.graphics.setColor(1, 1, 1)
+                love.graphics.printf("Rang", tableX, tableY + 10, 80, "center")</code></pre>
+
+                        <p>
+                            Des améliorations visuelles ont été ajoutées :
+                        </p>
+                        <ul>
+                            <li>Lignes alternées en beige clair et foncé pour une meilleure lisibilité.</li>
+                            <li>Séparations verticales entre les colonnes.</li>
+                            <li>Effet de survol avec un surlignage doré.</li>
+                        </ul>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Les joueurs peuvent maintenant consulter un classement, même si les données sont simulées pour l’instant.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Affichage des scores réels via le serveur</li>
+                            <li>Possibilité d’ajouter des avatars ou des icônes</li>
+                            <li>Préparation pour un système de pagination</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🌐 Données Dynamiques pour le Classement</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 09 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Le classement affiche maintenant des données dynamiques récupérées depuis le serveur, avec un fallback sur des données locales en cas d’échec.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Nous avons ajouté une fonction <code>fetchLeaderboard</code> dans <code>src/network/network.lua</code> pour récupérer les scores :
+                        </p>
+                        <pre><code>function network.fetchLeaderboard()
+                    local request = { type = "leaderboard" }
+                    local requestJson = json.encode(request)
+                    -- ... (envoi et réception via socket)
+                    return true, response.scores or {}
+                end</code></pre>
+
+                        <p>
+                            Dans <code>views/leaderboard.lua</code>, les scores sont chargés dynamiquement :
+                        </p>
+                        <pre><code>local success, data = combat.network.fetchLeaderboard()
+                if success then
+                    scores = data
+                else
+                    scores = { { rank = 1, name = "GrokMaster", score = 1500 }, ... }
+                end</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Le classement reflète maintenant les données du serveur, rendant le jeu plus interactif et prêt pour un mode multijoueur.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Mise à jour des scores après chaque partie</li>
+                            <li>Affichage du joueur actuel dans le classement</li>
+                            <li>Possibilité d’ajouter des filtres ou une pagination</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🏁 Finalisation de la Structure de Brawl Chess</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 10 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Nous avons finalisé l’organisation des fichiers Lua pour une structure claire et maintenable.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Les derniers ajustements incluent :
+                        </p>
+                        <ul>
+                            <li>Déplacement de <code>combat.lua</code> dans <code>src/combat/</code>.</li>
+                            <li>Organisation des ressources dans <code>assets/</code> avec des sous-dossiers comme <code>images/</code> et <code>fonts/</code>.</li>
+                            <li>Ajout de commentaires dans <code>views/</code> pour clarifier le rôle de chaque fichier.</li>
+                        </ul>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Le projet est maintenant bien structuré, facilitant les ajouts futurs et la collaboration avec d’autres développeurs.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Ajout facile de nouvelles fonctionnalités (ex. animations, IA)</li>
+                            <li>Possibilité de mettre en place des tests unitaires</li>
+                            <li>Préparation pour une version multijoueur complète</li>
                         </ul>
                     </div>
                 </article>
