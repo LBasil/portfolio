@@ -686,7 +686,7 @@
                     </div>
                 </article>
 
-                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">🏁 Finalisation de la Structure de Brawl Chess</h3>
                         <button class="btn btn-link toggle-content">
@@ -721,6 +721,66 @@
                             <li>Possibilité de mettre en place des tests unitaires</li>
                             <li>Préparation pour une version multijoueur complète</li>
                         </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🎨 Ajout des Sprites PNG pour les Pions dans Brawl Chess</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 11 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Nous avons enrichi l’expérience visuelle en ajoutant des sprites PNG uniques pour chaque pion, différenciant les alliés et les ennemis.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Les fichiers <code>pieces.lua</code> et <code>render.lua</code> ont été mis à jour pour intégrer les sprites :
+                        </p>
+                        <ul>
+                            <li><code>pieces.lua</code> charge les images avec <code>pieces.loadSprites()</code> et assigne un sprite à chaque pion via <code>pieces.assignSprite()</code> selon le nommage <code>blue_sprite_1.png</code> à <code>blue_sprite_14.png</code> pour les alliés, et <code>red_sprite_1.png</code> à <code>red_sprite_14.png</code> pour les ennemis.</li>
+                            <li><code>render.lua</code> remplace les rectangles colorés par les sprites, avec un redimensionnement automatique pour s’adapter à la taille des tuiles.</li>
+                        </ul>
+                        <p>
+                            Dans <code>combat.lua</code>, les sprites sont chargés au démarrage et assignés après la récupération des données du serveur :
+                        </p>
+                        <pre><code>function combat.load()
+                    combat.pieces.loadSprites()
+                    -- ...
+                end
+
+                function combat.enterCombat()
+                    -- ... (récupération des pions)
+                    for _, piece in ipairs(combat.playerPieces) do
+                        combat.pieces.assignSprite(piece, false)
+                    end
+                    for _, piece in ipairs(combat.enemyPieces) do
+                        combat.pieces.assignSprite(piece, true)
+                    end
+                end</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Les pions sont maintenant représentés par des images personnalisées, améliorant l’esthétique et la différenciation entre alliés (bleus) et ennemis (rouges).
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Possibilité d’ajouter des animations pour les pions</li>
+                            <li>Personnalisation visuelle selon les joueurs</li>
+                            <li>Préparation pour des effets visuels (ex. explosion du Kamikaze)</li>
+                        </ul>
+                         <div class="text-center mb-3">
+                            <a href="#" onclick="showImageInModal('../images/fond2d-test.png'); return false;">
+                                <img src="../images/pieces_sprite.png" class="img-fluid rounded border"
+                                    alt="Test fond 2D">
+                            </a>
+                        </div>
                     </div>
                 </article>
 
