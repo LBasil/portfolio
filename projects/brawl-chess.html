@@ -724,7 +724,7 @@
                     </div>
                 </article>
 
-                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">🎨 Ajout des Sprites PNG pour les Pions dans Brawl Chess</h3>
                         <button class="btn btn-link toggle-content">
@@ -779,6 +779,167 @@
                             <a href="#" onclick="showImageInModal('../images/fond2d-test.png'); return false;">
                                 <img src="../images/pieces_sprite.png" class="img-fluid rounded border"
                                     alt="Test fond 2D">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">👤 Ajout d’un Avatar Rond dans le Menu</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 12 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Nous avons ajouté un avatar circulaire dans le menu principal, utilisant un PNG carré masqué pour un rendu rond.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Dans <code>menu.lua</code>, l’avatar est chargé depuis <code>assets/images/avatar.png</code> et affiché avec un masque circulaire via <code>love.graphics.stencil</code> :
+                        </p>
+                        <pre><code>love.graphics.stencil(function()
+                    love.graphics.circle("fill", 35, 35, 25)
+                end, "replace", 1)
+                love.graphics.setStencilTest("greater", 0)
+                love.graphics.draw(menu.avatarImage, 10, 10, 0, 50 / menu.avatarImage:getWidth(), 50 / menu.avatarImage:getHeight())</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            L’avatar est maintenant rond, ajoutant une touche personnelle au menu principal.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Personnalisation de l’avatar par les joueurs</li>
+                            <li>Ajout d’un cadre ou d’effets autour de l’avatar</li>
+                            <li>Intégration d’un niveau ou d’un rang visuel</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">📊 Stylisation et Animation de la Barre d’XP</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 13 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            La barre d’XP a été stylisée avec un design médiéval et une animation de remplissage fluide.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Dans <code>menu.lua</code>, la barre a un fond parchemin, un dégradé vert à doré, et des ornements aux coins. Une animation la remplit sur 2 secondes :
+                        </p>
+                        <pre><code>local progressWidth = barWidth * xpProgress
+                for x = 0, progressWidth - 1 do
+                    local t = x / barWidth
+                    love.graphics.setColor(0, 1 - t, t)
+                    love.graphics.rectangle("fill", barX + x, barY, 1, barHeight, 5, 5)
+                end</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            La barre d’XP est plus immersive et dynamique, renforçant le thème médiéval du jeu.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Affichage du niveau ou d’un pourcentage</li>
+                            <li>Effets visuels lors des gains d’XP</li>
+                            <li>Personnalisation des couleurs selon le joueur</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">♟️ Remplacement de l’Échiquier par une Image dans le Menu Combat</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 14 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            L’échiquier dessiné dans le menu combat a été remplacé par <code>board/board.png</code>, avec ajustements de taille.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Dans <code>combat_menu.lua</code>, l’image est chargée et redimensionnée à 280x280 pixels pour mieux s’intégrer :
+                        </p>
+                        <pre><code>local boardSize = 280
+                local scale = boardSize / combat_menu.boardImage:getWidth()
+                love.graphics.draw(combat_menu.boardImage, boardX, boardY, 0, scale, scale)</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            L’échiquier est plus esthétique et cohérent avec le style visuel global.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Ajout d’effets visuels sur le plateau (ex. survol)</li>
+                            <li>Utilisation de différentes textures selon le thème</li>
+                            <li>Optimisation avec un atlas de sprites</li>
+                        </ul>
+                         <div class="text-center mb-3">
+                            <a href="#" onclick="showImageInModal('../images/fond2d-test.png'); return false;">
+                                <img src="../images/menu_combat.png" class="img-fluid rounded border"
+                                    alt="Menu combat">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">♜ Remplacement du Plateau Dessiné par une Image dans le Mode Combat</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 15 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Le plateau dessiné dans le mode combat a été remplacé par <code>board/board.png</code>, redimensionné dynamiquement.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Dans <code>render.lua</code>, l’image est chargée et ajustée à la taille du plateau :
+                        </p>
+                        <pre><code>local totalSize = boardSize * tileSize
+                local scale = totalSize / boardImage:getWidth()
+                love.graphics.draw(boardImage, boardX, boardY, 0, scale, scale)</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Le plateau est désormais plus visuel et uniforme avec le reste du jeu.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Personnalisation des plateaux selon les modes</li>
+                            <li>Ajout d’effets visuels (ex. ombres, animations)</li>
+                            <li>Optimisation des performances avec un atlas</li>
+                        </ul>
+                        <div class="text-center mb-3">
+                            <a href="#" onclick="showImageInModal('../images/fond2d-test.png'); return false;">
+                                <img src="../images/fight.png" class="img-fluid rounded border"
+                                    alt="Fight">
                             </a>
                         </div>
                     </div>
