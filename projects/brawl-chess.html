@@ -903,7 +903,7 @@
                     </div>
                 </article>
 
-                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">♜ Remplacement du Plateau Dessiné par une Image dans le Mode Combat</h3>
                         <button class="btn btn-link toggle-content">
@@ -940,6 +940,178 @@
                             <a href="#" onclick="showImageInModal('../images/fight.png'); return false;">
                                 <img src="../images/fight.png" class="img-fluid rounded border"
                                     alt="Fight">
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🧩 Modularisation du Menu en Composants Indépendants</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 16 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Le menu principal a été refactorisé pour séparer ses éléments (avatar, barre d’XP, barres d’argent, barre de navigation) en composants Lua indépendants, rendant le code plus modulaire et maintenable.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Quatre nouveaux modules ont été créés dans <code>src/components/</code> :
+                            <ul>
+                                <li><code>avatar/avatar.lua</code> : Gère l’affichage de l’avatar rond avec un masque circulaire.</li>
+                                <li><code>xpBar/xpBar.lua</code> : Gère l’animation et le rendu de la barre d’XP.</li>
+                                <li><code>currencyBar/currencyBar.lua</code> : Affiche les barres d’argent (pièces et gemmes).</li>
+                                <li><code>navBar/navBar.lua</code> : Gère la barre de navigation avec les onglets.</li>
+                            </ul>
+                            Le fichier <code>menu.lua</code> a été simplifié pour orchestrer ces composants via leurs fonctions <code>load</code>, <code>update</code>, et <code>draw</code> :
+                        </p>
+                        <pre><code>local avatar = require("src.components.avatar.avatar")
+                local xpBar = require("src.components.xpBar.xpBar")
+                -- ...
+                avatar.draw()
+                xpBar.draw()</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Le menu reste visuellement identique, mais le code est plus clair et plus facile à modifier. Chaque composant peut être ajusté indépendamment sans toucher au reste du menu.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Réutilisation des composants dans d’autres interfaces (ex. profil joueur).</li>
+                            <li>Facilitation des tests unitaires pour chaque composant.</li>
+                            <li>Ajout simplifié de nouveaux éléments d’interface.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🧹 Suppression du Titre pour un Design Plus Pro</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 17 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Le titre textuel "Brawl Chess" a été retiré du menu principal pour adopter un design plus épuré et professionnel, laissant la place à un éventuel logo ou à un design visuel.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Dans <code>menu.lua</code>, les lignes suivantes ont été supprimées :
+                            <ul>
+                                <li>Création de la police : <code>menu.titleFont = love.graphics.newFont(36)</code>.</li>
+                                <li>Rendu du titre : <code>love.graphics.printf("Brawl Chess", 0, 70, 480, "center")</code>.</li>
+                            </ul>
+                        </p>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Le menu est plus minimaliste, avec plus d’espace pour les composants principaux (avatar, barre d’XP, navigation). Cela donne une impression plus moderne et professionnelle.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Ajout d’un logo ou d’une image de marque à la place du titre.</li>
+                            <li>Possibilité d’animations d’introduction pour le menu.</li>
+                            <li>Meilleure adaptation à différents styles visuels.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🛠️ Nouveaux Composants pour un Menu Plus Indépendant</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 18 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Trois nouveaux composants ont été ajoutés pour rendre le menu encore plus modulaire : un fond d’écran, une gestion centralisée des vues, et une gestion des ressources globales.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Les nouveaux modules dans <code>src/components/</code> sont :
+                            <ul>
+                                <li><code>background/background.lua</code> : Gère le fond d’écran (initialement une grille de rectangles).</li>
+                                <li><code>screens/screens.lua</code> : Centralise le chargement, la mise à jour, et le rendu des vues (<code>combatMenu</code>, <code>boutique</code>, etc.).</li>
+                                <li><code>resources/resources.lua</code> : Gère les polices globales (<code>buttonFont</code>, <code>smallFont</code>).</li>
+                            </ul>
+                            Le fichier <code>menu.lua</code> a été mis à jour pour intégrer ces composants, simplifiant la gestion des vues :
+                        </p>
+                        <pre><code>local background = require("src.components.background.background")
+                local screens = require("src.components.screens.screens")
+                background.draw()
+                screens.draw(currentScreen)</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Le menu est désormais plus léger et modulaire, avec chaque élément encapsulé dans son propre module. Cela facilite les modifications et améliore la maintenabilité.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Transitions animées entre les vues via <code>screens.lua</code>.</li>
+                            <li>Personnalisation du fond d’écran (ex. images dynamiques).</li>
+                            <li>Partage des ressources (polices, couleurs) avec d’autres parties du jeu.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="mb-5 p-4 border rounded shadow-sm" id="latest-post">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">🖼️ Fond d’Écran avec une Image PNG</h3>
+                        <button class="btn btn-link toggle-content">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 19 mai 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Le fond d’écran du menu, auparavant une grille de rectangles dessinée, a été remplacé par une image <code>assets/background/background.png</code> pour un rendu plus visuel.
+                        </p>
+
+                        <h6>🔧 Côté client (Love2D)</h6>
+                        <p>
+                            Dans <code>background.lua</code>, la grille de rectangles a été remplacée par le chargement et l’affichage d’une image, redimensionnée pour couvrir l’écran (480x800) :
+                        </p>
+                        <pre><code>function background.load()
+                    background.image = love.graphics.newImage("assets/background/background.png")
+                end
+                function background.draw()
+                    local scaleX = 480 / background.image:getWidth()
+                    local scaleY = 800 / background.image:getHeight()
+                    love.graphics.draw(background.image, 0, 0, 0, scaleX, scaleY)
+                end</code></pre>
+
+                        <h6>🎮 Impact sur le jeu</h6>
+                        <p>
+                            Le menu bénéficie d’un fond plus immersif et personnalisable, améliorant l’esthétique globale tout en restant performant grâce à l’utilisation d’une image statique.
+                        </p>
+
+                        <h6>🔭 Ce que ça ouvre</h6>
+                        <ul>
+                            <li>Changement dynamique du fond selon le thème ou le mode de jeu.</li>
+                            <li>Ajout d’effets visuels (ex. parallaxe, teinte).</li>
+                            <li>Optimisation avec des atlas de sprites pour plusieurs fonds.</li>
+                        </ul>
+                        <div class="text-center mb-3">
+                            <a href="#" onclick="showImageInModal('../images/background_as_img.png'); return false;">
+                                <img src="../images/background_as_img.png" class="img-fluid rounded border"
+                                    alt="Menu combat">
                             </a>
                         </div>
                     </div>
