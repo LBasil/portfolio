@@ -17,7 +17,7 @@ const projects = [
     description: "Mobile 1v1 chess battler like you never seen before.",
     url: "https://github.com/LBasil/Brawl-Chess",
     image: "images/brawl_chess.png",
-    badges: ["Love2D", "Game"],
+    badges: ["Love2D", "Game", "Prototype finished"],
     archived: false,
     hasBlog: true,
     blogUrl: "projects/brawl-chess.html"
@@ -27,8 +27,8 @@ const projects = [
     description: "Idle mobile game. Survive in a fungal world where mutations are everywhere.",
     url: "https://github.com/LBasil/sporyx",
     image: "images/godot.png",
-    badges: ["Godot", "Game", "Finished"],
-    archived: false,
+    badges: ["Godot", "Game"],
+    archived: true,
     hasBlog: true,
     blogUrl: "projects/sporyx.html"
   },
