@@ -43,7 +43,7 @@ body {background:var(--bg);color:var(--neon);font-family:'Orbitron',sans-serif;}
 <div class="container py-5">
 <div class="terminal">
 
-<h1 class="title">X-UNIVERSE // DATA TERMINAL</h1>
+<h1 class="title">BASE X // DATA TERMINAL</h1>
 
 <!-- Menu -->
 <div class="menu">
@@ -150,45 +150,197 @@ buttons.forEach(btn=>{
 const output=document.getElementById("terminal-output");
 const input=document.getElementById("terminal-input");
 
-const commands={
-  help:()=>{
-    return `
+const commands = {
+  help: () => `
 Commandes disponibles :
 - help
 - status
 - lore
-- basex
-- rushx
-- roguex
-- protocols
+- lore basex
+- lore rushx
+- lore roguex
+- lore buildx
+- lore tests
+- lore forts
+- lore election
+- lore timeline
 - clear
-`;
-  },
-  status:()=> "Statut : Surveillé en permanence.",
-  lore:()=> "Ce monde est un laboratoire à ciel ouvert.",
-  basex:()=> "BaseX : Zone de départ des cobayes.",
-  rushx:()=> "RushX : Zone des expériences rejetées.",
-  roguex:()=> "RogueX : Sélection des survivants.",
-  protocols:()=> "BuildX / BaseTacticX : accès élevé.",
-  clear:()=> ""
+`,
+
+  status: () => "Statut : Sujet conscient. Surveillance active.",
+
+  lore: () => `
+Univers X — Résumé :
+Le sujet débute comme cobaye dans BaseX.
+S’il devient trop dangereux, il est transféré vers RushX.
+S’il domine RushX, il peut accéder à RogueX.
+S’il gagne la confiance des créateurs, il atteint BuildX ou BaseTacticX.
+Il n’est alors plus réellement un cobaye.
+`,
+
+  "lore basex": () => `
+BaseX :
+Centre expérimental initial.
+
+Le joueur est un cobaye humain.
+Chaque action est observée.
+Chaque décision est enregistrée.
+
+Objectif réel :
+Mesurer les limites d’adaptation humaine en milieu contrôlé.
+`,
+
+  "lore rushx": () => `
+RushX :
+Dépotoir scientifique.
+
+Toutes les expériences jugées :
+- instables
+- inutiles
+- dangereuses
+
+sont larguées ici via des capsules de chute.
+
+L’île est chaotique :
+- ruines de laboratoires
+- faune mutée
+- vestiges technologiques
+`,
+
+  "lore tests": () => `
+Tests ratés — Origine :
+
+1. Essais biologiques :
+Tentatives de fusions humain/animal.
+Mutations inutilisables.
+Instincts incontrôlables.
+
+2. Conditionnement mental :
+Esprits brisés.
+Ultra-agressivité ou état semi-hypnotique.
+
+3. Déchets technologiques :
+Implants instables.
+Chair rejetant le métal, métal dévorant la chair.
+
+Chaque sujet est largué violemment.
+Os souvent brisés à l’arrivée.
+`,
+
+  "lore forts": () => `
+Les Forts de RushX :
+
+Deux archétypes dominent.
+
+1. Combattants primitifs :
+- Rejettent la technologie
+- Corps suradaptés
+- Vision nocturne
+- Instinct du danger
+- Combat brutal et instinctif
+- Évolution corporelle adaptative
+
+Société :
+Tribus éphémères.
+Le faible meurt.
+Le fort règne jusqu’à faiblesse.
+
+2. Mutants technologiques :
+- Membres mécaniques improvisés
+- Implants neuronaux instables
+- Augmentations oculaires
+- Surcharges énergétiques possibles
+
+Profil :
+Stratèges.
+Solitaire.
+Méfiance constante.
+`,
+
+  "lore election": () => `
+La Sélection — Accès à RogueX :
+
+Tout le monde sait qu’elle existe.
+Personne ne sait comment y être choisi.
+
+Critères réels :
+- Capacité de survie exceptionnelle
+- Mutations rares
+- Maîtrise de technologies anciennes
+- Parfois tirage expérimental aléatoire
+
+Surveillance :
+Drones invisibles.
+Capteurs disséminés.
+Aucune zone neutre.
+
+Rituel :
+Combat entre élus.
+La victoire ne garantit rien.
+
+Extraction :
+Capsules ou portails lumineux.
+Perte de conscience fréquente.
+Aucun retour observé.
+`,
+
+  "lore roguex": () => `
+RogueX :
+Niveau suivant.
+
+Réservé aux sujets sélectionnés.
+Conditions inconnues.
+Taux de survie inconnu.
+
+Ceux qui y vont :
+Ne reviennent jamais sur RushX.
+`,
+
+  "lore buildx": () => `
+BuildX / BaseTacticX :
+
+Étape finale connue.
+
+Le joueur n’est plus un cobaye.
+Il devient un acteur conscient du système.
+
+Certains parlent de :
+- coopération avec les créateurs
+- accès aux structures internes
+- possibilité d’influencer le projet
+`,
+
+  "lore timeline": () => `
+Progression du sujet :
+
+BaseX → RushX → RogueX → BuildX/BaseTacticX
+
+À chaque étape :
+moins d’humanité.
+plus de compréhension.
+`,
+
+  clear: () => ""
 };
 
-input.addEventListener("keydown",e=>{
-  if(e.key==="Enter"){
-    const cmd=input.value.trim().toLowerCase();
+
+input.addEventListener("keydown", e => {
+  if(e.key === "Enter"){
+    const cmd = input.value.trim().toLowerCase();
     output.innerHTML += `<br>> ${cmd}`;
 
-    if(commands[cmd]){
-      const res=commands[cmd]();
-      output.innerHTML = cmd==="clear" ? "Terminal vidé." : output.innerHTML+`<br>${res}`;
-    } else {
-      output.innerHTML += "<br>Commande inconnue.";
+    let response = "Commande inconnue.";
+
+    if(commands[cmd]) {
+      response = commands[cmd]();
+      output.innerHTML = cmd === "clear" ? "Terminal vidé." : output.innerHTML + `<br>${response}`;
     }
 
-    output.scrollTop=output.scrollHeight;
-    input.value="";
+    output.scrollTop = output.scrollHeight;
+    input.value = "";
   }
 });
+
 </script>
 
 </body>
