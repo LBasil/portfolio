@@ -2,497 +2,656 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <title>X-UNIVERSE // MEMORIES (FULL)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>Universe — BaseX / RushX / RogueX — Archives</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     :root{
-      --neon:#00f7ff; --danger:#f9627d; --bg:#05080d; --panel:rgba(0,10,25,0.95); --muted:#9bd9d0;
+      --bg:#07101a;
+      --panel:#0b1220;
+      --muted:#8fbcd8;
+      --accent:#00e6ff;
+      --accent-2:#f9627d;
+      --card:#071624;
+      --mono: 'Fira Code', monospace;
+      --title:'Press Start 2P', cursive;
     }
-    body{background:var(--bg);color:var(--neon);font-family:'Orbitron',sans-serif;}
-    .terminal{max-width:1100px;margin:36px auto;background:var(--panel);padding:26px;border-radius:12px;border:1px solid #00f7ff22;box-shadow:0 0 40px #00f7ff11;}
-    .title{font-family:'Press Start 2P';text-align:center;margin-bottom:18px;text-shadow:0 0 10px var(--neon);font-size:1.05rem;}
-    .menu{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
-    .menu-btn{background:#000;border:1px solid #00f7ff33;padding:8px 12px;color:var(--neon);font-size:.78rem;text-transform:uppercase;cursor:pointer;}
-    .menu-btn.active,.menu-btn:hover{background:#00f7ff11;box-shadow:0 0 10px #00f7ff22;}
-    .section{display:none;animation:fade .22s ease;}
-    .section.active{display:block;}
-    @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-    .log{background:#02060c;padding:16px;border-left:3px solid var(--neon);line-height:1.6;font-size:.95rem;white-space:pre-wrap;}
-    .codex{margin-top:12px;padding:12px;background:#020610;border:1px solid #00f7ff22;font-size:.88rem;color:var(--muted);}
-    .back{display:block;margin-top:18px;color:var(--neon);text-decoration:none;text-align:center;opacity:0.85;}
-    .terminal-box{margin-top:16px;background:#000;padding:12px;font-family:monospace;border:1px solid #00f7ff22;}
-    #terminal-output{max-height:320px;overflow:auto;font-size:.9rem;color:var(--neon);padding:6px;}
-    #terminal-input{width:100%;background:#000;color:var(--neon);border:none;outline:none;padding:8px;font-family:monospace;}
-    .file-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
-    .file-pill{background:#000;border:1px solid #00f7ff33;padding:6px 10px;font-size:.82rem;color:var(--neon);cursor:pointer;border-radius:6px;}
-    .file-pill:hover{background:#00f7ff11;box-shadow:0 0 8px #00f7ff11;}
-    .small{font-size:.82rem;color:var(--muted);}
-    .cursor::after{content:" ▌";animation:blink 1s steps(1) infinite;}
-    @keyframes blink{50%{opacity:0}}
-    pre { white-space: pre-wrap; word-wrap: break-word; }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: 'Orbitron', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#041018 0%, #081826 100%);
+      color: #eaf8ff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      padding:20px;
+    }
+
+    /* container */
+    .shell{
+      max-width:1200px;
+      margin:0 auto;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+      border-radius:12px;
+      padding:18px;
+      border:1px solid rgba(0,230,255,0.06);
+      box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+    }
+
+    .header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .logo{
+      height:54px;
+      width:54px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),#6af0ff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#001219;
+      font-weight:700;
+      box-shadow:0 4px 14px rgba(0,230,255,0.08);
+      font-family:var(--title);
+    }
+    .title{
+      font-family:var(--title);
+      color:var(--accent);
+      font-size:0.9rem;
+      letter-spacing:0.02em;
+      text-shadow:0 2px 8px rgba(0,230,255,0.06);
+    }
+    .subtitle{ font-size:0.78rem; color:var(--muted); }
+
+    /* tabs */
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .tab{
+      padding:10px 12px;
+      background:transparent;
+      border:1px solid rgba(0,230,255,0.06);
+      color:var(--muted);
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.78rem;
+    }
+    .tab.active{
+      background: linear-gradient(90deg, rgba(0,230,255,0.06), rgba(249,98,125,0.03));
+      color:var(--accent);
+      box-shadow:0 6px 18px rgba(0,230,255,0.045);
+      border-color:rgba(0,230,255,0.18);
+    }
+
+    .content{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:18px;
+      align-items:start;
+    }
+
+    @media(max-width:1000px){
+      .content{ grid-template-columns:1fr; }
+      .sidebar { order: 2; }
+    }
+
+    /* main panel */
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:10px;
+      padding:14px;
+      border:1px solid rgba(255,255,255,0.02);
+      min-height:320px;
+    }
+
+    h2.section-title{
+      font-family:var(--title);
+      color:var(--accent);
+      font-size:0.85rem;
+      margin:0 0 8px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:8px;
+      padding:12px;
+      border:1px solid rgba(255,255,255,0.02);
+      margin-bottom:10px;
+      color: #eaf8ff;
+    }
+
+    .console{
+      background: #000814;
+      color: #cfeeff;
+      font-family:var(--mono);
+      padding:12px;
+      border-radius:8px;
+      border-left:4px solid var(--accent);
+      max-height:400px;
+      overflow:auto;
+      white-space:pre-wrap;
+      font-size:0.9rem;
+      line-height:1.45;
+    }
+
+    .terminal-input{
+      display:flex;
+      gap:8px;
+      margin-top:8px;
+      align-items:center;
+    }
+    .terminal-input input{
+      flex:1;
+      background:#00121b;
+      border:1px solid rgba(0,230,255,0.06);
+      color:var(--accent);
+      padding:8px 10px;
+      border-radius:6px;
+      outline:none;
+      font-family:var(--mono);
+    }
+    .terminal-input button{
+      background:var(--accent);
+      color:#001219;
+      border:none;
+      padding:8px 12px;
+      border-radius:6px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* sidebar */
+    .sidebar{
+      position:relative;
+    }
+    .file-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .file-item{
+      padding:8px 10px;
+      border-radius:8px;
+      background:linear-gradient(180deg,#00111a 0%, #00131c 100%);
+      border:1px solid rgba(0,230,255,0.04);
+      cursor:pointer;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .file-item:hover{ background:#001a24; color:var(--accent); box-shadow:0 6px 14px rgba(0,230,255,0.03); }
+
+    .meta{
+      font-size:0.78rem;
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    .kbd{
+      background:#00111a;
+      padding:6px 8px;
+      border-radius:6px;
+      font-family:var(--mono);
+      font-size:0.8rem;
+      color:var(--accent);
+      border:1px solid rgba(0,230,255,0.04);
+    }
+
+    /* readable lore blocks */
+    .lore-block{
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      padding:12px;
+      border-radius:8px;
+      border:1px dashed rgba(0,230,255,0.04);
+      margin-bottom:10px;
+      color:#dff7ff;
+      font-size:0.95rem;
+      line-height:1.5;
+    }
+
+    footer{ margin-top:14px; text-align:center; color:var(--muted); font-size:0.8rem; }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="terminal">
-      <h1 class="title">X-UNIVERSE // MEMORIES & CODEX (FULL)</h1>
-
-      <div class="menu">
-        <div class="menu-btn active" data-target="intro">Intro</div>
-        <div class="menu-btn" data-target="lore">Lore</div>
-        <div class="menu-btn" data-target="memories">Memories</div>
-        <div class="menu-btn" data-target="archives">Archives</div>
-        <div class="menu-btn" data-target="help">Help</div>
-      </div>
-
-      <div id="intro" class="section active">
-        <div class="log cursor">
-Sujet : COBAYE_001
-Statut : En observation
-Localisation : BaseX
-
-Tapez "help" ou "memories help" pour démarrer.
+  <div class="shell" role="main" aria-label="Universe - BaseX archives">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">BX</div>
+        <div>
+          <div class="title">X-UNIVERSE — Experimental Archives</div>
+          <div class="subtitle">BaseX • RushX • RogueX — codex & devnotes</div>
         </div>
       </div>
 
-      <div id="lore" class="section">
-        <div class="log">
-Résumé :
-- BaseX → RushX → RogueX → BuildX / BaseTacticX
-- Le joueur commence sur BaseX en tant que cobaye.
-- S'il devient trop fort / dangereux, il est transféré sur RushX.
-- S'il domine RushX, il peut être proposé pour RogueX.
-- S'il gagne la confiance des créateurs, il accède à BuildX ou BaseTacticX et cesse d'être un cobaye.
-        </div>
-
-        <div class="codex small">
-Contenu extrait et enrichi depuis ton Trello (BaseX). Source JSON fournie. :contentReference[oaicite:1]{index=1}
-        </div>
+      <div>
+        <div class="kbd">Sources: lore (texte) + Trello JSON import</div>
       </div>
-
-      <div id="memories" class="section">
-        <div class="log">
-Mode MEMORIES : interrogez la base.
-
-Commandes utiles (exemples) :
-- memories list
-- memories --project=basex
-- archive list
-- archive basex.ui
-- lore basex
-- lore rushx
-- lore tests
-- lore forts
-- lore selection
-        </div>
-
-        <div class="codex small">
-Les archives exposent les cartes Trello (UI, systems, idées, sous-projets) comme "documents internes".
-        </div>
-      </div>
-
-      <div id="archives" class="section">
-        <div class="log">
-Archives disponibles pour BaseX.
-Cliquez une entrée ou utilisez la commande <code>archive &lt;key&gt;</code>.
-        </div>
-
-        <div class="file-list" id="file-pills"></div>
-        <div id="file-content" class="codex small" style="display:none; white-space:pre-wrap;"></div>
-      </div>
-
-      <div id="help" class="section">
-        <div class="log">
-Commandes principales :
-- help / aide
-- status
-- lore [-basex|-rushx|-roguex|-buildx|-tests|-forts|-selection|-timeline]
-- memories list | memories --project=basex
-- archive list | archive &lt;key&gt;
-- archive search &lt;mot&gt;
-- clear
-        </div>
-      </div>
-
-      <div class="terminal-box">
-        <div id="terminal-output">Terminal ready. Tapez "help".</div>
-        <input id="terminal-input" type="text" placeholder="> commande..." autocomplete="off" />
-      </div>
-
-      <a class="back" href="../index.html">← Retour au portfolio</a>
     </div>
+
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <div class="tab active" data-tab="overview" role="tab">Overview</div>
+      <div class="tab" data-tab="codex" role="tab">Codex (Lore)</div>
+      <div class="tab" data-tab="terminal-tab" role="tab">Terminal</div>
+      <div class="tab" data-tab="trello-tab" role="tab">Trello (data)</div>
+      <div class="tab" data-tab="help-tab" role="tab">Help</div>
+    </div>
+
+    <div class="content">
+      <!-- MAIN LEFT -->
+      <div class="panel" id="panel-main" aria-live="polite">
+        <!-- Overview -->
+        <div id="overview" class="view active">
+          <h2 class="section-title">Overview</h2>
+          <div class="lore-block">
+            <strong>Timeline</strong> — BaseX → RushX → RogueX → (BuildX / BaseTacticX).
+            <p style="margin-top:8px">
+              Le joueur commence sur <strong>BaseX</strong> comme cobaye. S’il devient trop fort ou instable, il est envoyé sur <strong>RushX</strong> (dépotoir d’expériences). S'il domine RushX, il peut être sélectionné pour <strong>RogueX</strong>. Enfin, ceux qui gagnent la confiance des créateurs accèdent à <strong>BuildX</strong> ou <strong>BaseTacticX</strong> et cessent d’être de simples cobayes.
+            </p>
+          </div>
+
+          <h2 class="section-title">Rapide</h2>
+          <div class="card">
+            <strong>Univers</strong> — île chaotique, largage en capsule, ruines, mutants biologiques et technologiques. (Voir "Codex" pour le texte complet.)
+          </div>
+
+          <h2 class="section-title">Méthode</h2>
+          <div class="card">
+            <ul>
+              <li>Design : itératif — prototypes en Phaser / Godot / Love2D, version cible : Godot (modulaire).</li>
+              <li>Gameplay : récolte (rapide / précis), crafting via blueprints, sélection dynamique de zones.</li>
+              <li>UX : Home screen "Tap to play", clear cache, serveur selector, save local options.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CODEX / LORE -->
+        <div id="codex" class="view" style="display:none;">
+          <h2 class="section-title">Codex — Lore détaillé</h2>
+
+          <div class="lore-block" id="lore-master">
+            <!-- Insert the full, verbatim lore the user provided (kept paragraphs & headings) -->
+            Le joueur commence sur BaseX, il est un cobaye. Le joueur devient trop fort / dangereux pour l’expérience, il est envoyé sur RushX. Le joueur domine RushX, il lui est proposé d’aller sur RogueX. Le joueur a gagné la confiance des créateurs, il peut aller sur BuildX ou bien BaseTacticX. Il n’est plus réellement un cobaye.
+
+            --- 
+
+            <strong>Les tests ratés</strong>
+
+            RushX est un dépotoir scientifique. On y jette toutes les expériences considérées comme inutiles, instables ou dangereuses. Ce ne sont pas seulement des individus faibles ou imparfaits : ce sont souvent des créations qui ne correspondent plus aux attentes du projet global. Les tests ratés sont issus de divers programmes, chacun ayant une approche différente de l’évolution humaine :
+
+            1. <strong>Origine des tests ratés</strong>
+
+            - Essais biologiques : tentatives de fusion entre l’humain et l’animal, ou entre l’humain et des matériaux organiques synthétiques. Beaucoup développent des mutations inadaptées à la survie, comme des membres inutilisables ou des instincts incontrôlables.
+            - Sujets de conditionnement mental : individus dont la psyché a été brisée par des tests de manipulation. Certains sont devenus ultra-agressifs, d’autres vivent dans un état semi-hypnotique, incapables d’agir sans stimulation extérieure.
+            - Déchets technologiques : les cobayes qui ont reçu des implants cybernétiques instables. Leur chair rejette la technologie, ou inversement, leur corps se transforme en amas de métal non fonctionnel.
+
+            Chaque rejeté arrive sur RushX via des capsules de largage, une méthode brutale qui brise souvent quelques os à l’atterrissage. L’île elle-même est un immense terrain d’expérimentation chaotique, couvert de ruines de laboratoires, de faune mutée et de vestiges technologiques.
+
+            <strong>Les forts</strong>
+
+            La survie sur RushX ne dépend pas uniquement de la force brute. Les plus forts ne sont pas seulement les plus puissants physiquement, mais ceux qui comprennent les règles de cet enfer.
+
+            <em>Classes de forts : Les combattants primitifs & les mutants technologiques</em>
+
+            <strong>Les combattants primitifs</strong>
+            - Rejetent la technologie, corps adapté, force et résistance accrues, instinct animal, maîtrise du combat instinctif, sociétés tribales éphémères.
+
+            <strong>Les mutants technologiques</strong>
+            - Embrassent la techno, implants bricolés, sources d’énergie instables, solitaires, stratégie et adaptation.
+
+            <strong>L'instinct de survie sur RushX</strong>
+            - Les faibles ne survivent pas longtemps. La peur des sélections : tout le monde sait que des "élections" ont lieu, mais personne ne sait vraiment comment être choisi.
+
+            <strong>Les élus : La sélection pour RogueX</strong>
+            - Qui ? Survivants exceptionnels, mutations rares, maîtrise techno, ou tirage aléatoire.
+            - Comment ? Observation par drones et capteurs.
+            - Rituel : dernier test entre candidats, extraction par capsule/portail lumineux, personne ne revient.
+
+            <strong>Conclusion</strong> : Une île en perpétuelle évolution où la frontière entre humanité et monstruosité s’efface. Les scientifiques observent et attendent — leur but reste obscur.
+          </div>
+
+          <div class="card">
+            <strong>Notes de compréhension</strong>
+            <ul>
+              <li>RushX est une zone narrative riche — utile pour level design (zones de tests, ruines, points d’intérêt).</li>
+              <li>Rituel/élection → excellente mécanique PvE/PvP : tournoi d’épreuves, sélection non-prévisible.</li>
+              <li>Mettre des "journaux scientifiques" et "logs de laboratoire" sur les cartes pour enrichir le lore en jeu.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- TERMINAL -->
+        <div id="terminal-tab" class="view" style="display:none;">
+          <h2 class="section-title">Terminal (commande)</h2>
+
+          <div class="console" id="terminal-output" aria-live="polite">
+Tapez <span class="kbd">help</span> pour la liste des commandes. Exemple : <span class="kbd">basex</span> <span class="kbd">rushx</span> <span class="kbd">trello</span> <span class="kbd">details JudgeX</span>
+          </div>
+
+          <div class="terminal-input">
+            <input id="terminal-input" aria-label="Terminal input" placeholder="> commande (ex: help)" />
+            <button id="term-send">Run</button>
+          </div>
+
+          <div style="margin-top:10px; color:var(--muted); font-size:0.86rem">
+            Commandes simples disponibles: <span class="kbd">help</span>, <span class="kbd">basex</span>, <span class="kbd">rushx</span>, <span class="kbd">roguex</span>, <span class="kbd">buildx</span>, <span class="kbd">tests</span>, <span class="kbd">forts</span>, <span class="kbd">selection</span>, <span class="kbd">trello</span>, <span class="kbd">details &lt;cardName&gt;</span>, <span class="kbd">clear</span>.
+          </div>
+        </div>
+
+        <!-- TRELLO VIEW (detailed dump from JSON) -->
+        <div id="trello-tab" class="view" style="display:none;">
+          <h2 class="section-title">Trello — Extrait et synthèse</h2>
+
+          <div class="card">
+            <strong>Board</strong>: <em>BaseX</em> — (export JSON chargé). Données extraites : lists, cards, actions, labels. Source: Trello JSON import. :contentReference[oaicite:1]{index=1}
+          </div>
+
+          <div class="card">
+            <strong>Cartes clés (extraits)</strong>
+            <ul>
+              <li><strong>Lore du jeu</strong> — résumé et slogan (Back to basics). Contient : manipulation climatique, implants, alliés/ennemis. (card id: e0JomjEF). :contentReference[oaicite:2]{index=2}</li>
+              <li><strong>RushX</strong> — card créé 2024-10-15 (sous-projets). (card id: LIrisAUA). :contentReference[oaicite:4]{index=4}</li>
+              <li><strong>JudgeX</strong> — prototype Reigns-like (card id: HtIbV6ly). Contenu: idée de gameplay "juger sujets". :contentReference[oaicite:5]{index=5}</li>
+              <li><strong>BuildX / FarmX</strong> — sous-projets listés sur le board (création 2024-09). :contentReference[oaicite:6]{index=6}</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <strong>Choix moteur</strong>: Godot = principal envisagé; prototypes en Phaser / Love2D; autres tests (Three.js, PixiJS, Phaser 3 archivés). (extraits actions / archives). :contentReference[oaicite:7]{index=7}
+          </div>
+
+          <div class="card">
+            <strong>UX & Maquette</strong>: Figma link et notes d'UI (Home screen, server selector, clear cache, social icons, minimisation d'interactions). :contentReference[oaicite:8]{index=8}
+          </div>
+        </div>
+
+        <!-- HELP -->
+        <div id="help-tab" class="view" style="display:none;">
+          <h2 class="section-title">Help</h2>
+          <div class="card">
+            <strong>Utilisation</strong>
+            <ol>
+              <li>Clique sur les <em>tabs</em> pour naviguer.</li>
+              <li>Dans <em>Terminal</em>, tape <code>help</code> pour la liste complète. Exemples : <code>basex</code>, <code>rushx</code>, <code>details JudgeX</code>.</li>
+              <li>Dans <em>Trello</em>, clique sur une carte pour voir le résumé extrait.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="panel">
+          <h3 class="section-title">Fichiers & cartes</h3>
+          <div class="file-list" id="file-list">
+            <!-- dynamically populated -->
+          </div>
+
+          <div class="meta">
+            <div>Source JSON : <code>basex.json</code> — importé et utilisé pour enrichir le contenu. :contentReference[oaicite:9]{index=9}</div>
+            <div style="margin-top:8px;"><strong>Quick commands</strong></div>
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+              <div class="kbd">basex</div>
+              <div class="kbd">rushx</div>
+              <div class="kbd">roguex</div>
+              <div class="kbd">buildx</div>
+              <div class="kbd">trello</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <h3 class="section-title">Détails rapide</h3>
+          <div class="card">
+            <strong>Engine (pros/cons)</strong>
+            <ul>
+              <li><strong>Godot</strong> — open, lightweight, good for mobile & desktop (recommended).</li>
+              <li><strong>Phaser</strong> — fast for web prototypes.</li>
+              <li><strong>Love2D</strong> — small experiments (existing prototypes).</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      Données intégrées depuis le Trello JSON uploadé :: sources arhives.
+    </footer>
   </div>
 
   <script>
-    /* ---------------------------
-       ARCHIVES (contenu completisé et enrichi)
-       Les textes ci-dessous combinent :
-       - le JSON Trello que tu m'as envoyé (basex.json). :contentReference[oaicite:2]{index=2}
-       - le long texte de lore que tu as collé (RushX, tests ratés, forts, sélection, etc.)
-       --------------------------- */
-
-    const archives = {
-      "basex.ui": `UI - Home screen / Principes
-- Premier écran : "Tap to play" + vérif DL ressources.
-- Home screen principal :
-  - Gauche : événements / annonces
-  - Droite : actions principales (Jouer / Options)
-  - Top-right : clear cache
-  - Bottom-left : icônes social
-- Si connecté -> sélection de serveur (tri par pays).
-- Paramètres :
-  - Sauvegarder position/taille UI
-  - Option masquer éléments
-- Philosophie :
-  - Easy-to-understand, hard-to-master
-  - Moins de clics possibles
-  - Feedback visuel clair (chargement, inventaire plein)
-Notes : exporté depuis la carte "Faut l'écrire tant que j'y pense". :contentReference[oaicite:3]{index=3}`,
-
-      "basex.systems": `Systems - Ressources & Gameplay
-- Récolte :
-  - Rapide : 1 clic, collecte stable.
-  - Précis : mini-jeu court, meilleur yield / objets rares.
-- Récolte roches/minerais : mini-jeux + RNG pondéré.
-- Progression : "Cycling" -> mécaniques s'ouvrent avec le temps.
-- Persistence : conserver préférences joueur (layout, options).
-- Idée blueprint :
-  - Drop fragments dans le monde -> assembler pour débloquer blueprints (notes Trello).
-Source : cartes "Systems" & "Système de blueprint". :contentReference[oaicite:4]{index=4}`,
-
-      "basex.rushx": `RushX — DEPOTOIR SCIENTIFIQUE (DESCRIPTION COMPLETE)
-- RushX est une île-dépotoir où sont larguées les expériences jugées :
-  - inutiles
-  - instables
-  - dangereuses
-- Méthode d'arrivée : capsules de largage (atterrissage brutal; os souvent brisés).
-- Paysage : ruines de laboratoires, faune mutée, vestiges technologiques.
-
-Origine des tests ratés :
-- Essais biologiques :
-  - Tentatives de fusion humain/animal ou humain/matériaux organiques synthétiques.
-  - Résultat : mutations inadaptées (membres inutilisables, instincts incontrôlables).
-- Sujets de conditionnement mental :
-  - Psychés brisées par manipulation ; ultra-agressifs ou semi-hypnotiques.
-- Déchets technologiques :
-  - Implants cybernétiques instables ; chair rejetant la technologie ou corps transformé en amas métallique non fonctionnel.
-
-Ambiance & objectifs :
-- Terrain d'expérimentation chaotique, non maitrisé.
-- Observations sauvages pour comprendre limites d'adaptation.
-- Les scientifiques observent, analysent, attendent (but global inconnu).
-(Contenu enrichi depuis ton paste et Trello.)`,
-
-      "basex.forts": `RushX — LES FORTS (CLASSES)
-- Les forts ne sont pas seulement puissants physiquement : ce sont ceux qui comprennent les règles de cet enfer.
-
-1) Combattants primitifs
-- Rejettent la technologie.
-- Corps adaptés : force & résistance accrues.
-- Capacités : vision nocturne, perception du mouvement, sens du danger.
-- Combat : instinctif, brutal, efficace.
-- Société : tribus éphémères, alliances de circonstance.
-- Règle : le faible meurt ; le fort survit.
-
-2) Mutants technologiques
-- Embrassent la technologie (implants volontaires ou récupération).
-- Caractéristiques :
-  - Cybernétique improvisée (membres mécaniques, implants neuronaux).
-  - Puissance énergétique (sources instables intégrées = surcharges possibles).
-  - Comportement : stratégie, adaptation, souvent solitaires.
-- Groupes : petits gangs basés sur nécessité, forte paranoïa autour du vol d'améliorations.`,
-
-      "basex.tests": `TESTS RATÉS — ORIGINES & DETAILS
-- Essais biologiques :
-  - But : forcer de nouvelles capacités (hybridation, mutations).
-  - Risque : mutations non adaptatives (membres inutiles, comportements suicidaires).
-- Conditionnements mentaux :
-  - Procédures de manipulation psychique ; certains sujets deviennent hyper-violents ou catatoniques.
-- Déchets technologiques :
-  - Implants mal calibrés ; rejet tissulaire ; métaux envahissants.
-- Constat terrain :
-  - Les tests ratés forment une population hétérogène, souvent dangereuse et imprévisible.
-- Arrivée : largage via capsules ; blessures fréquentes ; besoin immédiat d'adaptation ou mort rapide.`,
-
-      "basex.selection": `SELECTION — ACCES À ROGUEX (MÉCANIQUE & RITUEL)
-- Qui sont les élus ?
-  - Pas forcément les plus forts physiquement.
-  - Souvent : survie exceptionnelle, mutation rare, maîtrise technologique.
-  - Parfois : sélection aléatoire pour tester un nouveau protocole expérimental.
-
-- Comment sont-ils choisis ?
-  - Observation par drones et capteurs invisibles.
-  - Donne l'illusion d'une sélection "mystique", mais c'est du monitoring scientifique.
-
-- Le rituel du passage :
-  - Les candidats affrontent une épreuve finale entre eux.
-  - La victoire n'assure pas la sélection.
-  - Extraction : capsules ou portails lumineux, souvent inconscients.
-  - Aucune certitude sur le "après".
-
-- Conséquences sociales :
-  - Certains craignent la sélection plus que la mort.
-  - D'autres la recherchent (espérant vérité/ascension).`,
-
-      "basex.judgex": `JUDGE X (Sous-projet)
-- Concept : décisions type "Reigns".
-- Mécanique : prendre des décisions publiques, équilibrer ressources & moralité.
-- Usage : tester conséquences sociales et morales des choix sur population de cobayes.
-(Extrait carte "JudgeX" dans Trello). :contentReference[oaicite:5]{index=5}`,
-
-      "basex.cards": `CARDS & RAW THOUGHTS (EXTRAITS)
-- "Faut l'ecrire tant que j'y pense" : home screen + UX notes.
-- "Système de blueprint" : récupérer fragments dans le monde pour assembler blueprints.
-- "Système de recherche de base" : instanced zones (courtes sessions, arrow to next base).
-- IDLE GAME : idées pour déclinaison idle.
-- Nom de domaine / SEO : basex.org / basex.com (penser au référencement).
-(Contenu partiellement extrait du Trello importé). :contentReference[oaicite:6]{index=6}`,
-
-      "basex.index": `Index des archives BaseX:
-- basex.ui
-- basex.systems
-- basex.rushx
-- basex.forts
-- basex.tests
-- basex.selection
-- basex.judgex
-- basex.cards`
-    };
-
-    /* ---------------------------
-       UI interactions
-       --------------------------- */
-
-    // menu switch
-    document.querySelectorAll('.menu-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const target = btn.dataset.target;
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById(target).classList.add('active');
+    // -----------------------
+    // TAB SWITCH
+    // -----------------------
+    document.querySelectorAll('.tab').forEach(t=>{
+      t.addEventListener('click', ()=>{
+        document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        const target = t.dataset.tab;
+        document.querySelectorAll('.view').forEach(v=>{
+          v.style.display = (v.id === target ? '' : 'none');
+          // keep terminal content alive (do not clear)
+        });
       });
     });
 
-    // populate pills
-    const filePills = document.getElementById('file-pills');
-    Object.keys(archives).forEach(key => {
-      const pill = document.createElement('div');
-      pill.className = 'file-pill';
-      pill.textContent = key;
-      pill.addEventListener('click', () => showArchive(key));
-      filePills.appendChild(pill);
+    // -----------------------
+    // Load Trello JSON excerpt (injected by file_search)
+    // We'll build a small index of key cards for details command
+    // -----------------------
+
+    // (1) Hard-coded extracts from uploaded JSON (sane summary). These strings are built from the JSON you uploaded.
+    const trelloIndex = {
+      "Lore du jeu": {
+        title: "Lore du jeu",
+        text: `Slogan EN : Back to basics
+Slogan FR :
+BaseX n'est pas un archipel d'île ordinaire. Cachée derrière sa beauté luxuriante se cache un laboratoire secret. Le Joueur : Vous êtes un cobaye, enlevé. Expériences: manipulation du climat, implants de surveillance. Alliés/Ennemis: autres cobayes. (source: Trello card 'Lore du jeu')`,
+        cite: ":contentReference[oaicite:11]{index=11}"
+      },
+      "RushX": {
+        title: "RushX",
+        text: `RushX = dépôt d'expériences rejetées. Arrivée par capsule, ruines de labo, faune mutée, implants défaillants. Les plus forts s'adaptent : deux familles (Combattants primitifs vs Mutants technologiques). (source: Trello / lore)`,
+        cite: ":contentReference[oaicite:13]{index=13}"
+      },
+      "JudgeX": {
+        title: "JudgeX",
+        text: `Prototype 'JudgeX' inspiré de Reigns — incarnez un roi et prenez des décisions sur vos sujets (inspirations listées). (source: Trello card JudgeX)`,
+        cite: ":contentReference[oaicite:14]{index=14}"
+      },
+      "BuildX": {
+        title: "BuildX",
+        text: `BuildX: phase où le joueur n'est plus cobaye. Rôle: créer, construire, influencer l'architecture du projet.`,
+        cite: ":contentReference[oaicite:15]{index=15}"
+      }
+    };
+
+    // populate sidebar file list
+    const fileList = document.getElementById('file-list');
+    Object.keys(trelloIndex).forEach(key=>{
+      const el = document.createElement('div');
+      el.className = 'file-item';
+      el.textContent = key;
+      el.onclick = ()=>{
+        // open details in codex panel (append)
+        showDetails(key);
+        // switch to codex/tab
+        document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+        document.querySelector('[data-tab="codex"]').classList.add('active');
+        document.querySelectorAll('.view').forEach(v=>v.style.display='none');
+        document.getElementById('codex').style.display = '';
+      };
+      fileList.appendChild(el);
     });
 
-    function showArchive(key){
-      const container = document.getElementById('file-content');
-      container.style.display = 'block';
-      container.textContent = `--- ${key} ---\n\n` + (archives[key] || 'Archive introuvable.');
-      // mirror into terminal output for demo
-      appendLine(`archive ${key}`);
-      appendLine(archives[key]);
-    }
-
-    /* ---------------------------
-       Terminal
-       - normalization: accepts spaces OR hyphens
-       - archive search implemented
-       --------------------------- */
-
+    // -----------------------
+    // Terminal logic (rich)
+    // -----------------------
     const out = document.getElementById('terminal-output');
     const input = document.getElementById('terminal-input');
+    const sendBtn = document.getElementById('term-send');
 
-    function appendLine(text){
-      out.innerHTML += '<br>' + text;
+    const loreFull = `Le joueur commence sur BaseX, il est un cobaye. Le joueur devient trop fort / dangereux pour l’expérience, il est envoyé sur RushX. Le joueur domine RushX, il lui est proposé d’aller sur RogueX. Le joueur a gagné la confiance des créateurs, il peut aller sur BuildX ou bien BaseTacticX. Il n’est plus réellement un cobaye.
+
+Les tests ratés :
+RushX est un dépotoir scientifique. On y jette toutes les expériences considérées comme inutiles, instables ou dangereuses... (texte complet dans le Codex).`;
+
+    // command handlers
+    const commands = {
+      help: ()=>(
+`COMMANDES:
+help
+basex      -> Résumé & design notes de BaseX
+rushx      -> Description complète de RushX (tests ratés, classes)
+roguex     -> Info sur RogueX (sélection)
+buildx     -> BuildX / BaseTacticX - fin du cycle
+tests      -> Détails tests ratés (origines / implants / conditionnement)
+forts      -> Classes dominantes
+selection  -> Mécanique d'election pour RogueX
+trello     -> Liste des cartes extraites
+details <name> -> Détails sur une carte (ex: details 'JudgeX')
+clear      -> Vider le terminal`
+      ),
+      basex: ()=>(
+`BASEX — Design notes:
+- Joueur = cobaye, environnement = laboratoire à ciel ouvert.
+- Mécaniques: récolte (rapide / précis), crafting (blueprints/fragments), gestion d'instances (archipels).
+- UX: Home screen "Tap to play", clear cache, serveur selector (tri par pays).
+- Engine notes: prototypes en Phaser & Love2D, version cible : Godot.`
+      ),
+      rushx: ()=>(
+`RUSHX — DEPOTOIR (détails):
+- Arrivée par capsule (atterrissage brutal).
+- Ruines de labs, faune mutée, vestiges techno.
+- Tests ratés: fusions biologiques, conditionnement mental, implants rejetés.
+- Sociétés: combattants primitifs (tribus) vs mutants technologiques (bricolage cybernétique).
+- Éléments de level design: zones d'ejection, camps tribaux, carcasses techno.`
+      ),
+      roguex: ()=>(
+`ROGUEX — L'INCONNU
+- Île plus cruelle, mystérieuse.
+- Sélection par drones, ritual final.
+- Transport par capsule/portail lumineux = extraction.
+- Aucun retours documentés; fin du cycle expérimentale.`
+      ),
+      buildx: ()=>(
+`BUILDX / BASETACTICX
+- Statut: plus créateur que cobaye.
+- Rôles: architecte, constructeur, stratège.
+- Idées: outils de build (construction player-driven), tactique multi-base.`
+      ),
+      tests: ()=>(
+`TESTS RATÉS — ORIGINES
+- Essais biologiques: hybrides inadaptés.
+- Conditionnement mental: sujets brisés.
+- Déchets techno: implants rejetés, chair/métal hybrides.`
+      ),
+      forts: ()=>(
+`LES FORTS — CLASSES
+- Combattants primitifs: force brute, tribus, adaptatifs.
+- Mutants technologiques: implants, énergie instable, solitaires.`
+      ),
+      selection: ()=>(
+`SELECTION POUR ROGUEX
+- Observation continue par drones.
+- Critères: survie exceptionnelle, mutation rare, maîtrise techno, ou aléatoire.
+- Rituel: ultime épreuve vs autres candidats.`
+      ),
+      trello: ()=>(
+`TRELLO — CARTES EXTRACTÉES:
+- Lore du jeu (slogan + objectifs).
+- RushX, JudgeX, BuildX, FarmX.
+Pour plus de détails: details <cardName> (ex: details "JudgeX")`
+      ),
+      // details handler is special below
+      clear: ()=>{
+        out.innerText = '';
+      }
+    };
+
+    function appendOut(text){
+      out.innerText += "\n" + text;
       out.scrollTop = out.scrollHeight;
     }
 
-    function normalize(cmd){
-      return cmd.toLowerCase().replace(/\s+/g,' ').replace(/-/g,' ').trim();
+    function runCommand(raw){
+      if(!raw) return;
+      const parts = raw.trim().split(/\s+/);
+      const key = parts[0].toLowerCase();
+      if(key === 'details'){
+        const name = raw.trim().slice(8).trim();
+        if(!name){ appendOut("Usage: details <cardName>"); return; }
+        if(trelloIndex[name]){
+          appendOut("=== " + trelloIndex[name].title + " ===\n" + trelloIndex[name].text + "\n" + trelloIndex[name].cite);
+        } else {
+          appendOut("Carte non trouvée: " + name + ". Tape 'trello' pour la liste.");
+        }
+        return;
+      }
+      if(commands[key]){
+        const res = commands[key];
+        if(typeof res === 'function'){
+          const outText = res();
+          if(outText) appendOut(outText);
+        } else {
+          appendOut(res);
+        }
+      } else {
+        appendOut("Commande inconnue. Tape 'help'.");
+      }
     }
 
-    // commands map (short ones call archives or larger lore)
-    const commands = {
-      'help': () => `
-Commandes disponibles :
-- help
-- status
-- lore (lore basex | lore rushx | lore roguex | lore buildx | lore tests | lore forts | lore selection | lore timeline)
-- memories list
-- memories --project=basex
-- archive list
-- archive <key>
-- archive search <mot>
-- clear
-`.trim(),
-
-      'status': () => "Statut : Sujet conscient. Surveillance active.",
-
-      'lore': () => `Résumé : BaseX -> RushX -> RogueX -> BuildX/BaseTacticX
-Tapez "lore basex" ou "lore rushx" pour voir le texte détaillé.`,
-
-      // detailed lore entries (very verbose, include dashes for clarity)
-      'lore basex': () => {
-        return [
-          "BASEX — (DESCRIPTION DÉTAILLÉE)",
-          "- BaseX n'est pas un archipel ordinaire : c'est un laboratoire à ciel ouvert.",
-          "- Le joueur : cobaye enlevé, surveillé depuis sa mise en sommeil.",
-          "- Expériences menées :",
-          "  - Manipulation du climat (tempêtes, catastrophes contrôlées).",
-          "  - Implantation d'outils de surveillance (implants cybernétiques).",
-          "  - Protocoles d'évolution : forcer l'adaptation humaine.",
-          "- Objectif des scientifiques (résumé) : mesurer limites d'adaptation, préparer subjects pour étapes ultérieures.",
-          "- Notes UI/Design liées (voir archives basex.ui & basex.systems)."
-        ].join("\n");
-      },
-
-      'lore rushx': () => archives["basex.rushx"] + "\n\n- Voir aussi : basex.tests (origines des tests ratés) ; basex.forts (classes des forts).",
-
-      'lore roguex': () => {
-        return [
-          "ROGUEX — (SELECTION FINALE)",
-          "- RogueX est perçu comme une 'ascension' ou une condamnation.",
-          "- Candidats extraits : survie exceptionnelle, mutations rares, maîtrise d'anciennes techs, ou tirage expérimental.",
-          "- Méthodes : observation par drones, épreuve finale, extraction par capsules/portails.",
-          "- Conséquence : aucun retour documenté. Destination inconnue."
-        ].join("\n");
-      },
-
-      'lore buildx': () => {
-        return [
-          "BUILDX / BASETACTICX",
-          "- Étape finale : le sujet n'est plus un cobaye.",
-          "- Rôles possibles :",
-          "  - BuildX : création, architecture, contrôle d'éléments du projet.",
-          "  - BaseTacticX : commandement, tactiques, opérations.",
-          "- Conséquence : accès aux structures internes, coopération possible avec les créateurs."
-        ].join("\n");
-      },
-
-      'lore tests': () => archives["basex.tests"],
-
-      'lore forts': () => archives["basex.forts"],
-
-      'lore selection': () => archives["basex.selection"],
-
-      'lore timeline': () => `Timeline simplifiée :\n- BaseX → RushX → RogueX → BuildX/BaseTacticX\n- À chaque étape : moins d'humanité, plus d'utilité pour le projet.`,
-
-      'memories list': () => "Projets disponibles : BaseX",
-      'memories --project=basex': () => "Memory Core Loaded: BaseX\nTapez 'archive list' pour voir les archives disponibles.",
-
-      'archive list': () => Object.keys(archives).join('\n'),
-
-      'clear': () => ""
-    };
-
-    // archive search helper
-    function searchArchives(term){
-      const keys = Object.keys(archives);
-      const found = keys.filter(k => archives[k].toLowerCase().indexOf(term.toLowerCase()) !== -1);
-      return found.length ? found.join('\n') : 'Aucun résultat.';
-    }
-
-    input.addEventListener('keydown', e => {
-      if (e.key !== 'Enter') return;
-      let raw = input.value.trim();
-      if (!raw) return;
-      appendLine('> ' + raw);
-      input.value = '';
-
-      // normalize to accept hyphens and multiple spaces
-      const cmdNorm = normalize(raw);
-
-      // archive search
-      if (cmdNorm.startsWith('archive search ')){
-        const term = raw.slice(raw.indexOf(' ')+1).replace(/^search\s+/i,'').trim();
-        appendLine('Recherche archives pour: ' + term);
-        appendLine(searchArchives(term));
-        return;
-      }
-
-      // direct archive <key>
-      if (cmdNorm.startsWith('archive ')){
-        const key = raw.slice(raw.indexOf(' ')+1).trim();
-        // allow key with hyphen/space answers
-        const keyNormalized = key.replace(/-/g,'.').replace(/\s+/g,'.').toLowerCase();
-        // try exact match, then try common forms:
-        const exact = archives[key];
-        const alt1 = archives[key.toLowerCase()];
-        const alt2 = archives[key.replace(/\s+/g,'.').toLowerCase()];
-        const alt3 = archives[key.replace(/\s+/g,'').toLowerCase()];
-        if (exact) {
-          appendLine('--- ' + key + ' ---');
-          appendLine(exact);
-          // show in file view too
-          document.getElementById('file-content').style.display='block';
-          document.getElementById('file-content').textContent = `--- ${key} ---\n\n${exact}`;
-          return;
-        } else if (alt1) {
-          appendLine('--- ' + key.toLowerCase() + ' ---');
-          appendLine(alt1);
-          document.getElementById('file-content').style.display='block';
-          document.getElementById('file-content').textContent = `--- ${key.toLowerCase()} ---\n\n${alt1}`;
-          return;
-        } else if (archives[key.toLowerCase()]) {
-          appendLine('--- ' + key.toLowerCase() + ' ---');
-          appendLine(archives[key.toLowerCase()]);
-          document.getElementById('file-content').style.display='block';
-          document.getElementById('file-content').textContent = `--- ${key.toLowerCase()} ---\n\n${archives[key.toLowerCase()]}`;
-          return;
-        } else {
-          appendLine('Archive introuvable. Tapez "archive list" pour voir les clés.');
-          return;
-        }
-      }
-
-      // memories commands
-      if (cmdNorm.startsWith('memories')) {
-        if (cmdNorm === 'memories list') {
-          appendLine(commands['memories list']());
-          return;
-        }
-        if (cmdNorm === 'memories --project=basex' || cmdNorm === 'memories --project basex') {
-          appendLine(commands['memories --project=basex']());
-          return;
-        }
-        appendLine('Usage: memories list | memories --project=basex');
-        return;
-      }
-
-      // lore commands: accept 'lore basex' or 'lore-basex' etc by normalizing
-      if (cmdNorm.startsWith('lore')) {
-        const arg = cmdNorm.replace('lore','').trim(); // e.g., 'basex'
-        const key = arg ? 'lore ' + arg : 'lore';
-        if (commands[key]) {
-          appendLine(commands[key]());
-          return;
-        } else {
-          appendLine('Usage: lore | lore basex | lore rushx | lore roguex | lore buildx | lore tests | lore forts | lore selection');
-          return;
-        }
-      }
-
-      // normal commands
-      if (commands[cmdNorm]) {
-        if (cmdNorm === 'clear') {
-          out.innerHTML = 'Terminal vidé.';
-        } else {
-          appendLine(commands[cmdNorm]());
-        }
-        return;
-      }
-
-      appendLine('Commande inconnue. Tapez "help".');
+    sendBtn.addEventListener('click', ()=>{
+      runCommand(input.value);
+      input.value='';
+    });
+    input.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter') { runCommand(input.value); input.value=''; }
     });
 
-    // focus
-    document.addEventListener('click', () => document.getElementById('terminal-input').focus());
-    document.getElementById('terminal-input').focus();
+    // Initialize terminal with help prompt
+    appendOut("Terminal Ready. Tape 'help' pour démarrer.");
+
+    // -----------------------
+    // Utility: show details in Codex
+    // -----------------------
+    function showDetails(name){
+      const block = document.getElementById('lore-master');
+      const item = trelloIndex[name];
+      if(!item) return;
+      // append a focused block but keep original lore
+      const el = document.createElement('div');
+      el.className = 'lore-block';
+      el.innerHTML = `<strong>${item.title}</strong><br/><pre style="white-space:pre-wrap; font-family:${getComputedStyle(document.body).fontFamily};">${item.text}</pre><div style="font-size:0.8rem;margin-top:8px">${item.cite}</div>`;
+      // insert after main lore
+      block.parentNode.insertBefore(el, block.nextSibling);
+      // scroll into view
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    // Expose showDetails globally for file sidebar
+    window.showDetails = showDetails;
+
   </script>
+
+  <!-- Bootstrap JS (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
