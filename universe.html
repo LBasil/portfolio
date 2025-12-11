@@ -20,6 +20,10 @@
       --card: #071624;
       --mono: 'Fira Code', monospace;
       --title: 'Press Start 2P', cursive;
+      --max-width: 1400px;
+      --nav-width: 260px;
+      --right-width: 420px;
+      --read-width: 760px;
     }
 
     * {
@@ -37,9 +41,8 @@
       padding: 20px;
     }
 
-    /* container */
     .shell {
-      max-width: 1200px;
+      max-width: var(--max-width);
       margin: 0 auto;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
       border-radius: 12px;
@@ -89,7 +92,6 @@
       color: var(--muted);
     }
 
-    /* tabs */
     .tabs {
       display: flex;
       gap: 10px;
@@ -117,12 +119,22 @@
 
     .content {
       display: grid;
-      grid-template-columns: 1fr 420px;
+      grid-template-columns: var(--nav-width) 1fr var(--right-width);
       gap: 18px;
       align-items: start;
     }
 
-    @media(max-width:1000px) {
+    @media(max-width:1200px) {
+      .content {
+        grid-template-columns: 1fr var(--right-width);
+      }
+
+      .left-nav {
+        display: none;
+      }
+    }
+
+    @media(max-width:900px) {
       .content {
         grid-template-columns: 1fr;
       }
@@ -132,7 +144,6 @@
       }
     }
 
-    /* main panel */
     .panel {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
       border-radius: 10px;
@@ -199,7 +210,6 @@
       cursor: pointer;
     }
 
-    /* sidebar */
     .sidebar {
       position: relative;
     }
@@ -242,7 +252,6 @@
       border: 1px solid rgba(0, 230, 255, 0.04);
     }
 
-    /* readable lore blocks */
     .lore-block {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
       padding: 12px;
@@ -252,6 +261,61 @@
       color: #dff7ff;
       font-size: 0.95rem;
       line-height: 1.5;
+      max-width: var(--read-width);
+    }
+
+    .left-nav {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      position: sticky;
+      top: 18px;
+      height: calc(100vh - 90px);
+      overflow: auto;
+    }
+
+    .nav-group {
+      margin-bottom: 12px;
+    }
+
+    .nav-group-title {
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--title);
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .nav-item:hover {
+      background: #00131a;
+      color: var(--accent);
+    }
+
+    .chev {
+      width: 18px;
+      text-align: center;
+      font-family: var(--mono);
+      color: var(--muted);
+    }
+
+    .details-area {
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .details-area.open {
+      display: block;
     }
 
     footer {
@@ -281,14 +345,31 @@
     </div>
 
     <div class="tabs" role="tablist" aria-label="Sections">
-      <div class="tab active" data-tab="overview" role="tab">Overview</div>
-      <div class="tab" data-tab="codex" role="tab">Codex (Lore)</div>
-      <div class="tab" data-tab="terminal-tab" role="tab">Terminal</div>
-      <div class="tab" data-tab="trello-tab" role="tab">Trello (data)</div>
-      <div class="tab" data-tab="help-tab" role="tab">Help</div>
+      <div class="tab active" data-tab="overview" role="tab" tabindex="0">Overview</div>
+      <div class="tab" data-tab="codex" role="tab" tabindex="0">Codex (Lore)</div>
+      <div class="tab" data-tab="terminal-tab" role="tab" tabindex="0">Terminal</div>
+      <div class="tab" data-tab="trello-tab" role="tab" tabindex="0">Trello (data)</div>
+      <div class="tab" data-tab="help-tab" role="tab" tabindex="0">Help</div>
     </div>
 
     <div class="content">
+      <!-- LEFT NAV (AJOUTÉ) -->
+      <nav class="left-nav" aria-label="Navigation interne Codex"> <!-- AJOUTÉ -->
+        <div class="nav-group">
+          <div class="nav-group-title">Sections principales</div>
+          <div class="nav-item" data-target="overview"><span class="chev">▸</span> Overview</div>
+          <div class="nav-item" data-target="codex"><span class="chev">▸</span> Codex (Lore)</div>
+          <div class="nav-item" data-target="terminal-tab"><span class="chev">▸</span> Terminal</div>
+          <div class="nav-item" data-target="trello-tab"><span class="chev">▸</span> Trello (data)</div>
+          <div class="nav-item" data-target="help-tab"><span class="chev">▸</span> Help</div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">Autre</div>
+          <a href="./index.html" class="card" style="cursor:pointer">Retour au Portfolio</a>
+        </div>
+      </nav>
+
       <!-- MAIN LEFT -->
       <div class="panel" id="panel-main" aria-live="polite">
         <!-- Overview -->
@@ -326,6 +407,7 @@
 
           <div class="lore-block" id="lore-master">
             <!-- Insert the full, verbatim lore the user provided (kept paragraphs & headings) -->
+            <!-- IMPORTANT: ce texte est inchangé (RÈGLE D'OR respectée) -->
             Le joueur commence sur BaseX, il est un cobaye. Le joueur devient trop fort / dangereux pour l’expérience,
             il est envoyé sur RushX. Le joueur domine RushX, il lui est proposé d’aller sur RogueX. Le joueur a gagné la
             confiance des créateurs, il peut aller sur BuildX ou bien BaseTacticX. Il n’est plus réellement un cobaye.
@@ -458,7 +540,8 @@
             <ol>
               <li>Clique sur les <em>tabs</em> pour naviguer.</li>
               <li>Dans <em>Terminal</em>, tape <code>help</code> pour la liste complète. Exemples : <code>basex</code>,
-                <code>rushx</code>, <code>details JudgeX</code>.</li>
+                <code>rushx</code>, <code>details JudgeX</code>.
+              </li>
               <li>Dans <em>Trello</em>, clique sur une carte pour voir le résumé extrait.</li>
             </ol>
           </div>
@@ -469,6 +552,18 @@
       <aside class="sidebar">
         <div class="panel">
           <h3 class="section-title">Fichiers & cartes</h3>
+
+          <!-- AJOUTÉ: details-area unique (prevents infinite appends) -->
+          <div id="details-area" class="details-area card" aria-live="polite"> <!-- AJOUTÉ -->
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-weight:700">Détails</div>
+              <div>
+                <button id="close-details" class="kbd" style="margin-right:6px">Fermer</button> <!-- AJOUTÉ -->
+              </div>
+            </div>
+            <div id="details-content" style="margin-top:8px;color:var(--muted);font-size:0.93rem"></div>
+          </div>
+
           <div class="file-list" id="file-list">
             <!-- dynamically populated -->
           </div>
@@ -515,19 +610,58 @@
         document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
         const target = t.dataset.tab;
+        // hide all views
         document.querySelectorAll('.view').forEach(v => {
-          v.style.display = (v.id === target ? '' : 'none');
-          // keep terminal content alive (do not clear)
+          v.style.display = 'none';
         });
+        // show target
+        const el = document.getElementById(target);
+        if (el) el.style.display = '';
+        // close details pane when switching away from codex (coherence)
+        if (target !== 'codex') {
+          closeDetailsArea();
+        }
+        // visually sync left-nav active state
+        document.querySelectorAll('.left-nav .nav-item').forEach(nav => nav.classList.remove('active'));
       });
     });
 
     // -----------------------
-    // Load Trello JSON excerpt (injected by file_search)
-    // We'll build a small index of key cards for details command
+    // LEFT NAV interactions
     // -----------------------
+    document.querySelectorAll('.left-nav .nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const target = item.dataset.target;
+        // If target refers to a main view id (like 'overview' or 'codex')
+        if (!target.startsWith('#')) {
+          // trigger the corresponding tab
+          const tabEl = document.querySelector('.tab[data-tab="' + target + '"]');
+          if (tabEl) tabEl.click();
+          // make left-nav item visually active
+          document.querySelectorAll('.left-nav .nav-item').forEach(n => n.classList.remove('active'));
+          item.classList.add('active');
+          // if codex selected, scroll to top
+          if (target === 'codex') {
+            const codex = document.getElementById('codex');
+            if (codex) codex.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        } else {
+          // internal anchor inside codex (like '#lore-principal')
+          const anchor = document.querySelector(target);
+          // ensure codex view is open
+          const tabEl = document.querySelector('.tab[data-tab="codex"]');
+          if (tabEl) tabEl.click();
+          // wait a tick then scroll
+          setTimeout(() => {
+            if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 80);
+        }
+      });
+    });
 
-    // (1) Hard-coded extracts from uploaded JSON (sane summary). These strings are built from the JSON you uploaded.
+    // -----------------------
+    // Trello index & details handling
+    // -----------------------
     const trelloIndex = {
       "Lore du jeu": {
         title: "Lore du jeu",
@@ -553,16 +687,16 @@ BaseX n'est pas un archipel d'île ordinaire. Cachée derrière sa beauté luxur
       }
     };
 
-    // populate sidebar file list
+    // populate sidebar file list (unchanged but with improved interaction)
     const fileList = document.getElementById('file-list');
     Object.keys(trelloIndex).forEach(key => {
       const el = document.createElement('div');
       el.className = 'file-item';
       el.textContent = key;
       el.onclick = () => {
-        // open details in codex panel (append)
-        showDetails(key);
-        // switch to codex/tab
+        // show details in unique details-area
+        openDetailsFor(key);
+        // switch to codex/tab as context
         document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
         document.querySelector('[data-tab="codex"]').classList.add('active');
         document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
@@ -572,18 +706,12 @@ BaseX n'est pas un archipel d'île ordinaire. Cachée derrière sa beauté luxur
     });
 
     // -----------------------
-    // Terminal logic (rich)
+    // Terminal logic
     // -----------------------
     const out = document.getElementById('terminal-output');
     const input = document.getElementById('terminal-input');
     const sendBtn = document.getElementById('term-send');
 
-    const loreFull = `Le joueur commence sur BaseX, il est un cobaye. Le joueur devient trop fort / dangereux pour l’expérience, il est envoyé sur RushX. Le joueur domine RushX, il lui est proposé d’aller sur RogueX. Le joueur a gagné la confiance des créateurs, il peut aller sur BuildX ou bien BaseTacticX. Il n’est plus réellement un cobaye.
-
-Les tests ratés :
-RushX est un dépotoir scientifique. On y jette toutes les expériences considérées comme inutiles, instables ou dangereuses... (texte complet dans le Codex).`;
-
-    // command handlers
     const commands = {
       help: () => (
         `COMMANDES:
@@ -669,6 +797,8 @@ Pour plus de détails: details <cardName> (ex: details "JudgeX")`
         const name = raw.trim().slice(8).trim();
         if (!name) { appendOut("Usage: details <cardName>"); return; }
         if (trelloIndex[name]) {
+          // show in details-area and also append to terminal
+          openDetailsFor(name);
           appendOut("=== " + trelloIndex[name].title + " ===\n" + trelloIndex[name].text + "\n" + trelloIndex[name].cite);
         } else {
           appendOut("Carte non trouvée: " + name + ". Tape 'trello' pour la liste.");
@@ -688,11 +818,11 @@ Pour plus de détails: details <cardName> (ex: details "JudgeX")`
       }
     }
 
-    sendBtn.addEventListener('click', () => {
+    sendBtn && sendBtn.addEventListener('click', () => {
       runCommand(input.value);
       input.value = '';
     });
-    input.addEventListener('keydown', (e) => {
+    input && input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { runCommand(input.value); input.value = ''; }
     });
 
@@ -700,28 +830,69 @@ Pour plus de détails: details <cardName> (ex: details "JudgeX")`
     appendOut("Terminal Ready. Tape 'help' pour démarrer.");
 
     // -----------------------
-    // Utility: show details in Codex
+    // DETAILS AREA handling
+    // - single details area prevents infinite appends
+    // - does not remove original lore; it's an additional read-only panel
     // -----------------------
-    function showDetails(name) {
-      const block = document.getElementById('lore-master');
+    const detailsArea = document.getElementById('details-area');
+    const detailsContent = document.getElementById('details-content');
+    const closeDetailsBtn = document.getElementById('close-details');
+
+    function openDetailsFor(name) {
       const item = trelloIndex[name];
       if (!item) return;
-      // append a focused block but keep original lore
-      const el = document.createElement('div');
-      el.className = 'lore-block';
-      el.innerHTML = `<strong>${item.title}</strong><br/><pre style="white-space:pre-wrap; font-family:${getComputedStyle(document.body).fontFamily};">${item.text}</pre><div style="font-size:0.8rem;margin-top:8px">${item.cite}</div>`;
-      // insert after main lore
-      block.parentNode.insertBefore(el, block.nextSibling);
-      // scroll into view
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Fill content (do not alter user lore)
+      detailsContent.innerHTML = `<strong>${escapeHtml(item.title)}</strong><pre style="white-space:pre-wrap;margin-top:8px;font-family:${getComputedStyle(document.body).fontFamily};">${escapeHtml(item.text)}</pre><div style="font-size:0.8rem;margin-top:8px;color:var(--muted)">${escapeHtml(item.cite)}</div>`;
+      detailsArea.classList.add('open');
     }
 
-    // Expose showDetails globally for file sidebar
-    window.showDetails = showDetails;
+    function closeDetailsArea() {
+      if (detailsArea) detailsArea.classList.remove('open');
+    }
 
+    closeDetailsBtn && closeDetailsBtn.addEventListener('click', closeDetailsArea);
+
+    // Protect against duplicates when previous versions appended many nodes:
+    // We do not insert elements into the lore-master; we only show/update the details-area.
+
+    // -----------------------
+    // Utility: show details in Codex (original behavior replaced to avoid duplicates)
+    // -----------------------
+    function showDetails(name) {
+      // legacy public function kept for compatibility
+      openDetailsFor(name);
+      // ensure codex is visible
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelector('[data-tab="codex"]').classList.add('active');
+      document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+      document.getElementById('codex').style.display = '';
+    }
+    window.showDetails = showDetails; // expose globally (unchanged API)
+
+    // -----------------------
+    // Simple escape for inserted content (prevent accidental HTML injection)
+    // -----------------------
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, function (m) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+      });
+    }
+
+    // -----------------------
+    // Accessibility: allow Enter on file items to open details
+    // -----------------------
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        // close details or reset to overview
+        closeDetailsArea();
+        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+        document.querySelector('[data-tab="overview"]').classList.add('active');
+        document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+        document.getElementById('overview').style.display = '';
+      }
+    });
   </script>
-
-  <!-- Bootstrap JS (optional) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
