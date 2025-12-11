@@ -18,7 +18,7 @@ const projects = [
     url: "https://github.com/LBasil/Brawl-Chess",
     image: "images/brawl_chess.png",
     badges: ["Love2D", "Game", "Prototype finished"],
-    archived: false,
+    archived: true,
     hasBlog: true,
     blogUrl: "projects/brawl-chess.html"
   },
