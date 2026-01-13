@@ -97,6 +97,15 @@ const projects = [
     image: "images/memory.png",
     badges: ["JavaScript", "Game", "Finished"],
     archived: true
+  },
+  {
+    title: "Digivolution Network",
+    description: "Easy way to track your Digimon in Next Order",
+    url: "https://digivolution-newtork.vercel.app/",
+    image: "images/digivolution-network.png",
+    badges: ["JavaScript", "In-Progress"],
+    hasBlog: false,
+    archived: false
   }
 ];
 
