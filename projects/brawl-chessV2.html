@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog · Analyse des dépendances</title>
+    <title>Blog · Brawl Chess V2</title>
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/blog.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -45,13 +45,13 @@
     </nav>
 
     <div class="container py-5">
-        <h1 class="text-center mb-4 mt-4">Analyse des dépendances</h1>
-        <p class="text-center text-muted mb-5">Un projet mené en JS afin de suivre les potentiels régressions suite à un
-            changement. Suivez ici son évolution technique
+        <h1 class="text-center mb-4 mt-4">Brawl Chess V2</h1>
+        <p class="text-center text-muted mb-5">Un jeu mobile en 2d développé avec Love2d. Suivez ici son évolution
+            technique
             et créative.</p>
 
         <div class="text-center mt-5 mb-5">
-            <a href="https://github.com/LBasil/baseX" target="_blank" class="btn btn-outline-secondary">← Lien vers le
+            <a href="" target="_blank" class="btn btn-outline-secondary">← Lien vers le
                 projet</a>
         </div>
 
@@ -61,70 +61,157 @@
             <section id="blog" class="timeline">
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                        <h3 class="h5">Analyser les dépendances dans un projet</h3>
+                        <h3 class="h5">Analyser les besoins et étudier la projet</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
                         </button>
                     </div>
-                    <p class="text-muted small">Publié le 15 avril 2025</p>
+                    <p class="text-muted small">Publié le 02 février 2026</p>
 
                     <div class="blog-content" style="display: none;">
                         <p>
-                            Quand un projet grandit, il devient de plus en plus difficile de garder une trace claire des
-                            fichiers dont il dépend.
-                            L’analyse des dépendances permet de :
+                            Avant d’écrire la moindre ligne de code, j’ai souhaité prendre le temps de poser
+                            les bases conceptuelles du projet. L’objectif n’est pas encore de résoudre des
+                            problèmes techniques, mais de comprendre précisément <strong>quel jeu je veux créer</strong>
+                            et <strong>quels systèmes il implique</strong>.
                         </p>
+
+                        <h6>🎮 Intention du projet</h6>
+                        <p>
+                            Le projet est un jeu de stratégie <strong>1 contre 1</strong>, jouable sur mobile,
+                            dans un format <strong>tour par tour</strong>. Il s’appuie sur un plateau inspiré
+                            des échecs, non pas pour en reprendre les règles, mais pour bénéficier d’un
+                            langage visuel immédiatement compréhensible.
+                        </p>
+
+                        <p>
+                            Chaque case du plateau représente un espace de décision, et chaque pion
+                            devient une entité à part entière, avec ses propres caractéristiques et comportements.
+                        </p>
+
+                        <h6>♟ Un héritage des échecs, sans leurs contraintes</h6>
+                        <p>
+                            Le plateau reprend la logique d’une grille fixe, rappelant les échecs,
+                            mais les pions ne sont ni standardisés ni sacrifiables.
+                        </p>
+
+                        <p>
+                            Chaque pion possède :
+                        </p>
+
                         <ul>
-                            <li>Visualiser l’arborescence et les liens entre fichiers</li>
-                            <li>Détecter les ressources orphelines ou manquantes</li>
-                            <li>Éviter des bugs liés à des chemins obsolètes</li>
+                            <li>des <strong>points de vie</strong></li>
+                            <li>des <strong>capacités passives</strong></li>
+                            <li>et parfois des <strong>capacités actives</strong></li>
                         </ul>
 
-                        <h6>🔎 Identifier les dépendances automatiquement</h6>
-                        <p>On scanne chaque fichier à la recherche de références à d’autres, par exemple avec :</p>
-                        <pre><code># En pseudo-code
-                  search("load('res://") ➜ extraire les chemins de fichiers</code></pre>
-
-                        <p>On peut utiliser des regex simples ou une vraie analyse syntaxique (AST).</p>
-
-                        <h6>💡 Exemple simple en GDScript</h6>
-                        <pre><code>var regex = RegEx.new()
-                  regex.compile("pre?load\\([\"'](res://[^\"']+)[\"']\\)")
-                  
-                  func get_dependencies(file_path):
-                      var file = FileAccess.open(file_path, FileAccess.READ)
-                      var content = file.get_as_text()
-                      var matches = regex.search_all(content)
-                      return [match.get_string(1) for match in matches]</code></pre>
-
-                        <p>On détecte ici toutes les dépendances explicites via <code>load</code> ou
-                            <code>preload</code>.
+                        <p>
+                            Le pion central est le <strong>Roi</strong>, aussi appelé le “Maître”.
+                            Il dispose de davantage de points de vie, et sa destruction entraîne
+                            immédiatement la défaite du joueur.
                         </p>
 
-                        <h6>⚠️ Détection des problèmes</h6>
-                        <pre><code>for path in deps:
-                      if not ResourceLoader.exists(path):
-                          print("⚠️ Ressource manquante :", path)</code></pre>
+                        <p>
+                            La condition de victoire ne repose donc plus sur un échec et mat classique,
+                            mais sur l’élimination d’une unité clé.
+                        </p>
 
-                        <p>Utile pour prévenir les erreurs de runtime à cause de fichiers manquants.</p>
+                        <h6>🧱 Des unités spécialisées</h6>
+                        <p>
+                            Le jeu introduit des pions aux comportements variés, par exemple :
+                        </p>
 
-                        <h6>📁 Étendre à tout le projet</h6>
-                        <pre><code>func get_all_gd_files(dir_path = "res://") -> Array:
-                      var results = []
-                      var dir = DirAccess.open(dir_path)
-                      dir.list_dir_begin()
-                      var name = dir.get_next()
-                      while name != "":
-                          if dir.current_is_dir():
-                              results += get_all_gd_files(dir_path + name + "/")
-                          elif name.ends_with(".gd"):
-                              results.append(dir_path + name)
-                          name = dir.get_next()
-                      dir.list_dir_end()
-                      return results</code></pre>
+                        <ul>
+                            <li>des <strong>pions mur</strong>, incapables de se déplacer mais capables de se protéger
+                            </li>
+                            <li>des <strong>pions tourelle</strong>, qui attaquent automatiquement à chaque tour</li>
+                            <li>des unités capables de créer des <strong>zones d’influence</strong> ou des effets
+                                explosifs</li>
+                        </ul>
 
-                        <p>Et voilà : un scan complet, pour un graphe ou un rapport automatisé.</p>
-                        <p>➡️ Bref : une dépendance analysée, c’est un projet mieux maîtrisé !</p>
+                        <p>
+                            Ces différences transforment le plateau en un espace dynamique,
+                            où le placement et l’anticipation prennent une importance centrale.
+                        </p>
+
+                        <h6>🃏 Une dimension deck-building</h6>
+                        <p>
+                            Avant la partie, le joueur compose un <strong>deck de pions</strong>.
+                            Le choix des unités conditionne donc fortement la stratégie adoptée en jeu.
+                        </p>
+
+                        <p>
+                            Cette approche introduit une double lecture stratégique :
+                        </p>
+
+                        <ul>
+                            <li>une stratégie <strong>en amont</strong>, lors de la construction du deck</li>
+                            <li>une stratégie <strong>en partie</strong>, via le placement et le timing</li>
+                        </ul>
+
+                        <p>
+                            Elle ouvre également la porte à une progression long terme,
+                            sans dépendre uniquement de la dextérité du joueur.
+                        </p>
+
+                        <h6>⏱ Un tour par tour interactif</h6>
+                        <p>
+                            Le jeu est fondamentalement tour par tour, mais certaines actions
+                            peuvent se produire <strong>pendant le tour adverse</strong>.
+                        </p>
+
+                        <p>
+                            Des capacités passives peuvent se déclencher lorsqu’une unité ennemie
+                            entre dans une zone spécifique, et certaines actions peuvent demander
+                            une réaction directe du joueur ciblé.
+                        </p>
+
+                        <p>
+                            Par exemple :
+                        </p>
+
+                        <p>
+                            <em>« Vous êtes ciblé par une attaque. Souhaitez-vous esquiver les dégâts ? »</em>
+                        </p>
+
+                        <p>
+                            Cette mécanique implique une réflexion précoce sur la gestion des événements,
+                            des interruptions de tour et, à terme, sur l’autorité serveur.
+                        </p>
+
+                        <h6>📱 Une contrainte forte : le format vertical</h6>
+                        <p>
+                            Le jeu est pensé exclusivement pour un affichage <strong>vertical</strong>.
+                            Cette contrainte influence dès le départ :
+                        </p>
+
+                        <ul>
+                            <li>la lisibilité du plateau</li>
+                            <li>la hiérarchie des informations</li>
+                            <li>la manière dont les choix sont proposés au joueur</li>
+                        </ul>
+
+                        <p>
+                            L’enjeu est de conserver une profondeur stratégique élevée
+                            tout en restant lisible et confortable sur mobile.
+                        </p>
+
+                        <h6>🧠 Conclusion de cette première étape</h6>
+                        <p>
+                            Cette phase de réflexion vise avant tout à clarifier l’intention du jeu
+                            et à identifier les systèmes majeurs qu’il impliquera.
+                        </p>
+
+                        <p>
+                            Avant d’aborder les choix techniques, il est essentiel de comprendre
+                            ce que l’on cherche à construire, pourquoi, et avec quelles contraintes.
+                        </p>
+
+                        <p>
+                            La prochaine étape consistera à transformer ces intentions en systèmes formalisés,
+                            capables d’être implémentés proprement et maintenus dans le temps.
+                        </p>
+
                     </div>
                 </article>
             </section>
