@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog · Analyse des dépendances</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/blog.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="light">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../index.html#header" aria-label="Accueil">
+                <img src="../images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte"
+                    class="rounded-circle me-2">
+                <span class="d-none d-md-inline">Basil L'HÔTE</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#skills">Compétences</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#contact">Contact</a></li>
+
+                    <li class="nav-item">
+                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2"
+                            aria-label="Changer le thème">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="text-center mb-4 mt-4">Analyse des dépendances</h1>
+        <p class="text-center text-muted mb-5">Un projet mené en JS afin de suivre les potentiels régressions suite à un
+            changement. Suivez ici son évolution technique
+            et créative.</p>
+
+        <div class="text-center mt-5 mb-5">
+            <a href="https://github.com/LBasil/baseX" target="_blank" class="btn btn-outline-secondary">← Lien vers le
+                projet</a>
+        </div>
+
+        <section id="blog">
+            <h2 class="mb-4">Journal de développement</h2>
+
+            <section id="blog" class="timeline">
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Analyser les dépendances dans un projet</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 15 avril 2025</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Quand un projet grandit, il devient de plus en plus difficile de garder une trace claire des
+                            fichiers dont il dépend.
+                            L’analyse des dépendances permet de :
+                        </p>
+                        <ul>
+                            <li>Visualiser l’arborescence et les liens entre fichiers</li>
+                            <li>Détecter les ressources orphelines ou manquantes</li>
+                            <li>Éviter des bugs liés à des chemins obsolètes</li>
+                        </ul>
+
+                        <h6>🔎 Identifier les dépendances automatiquement</h6>
+                        <p>On scanne chaque fichier à la recherche de références à d’autres, par exemple avec :</p>
+                        <pre><code># En pseudo-code
+                  search("load('res://") ➜ extraire les chemins de fichiers</code></pre>
+
+                        <p>On peut utiliser des regex simples ou une vraie analyse syntaxique (AST).</p>
+
+                        <h6>💡 Exemple simple en GDScript</h6>
+                        <pre><code>var regex = RegEx.new()
+                  regex.compile("pre?load\\([\"'](res://[^\"']+)[\"']\\)")
+                  
+                  func get_dependencies(file_path):
+                      var file = FileAccess.open(file_path, FileAccess.READ)
+                      var content = file.get_as_text()
+                      var matches = regex.search_all(content)
+                      return [match.get_string(1) for match in matches]</code></pre>
+
+                        <p>On détecte ici toutes les dépendances explicites via <code>load</code> ou
+                            <code>preload</code>.
+                        </p>
+
+                        <h6>⚠️ Détection des problèmes</h6>
+                        <pre><code>for path in deps:
+                      if not ResourceLoader.exists(path):
+                          print("⚠️ Ressource manquante :", path)</code></pre>
+
+                        <p>Utile pour prévenir les erreurs de runtime à cause de fichiers manquants.</p>
+
+                        <h6>📁 Étendre à tout le projet</h6>
+                        <pre><code>func get_all_gd_files(dir_path = "res://") -> Array:
+                      var results = []
+                      var dir = DirAccess.open(dir_path)
+                      dir.list_dir_begin()
+                      var name = dir.get_next()
+                      while name != "":
+                          if dir.current_is_dir():
+                              results += get_all_gd_files(dir_path + name + "/")
+                          elif name.ends_with(".gd"):
+                              results.append(dir_path + name)
+                          name = dir.get_next()
+                      dir.list_dir_end()
+                      return results</code></pre>
+
+                        <p>Et voilà : un scan complet, pour un graphe ou un rapport automatisé.</p>
+                        <p>➡️ Bref : une dépendance analysée, c’est un projet mieux maîtrisé !</p>
+                    </div>
+                </article>
+            </section>
+
+
+        </section>
+
+        <div class="text-center mt-5">
+            <a href="../index.html" class="btn btn-outline-secondary">← Retour au portfolio</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/prism.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        document.querySelectorAll('.toggle-content').forEach(button => {
+            button.addEventListener('click', function () {
+                const content = this.closest('article').querySelector('.blog-content');
+                const icon = this.querySelector('span');
+                if (content.style.display === 'none' || content.style.display === '') {
+                    content.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    content.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    </script>
+    <script src="../script/navigation.js"></script>
+</body>
+
+</html>

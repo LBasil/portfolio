@@ -13,6 +13,16 @@ const projects = [
     blogUrl: "projects/dependency-analyzer.html"
   },
   {
+    title: "Brawl chessV2",
+    description: "Mobile 1v1 chess battler like you never seen before.",
+    url: "",
+    image: "",
+    badges: ["VueJS", "Game", "In-Progress"],
+    archived: false,
+    hasBlog: true,
+    blogUrl: "projects/brawl-chessV2.html"
+  },
+  {
     title: "Brawl chess",
     description: "Mobile 1v1 chess battler like you never seen before.",
     url: "https://github.com/LBasil/Brawl-Chess",
