@@ -406,9 +406,134 @@
 
                     </div>
                 </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Coeur du gameplay</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 04 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après avoir défini l’intention générale et les systèmes majeurs du jeu,
+                            il est temps de documenter le cœur du gameplay :
+                            le cycle d’un tour, le moteur d’événements et la manière dont le serveur
+                            garde le contrôle.
+                        </p>
+
+                        <h6>⏱ Le cycle d’un tour</h6>
+                        <p>
+                            Un tour ne se réduit pas à une seule action. Il constitue un cadre temporel
+                            structuré qui organise :
+                        </p>
+                        <ul>
+                            <li>le début du tour</li>
+                            <li>la phase de contrôle du joueur actif</li>
+                            <li>les interruptions pour réactions</li>
+                            <li>la résolution complète des événements</li>
+                            <li>la fin du tour</li>
+                        </ul>
+
+                        <p>
+                            Schématiquement, on peut imaginer le flux suivant :
+                        </p>
+                        <pre><code>
+Début de tour
+  ↓
+Effets automatiques
+  ↓
+Phase de contrôle du joueur actif
+  ↓
+[ événements → réactions → décisions ]
+  ↓
+Résolution complète
+  ↓
+Effets de fin de tour
+  ↓
+Tour suivant
+</code></pre>
+
+                        <p>
+                            Même lorsqu’un joueur “passe son tour”, il peut y avoir des réactions
+                            ou des passifs déclenchés avant que le tour ne se termine.
+                        </p>
+
+                        <h6>✨ Les événements et réactions comme moteur du jeu</h6>
+                        <p>
+                            Le jeu repose sur une succession d’événements plutôt que sur une simple alternance de tours.
+                            Chaque action du joueur ou chaque changement dans l’état du plateau génère des événements,
+                            qui peuvent à leur tour déclencher :
+                        </p>
+                        <ul>
+                            <li>des capacités passives ou actives</li>
+                            <li>des réactions automatiques</li>
+                            <li>des décisions à prendre par le joueur ciblé</li>
+                        </ul>
+
+                        <p>
+                            Par exemple :
+                        </p>
+                        <ul>
+                            <li>Déplacement d’une unité → déclenche un piège ou une zone de dégâts</li>
+                            <li>Une unité ciblée → le joueur peut choisir d’esquiver</li>
+                            <li>Dégâts appliqués → certains passifs ou buffs peuvent réagir</li>
+                        </ul>
+
+                        <p>
+                            Cette approche garantit un gameplay dynamique et émergent, où chaque action
+                            peut avoir des conséquences multiples.
+                        </p>
+
+                        <h6>🌐 La vision serveur dès la conception</h6>
+                        <p>
+                            Même pour un prototype local, il est essentiel de penser le jeu comme si un serveur
+                            autoritaire contrôlait tout :
+                        </p>
+                        <ul>
+                            <li>Le serveur détient l’état unique de la partie (GameState)</li>
+                            <li>Il valide toutes les actions proposées par le joueur</li>
+                            <li>Il gère les interruptions et attend les décisions du joueur</li>
+                            <li>Le client n’est responsable que de l’affichage et de la collecte des choix</li>
+                        </ul>
+
+                        <p>
+                            Cette architecture assure la cohérence des parties, prépare le multijoueur
+                            et clarifie la séparation des responsabilités dès le départ.
+                        </p>
+
+                        <h6>🧭 Pourquoi documenter tout cela</h6>
+                        <p>
+                            Documenter le cycle de jeu, le moteur d’événements et la logique serveur
+                            permet de :
+                        </p>
+                        <ul>
+                            <li>clarifier la structure mentale du gameplay</li>
+                            <li>prévenir les décisions arbitraires lors du développement</li>
+                            <li>faciliter l’intégration future des capacités et des réactions</li>
+                            <li>préparer une architecture front/back cohérente</li>
+                        </ul>
+
+                        <p>
+                            En résumé, cette réflexion pose un socle solide pour la suite :
+                            les mécaniques avancées, les capacités complexes et la synchronisation réseau
+                            pourront être ajoutées sans risquer de casser le moteur du jeu.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">TEMPLATE</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <div class="blog-content" style="display: none;">
+                    </div>
+                </article>
             </section>
-
-
         </section>
 
         <div class="text-center mt-5">
