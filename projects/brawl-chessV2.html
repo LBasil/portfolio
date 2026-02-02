@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog · Brawl Chess V2</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/blog.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/themes/prism-tomorrow.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top" data-bs-theme="light">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../index.html#header" aria-label="Accueil">
+                <img src="../images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte"
+                    class="rounded-circle me-2">
+                <span class="d-none d-md-inline">Basil L'HÔTE</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#skills">Compétences</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#contact">Contact</a></li>
+
+                    <li class="nav-item">
+                        <button id="theme-toggle" class="btn btn-sm btn-outline-secondary ms-2"
+                            aria-label="Changer le thème">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h1 class="text-center mb-4 mt-4">Brawl Chess V2</h1>
+        <p class="text-center text-muted mb-5">Un jeu mobile en 2d développé avec Love2d. Suivez ici son évolution
+            technique
+            et créative.</p>
+
+        <div class="text-center mt-5 mb-5">
+            <a href="" target="_blank" class="btn btn-outline-secondary">← Lien vers le
+                projet</a>
+        </div>
+
+        <section id="blog">
+            <h2 class="mb-4">Journal de développement</h2>
+
+            <section id="blog" class="timeline">
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Analyser les besoins et étudier la projet</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 02 février 2026</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Avant d’écrire la moindre ligne de code, j’ai souhaité prendre le temps de poser
+                            les bases conceptuelles du projet. L’objectif n’est pas encore de résoudre des
+                            problèmes techniques, mais de comprendre précisément <strong>quel jeu je veux créer</strong>
+                            et <strong>quels systèmes il implique</strong>.
+                        </p>
+
+                        <h6>🎮 Intention du projet</h6>
+                        <p>
+                            Le projet est un jeu de stratégie <strong>1 contre 1</strong>, jouable sur mobile,
+                            dans un format <strong>tour par tour</strong>. Il s’appuie sur un plateau inspiré
+                            des échecs, non pas pour en reprendre les règles, mais pour bénéficier d’un
+                            langage visuel immédiatement compréhensible.
+                        </p>
+
+                        <p>
+                            Chaque case du plateau représente un espace de décision, et chaque pion
+                            devient une entité à part entière, avec ses propres caractéristiques et comportements.
+                        </p>
+
+                        <h6>♟ Un héritage des échecs, sans leurs contraintes</h6>
+                        <p>
+                            Le plateau reprend la logique d’une grille fixe, rappelant les échecs,
+                            mais les pions ne sont ni standardisés ni sacrifiables.
+                        </p>
+
+                        <p>
+                            Chaque pion possède :
+                        </p>
+
+                        <ul>
+                            <li>des <strong>points de vie</strong></li>
+                            <li>des <strong>capacités passives</strong></li>
+                            <li>et parfois des <strong>capacités actives</strong></li>
+                        </ul>
+
+                        <p>
+                            Le pion central est le <strong>Roi</strong>, aussi appelé le “Maître”.
+                            Il dispose de davantage de points de vie, et sa destruction entraîne
+                            immédiatement la défaite du joueur.
+                        </p>
+
+                        <p>
+                            La condition de victoire ne repose donc plus sur un échec et mat classique,
+                            mais sur l’élimination d’une unité clé.
+                        </p>
+
+                        <h6>🧱 Des unités spécialisées</h6>
+                        <p>
+                            Le jeu introduit des pions aux comportements variés, par exemple :
+                        </p>
+
+                        <ul>
+                            <li>des <strong>pions mur</strong>, incapables de se déplacer mais capables de se protéger
+                            </li>
+                            <li>des <strong>pions tourelle</strong>, qui attaquent automatiquement à chaque tour</li>
+                            <li>des unités capables de créer des <strong>zones d’influence</strong> ou des effets
+                                explosifs</li>
+                        </ul>
+
+                        <p>
+                            Ces différences transforment le plateau en un espace dynamique,
+                            où le placement et l’anticipation prennent une importance centrale.
+                        </p>
+
+                        <h6>🃏 Une dimension deck-building</h6>
+                        <p>
+                            Avant la partie, le joueur compose un <strong>deck de pions</strong>.
+                            Le choix des unités conditionne donc fortement la stratégie adoptée en jeu.
+                        </p>
+
+                        <p>
+                            Cette approche introduit une double lecture stratégique :
+                        </p>
+
+                        <ul>
+                            <li>une stratégie <strong>en amont</strong>, lors de la construction du deck</li>
+                            <li>une stratégie <strong>en partie</strong>, via le placement et le timing</li>
+                        </ul>
+
+                        <p>
+                            Elle ouvre également la porte à une progression long terme,
+                            sans dépendre uniquement de la dextérité du joueur.
+                        </p>
+
+                        <h6>⏱ Un tour par tour interactif</h6>
+                        <p>
+                            Le jeu est fondamentalement tour par tour, mais certaines actions
+                            peuvent se produire <strong>pendant le tour adverse</strong>.
+                        </p>
+
+                        <p>
+                            Des capacités passives peuvent se déclencher lorsqu’une unité ennemie
+                            entre dans une zone spécifique, et certaines actions peuvent demander
+                            une réaction directe du joueur ciblé.
+                        </p>
+
+                        <p>
+                            Par exemple :
+                        </p>
+
+                        <p>
+                            <em>« Vous êtes ciblé par une attaque. Souhaitez-vous esquiver les dégâts ? »</em>
+                        </p>
+
+                        <p>
+                            Cette mécanique implique une réflexion précoce sur la gestion des événements,
+                            des interruptions de tour et, à terme, sur l’autorité serveur.
+                        </p>
+
+                        <h6>📱 Une contrainte forte : le format vertical</h6>
+                        <p>
+                            Le jeu est pensé exclusivement pour un affichage <strong>vertical</strong>.
+                            Cette contrainte influence dès le départ :
+                        </p>
+
+                        <ul>
+                            <li>la lisibilité du plateau</li>
+                            <li>la hiérarchie des informations</li>
+                            <li>la manière dont les choix sont proposés au joueur</li>
+                        </ul>
+
+                        <p>
+                            L’enjeu est de conserver une profondeur stratégique élevée
+                            tout en restant lisible et confortable sur mobile.
+                        </p>
+
+                        <h6>🧠 Conclusion de cette première étape</h6>
+                        <p>
+                            Cette phase de réflexion vise avant tout à clarifier l’intention du jeu
+                            et à identifier les systèmes majeurs qu’il impliquera.
+                        </p>
+
+                        <p>
+                            Avant d’aborder les choix techniques, il est essentiel de comprendre
+                            ce que l’on cherche à construire, pourquoi, et avec quelles contraintes.
+                        </p>
+
+                        <p>
+                            La prochaine étape consistera à transformer ces intentions en systèmes formalisés,
+                            capables d’être implémentés proprement et maintenus dans le temps.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Penser les systèmes</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 03 février 2026</p>
+
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après avoir posé l’intention générale du projet, la seconde étape a consisté
+                            à changer de point de vue. Il ne s’agit plus seulement d’imaginer un jeu,
+                            mais de commencer à le penser comme un <strong>système cohérent</strong>,
+                            capable d’évoluer, d’être maintenu et, à terme, d’être synchronisé avec un serveur.
+                        </p>
+
+                        <h6>🧠 Penser le jeu comme un état</h6>
+                        <p>
+                            La première idée structurante est la suivante :
+                        </p>
+
+                        <p>
+                            <em>À tout instant, une partie peut être décrite intégralement par un état de jeu.</em>
+                        </p>
+
+                        <p>
+                            Cet état contient tout ce qui définit la réalité du jeu : le plateau,
+                            les unités, leurs caractéristiques, le joueur actif, ainsi que les effets
+                            ou décisions en cours.
+                        </p>
+
+                        <p>
+                            Il ne s’agit pas d’affichage, ni d’animations, ni d’interface.
+                            L’état de jeu représente uniquement <strong>ce qui est vrai</strong>
+                            à un instant donné.
+                        </p>
+
+                        <h6>♟ Le plateau comme espace de règles</h6>
+                        <p>
+                            Même si visuellement le plateau évoque un échiquier,
+                            il ne doit pas être vu comme une simple grille.
+                        </p>
+
+                        <p>
+                            Chaque case est un point d’interaction potentiel :
+                        </p>
+
+                        <ul>
+                            <li>elle peut accueillir une unité</li>
+                            <li>elle peut être traversée</li>
+                            <li>elle peut déclencher des effets</li>
+                        </ul>
+
+                        <p>
+                            Le plateau devient ainsi un support de règles et d’événements,
+                            et non un simple décor.
+                        </p>
+
+                        <h6>🧱 Les unités comme systèmes</h6>
+                        <p>
+                            Une unité n’est pas définie uniquement par ses points de vie
+                            ou sa position sur le plateau.
+                        </p>
+
+                        <p>
+                            Conceptuellement, une unité est un ensemble de comportements :
+                        </p>
+
+                        <ul>
+                            <li>des actions qu’elle peut initier</li>
+                            <li>des réactions à des événements</li>
+                            <li>des effets passifs qui modifient le jeu</li>
+                        </ul>
+
+                        <p>
+                            Ce sont ces comportements qui donnent sa personnalité à une unité,
+                            bien plus que son apparence ou son type.
+                        </p>
+
+                        <h6>✨ Capacités : le cœur du gameplay</h6>
+                        <p>
+                            Les capacités sont au centre de l’expérience de jeu.
+                            Elles ne sont pas appelées directement par le système,
+                            mais réagissent à des événements précis.
+                        </p>
+
+                        <p>
+                            Une capacité peut être décrite simplement comme :
+                        </p>
+
+                        <ul>
+                            <li>une condition</li>
+                            <li>un déclencheur</li>
+                            <li>un effet</li>
+                        </ul>
+
+                        <p>
+                            Par exemple : lorsqu’une unité ennemie entre dans une zone,
+                            lorsqu’une attaque est ciblée, ou au début d’un tour.
+                        </p>
+
+                        <p>
+                            Cette approche permet d’éviter une logique rigide,
+                            et favorise un gameplay émergent basé sur les interactions.
+                        </p>
+
+                        <h6>⏱ Un jeu piloté par les événements</h6>
+                        <p>
+                            Même si le jeu est tour par tour, il n’est pas piloté uniquement
+                            par une alternance stricte entre les joueurs.
+                        </p>
+
+                        <p>
+                            Le moteur du jeu repose sur une succession d’événements :
+                        </p>
+
+                        <ul>
+                            <li>début de tour</li>
+                            <li>déplacement d’une unité</li>
+                            <li>ciblage</li>
+                            <li>dégâts entrants</li>
+                            <li>destruction d’une unité</li>
+                        </ul>
+
+                        <p>
+                            Ces événements peuvent en déclencher d’autres,
+                            former des chaînes, et parfois nécessiter
+                            une décision explicite du joueur.
+                        </p>
+
+                        <h6>🤔 Les décisions comme interruptions</h6>
+                        <p>
+                            Une particularité importante du jeu est la possibilité
+                            pour un joueur d’agir pendant le tour adverse.
+                        </p>
+
+                        <p>
+                            Dans ces cas-là, le jeu doit être capable de :
+                        </p>
+
+                        <ul>
+                            <li>mettre son déroulement en pause</li>
+                            <li>proposer un choix clair et limité</li>
+                            <li>reprendre une fois la décision prise</li>
+                        </ul>
+
+                        <p>
+                            Une décision n’est donc pas une action immédiate,
+                            mais une réponse attendue par le système.
+                        </p>
+
+                        <h6>🌐 Une vision orientée serveur</h6>
+                        <p>
+                            Même à ce stade de réflexion, le jeu est pensé
+                            comme étant piloté par un serveur autoritaire.
+                        </p>
+
+                        <p>
+                            Le client se contente de :
+                        </p>
+
+                        <ul>
+                            <li>proposer des actions</li>
+                            <li>afficher l’état du jeu</li>
+                            <li>transmettre les décisions du joueur</li>
+                        </ul>
+
+                        <p>
+                            Cette séparation permet d’anticiper la synchronisation,
+                            la validation des actions et la cohérence des parties multijoueur.
+                        </p>
+
+                        <h6>🧭 Conclusion de cette étape</h6>
+                        <p>
+                            Cette phase de réflexion vise à transformer une idée de jeu
+                            en un ensemble de systèmes clairs et indépendants.
+                        </p>
+
+                        <p>
+                            Avant toute implémentation, comprendre la structure logique
+                            du jeu permet de limiter les choix arbitraires
+                            et de poser des bases solides pour la suite du développement.
+                        </p>
+
+                        <p>
+                            La prochaine étape consistera à formaliser plus précisément
+                            le cycle d’un tour et la manière dont ces événements s’enchaînent.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Coeur du gameplay</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 04 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après avoir défini l’intention générale et les systèmes majeurs du jeu,
+                            il est temps de documenter le cœur du gameplay :
+                            le cycle d’un tour, le moteur d’événements et la manière dont le serveur
+                            garde le contrôle.
+                        </p>
+
+                        <h6>⏱ Le cycle d’un tour</h6>
+                        <p>
+                            Un tour ne se réduit pas à une seule action. Il constitue un cadre temporel
+                            structuré qui organise :
+                        </p>
+                        <ul>
+                            <li>le début du tour</li>
+                            <li>la phase de contrôle du joueur actif</li>
+                            <li>les interruptions pour réactions</li>
+                            <li>la résolution complète des événements</li>
+                            <li>la fin du tour</li>
+                        </ul>
+
+                        <p>
+                            Schématiquement, on peut imaginer le flux suivant :
+                        </p>
+                        <pre><code>
+Début de tour
+  ↓
+Effets automatiques
+  ↓
+Phase de contrôle du joueur actif
+  ↓
+[ événements → réactions → décisions ]
+  ↓
+Résolution complète
+  ↓
+Effets de fin de tour
+  ↓
+Tour suivant
+</code></pre>
+
+                        <p>
+                            Même lorsqu’un joueur “passe son tour”, il peut y avoir des réactions
+                            ou des passifs déclenchés avant que le tour ne se termine.
+                        </p>
+
+                        <h6>✨ Les événements et réactions comme moteur du jeu</h6>
+                        <p>
+                            Le jeu repose sur une succession d’événements plutôt que sur une simple alternance de tours.
+                            Chaque action du joueur ou chaque changement dans l’état du plateau génère des événements,
+                            qui peuvent à leur tour déclencher :
+                        </p>
+                        <ul>
+                            <li>des capacités passives ou actives</li>
+                            <li>des réactions automatiques</li>
+                            <li>des décisions à prendre par le joueur ciblé</li>
+                        </ul>
+
+                        <p>
+                            Par exemple :
+                        </p>
+                        <ul>
+                            <li>Déplacement d’une unité → déclenche un piège ou une zone de dégâts</li>
+                            <li>Une unité ciblée → le joueur peut choisir d’esquiver</li>
+                            <li>Dégâts appliqués → certains passifs ou buffs peuvent réagir</li>
+                        </ul>
+
+                        <p>
+                            Cette approche garantit un gameplay dynamique et émergent, où chaque action
+                            peut avoir des conséquences multiples.
+                        </p>
+
+                        <h6>🌐 La vision serveur dès la conception</h6>
+                        <p>
+                            Même pour un prototype local, il est essentiel de penser le jeu comme si un serveur
+                            autoritaire contrôlait tout :
+                        </p>
+                        <ul>
+                            <li>Le serveur détient l’état unique de la partie (GameState)</li>
+                            <li>Il valide toutes les actions proposées par le joueur</li>
+                            <li>Il gère les interruptions et attend les décisions du joueur</li>
+                            <li>Le client n’est responsable que de l’affichage et de la collecte des choix</li>
+                        </ul>
+
+                        <p>
+                            Cette architecture assure la cohérence des parties, prépare le multijoueur
+                            et clarifie la séparation des responsabilités dès le départ.
+                        </p>
+
+                        <h6>🧭 Pourquoi documenter tout cela</h6>
+                        <p>
+                            Documenter le cycle de jeu, le moteur d’événements et la logique serveur
+                            permet de :
+                        </p>
+                        <ul>
+                            <li>clarifier la structure mentale du gameplay</li>
+                            <li>prévenir les décisions arbitraires lors du développement</li>
+                            <li>faciliter l’intégration future des capacités et des réactions</li>
+                            <li>préparer une architecture front/back cohérente</li>
+                        </ul>
+
+                        <p>
+                            En résumé, cette réflexion pose un socle solide pour la suite :
+                            les mécaniques avancées, les capacités complexes et la synchronisation réseau
+                            pourront être ajoutées sans risquer de casser le moteur du jeu.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">TEMPLATE</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <div class="blog-content" style="display: none;">
+                    </div>
+                </article>
+            </section>
+        </section>
+
+        <div class="text-center mt-5">
+            <a href="../index.html" class="btn btn-outline-secondary">← Retour au portfolio</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/prism.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        document.querySelectorAll('.toggle-content').forEach(button => {
+            button.addEventListener('click', function () {
+                const content = this.closest('article').querySelector('.blog-content');
+                const icon = this.querySelector('span');
+                if (content.style.display === 'none' || content.style.display === '') {
+                    content.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    content.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    </script>
+    <script src="../script/navigation.js"></script>
+</body>
+
+</html>
