@@ -697,6 +697,155 @@ Tour suivant
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Le coeur du moteur</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 05 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après avoir posé les bases d’un moteur orienté événements et capacités,
+                            une question centrale émerge naturellement :
+                            <strong>où vit l’état du jeu ?</strong>
+                        </p>
+
+                        <p>
+                            Toute la cohérence du projet repose sur une entité unique et maîtrisée :
+                            le <strong>GameState</strong>.
+                        </p>
+
+                        <h6>🧠 Le GameState comme source de vérité</h6>
+                        <p>
+                            Le GameState représente une photographie complète et cohérente
+                            de la partie à un instant donné.
+                            Il ne s’agit pas d’un objet utilitaire,
+                            mais de la <em>source de vérité absolue</em> du jeu.
+                        </p>
+
+                        <p>
+                            Rien n’existe dans le jeu s’il n’est pas exprimé dans le GameState.
+                            L’interface, les animations ou les effets visuels
+                            ne font qu’interpréter cet état.
+                        </p>
+
+                        <h6>📦 Ce que contient le GameState</h6>
+                        <p>
+                            Conceptuellement, le GameState regroupe uniquement
+                            des données stables, sérialisables et déterministes :
+                        </p>
+
+                        <ul>
+                            <li>les joueurs et leur état (ressources, points de vie, statut)</li>
+                            <li>le plateau et son contenu (cases, unités, zones)</li>
+                            <li>les unités et leurs propriétés actuelles</li>
+                            <li>les effets persistants actifs</li>
+                            <li>le tour en cours et la phase actuelle</li>
+                            <li>les décisions en attente</li>
+                        </ul>
+
+                        <p>
+                            Il ne décrit jamais <em>comment</em> le jeu s’affiche,
+                            seulement <em>ce qui est vrai</em>.
+                        </p>
+
+                        <h6>🚫 Ce que le GameState ne doit jamais contenir</h6>
+                        <p>
+                            Pour rester robuste, le GameState doit être strictement limité.
+                            Il ne doit notamment jamais contenir :
+                        </p>
+
+                        <ul>
+                            <li>de logique métier ou de règles de jeu</li>
+                            <li>de références à l’interface ou à des composants visuels</li>
+                            <li>d’états temporaires liés à une animation</li>
+                            <li>de calculs dérivables à la volée</li>
+                        </ul>
+
+                        <p>
+                            Cette discipline permet de garantir
+                            la prévisibilité et la testabilité du moteur.
+                        </p>
+
+                        <h6>🔁 Un état modifié uniquement par des événements</h6>
+                        <p>
+                            Le GameState n’est jamais modifié directement par une action utilisateur.
+                            Toute modification passe par :
+                        </p>
+
+                        <ul>
+                            <li>un événement émis par le moteur</li>
+                            <li>un traitement déterministe</li>
+                            <li>une application contrôlée de changements d’état</li>
+                        </ul>
+
+                        <p>
+                            Cela garantit que deux parties identiques,
+                            recevant les mêmes événements dans le même ordre,
+                            produiront toujours le même résultat.
+                        </p>
+
+                        <h6>🧩 GameState et décisions</h6>
+                        <p>
+                            Lorsqu’une capacité nécessite un choix du joueur,
+                            le GameState entre dans un état transitoire :
+                        </p>
+
+                        <ul>
+                            <li>une décision est créée</li>
+                            <li>les options disponibles sont listées</li>
+                            <li>le jeu attend une réponse</li>
+                        </ul>
+
+                        <p>
+                            Tant que cette décision n’est pas résolue,
+                            aucun autre événement ne peut modifier l’état.
+                        </p>
+
+                        <p>
+                            Le GameState devient ainsi un contrat clair
+                            entre le moteur et l’interface.
+                        </p>
+
+                        <h6>🌐 Une base idéale pour le multijoueur</h6>
+                        <p>
+                            Cette approche rend naturellement possible :
+                        </p>
+
+                        <ul>
+                            <li>la synchronisation réseau</li>
+                            <li>la relecture de parties</li>
+                            <li>le rollback ou l’annulation</li>
+                            <li>les tests automatisés de scénarios</li>
+                        </ul>
+
+                        <p>
+                            Le GameState peut être sérialisé,
+                            transmis, comparé ou restauré à tout moment.
+                        </p>
+
+                        <h6>🧭 Avant d’écrire la moindre ligne de code</h6>
+                        <p>
+                            Formaliser le GameState avant l’implémentation
+                            permet d’éviter une grande partie des pièges classiques :
+                        </p>
+
+                        <ul>
+                            <li>logique dispersée</li>
+                            <li>dépendances circulaires</li>
+                            <li>règles implicites</li>
+                            <li>bugs impossibles à reproduire</li>
+                        </ul>
+
+                        <p>
+                            Le moteur devient alors un système lisible,
+                            extensible et maîtrisé dès sa conception.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">TEMPLATE</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
