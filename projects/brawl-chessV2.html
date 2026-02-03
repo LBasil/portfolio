@@ -524,6 +524,179 @@ Tour suivant
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Les évènements</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 04 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            À ce stade du projet, une chose devient évidente :
+                            le gameplay ne peut pas être piloté uniquement par des tours ou des actions directes.
+                            Il repose sur un enchaînement d’événements et de réactions,
+                            capables de produire un jeu dynamique et extensible.
+                        </p>
+
+                        <h6>⚙️ Le jeu comme moteur d’événements</h6>
+                        <p>
+                            Le principe fondamental adopté est simple :
+                        </p>
+
+                        <p>
+                            <em>Le jeu n’applique jamais une règle directement.
+                                Il émet des événements.</em>
+                        </p>
+
+                        <p>
+                            Chaque changement dans l’état de la partie — déplacement, attaque,
+                            début de tour ou destruction d’une unité — génère un événement.
+                            Ces événements deviennent le véritable moteur du jeu.
+                        </p>
+
+                        <h6>📦 Catégoriser les événements</h6>
+                        <p>
+                            Afin de garder une structure claire, les événements sont regroupés
+                            en grandes familles conceptuelles :
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>Événements de tour</strong> :
+                                début de tour, fin de tour, changement de joueur actif
+                            </li>
+                            <li>
+                                <strong>Événements de plateau</strong> :
+                                entrée ou sortie d’une case, traversée d’une zone
+                            </li>
+                            <li>
+                                <strong>Événements d’unité</strong> :
+                                unité ciblée, déplacée, invoquée ou détruite
+                            </li>
+                            <li>
+                                <strong>Événements de combat</strong> :
+                                attaque déclarée, dégâts entrants, dégâts subis, esquive
+                            </li>
+                            <li>
+                                <strong>Événements de décision</strong> :
+                                demande de choix, réponse du joueur, expiration d’une décision
+                            </li>
+                        </ul>
+
+                        <p>
+                            Cette catégorisation permet de raisonner sur le jeu
+                            sans dépendre de l’implémentation technique.
+                        </p>
+
+                        <h6>✨ Les capacités comme règles réactives</h6>
+                        <p>
+                            Une capacité n’est ni un bouton, ni une action appelée directement.
+                            Elle représente une règle conditionnelle qui réagit à des événements précis.
+                        </p>
+
+                        <p>
+                            Conceptuellement, une capacité se compose de :
+                        </p>
+
+                        <ul>
+                            <li>un ou plusieurs événements écoutés</li>
+                            <li>une condition de déclenchement</li>
+                            <li>un ou plusieurs effets produits</li>
+                            <li>éventuellement, une décision demandée au joueur</li>
+                        </ul>
+
+                        <p>
+                            Cette approche permet d’éviter une logique rigide et favorise
+                            un gameplay basé sur les interactions entre systèmes.
+                        </p>
+
+                        <h6>🧩 Typologie des capacités</h6>
+                        <p>
+                            Les capacités peuvent être classées en trois grandes catégories :
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>Capacités passives</strong> :
+                                toujours actives, sans intervention du joueur
+                            </li>
+                            <li>
+                                <strong>Capacités actives</strong> :
+                                déclenchées volontairement par le joueur
+                            </li>
+                            <li>
+                                <strong>Capacités réactives</strong> :
+                                déclenchées par un événement adverse et pouvant nécessiter un choix
+                            </li>
+                        </ul>
+
+                        <p>
+                            Ce sont les capacités réactives qui permettent au jeu
+                            de rester interactif, même pendant le tour de l’adversaire.
+                        </p>
+
+                        <h6>💥 Capacités et effets : une distinction essentielle</h6>
+                        <p>
+                            Une distinction importante est faite entre :
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>la capacité</strong>, qui définit une règle
+                            </li>
+                            <li>
+                                <strong>l’effet</strong>, qui représente la conséquence appliquée au jeu
+                            </li>
+                        </ul>
+
+                        <p>
+                            Un effet peut être immédiat, différé ou persistant,
+                            et peut lui-même générer de nouveaux événements.
+                        </p>
+
+                        <p>
+                            Cette séparation permet de conserver un moteur de jeu
+                            cohérent et prévisible, même avec des chaînes d’effets complexes.
+                        </p>
+
+                        <h6>🔁 Exemple de chaîne événementielle</h6>
+                        <p>
+                            Lorsqu’une unité ennemie entre dans une zone :
+                        </p>
+
+                        <ul>
+                            <li>un événement d’entrée de case est émis</li>
+                            <li>une capacité passive réagit</li>
+                            <li>un effet de dégâts est appliqué</li>
+                            <li>un événement de dégâts entrants est généré</li>
+                            <li>une capacité réactive peut demander une décision</li>
+                            <li>la réponse du joueur détermine la suite des effets</li>
+                        </ul>
+
+                        <p>
+                            Chaque étape est traçable, ordonnée et indépendante de l’interface.
+                        </p>
+
+                        <h6>🧭 Une base solide pour la suite</h6>
+                        <p>
+                            Cette modélisation par événements et capacités permet :
+                        </p>
+
+                        <ul>
+                            <li>d’ajouter de nouvelles mécaniques sans modifier l’existant</li>
+                            <li>de garantir la cohérence des parties</li>
+                            <li>de préparer une synchronisation serveur fiable</li>
+                            <li>de conserver un moteur de jeu lisible et testable</li>
+                        </ul>
+
+                        <p>
+                            Avant toute implémentation, ce cadre conceptuel constitue
+                            une fondation essentielle pour un projet de jeu complexe et évolutif.
+                        </p>
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">TEMPLATE</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
