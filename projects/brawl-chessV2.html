@@ -524,6 +524,529 @@ Tour suivant
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Les évènements</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 04 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            À ce stade du projet, une chose devient évidente :
+                            le gameplay ne peut pas être piloté uniquement par des tours ou des actions directes.
+                            Il repose sur un enchaînement d’événements et de réactions,
+                            capables de produire un jeu dynamique et extensible.
+                        </p>
+
+                        <h6>⚙️ Le jeu comme moteur d’événements</h6>
+                        <p>
+                            Le principe fondamental adopté est simple :
+                        </p>
+
+                        <p>
+                            <em>Le jeu n’applique jamais une règle directement.
+                                Il émet des événements.</em>
+                        </p>
+
+                        <p>
+                            Chaque changement dans l’état de la partie — déplacement, attaque,
+                            début de tour ou destruction d’une unité — génère un événement.
+                            Ces événements deviennent le véritable moteur du jeu.
+                        </p>
+
+                        <h6>📦 Catégoriser les événements</h6>
+                        <p>
+                            Afin de garder une structure claire, les événements sont regroupés
+                            en grandes familles conceptuelles :
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>Événements de tour</strong> :
+                                début de tour, fin de tour, changement de joueur actif
+                            </li>
+                            <li>
+                                <strong>Événements de plateau</strong> :
+                                entrée ou sortie d’une case, traversée d’une zone
+                            </li>
+                            <li>
+                                <strong>Événements d’unité</strong> :
+                                unité ciblée, déplacée, invoquée ou détruite
+                            </li>
+                            <li>
+                                <strong>Événements de combat</strong> :
+                                attaque déclarée, dégâts entrants, dégâts subis, esquive
+                            </li>
+                            <li>
+                                <strong>Événements de décision</strong> :
+                                demande de choix, réponse du joueur, expiration d’une décision
+                            </li>
+                        </ul>
+
+                        <p>
+                            Cette catégorisation permet de raisonner sur le jeu
+                            sans dépendre de l’implémentation technique.
+                        </p>
+
+                        <h6>✨ Les capacités comme règles réactives</h6>
+                        <p>
+                            Une capacité n’est ni un bouton, ni une action appelée directement.
+                            Elle représente une règle conditionnelle qui réagit à des événements précis.
+                        </p>
+
+                        <p>
+                            Conceptuellement, une capacité se compose de :
+                        </p>
+
+                        <ul>
+                            <li>un ou plusieurs événements écoutés</li>
+                            <li>une condition de déclenchement</li>
+                            <li>un ou plusieurs effets produits</li>
+                            <li>éventuellement, une décision demandée au joueur</li>
+                        </ul>
+
+                        <p>
+                            Cette approche permet d’éviter une logique rigide et favorise
+                            un gameplay basé sur les interactions entre systèmes.
+                        </p>
+
+                        <h6>🧩 Typologie des capacités</h6>
+                        <p>
+                            Les capacités peuvent être classées en trois grandes catégories :
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>Capacités passives</strong> :
+                                toujours actives, sans intervention du joueur
+                            </li>
+                            <li>
+                                <strong>Capacités actives</strong> :
+                                déclenchées volontairement par le joueur
+                            </li>
+                            <li>
+                                <strong>Capacités réactives</strong> :
+                                déclenchées par un événement adverse et pouvant nécessiter un choix
+                            </li>
+                        </ul>
+
+                        <p>
+                            Ce sont les capacités réactives qui permettent au jeu
+                            de rester interactif, même pendant le tour de l’adversaire.
+                        </p>
+
+                        <h6>💥 Capacités et effets : une distinction essentielle</h6>
+                        <p>
+                            Une distinction importante est faite entre :
+                        </p>
+
+                        <ul>
+                            <li>
+                                <strong>la capacité</strong>, qui définit une règle
+                            </li>
+                            <li>
+                                <strong>l’effet</strong>, qui représente la conséquence appliquée au jeu
+                            </li>
+                        </ul>
+
+                        <p>
+                            Un effet peut être immédiat, différé ou persistant,
+                            et peut lui-même générer de nouveaux événements.
+                        </p>
+
+                        <p>
+                            Cette séparation permet de conserver un moteur de jeu
+                            cohérent et prévisible, même avec des chaînes d’effets complexes.
+                        </p>
+
+                        <h6>🔁 Exemple de chaîne événementielle</h6>
+                        <p>
+                            Lorsqu’une unité ennemie entre dans une zone :
+                        </p>
+
+                        <ul>
+                            <li>un événement d’entrée de case est émis</li>
+                            <li>une capacité passive réagit</li>
+                            <li>un effet de dégâts est appliqué</li>
+                            <li>un événement de dégâts entrants est généré</li>
+                            <li>une capacité réactive peut demander une décision</li>
+                            <li>la réponse du joueur détermine la suite des effets</li>
+                        </ul>
+
+                        <p>
+                            Chaque étape est traçable, ordonnée et indépendante de l’interface.
+                        </p>
+
+                        <h6>🧭 Une base solide pour la suite</h6>
+                        <p>
+                            Cette modélisation par événements et capacités permet :
+                        </p>
+
+                        <ul>
+                            <li>d’ajouter de nouvelles mécaniques sans modifier l’existant</li>
+                            <li>de garantir la cohérence des parties</li>
+                            <li>de préparer une synchronisation serveur fiable</li>
+                            <li>de conserver un moteur de jeu lisible et testable</li>
+                        </ul>
+
+                        <p>
+                            Avant toute implémentation, ce cadre conceptuel constitue
+                            une fondation essentielle pour un projet de jeu complexe et évolutif.
+                        </p>
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Le coeur du moteur</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 05 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après avoir posé les bases d’un moteur orienté événements et capacités,
+                            une question centrale émerge naturellement :
+                            <strong>où vit l’état du jeu ?</strong>
+                        </p>
+
+                        <p>
+                            Toute la cohérence du projet repose sur une entité unique et maîtrisée :
+                            le <strong>GameState</strong>.
+                        </p>
+
+                        <h6>🧠 Le GameState comme source de vérité</h6>
+                        <p>
+                            Le GameState représente une photographie complète et cohérente
+                            de la partie à un instant donné.
+                            Il ne s’agit pas d’un objet utilitaire,
+                            mais de la <em>source de vérité absolue</em> du jeu.
+                        </p>
+
+                        <p>
+                            Rien n’existe dans le jeu s’il n’est pas exprimé dans le GameState.
+                            L’interface, les animations ou les effets visuels
+                            ne font qu’interpréter cet état.
+                        </p>
+
+                        <h6>📦 Ce que contient le GameState</h6>
+                        <p>
+                            Conceptuellement, le GameState regroupe uniquement
+                            des données stables, sérialisables et déterministes :
+                        </p>
+
+                        <ul>
+                            <li>les joueurs et leur état (ressources, points de vie, statut)</li>
+                            <li>le plateau et son contenu (cases, unités, zones)</li>
+                            <li>les unités et leurs propriétés actuelles</li>
+                            <li>les effets persistants actifs</li>
+                            <li>le tour en cours et la phase actuelle</li>
+                            <li>les décisions en attente</li>
+                        </ul>
+
+                        <p>
+                            Il ne décrit jamais <em>comment</em> le jeu s’affiche,
+                            seulement <em>ce qui est vrai</em>.
+                        </p>
+
+                        <h6>🚫 Ce que le GameState ne doit jamais contenir</h6>
+                        <p>
+                            Pour rester robuste, le GameState doit être strictement limité.
+                            Il ne doit notamment jamais contenir :
+                        </p>
+
+                        <ul>
+                            <li>de logique métier ou de règles de jeu</li>
+                            <li>de références à l’interface ou à des composants visuels</li>
+                            <li>d’états temporaires liés à une animation</li>
+                            <li>de calculs dérivables à la volée</li>
+                        </ul>
+
+                        <p>
+                            Cette discipline permet de garantir
+                            la prévisibilité et la testabilité du moteur.
+                        </p>
+
+                        <h6>🔁 Un état modifié uniquement par des événements</h6>
+                        <p>
+                            Le GameState n’est jamais modifié directement par une action utilisateur.
+                            Toute modification passe par :
+                        </p>
+
+                        <ul>
+                            <li>un événement émis par le moteur</li>
+                            <li>un traitement déterministe</li>
+                            <li>une application contrôlée de changements d’état</li>
+                        </ul>
+
+                        <p>
+                            Cela garantit que deux parties identiques,
+                            recevant les mêmes événements dans le même ordre,
+                            produiront toujours le même résultat.
+                        </p>
+
+                        <h6>🧩 GameState et décisions</h6>
+                        <p>
+                            Lorsqu’une capacité nécessite un choix du joueur,
+                            le GameState entre dans un état transitoire :
+                        </p>
+
+                        <ul>
+                            <li>une décision est créée</li>
+                            <li>les options disponibles sont listées</li>
+                            <li>le jeu attend une réponse</li>
+                        </ul>
+
+                        <p>
+                            Tant que cette décision n’est pas résolue,
+                            aucun autre événement ne peut modifier l’état.
+                        </p>
+
+                        <p>
+                            Le GameState devient ainsi un contrat clair
+                            entre le moteur et l’interface.
+                        </p>
+
+                        <h6>🌐 Une base idéale pour le multijoueur</h6>
+                        <p>
+                            Cette approche rend naturellement possible :
+                        </p>
+
+                        <ul>
+                            <li>la synchronisation réseau</li>
+                            <li>la relecture de parties</li>
+                            <li>le rollback ou l’annulation</li>
+                            <li>les tests automatisés de scénarios</li>
+                        </ul>
+
+                        <p>
+                            Le GameState peut être sérialisé,
+                            transmis, comparé ou restauré à tout moment.
+                        </p>
+
+                        <h6>🧭 Avant d’écrire la moindre ligne de code</h6>
+                        <p>
+                            Formaliser le GameState avant l’implémentation
+                            permet d’éviter une grande partie des pièges classiques :
+                        </p>
+
+                        <ul>
+                            <li>logique dispersée</li>
+                            <li>dépendances circulaires</li>
+                            <li>règles implicites</li>
+                            <li>bugs impossibles à reproduire</li>
+                        </ul>
+
+                        <p>
+                            Le moteur devient alors un système lisible,
+                            extensible et maîtrisé dès sa conception.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Un tour de jeu</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 06 février 2025</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Une fois le GameState défini comme source de vérité,
+                            une autre question fondamentale se pose :
+                            <strong>comment le temps s’écoule-t-il dans une partie ?</strong>
+                        </p>
+
+                        <p>
+                            Dans ce jeu, le tour par tour ne se limite pas à une alternance stricte
+                            entre deux joueurs.
+                            Il s’agit d’un enchaînement d’états,
+                            ponctué de fenêtres de réaction et de décisions.
+                        </p>
+
+                        <h6>🕰️ Le tour comme machine à états</h6>
+                        <p>
+                            Plutôt que de penser en “mon tour / ton tour”,
+                            le jeu est conçu comme une suite de phases clairement définies.
+                            Chaque phase impose ses règles,
+                            ses actions autorisées
+                            et ses déclencheurs possibles.
+                        </p>
+
+                        <p>
+                            Cette approche permet de garder un moteur lisible,
+                            prévisible et compatible avec des mécaniques avancées
+                            comme les réactions hors tour.
+                        </p>
+
+                        <h6>🧩 Décomposer un tour</h6>
+                        <p>
+                            Conceptuellement, un tour peut être découpé en plusieurs grandes étapes :
+                        </p>
+
+                        <ul>
+                            <li>le début de tour</li>
+                            <li>la phase d’actions du joueur actif</li>
+                            <li>les fenêtres de réaction</li>
+                            <li>la résolution des événements</li>
+                            <li>la fin de tour</li>
+                        </ul>
+
+                        <p>
+                            Chaque étape correspond à un état précis du jeu,
+                            avec des règles explicites.
+                        </p>
+
+                        <h6>▶️ Début de tour</h6>
+                        <p>
+                            Le début de tour est réservé aux effets automatiques :
+                        </p>
+
+                        <ul>
+                            <li>capacités passives déclenchées au début du tour</li>
+                            <li>effets persistants (dégâts sur la durée, régénération)</li>
+                            <li>activations automatiques comme les tourelles</li>
+                        </ul>
+
+                        <p>
+                            Le joueur n’intervient pas à ce stade.
+                            Le moteur applique simplement ce qui est déjà vrai.
+                        </p>
+
+                        <h6>🎮 Phase d’actions</h6>
+                        <p>
+                            C’est durant cette phase que le joueur actif
+                            peut réellement agir :
+                        </p>
+
+                        <ul>
+                            <li>déplacer des unités</li>
+                            <li>poser des pions depuis son deck</li>
+                            <li>activer des capacités</li>
+                        </ul>
+
+                        <p>
+                            Chaque action peut générer des conséquences,
+                            déclencher des passifs
+                            ou ouvrir une réaction adverse.
+                        </p>
+
+                        <h6>⚡ Fenêtres de réaction</h6>
+                        <p>
+                            Certaines actions ne se résolvent pas immédiatement.
+                            Elles ouvrent une fenêtre pendant laquelle
+                            l’adversaire peut intervenir.
+                        </p>
+
+                        <p>
+                            C’est dans ces moments que prennent place :
+                        </p>
+
+                        <ul>
+                            <li>les esquives</li>
+                            <li>les contres</li>
+                            <li>les capacités défensives</li>
+                            <li>les choix du joueur ciblé</li>
+                        </ul>
+
+                        <p>
+                            Tant qu’une réaction est possible,
+                            le jeu est considéré comme suspendu.
+                        </p>
+
+                        <h6>🛑 Le gel du jeu</h6>
+                        <p>
+                            Lorsqu’un choix est requis,
+                            le jeu entre dans un état d’attente.
+                        </p>
+
+                        <p>
+                            Aucun autre événement ne peut progresser tant que :
+                        </p>
+
+                        <ul>
+                            <li>le joueur concerné n’a pas répondu</li>
+                            <li>la décision n’a pas été validée</li>
+                        </ul>
+
+                        <p>
+                            Ce gel garantit l’équité,
+                            la clarté des règles
+                            et la compréhension des enjeux par le joueur.
+                        </p>
+
+                        <h6>🔁 Résolution</h6>
+                        <p>
+                            Une fois toutes les réactions terminées,
+                            le moteur résout les événements en attente :
+                        </p>
+
+                        <ul>
+                            <li>application des dégâts</li>
+                            <li>destructions d’unités</li>
+                            <li>effets secondaires</li>
+                        </ul>
+
+                        <p>
+                            Cette phase est purement déterministe
+                            et ne nécessite aucune interaction.
+                        </p>
+
+                        <h6>🏁 Fin de tour</h6>
+                        <p>
+                            La fin de tour permet de clôturer proprement l’état courant :
+                        </p>
+
+                        <ul>
+                            <li>effets de fin de tour</li>
+                            <li>réinitialisation de capacités</li>
+                            <li>passage au joueur suivant</li>
+                        </ul>
+
+                        <p>
+                            Le cycle peut alors recommencer,
+                            dans un état propre et cohérent.
+                        </p>
+
+                        <h6>🌐 Un modèle pensé pour le multijoueur</h6>
+                        <p>
+                            En structurant le jeu autour de phases explicites
+                            et de transitions contrôlées,
+                            le moteur devient naturellement compatible
+                            avec un serveur autoritaire.
+                        </p>
+
+                        <p>
+                            Le serveur ne joue pas à la place des joueurs :
+                            il valide simplement que chaque action
+                            est autorisée dans la phase courante.
+                        </p>
+
+                        <h6>🧭 Poser le temps avant les règles</h6>
+                        <p>
+                            Définir précisément le déroulement d’un tour
+                            avant toute implémentation
+                            permet d’éviter :
+                        </p>
+
+                        <ul>
+                            <li>les règles implicites</li>
+                            <li>les comportements incohérents</li>
+                            <li>les cas limites non maîtrisés</li>
+                        </ul>
+
+                        <p>
+                            Le jeu gagne ainsi en lisibilité,
+                            en profondeur stratégique
+                            et en solidité technique.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">TEMPLATE</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
