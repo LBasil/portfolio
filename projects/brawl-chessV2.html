@@ -1047,6 +1047,671 @@ Tour suivant
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Les capacités</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 07 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Une fois le déroulement du tour clairement établi,
+                            le cœur du jeu peut enfin être formalisé :
+                            <strong>le système de capacités</strong>.
+                        </p>
+
+                        <p>
+                            Ce sont elles qui donnent leur identité aux pions,
+                            créent les situations tactiques
+                            et génèrent les décisions intéressantes.
+                        </p>
+
+                        <h6>🧩 Une capacité n’est pas une action</h6>
+                        <p>
+                            Dans ce moteur, une capacité n’est jamais une simple action directe.
+                            C’est une règle encapsulée,
+                            capable de réagir à l’état du jeu
+                            ou de le modifier sous certaines conditions.
+                        </p>
+
+                        <p>
+                            Elle existe indépendamment de l’interface
+                            et n’est jamais liée à un clic ou à un bouton.
+                        </p>
+
+                        <h6>⚙️ Trois grandes familles de capacités</h6>
+                        <p>
+                            Les capacités peuvent être classées conceptuellement
+                            en trois catégories :
+                        </p>
+
+                        <ul>
+                            <li>les capacités passives</li>
+                            <li>les capacités actives</li>
+                            <li>les capacités réactives</li>
+                        </ul>
+
+                        <p>
+                            Cette distinction permet de raisonner clairement
+                            sur leur déclenchement et leur priorité.
+                        </p>
+
+                        <h6>🟢 Capacités passives</h6>
+                        <p>
+                            Les capacités passives ne nécessitent aucune intervention directe.
+                            Elles s’expriment automatiquement
+                            lorsque leurs conditions sont réunies.
+                        </p>
+
+                        <p>
+                            Elles peuvent par exemple :
+                        </p>
+
+                        <ul>
+                            <li>se déclencher au début ou à la fin d’un tour</li>
+                            <li>réagir à une entrée dans une zone</li>
+                            <li>modifier des valeurs en permanence</li>
+                        </ul>
+
+                        <p>
+                            Le joueur ne les active pas :
+                            il en subit ou en exploite les effets.
+                        </p>
+
+                        <h6>🔵 Capacités actives</h6>
+                        <p>
+                            Les capacités actives sont déclenchées volontairement
+                            par un joueur pendant une phase autorisée.
+                        </p>
+
+                        <p>
+                            Elles impliquent généralement :
+                        </p>
+
+                        <ul>
+                            <li>un coût</li>
+                            <li>une cible ou un choix</li>
+                            <li>une résolution différée</li>
+                        </ul>
+
+                        <p>
+                            Leur activation peut provoquer
+                            des réactions adverses
+                            avant leur résolution finale.
+                        </p>
+
+                        <h6>🟡 Capacités réactives</h6>
+                        <p>
+                            Les capacités réactives constituent
+                            l’un des piliers tactiques du jeu.
+                        </p>
+
+                        <p>
+                            Elles se déclenchent uniquement
+                            lorsqu’un événement précis survient :
+                        </p>
+
+                        <ul>
+                            <li>être ciblé par une attaque</li>
+                            <li>voir une unité entrer dans une zone</li>
+                            <li>subir un effet négatif</li>
+                        </ul>
+
+                        <p>
+                            Elles ouvrent souvent une fenêtre de décision :
+                            le joueur peut choisir de réagir ou non.
+                        </p>
+
+                        <h6>⏳ Capacités et timing</h6>
+                        <p>
+                            Chaque capacité est liée à un moment précis du tour.
+                            Elle sait :
+                        </p>
+
+                        <ul>
+                            <li>quand elle peut se déclencher</li>
+                            <li>si elle interrompt le jeu</li>
+                            <li>si elle attend une décision</li>
+                        </ul>
+
+                        <p>
+                            Le moteur ne devine rien :
+                            tout est explicitement défini.
+                        </p>
+
+                        <h6>🧠 Capacités comme règles, pas comme scripts</h6>
+                        <p>
+                            Une capacité ne décrit pas une animation
+                            ni une suite d’actions techniques.
+                        </p>
+
+                        <p>
+                            Elle décrit une règle du jeu :
+                        </p>
+
+                        <ul>
+                            <li>une condition</li>
+                            <li>un effet</li>
+                            <li>un moment d’application</li>
+                        </ul>
+
+                        <p>
+                            Cette approche permet de créer
+                            des pions très variés
+                            sans complexifier le moteur.
+                        </p>
+
+                        <h6>🛑 Capacités et décisions</h6>
+                        <p>
+                            Certaines capacités ne se résolvent pas immédiatement.
+                            Elles créent un état d’attente :
+                        </p>
+
+                        <ul>
+                            <li>le jeu se fige</li>
+                            <li>une décision est proposée</li>
+                            <li>le joueur choisit</li>
+                        </ul>
+
+                        <p>
+                            La capacité ne se termine
+                            qu’une fois la décision validée.
+                        </p>
+
+                        <h6>🌐 Une base solide pour le serveur</h6>
+                        <p>
+                            En décrivant les capacités comme des règles déterministes,
+                            le serveur peut :
+                        </p>
+
+                        <ul>
+                            <li>valider chaque déclenchement</li>
+                            <li>refuser une activation illégale</li>
+                            <li>rejouer une partie à l’identique</li>
+                        </ul>
+
+                        <p>
+                            Le jeu devient ainsi fiable,
+                            testable
+                            et extensible.
+                        </p>
+
+                        <h6>🧭 Avant d’aller plus loin</h6>
+                        <p>
+                            À ce stade, aucune capacité n’est encore implémentée.
+                            Mais leur cadre conceptuel est posé.
+                        </p>
+
+                        <p>
+                            Cela garantit que chaque nouveau pion,
+                            chaque nouvelle mécanique
+                            trouvera naturellement sa place
+                            dans le moteur.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Le plateau de jeu</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 08 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après avoir défini l’état du jeu, le déroulement d’un tour
+                            et le système de capacités,
+                            il est temps de poser le troisième pilier fondamental :
+                            <strong>le plateau de jeu</strong>.
+                        </p>
+
+                        <p>
+                            Dans ce projet, le plateau n’est pas un simple décor.
+                            C’est un système à part entière,
+                            porteur de règles et de déclencheurs.
+                        </p>
+
+                        <h6>♟️ Un héritage d’échecs, une lecture moderne</h6>
+                        <p>
+                            Le jeu s’appuie sur une grille inspirée des échecs,
+                            immédiatement lisible pour le joueur.
+                        </p>
+
+                        <p>
+                            Chaque case possède une position claire,
+                            mais peut également porter
+                            des propriétés spécifiques.
+                        </p>
+
+                        <h6>📐 La case comme unité minimale</h6>
+                        <p>
+                            La case est l’élément fondamental du plateau.
+                            Elle ne se limite pas à contenir une unité.
+                        </p>
+
+                        <p>
+                            Conceptuellement, une case peut :
+                        </p>
+
+                        <ul>
+                            <li>être vide ou occupée</li>
+                            <li>bloquer ou autoriser le déplacement</li>
+                            <li>déclencher des effets à l’entrée ou à la sortie</li>
+                            <li>modifier les règles locales</li>
+                        </ul>
+
+                        <p>
+                            Le plateau devient ainsi un support de gameplay,
+                            pas seulement une grille de coordonnées.
+                        </p>
+
+                        <h6>🧭 Zones et territoires</h6>
+                        <p>
+                            Au-delà des cases individuelles,
+                            le plateau est structuré en zones.
+                        </p>
+
+                        <p>
+                            Une zone représente un ensemble cohérent de cases
+                            partageant une règle commune :
+                        </p>
+
+                        <ul>
+                            <li>zone de danger</li>
+                            <li>zone de contrôle</li>
+                            <li>zone de protection</li>
+                            <li>zone d’activation passive</li>
+                        </ul>
+
+                        <p>
+                            Ces zones permettent de créer
+                            des mécaniques lisibles et stratégiques
+                            sans multiplier les règles complexes.
+                        </p>
+
+                        <h6>🚶 Déplacements et contraintes spatiales</h6>
+                        <p>
+                            Le déplacement d’un pion n’est jamais neutre.
+                        </p>
+
+                        <p>
+                            Il peut être soumis à :
+                        </p>
+
+                        <ul>
+                            <li>des règles de portée</li>
+                            <li>des blocages physiques (murs, unités)</li>
+                            <li>des restrictions liées à l’unité</li>
+                            <li>des effets de terrain</li>
+                        </ul>
+
+                        <p>
+                            Chaque mouvement est ainsi une décision tactique,
+                            pas un simple glissement sur la grille.
+                        </p>
+
+                        <h6>🎯 Portée et lignes d’influence</h6>
+                        <p>
+                            Certaines capacités ne dépendent pas uniquement
+                            de la distance brute,
+                            mais de la relation spatiale entre les unités.
+                        </p>
+
+                        <p>
+                            Le plateau permet de définir :
+                        </p>
+
+                        <ul>
+                            <li>des portées directionnelles</li>
+                            <li>des zones d’effet</li>
+                            <li>des lignes de vue ou d’influence</li>
+                        </ul>
+
+                        <p>
+                            Ces notions enrichissent la stratégie
+                            sans rompre la lisibilité visuelle.
+                        </p>
+
+                        <h6>⚡ Déclencheurs spatiaux</h6>
+                        <p>
+                            Le positionnement est au cœur du gameplay.
+                        </p>
+
+                        <p>
+                            Certaines capacités ou effets se déclenchent
+                            lorsqu’une unité :
+                        </p>
+
+                        <ul>
+                            <li>entre dans une case</li>
+                            <li>quitte une zone</li>
+                            <li>termine son déplacement</li>
+                        </ul>
+
+                        <p>
+                            Le plateau devient ainsi un acteur du jeu,
+                            capable d’initier des événements.
+                        </p>
+
+                        <h6>🛑 Plateau et fenêtres de réaction</h6>
+                        <p>
+                            Un déplacement peut provoquer
+                            une réaction immédiate :
+                        </p>
+
+                        <ul>
+                            <li>piège déclenché</li>
+                            <li>tir automatique</li>
+                            <li>capacité défensive proposée</li>
+                        </ul>
+
+                        <p>
+                            Ces interactions respectent toujours
+                            le cadre des fenêtres de réaction
+                            définies précédemment.
+                        </p>
+
+                        <h6>🌐 Un espace compatible serveur</h6>
+                        <p>
+                            En décrivant le plateau comme une structure de règles
+                            et non comme un simple visuel,
+                            il devient facilement validable côté serveur.
+                        </p>
+
+                        <p>
+                            Chaque déplacement peut être :
+                        </p>
+
+                        <ul>
+                            <li>vérifié</li>
+                            <li>refusé</li>
+                            <li>rejoué</li>
+                        </ul>
+
+                        <p>
+                            La cohérence de la partie est ainsi garantie,
+                            même en multijoueur asynchrone.
+                        </p>
+
+                        <h6>🧭 Le plateau comme fondation stratégique</h6>
+                        <p>
+                            Avant même de penser aux graphismes,
+                            le plateau est conçu comme
+                            un espace de décisions.
+                        </p>
+
+                        <p>
+                            Sa structure conditionne :
+                        </p>
+
+                        <ul>
+                            <li>le rythme des parties</li>
+                            <li>la valeur des positions</li>
+                            <li>l’équilibrage des capacités</li>
+                        </ul>
+
+                        <p>
+                            C’est sur ce terrain
+                            que toute la profondeur tactique du jeu
+                            pourra s’exprimer.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Les unités</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 09 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p>
+                            Après avoir défini le plateau comme espace stratégique,
+                            il devient essentiel de préciser
+                            ce qui l’occupe :
+                            <strong>les unités</strong>.
+                        </p>
+
+                        <p>
+                            Dans ce jeu, une unité n’est pas un simple pion.
+                            C’est une entité complète,
+                            porteuse de règles, de décisions
+                            et d’identité.
+                        </p>
+
+                        <h6>♟️ L’unité comme brique fondamentale</h6>
+                        <p>
+                            Toute action dans le jeu
+                            passe par une unité.
+                        </p>
+
+                        <p>
+                            Qu’il s’agisse d’attaquer,
+                            de bloquer une zone,
+                            de déclencher un effet
+                            ou de forcer une réaction,
+                            l’unité est toujours le point d’entrée.
+                        </p>
+
+                        <h6>🧩 Identité et rôle</h6>
+                        <p>
+                            Chaque unité possède une identité claire,
+                            compréhensible par le joueur
+                            dès sa première apparition.
+                        </p>
+
+                        <p>
+                            Cette identité se traduit par un rôle :
+                        </p>
+
+                        <ul>
+                            <li>le roi, pièce maîtresse à protéger</li>
+                            <li>les unités offensives</li>
+                            <li>les unités défensives</li>
+                            <li>les unités de contrôle</li>
+                            <li>les unités utilitaires</li>
+                        </ul>
+
+                        <p>
+                            Le rôle guide les décisions du joueur
+                            sans jamais les enfermer.
+                        </p>
+
+                        <h6>❤️ Points de vie et persistance</h6>
+                        <p>
+                            Contrairement aux échecs classiques,
+                            les unités possèdent des points de vie.
+                        </p>
+
+                        <p>
+                            Elles ne disparaissent pas immédiatement,
+                            ce qui permet :
+                        </p>
+
+                        <ul>
+                            <li>des échanges progressifs</li>
+                            <li>des stratégies d’usure</li>
+                            <li>des retournements de situation</li>
+                        </ul>
+
+                        <p>
+                            La survie d’une unité devient une ressource
+                            à part entière.
+                        </p>
+
+                        <h6>⚙️ Capacités intégrées</h6>
+                        <p>
+                            Les capacités sont attachées aux unités,
+                            mais restent décrites comme des règles indépendantes.
+                        </p>
+
+                        <p>
+                            Une unité peut posséder :
+                        </p>
+
+                        <ul>
+                            <li>des capacités passives permanentes</li>
+                            <li>des capacités actives déclenchables</li>
+                            <li>des capacités réactives contextuelles</li>
+                        </ul>
+
+                        <p>
+                            L’unité agit donc comme un conteneur de comportements,
+                            pas comme un script figé.
+                        </p>
+
+                        <h6>🧱 Unités spéciales et exceptions maîtrisées</h6>
+                        <p>
+                            Certaines unités enfreignent volontairement
+                            les règles standards :
+                        </p>
+
+                        <ul>
+                            <li>les murs, immobiles mais protecteurs</li>
+                            <li>les tourelles, actives automatiquement</li>
+                            <li>les unités de zone ou de support</li>
+                        </ul>
+
+                        <p>
+                            Ces exceptions ne cassent pas le moteur,
+                            car elles s’expriment toujours
+                            à travers le système de capacités.
+                        </p>
+
+                        <h6>🃏 Unités et deck building</h6>
+                        <p>
+                            Les unités ne sont pas seulement présentes sur le plateau :
+                            elles existent aussi dans le deck du joueur.
+                        </p>
+
+                        <p>
+                            Le deck devient une promesse stratégique :
+                        </p>
+
+                        <ul>
+                            <li>types d’unités disponibles</li>
+                            <li>synergies possibles</li>
+                            <li>rythme de déploiement</li>
+                        </ul>
+
+                        <p>
+                            Le joueur construit ainsi son style de jeu
+                            avant même le début de la partie.
+                        </p>
+
+                        <h6>🎯 Valeur stratégique du positionnement</h6>
+                        <p>
+                            La puissance d’une unité
+                            dépend autant de ses capacités
+                            que de sa position sur le plateau.
+                        </p>
+
+                        <p>
+                            Une unité faible bien placée
+                            peut valoir plus
+                            qu’une unité puissante mal utilisée.
+                        </p>
+
+                        <h6>🛑 Unités et décisions</h6>
+                        <p>
+                            Certaines unités forcent l’adversaire
+                            à prendre des décisions immédiates :
+                        </p>
+
+                        <ul>
+                            <li>faut-il attaquer maintenant ?</li>
+                            <li>faut-il esquiver ?</li>
+                            <li>faut-il sacrifier une pièce ?</li>
+                        </ul>
+
+                        <p>
+                            Elles sont conçues pour créer
+                            de la tension tactique,
+                            pas seulement des statistiques.
+                        </p>
+
+                        <h6>🌐 Une modélisation pensée serveur</h6>
+                        <p>
+                            En décrivant les unités
+                            comme des ensembles de règles et d’état,
+                            le serveur peut valider :
+                        </p>
+
+                        <ul>
+                            <li>leur déploiement</li>
+                            <li>leurs actions</li>
+                            <li>leur destruction</li>
+                        </ul>
+
+                        <p>
+                            L’unité devient ainsi
+                            une entité réseau fiable et déterministe.
+                        </p>
+
+                        <h6>🧭 Des unités avant les chiffres</h6>
+                        <p>
+                            Avant même de parler d’équilibrage,
+                            les unités sont définies par leur rôle
+                            et leur interaction avec le système.
+                        </p>
+
+                        <p>
+                            Les valeurs numériques viendront ensuite,
+                            une fois la structure solidement posée.
+                        </p>
+
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">TEMPLATE</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <div class="blog-content" style="display: none;">
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">TEMPLATE</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <div class="blog-content" style="display: none;">
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">TEMPLATE</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <div class="blog-content" style="display: none;">
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">TEMPLATE</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <div class="blog-content" style="display: none;">
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
                         <h3 class="h5">TEMPLATE</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
