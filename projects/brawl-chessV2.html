@@ -1668,13 +1668,194 @@ Tour suivant
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                        <h3 class="h5">TEMPLATE</h3>
+                        <h3 class="h5">CLe Deckbuilding comme cœur stratégique</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
                         </button>
                     </div>
-                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <p class="text-muted small">Publié le 10 févirer 2026</p>
                     <div class="blog-content" style="display: none;">
+                        <section class="blog-post">
+                            <p>
+                                Après avoir posé les bases du jeu (plateau type échecs, affrontement 1v1, orientation
+                                mobile verticale),
+                                une mécanique s’impose rapidement comme le cœur du système : le <strong>deckbuilding
+                                    d’unités</strong>.
+                            </p>
+
+                            <p>
+                                Avant même le début d’une partie, le joueur doit construire son armée. Cette phase de
+                                préparation
+                                influence directement la stratégie, le rythme et les décisions pendant le combat.
+                                L’objectif est clair :
+                                proposer un système <strong>simple à comprendre</strong>, mais <strong>profond à
+                                    maîtriser</strong>.
+                            </p>
+
+                            <hr />
+
+                            <h2>Une armée limitée mais libre</h2>
+
+                            <p>
+                                Chaque joueur dispose d’un <strong>pool total de 30 unités</strong> pour toute la
+                                partie.
+                                À cela s’ajoute une unité spéciale obligatoire : le <strong>roi</strong>, qui ne compte
+                                pas dans cette limite.
+                            </p>
+
+                            <ul>
+                                <li>30 unités maximum dans la partie</li>
+                                <li>+1 roi obligatoire</li>
+                                <li>Une unité morte est définitivement perdue</li>
+                                <li>Quand le joueur n’a plus d’unités disponibles, il ne peut plus en poser</li>
+                            </ul>
+
+                            <p>
+                                Important : ne plus avoir d’unités ne provoque pas une défaite immédiate.
+                                En revanche, sans renforts possibles, le joueur finira presque toujours par perdre le
+                                roi.
+                                Cette situation crée une pression progressive très intéressante en fin de partie.
+                            </p>
+
+                            <hr />
+
+                            <h2>Composition du deck</h2>
+
+                            <p>
+                                Le joueur construit librement son armée avant le match.
+                                Il choisit la répartition de ses 30 unités sans contrainte stricte par type.
+                            </p>
+
+                            <p>Exemples de decks possibles :</p>
+
+                            <ul>
+                                <li>15 tourelles, 3 murs, 12 archers</li>
+                                <li>30 unités rapides et fragiles</li>
+                                <li>10 unités très résistantes</li>
+                                <li>Deck défensif centré sur le roi</li>
+                                <li>Deck agressif orienté pression constante</li>
+                            </ul>
+
+                            <p>
+                                Cette liberté permet au jeu de développer une forte dimension méta.
+                                Deux joueurs peuvent avoir des styles radicalement différents tout en jouant sur le même
+                                plateau.
+                            </p>
+
+                            <hr />
+
+                            <h2>Deck actif pendant la partie</h2>
+
+                            <p>
+                                Même si le joueur possède 30 unités au total, toutes ne sont pas disponibles
+                                immédiatement.
+                                Le jeu utilise un système inspiré des jeux de cartes et de certains jeux mobiles
+                                compétitifs :
+                            </p>
+
+                            <ul>
+                                <li>Un <strong>deck actif de 8 unités</strong></li>
+                                <li>Le roi est obligatoire mais ne prend pas de slot</li>
+                                <li>Un tirage léger avec une RNG contrôlée</li>
+                            </ul>
+
+                            <p>
+                                L’objectif est d’éviter un contrôle total parfait tout en conservant une forte
+                                lisibilité stratégique.
+                                Le joueur doit s’adapter aux unités disponibles et planifier ses tours en conséquence.
+                            </p>
+
+                            <p>
+                                Ce système crée des situations intéressantes :
+                            </p>
+
+                            <ul>
+                                <li>Gestion du tempo</li>
+                                <li>Anticipation des prochains tirages</li>
+                                <li>Choix du moment pour poser une unité clé</li>
+                                <li>Adaptation à la stratégie adverse</li>
+                            </ul>
+
+                            <hr />
+
+                            <h2>Impact stratégique</h2>
+
+                            <p>
+                                Le deckbuilding n’est pas qu’une étape de préparation.
+                                Il influence directement le déroulement des parties.
+                            </p>
+
+                            <h3>Tension permanente</h3>
+                            <p>
+                                Chaque unité perdue réduit les options futures.
+                                Sacrifier une pièce devient un choix lourd de conséquences.
+                            </p>
+
+                            <h3>Identité de jeu</h3>
+                            <p>
+                                Le deck définit le style du joueur :
+                            </p>
+
+                            <ul>
+                                <li>Contrôle du terrain</li>
+                                <li>Pression constante</li>
+                                <li>Défense du roi</li>
+                                <li>Jeu de siège</li>
+                                <li>Jeu réactif</li>
+                            </ul>
+
+                            <h3>Parties rapides mais profondes</h3>
+                            <p>
+                                Le format mobile impose des parties relativement courtes.
+                                La limite d’unités garantit une montée rapide de la tension
+                                sans sacrifier la profondeur tactique.
+                            </p>
+
+                            <hr />
+
+                            <h2>Objectifs de design</h2>
+
+                            <ul>
+                                <li>Easy to learn</li>
+                                <li>Hard to master</li>
+                                <li>Parties rapides</li>
+                                <li>Choix stratégiques forts</li>
+                                <li>Grande rejouabilité</li>
+                            </ul>
+
+                            <p>
+                                Le système de deckbuilding doit être compréhensible en quelques secondes,
+                                mais offrir des centaines de combinaisons possibles.
+                            </p>
+
+                            <hr />
+
+                            <h2>Prochaines réflexions</h2>
+
+                            <p>
+                                Une fois les bases du deck établies, plusieurs questions structurantes restent à définir
+                                :
+                            </p>
+
+                            <ul>
+                                <li>Taille exacte de la grille</li>
+                                <li>Nombre d’unités simultanées sur le terrain</li>
+                                <li>Zones de déploiement</li>
+                                <li>Rythme des tours et réactions</li>
+                                <li>Système d’énergie ou de coût</li>
+                            </ul>
+
+                            <p>
+                                Toutes ces décisions auront un impact direct sur la lisibilité mobile,
+                                la durée des parties et la profondeur stratégique.
+                            </p>
+
+                            <p>
+                                Le deckbuilding est désormais posé comme une fondation du projet.
+                                La suite consistera à définir comment ces unités entrent réellement en jeu sur le
+                                plateau.
+                            </p>
+                        </section>
                     </div>
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
