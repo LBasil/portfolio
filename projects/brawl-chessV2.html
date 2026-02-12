@@ -2007,7 +2007,7 @@ Tour suivant
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                        <h3 class="h5">Comportement des unitées</h3>
+                        <h3 class="h5">Comportement des unités</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
                         </button>
@@ -2157,13 +2157,275 @@ Tour suivant
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
                     <div class="blog-header d-flex justify-content-between align-items-center">
-                        <h3 class="h5">TEMPLATE</h3>
+                        <h3 class="h5">Résumé final du brainstorming</h3>
                         <button class="btn btn-link toggle-content">
                             <span class="fa fa-chevron-down"></span>
                         </button>
                     </div>
-                    <p class="text-muted small">Publié le XX XX XXXX</p>
+                    <p class="text-muted small">Publié le 13 février 2026</p>
                     <div class="blog-content" style="display: none;">
+                        <p> Après avoir posé les bases du moteur de jeu, du système d’événements et du déroulement
+                            général d’un tour, il est désormais possible de préciser un élément central du gameplay :
+                            <strong>la gestion du plateau, des placements et des actions disponibles pour le
+                                joueur</strong>.
+                        </p>
+                        <p> Cette étape vise à transformer des intentions de gameplay en règles concrètes,
+                            compréhensibles et implémentables. </p>
+                        <h6>♟ Le plateau et l’espace de jeu</h6>
+                        <p> La partie se déroule sur un plateau de <strong>64 cases (8×8)</strong>. Chaque joueur
+                            possède une moitié du plateau, soit <strong>4 rangées</strong>, qui constituent sa zone de
+                            placement. </p>
+                        <p> Une unité ne peut être placée que dans les rangées appartenant à son joueur. Cette
+                            contrainte permet de garantir une phase d’installation lisible et stratégique. </p>
+                        <p> Chaque case ne peut contenir qu’<strong>une seule unité</strong>. Certaines unités peuvent
+                            toutefois créer des <strong>obstacles</strong> ou des éléments de terrain, occupant
+                            temporairement une case et modifiant les déplacements possibles. </p>
+                        <h6>🧱 Placement des unités</h6>
+                        <p> Le placement d’unités ne peut se faire qu’à un moment précis : <strong>le début du tour du
+                                joueur actif</strong>. </p>
+                        <p> Une fois cette phase passée, aucune nouvelle unité ne peut être placée jusqu’au tour
+                            suivant. Cette règle permet d’éviter les placements opportunistes en réaction à une attaque.
+                        </p>
+                        <p> Chaque joueur est limité à un nombre maximal d’unités sur le plateau. La limite actuelle
+                            envisagée est d’environ <strong>10 unités</strong>, incluant les unités passives ou
+                            spécialisées. </p>
+                        <p> Certaines unités peuvent avoir des <strong>contraintes de placement spécifiques</strong> :
+                        </p>
+                        <ul>
+                            <li>placement uniquement en première ligne</li>
+                            <li>placement adjacent au Roi</li>
+                            <li>placement sur une case libre particulière</li>
+                            <li>ou interaction spéciale selon leur position</li>
+                        </ul>
+                        <p> Le positionnement d’une unité peut donc avoir un impact direct sur ses capacités, ses effets
+                            passifs ou ses interactions futures. </p>
+                        <h6>🎮 Les actions disponibles pendant un tour</h6>
+                        <p> Chaque tour, le joueur actif dispose d’un nombre limité d’actions. Le système actuel repose
+                            sur une règle simple : <strong>un joueur peut effectuer jusqu’à trois actions par
+                                tour</strong>. </p>
+                        <p> Ces actions peuvent être réparties librement entre : </p>
+                        <ul>
+                            <li>déplacements</li>
+                            <li>placements d’unités</li>
+                            <li>attaques</li>
+                        </ul>
+                        <p> Exemples de combinaisons possibles : </p>
+                        <ul>
+                            <li>3 déplacements</li>
+                            <li>2 déplacements + 1 placement</li>
+                            <li>3 placements</li>
+                            <li>1 déplacement + 1 placement + 1 déplacement</li>
+                        </ul>
+                        <p> Cependant, une règle importante structure ce système : </p>
+                        <p> <strong>Déclarer une attaque met immédiatement fin aux autres actions du tour.</strong> </p>
+                        <p> Autrement dit : </p>
+                        <ul>
+                            <li>le joueur peut effectuer des déplacements avant d’attaquer</li>
+                            <li>mais une fois l’attaque lancée, le tour s’arrête après sa résolution</li>
+                        </ul>
+                        <p> Cela donne par exemple : </p>
+                        <ul>
+                            <li>2 déplacements + 1 attaque → tour terminé</li>
+                            <li>1 attaque seule → tour terminé</li>
+                        </ul>
+                        <p> Le joueur peut également choisir de <strong>passer son tour</strong> à tout moment. </p>
+                        <h6>🚶 Déplacements et attaques</h6>
+                        <p> Chaque unité possède ses propres règles de déplacement. Certaines ne se déplacent que d’une
+                            case, d’autres en ligne, en diagonale, ou selon des règles spécifiques. </p>
+                        <p> Les attaques suivent également des règles propres à chaque unité : </p>
+                        <ul>
+                            <li>portée</li>
+                            <li>ligne de vue</li>
+                            <li>zone d’effet</li>
+                            <li>conditions de déclenchement</li>
+                        </ul>
+                        <p> Une attaque est toujours une action volontaire du joueur actif, mais elle peut générer :
+                        </p>
+                        <ul>
+                            <li>des réactions adverses</li>
+                            <li>des capacités passives</li>
+                            <li>des interruptions de résolution</li>
+                        </ul>
+                        <h6>⚡ Réactions adverses</h6>
+                        <p> Lorsqu’une action non passive se produit (déplacement visible, attaque déclarée, ciblage),
+                            le joueur adverse peut recevoir une opportunité de réaction. </p>
+                        <p> Dans ce cas, une fenêtre de décision s’ouvre pour lui, limitée dans le temps (environ
+                            <strong>10 secondes</strong>).
+                        </p>
+                        <p> Exemple : </p>
+                        <p> <em>« Tirer sur l’unité qui vient de se déplacer ? »</em> </p>
+                        <p> Si aucune décision n’est prise dans ce délai, le jeu continue automatiquement. </p>
+                        <p> Ce système permet de garder un jeu dynamique sans bloquer indéfiniment la partie. </p>
+                        <h6>✨ Résolution des passifs</h6>
+                        <p> Certaines capacités passives se déclenchent automatiquement en fonction de la distance ou de
+                            la position des unités. </p>
+                        <p> Lorsqu’un effet doit choisir une cible parmi plusieurs unités possibles, la priorité est
+                            donnée : </p>
+                        <ul>
+                            <li>à l’unité la plus proche</li>
+                            <li>en cas d’égalité, à la première placée</li>
+                        </ul>
+                        <p> Cette règle simple garantit une résolution déterministe, facile à comprendre et à reproduire
+                            côté serveur. </p>
+                        <h6>🧭 Pourquoi formaliser ces règles maintenant</h6>
+                        <p> Documenter précisément : </p>
+                        <ul>
+                            <li>le placement</li>
+                            <li>les actions par tour</li>
+                            <li>les interruptions</li>
+                            <li>les contraintes du plateau</li>
+                        </ul>
+                        <p> permet de déterminer le moment où l’implémentation peut réellement commencer. </p>
+                        <p> Une fois ces règles stabilisées, le moteur de jeu peut être construit sans ambiguïté : </p>
+                        <ul>
+                            <li>structure du GameState</li>
+                            <li>validation des actions</li>
+                            <li>gestion des événements</li>
+                            <li>résolution des réactions</li>
+                        </ul>
+                        <p> À partir de ce point, le projet dispose d’un socle suffisamment clair pour passer de la
+                            réflexion à l’implémentation. </p>
+                    </div>
+                </article>
+                <article class="mb-5 p-4 border rounded shadow-sm">
+                    <div class="blog-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5">Structure réelle du GameState V1</h3>
+                        <button class="btn btn-link toggle-content">
+                            <span class="fa fa-chevron-down"></span>
+                        </button>
+                    </div>
+                    <p class="text-muted small">Publié le 14 février 2026</p>
+                    <div class="blog-content" style="display: none;">
+                        <p> Après plusieurs étapes de réflexion sur les règles, le déroulement d’un tour, le placement
+                            des unités et les interactions possibles, il est temps de définir un élément fondamental du
+                            projet : <strong>la structure réelle de l’état du jeu</strong>, souvent appelée
+                            <em>GameState</em>. </p>
+                        <p> Cet objet représente à tout moment la vérité du jeu. Il doit permettre de reconstruire la
+                            partie complète : le plateau, les unités, le tour en cours, les actions restantes et les
+                            décisions en attente. </p>
+                        <p> Définir cette structure avant de coder est essentiel. Un GameState clair permet : </p>
+                        <ul>
+                            <li>une logique de jeu testable</li>
+                            <li>une synchronisation réseau fiable</li>
+                            <li>un moteur déterministe</li>
+                            <li>une séparation nette entre logique et interface</li>
+                        </ul>
+                        <h6>Pourquoi un GameState centralisé</h6>
+                        <p> Le jeu repose sur un système au tour par tour avec réactions possibles pendant le tour
+                            adverse. Cela implique que l’état du jeu doit être <strong>entièrement sérialisable</strong>
+                            et compréhensible à tout moment. </p>
+                        <p> Le GameState doit contenir toutes les informations nécessaires pour : </p>
+                        <ul>
+                            <li>valider une action</li>
+                            <li>résoudre ses effets</li>
+                            <li>envoyer les mises à jour aux joueurs</li>
+                            <li>reprendre une partie en cours</li>
+                        </ul>
+                        <p> Il devient ainsi la source unique de vérité. Ni le client ni l’interface ne doivent contenir
+                            de logique métier. </p>
+                        <h6>Les éléments principaux du GameState</h6>
+                        <p> La première version du GameState doit rester simple, mais complète. Elle s’articule autour
+                            de plusieurs blocs essentiels. </p>
+                        <h6>Le plateau</h6>
+                        <p> Le plateau est une grille de 8×8 cases. Il doit permettre de savoir : </p>
+                        <ul>
+                            <li>quelle unité occupe chaque case</li>
+                            <li>si la case est libre</li>
+                            <li>si un obstacle est présent</li>
+                        </ul>
+                        <p> Le plateau peut être représenté sous forme de matrice ou de liste de cases indexées. </p>
+                        <h6>Les unités</h6>
+                        <p> Chaque unité présente sur le plateau possède un état propre. </p>
+                        <p> Une unité doit contenir au minimum : </p>
+                        <ul>
+                            <li>un identifiant unique</li>
+                            <li>son propriétaire (joueur 1 ou 2)</li>
+                            <li>sa position</li>
+                            <li>ses points de vie</li>
+                            <li>son type</li>
+                            <li>ses effets actifs</li>
+                            <li>ses capacités passives</li>
+                        </ul>
+                        <p> Certaines unités pourront également posséder : </p>
+                        <ul>
+                            <li>un bouclier</li>
+                            <li>un cooldown</li>
+                            <li>un état spécial</li>
+                        </ul>
+                        <p> Toutes ces informations doivent être présentes dans le GameState et non dans l’interface.
+                        </p>
+                        <h6>Les joueurs</h6>
+                        <p> Chaque joueur doit avoir un état associé : </p>
+                        <ul>
+                            <li>son deck</li>
+                            <li>les unités restantes à poser</li>
+                            <li>son roi</li>
+                            <li>ses informations de tour</li>
+                        </ul>
+                        <p> Le roi est une unité particulière mais fait partie du GameState comme les autres. </p>
+                        <h6>Le tour en cours</h6>
+                        <p> Le GameState doit indiquer clairement : </p>
+                        <ul>
+                            <li>quel joueur est actif</li>
+                            <li>combien d’actions il lui reste</li>
+                            <li>dans quelle phase du tour on se trouve</li>
+                        </ul>
+                        <p> Les phases possibles peuvent inclure : </p>
+                        <ul>
+                            <li>début de tour (placement autorisé)</li>
+                            <li>phase d’actions</li>
+                            <li>résolution</li>
+                            <li>attente de réaction</li>
+                        </ul>
+                        <p> Cette information permet de valider ou refuser une action. </p>
+                        <h6>Décisions en attente</h6>
+                        <p> Le jeu prévoit des réactions possibles pendant le tour adverse. Lorsqu’une action déclenche
+                            une décision, le GameState doit pouvoir stocker cette attente. </p>
+                        <p> Une décision en attente peut inclure : </p>
+                        <ul>
+                            <li>le joueur concerné</li>
+                            <li>le type de réaction possible</li>
+                            <li>le délai restant</li>
+                            <li>les options disponibles</li>
+                        </ul>
+                        <p> Tant qu’une décision est en attente, le jeu ne doit pas continuer sa résolution. </p>
+                        <h6>Historique et événements</h6>
+                        <p> Pour permettre le débogage, la synchronisation réseau et la compréhension du déroulement, le
+                            GameState peut également contenir un historique d’événements récents : </p>
+                        <ul>
+                            <li>déplacements</li>
+                            <li>attaques</li>
+                            <li>placements</li>
+                            <li>résolutions</li>
+                        </ul>
+                        <p> Cet historique n’a pas besoin d’être complet, mais il doit permettre de reconstruire les
+                            dernières actions importantes. </p>
+                        <h6>Déterminisme et serveur</h6>
+                        <p> L’un des objectifs principaux est de rendre le moteur de jeu déterministe. À partir d’un
+                            GameState donné et d’une action valide, le résultat doit toujours être le même. </p>
+                        <p> Cela permettra : </p>
+                        <ul>
+                            <li>une validation serveur fiable</li>
+                            <li>une synchronisation client propre</li>
+                            <li>une gestion des parties en ligne</li>
+                        </ul>
+                        <p> Le serveur deviendra ainsi l’autorité principale, capable de vérifier chaque action et
+                            d’appliquer les règles. </p>
+                        <h6>Pourquoi cette étape marque le début du développement</h6>
+                        <p> Définir le GameState V1 revient à définir l’ossature complète du jeu. </p>
+                        <p> Une fois cette structure validée, il devient possible de : </p>
+                        <ul>
+                            <li>coder un moteur de règles</li>
+                            <li>simuler une partie en local</li>
+                            <li>écrire des tests</li>
+                            <li>connecter une interface</li>
+                        </ul>
+                        <p> Cette étape marque donc la transition entre la réflexion pure et l’implémentation technique.
+                        </p>
+                        <p> Le prochain jalon consistera à transformer cette structure en objet concret, puis à
+                            implémenter les premières règles du moteur : validation d’action, résolution et gestion des
+                            tours. </p>
+                        <p> À partir de là, le jeu commencera réellement à prendre vie. </p>
                     </div>
                 </article>
                 <article class="mb-5 p-4 border rounded shadow-sm">
