@@ -27,8 +27,6 @@
 
 ## 📸 Preview
 
-> *(You can add a screenshot or gif of the portfolio)*
-
 <p align="center">
   <img src="assets/images/preview.png" alt="Portfolio Preview" width="80%" />
 </p>
@@ -66,12 +64,3 @@ portfolio/
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🙋‍♂️ Author
-
-**Your Name**  
-📫 [your.email@example.com](mailto:basil.lhote@gmail.com)  
-🌐 [yourwebsite.com](https://yourwebsite.com)  
-🐙 [GitHub](https://github.com/yourusername) ・ 💼 [LinkedIn](https://linkedin.com/in/yourprofile)
