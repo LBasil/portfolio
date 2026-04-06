@@ -112,6 +112,43 @@
         </div>
     </section>
 
+    <section id="experience" class="py-5">
+        <div class="container">
+
+            <h2 class="section-title text-center mb-3">Expérience Dofus Touch</h2>
+
+            <p class="text-center mb-4">
+                Contributions aux mises à jour, devblogs et lives.
+            </p>
+
+            <div class="text-center mb-4">
+                <button class="btn btn-outline-primary filter-btn" data-filter="all">Tout</button>
+                <button class="btn btn-outline-primary filter-btn" data-filter="maj">MAJ</button>
+                <button class="btn btn-outline-primary filter-btn" data-filter="devblog">Devblogs</button>
+                <button class="btn btn-outline-primary filter-btn" data-filter="live">Lives</button>
+            </div>
+
+            <div class="timeline-horizontal">
+
+                <div class="timeline-item" data-type="maj">
+                    <img src="https://static.ankama.com/upload/backoffice/direct/2023-10-27/3b783d213fdc19e3ca0bc16ed81e1e25.jpg"
+                        alt="MÀJ 1.61 - L'heure du Duel">
+
+                    <div class="timeline-content">
+                        <span class="timeline-date">Novembre 2023</span>
+                        <h6>MÀJ 1.61 - L'heure du Duel</h6>
+                        <p>
+                            Correction de bugs, prise en main du code.
+                        </p>
+                        <a href="https://www.dofus-touch.com/fr/mmorpg/actualites/maj/1664691-heure-duel/details"
+                            class="btn btn-primary me-2" target="_blank" rel="noopener">Voir l’article</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <section id="portfolio" class="py-5">
         <div class="container">
             <h2 class="section-title text-center mb-3">Projets Front-end</h2>
@@ -257,6 +294,24 @@
     <script src="script/projects.js"></script>
     <script src="script/scrollReveal.js"></script>
     <script src="script/navigation.js"></script>
+    <script>
+        var buttons = document.querySelectorAll(".filter-btn");
+        var items = document.querySelectorAll(".timeline-item");
+
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", function () {
+                var filter = this.getAttribute("data-filter");
+
+                for (var j = 0; j < items.length; j++) {
+                    if (filter === "all" || items[j].getAttribute("data-type") === filter) {
+                        items[j].style.display = "block";
+                    } else {
+                        items[j].style.display = "none";
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

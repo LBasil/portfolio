@@ -479,3 +479,93 @@ section p {
 html {
     scroll-padding-top: 80px;
 }
+
+.timeline-horizontal {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.timeline-item {
+    min-width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+
+[data-bs-theme="dark"] .timeline-item {
+    background-color: #1e1e1e;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-item span {
+    font-size: 0.8rem;
+}
+
+.timeline-horizontal::-webkit-scrollbar {
+    height: 6px;
+}
+
+.timeline-horizontal::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.timeline-item {
+    min-width: 280px;
+    max-width: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
+}
+
+/* IMAGE */
+.timeline-item img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+/* CONTENT */
+.timeline-content {
+    padding: 15px;
+}
+
+.timeline-date {
+    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.timeline-content h6 {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.timeline-content p {
+    font-size: 0.85rem;
+    height: 50px;
+    /* évite les cartes irrégulières */
+    overflow: hidden;
+}
+
+/* bouton */
+.timeline-content .btn {
+    margin-top: 10px;
+}
