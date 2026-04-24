@@ -397,6 +397,9 @@ code {
     scroll-snap-align: start;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     transition: transform 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
 }
 
 [data-bs-theme="dark"] .timeline-item {
@@ -415,6 +418,9 @@ code {
 
 .timeline-content {
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .timeline-date {
@@ -429,8 +435,12 @@ code {
 
 .timeline-content p {
     font-size: 0.85rem;
-    height: 50px;
-    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+/* pousse le bouton en bas */
+.timeline-content .btn {
+    margin-top: auto;
 }
 
 /* =======================
