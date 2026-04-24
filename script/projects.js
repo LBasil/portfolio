@@ -18,7 +18,7 @@ const projects = [
     url: "",
     image: "",
     badges: ["VueJS", "Game", "In-Progress"],
-    archived: false,
+    archived: true,
     hasBlog: true,
     blogUrl: "projects/brawl-chessV2.html"
   },
