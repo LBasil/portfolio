@@ -3,14 +3,16 @@
     <div class="overlay"></div>
 
     <div class="container text-center position-relative z-index-2">
+      <p class="text-uppercase fw-semibold mb-3 header-label">
+        Développeur front-end &nbsp;·&nbsp; Ankama Games
+      </p>
+
       <h1 class="display-4 fw-bold mb-3">
-        Développeur Front-end JavaScript
-        <br>
         <span class="text-gradient">Basil L'hôte</span>
       </h1>
 
       <p class="lead mb-4">
-        Création d'interfaces web performantes, interactives et optimisées UX en JavaScript et Vue.js.
+        JavaScript · Vue 3 · TypeScript = interfaces de jeu, debugging, gestion de features et outils web.
       </p>
 
       <div class="d-flex gap-3 justify-content-center flex-wrap">
@@ -28,3 +30,11 @@
     </a>
   </header>
 </template>
+
+<style scoped>
+.header-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.7);
+}
+</style>

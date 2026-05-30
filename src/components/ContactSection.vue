@@ -5,8 +5,11 @@
         <div class="col-lg-8 text-center">
           <h2 class="section-title mb-4">Contact</h2>
 
-          <p class="lead mb-5">
-            En recherche d'opportunités CDI en Belgique.
+          <p class="lead mb-2">
+            Développeur front-end disponible pour de nouvelles opportunités.
+          </p>
+          <p class="text-muted mb-5">
+            Belgique &nbsp;·&nbsp; Ouvert au remote
           </p>
 
           <div class="d-flex flex-wrap justify-content-center gap-3">
@@ -21,7 +24,7 @@
             </a>
 
             <a href="mailto:basil.lhote@gmail.com" class="btn btn-secondary btn-lg rounded-pill px-4">
-              <i class="fas fa-envelope me-2"></i>Email
+              <i class="fas fa-envelope me-2"></i>basil.lhote@gmail.com
             </a>
           </div>
         </div>

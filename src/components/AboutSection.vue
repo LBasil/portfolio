@@ -10,14 +10,20 @@
               class="rounded-circle img-thumbnail w-100 h-100" style="object-fit: cover;">
           </div>
 
-          <p class="lead">
-            Développeur front-end spécialisé en JavaScript, je conçois des interfaces rapides,
-            fluides et orientées expérience utilisateur.
+          <p class="lead mb-3">
+            Développeur front-end JavaScript chez Ankama, je travaille depuis novembre 2023 sur
+            <strong>Dofus Touch</strong> — un MMORPG mobile à plusieurs millions de joueurs.
+          </p>
+
+          <p class="mb-3">
+            Mon quotidien : concevoir et intégrer des interfaces de jeu complexes, piloter des features de bout en bout
+            et maintenir la qualité sur une base de code existante. J'ai notamment piloté le développement complet
+            du <strong>Dédale</strong>, une des plus grosses mises à jour du jeu.
           </p>
 
           <p>
-            J'accorde une attention particulière à la performance, à la structure du code
-            et à la qualité des interactions pour créer des applications web modernes et efficaces.
+            En parallèle, je développe mes projets perso en <strong>Vue 3 + TypeScript</strong> — principalement des
+            jeux — pour explorer des architectures que je ne touche pas dans mon travail au quotidien.
           </p>
         </div>
       </div>

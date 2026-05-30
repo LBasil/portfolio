@@ -23,10 +23,13 @@ const filteredEntries = computed(() =>
 <template>
   <section id="experience" class="py-5">
     <div class="container">
-      <h2 class="section-title text-center mb-3">Expérience Dofus Touch</h2>
+      <h2 class="section-title text-center mb-2">Expérience Professionnelle</h2>
 
-      <p class="text-center mb-4">
-        Contributions aux mises à jour, devblogs et lives.
+      <p class="text-center text-muted mb-1">
+        <strong>Ankama Games</strong> · Développeur front-end · Dofus Touch
+      </p>
+      <p class="text-center text-muted small mb-4">
+        Novembre 2023 → aujourd'hui &nbsp;·&nbsp; {{ timelineEntries.length }} contributions
       </p>
 
       <div class="text-center mb-4">
@@ -38,6 +41,9 @@ const filteredEntries = computed(() =>
           @click="activeFilter = f.value"
         >
           {{ f.label }}
+          <span class="badge rounded-pill ms-1 filter-count">
+            {{ f.value === 'all' ? timelineEntries.length : timelineEntries.filter(e => e.type === f.value).length }}
+          </span>
         </button>
       </div>
 
@@ -51,6 +57,17 @@ const filteredEntries = computed(() =>
 <style scoped>
 .filter-btn.active {
   background-color: var(--bs-primary);
+  color: white;
+}
+
+.filter-count {
+  background: rgba(255, 255, 255, 0.3);
+  color: inherit;
+  font-size: 0.7em;
+}
+
+.filter-btn.active .filter-count {
+  background: rgba(255, 255, 255, 0.25);
   color: white;
 }
 </style>

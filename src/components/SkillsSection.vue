@@ -1,16 +1,48 @@
 <script setup lang="ts">
-import type { SkillCategory } from '@/types'
+interface Tech {
+  name: string
+  icon: string
+  iconType?: 'fab' | 'fas'
+}
 
-const skills: SkillCategory[] = [
+interface TechGroup {
+  title: string
+  techs: Tech[]
+}
+
+const groups: TechGroup[] = [
   {
-    icon: 'fa-code',
-    title: 'Développement Front-end',
-    items: ['JavaScript (ES6+)', 'Vue.js', 'HTML5 / CSS3', 'Less', 'Intégration responsive', 'Git']
+    title: 'Langages & Frameworks',
+    techs: [
+      { name: 'JavaScript', icon: 'fa-js', iconType: 'fab' },
+      { name: 'TypeScript', icon: 'fa-js', iconType: 'fab' },
+      { name: 'Vue 3', icon: 'fa-vuejs', iconType: 'fab' },
+      { name: 'HTML5', icon: 'fa-html5', iconType: 'fab' },
+      { name: 'CSS3 / Less', icon: 'fa-css3-alt', iconType: 'fab' },
+      { name: 'Pinia', icon: 'fa-database', iconType: 'fas' },
+    ]
   },
   {
-    icon: 'fa-brain',
-    title: 'Approche & Méthode',
-    items: ['Code propre et maintenable', 'Optimisation des performances', 'Expérience utilisateur fluide', 'Résolution de problèmes', 'Autonomie', 'Travail en équipe']
+    title: 'Outillage',
+    techs: [
+      { name: 'Vite', icon: 'fa-bolt', iconType: 'fas' },
+      { name: 'Git', icon: 'fa-git-alt', iconType: 'fab' },
+      { name: 'REST API', icon: 'fa-plug', iconType: 'fas' },
+      { name: 'Vue Router', icon: 'fa-route', iconType: 'fas' },
+      { name: 'Godot', icon: 'fa-gamepad', iconType: 'fas' },
+      { name: 'npm', icon: 'fa-npm', iconType: 'fab' },
+    ]
+  },
+  {
+    title: 'Approche',
+    techs: [
+      { name: 'Clean code', icon: 'fa-code', iconType: 'fas' },
+      { name: 'Performance', icon: 'fa-gauge-high', iconType: 'fas' },
+      { name: 'Responsive', icon: 'fa-mobile-screen', iconType: 'fas' },
+      { name: 'UX fluide', icon: 'fa-wand-magic-sparkles', iconType: 'fas' },
+      { name: 'Autonomie', icon: 'fa-person-running', iconType: 'fas' },
+      { name: 'Travail en équipe', icon: 'fa-people-group', iconType: 'fas' },
+    ]
   }
 ]
 </script>
@@ -21,16 +53,18 @@ const skills: SkillCategory[] = [
       <h2 class="section-title text-center mb-5">Compétences</h2>
 
       <div class="row g-4">
-        <div v-for="skill in skills" :key="skill.title" class="col-md-6">
-          <div class="card h-100 skill-card">
-            <div class="card-body text-center">
-              <div class="skill-icon mb-3">
-                <i class="fas fa-3x" :class="skill.icon"></i>
-              </div>
-              <h3 class="h4 mb-3">{{ skill.title }}</h3>
-              <ul class="list-unstyled">
-                <li v-for="item in skill.items" :key="item" class="mb-2">{{ item }}</li>
-              </ul>
+        <div v-for="group in groups" :key="group.title" class="col-md-4">
+          <div class="skill-card h-100 p-4">
+            <h3 class="h6 text-uppercase fw-bold mb-4 skill-group-title">{{ group.title }}</h3>
+            <div class="d-flex flex-wrap gap-2">
+              <span
+                v-for="tech in group.techs"
+                :key="tech.name"
+                class="tech-pill"
+              >
+                <i :class="[tech.iconType ?? 'fas', tech.icon, 'me-1']"></i>
+                {{ tech.name }}
+              </span>
             </div>
           </div>
         </div>
@@ -38,3 +72,37 @@ const skills: SkillCategory[] = [
     </div>
   </section>
 </template>
+
+<style scoped>
+.skill-group-title {
+  letter-spacing: 0.08em;
+  color: var(--primary);
+}
+
+.tech-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: rgba(var(--bs-primary-rgb), 0.08);
+  color: inherit;
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.2);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.tech-pill:hover {
+  background: rgba(var(--bs-primary-rgb), 0.15);
+  border-color: rgba(var(--bs-primary-rgb), 0.4);
+}
+
+[data-bs-theme="dark"] .tech-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-bs-theme="dark"] .tech-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+</style>
