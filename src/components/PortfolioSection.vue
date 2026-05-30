@@ -7,19 +7,16 @@ const showArchives = ref(false)
 
 const activeProjects = computed(() => projects.filter((p) => !p.archived))
 const archivedProjects = computed(() => projects.filter((p) => p.archived))
-
-function toggleArchives() {
-  showArchives.value = !showArchives.value
-}
 </script>
 
 <template>
   <section id="portfolio" class="py-5">
     <div class="container">
-      <h2 class="section-title text-center mb-3">Projets Front-end</h2>
+      <h2 class="section-title text-center mb-3">Projets</h2>
 
       <p class="text-center mb-5 text-muted">
-        Sélection de projets réalisés en JavaScript, Vue.js et intégration web.
+        Jeux, outils et interfaces — principalement en <strong>Vue 3</strong> et <strong>JavaScript</strong>.
+        Chaque projet avec son dev blog quand il y en a un.
       </p>
 
       <div class="row g-4">
@@ -28,15 +25,17 @@ function toggleArchives() {
     </div>
   </section>
 
-  <section id="archives" class="py-5">
+  <section id="archives" class="py-5 archives-section">
     <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="section-title">Projets Archivés</h2>
-        <p class="lead">Projets plus anciens illustrant mon évolution technique.</p>
+      <div class="text-center mb-4">
+        <h2 class="section-title">Archives</h2>
+        <p class="text-muted">
+          Prototypes et expérimentations — utiles pour voir l'évolution.
+        </p>
 
-        <button class="btn btn-outline-primary mt-3" @click="toggleArchives">
+        <button class="btn btn-outline-secondary mt-3" @click="showArchives = !showArchives">
           <i class="fas me-2" :class="showArchives ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
-          {{ showArchives ? 'Masquer les projets archivés' : 'Afficher les projets archivés' }}
+          {{ showArchives ? 'Masquer' : `Voir les ${archivedProjects.length} projets archivés` }}
         </button>
       </div>
 
@@ -51,28 +50,22 @@ function toggleArchives() {
       </Transition>
     </div>
   </section>
-
-  <section id="universe" class="py-5">
-    <div class="container">
-      <h2 class="text-center">Projet créatif : BaseX</h2>
-      <p class="text-center mb-4">
-        Univers de jeu original avec ses règles, ses personnages et son lore.
-        Expérimentation autour de l'IA pour explorer ses capacités et ses limites.
-      </p>
-      <div class="text-center">
-        <a href="universe.html" class="btn btn-outline-primary btn-lg">
-          Explorer l'univers
-        </a>
-      </div>
-    </div>
-  </section>
 </template>
 
 <style scoped>
+.archives-section {
+  background: rgba(var(--bs-secondary-rgb), 0.03);
+}
+
+[data-bs-theme="dark"] .archives-section {
+  background: rgba(255, 255, 255, 0.015);
+}
+
 .archives-fade-enter-active {
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .archives-fade-enter-from {
   opacity: 0;
+  transform: translateY(12px);
 }
 </style>

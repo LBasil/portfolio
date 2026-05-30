@@ -21,6 +21,7 @@
     --light: #f8f9fa;
 
     --text-gradient: linear-gradient(90deg, var(--neon-blue), var(--crayola));
+    --gradient-animated: linear-gradient(90deg, var(--neon-blue), var(--crayola), var(--neon-blue));
 
     scroll-behavior: smooth;
 }
@@ -90,10 +91,17 @@ section p {
 }
 
 .text-gradient {
-    background: var(--text-gradient);
+    background: var(--gradient-animated);
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: gradient-drift 6s ease-in-out infinite;
+}
+
+@keyframes gradient-drift {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
 }
 
 /* =======================
@@ -159,6 +167,23 @@ section p {
     0%,20%,50%,80%,100% { transform: translateY(0) translateX(-50%); }
     40% { transform: translateY(-20px) translateX(-50%); }
     60% { transform: translateY(-10px) translateX(-50%); }
+}
+
+/* =======================
+   Top accent bar
+======================= */
+body::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-animated);
+    background-size: 200% 100%;
+    animation: gradient-drift 6s ease-in-out infinite;
+    z-index: 9999;
 }
 
 /* =======================
