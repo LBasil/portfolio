@@ -21,7 +21,7 @@
               <i class="fab fa-github me-2"></i>GitHub
             </a>
 
-            <a href="https://www.linkedin.com/in/basil-l-h%C3%B4te-a653b8213/"
+            <a href="https://www.linkedin.com/in/basil-l-hote-a653b8213"
               class="btn btn-primary btn-lg rounded-pill px-4"
               target="_blank" rel="noopener">
               <i class="fab fa-linkedin-in me-2"></i>LinkedIn
