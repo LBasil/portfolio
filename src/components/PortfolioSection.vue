@@ -15,7 +15,7 @@ const archivedProjects = computed(() => projects.filter((p) => p.archived))
       <h2 class="section-title text-center mb-3">Projets</h2>
 
       <p class="text-center mb-5 text-muted">
-        Jeux, outils et interfaces — principalement en <strong>Vue 3</strong> et <strong>JavaScript</strong>.
+        Jeux, outils et interfaces - principalement en <strong>Vue 3</strong> et <strong>JavaScript</strong>.
         Chaque projet avec son dev blog quand il y en a un.
       </p>
 
@@ -30,7 +30,7 @@ const archivedProjects = computed(() => projects.filter((p) => p.archived))
       <div class="text-center mb-4">
         <h2 class="section-title">Archives</h2>
         <p class="text-muted">
-          Prototypes et expérimentations — utiles pour voir l'évolution.
+          Prototypes et expérimentations - utiles pour voir l'évolution.
         </p>
 
         <button class="btn btn-outline-secondary mt-3" @click="showArchives = !showArchives">

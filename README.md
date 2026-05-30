@@ -1,4 +1,4 @@
-# Portfolio — Basil L'Hôte
+# Portfolio - Basil L'Hôte
 
 <p align="center">
   <img src="https://img.shields.io/badge/Vue_3-42b883?logo=vuedotjs&logoColor=white" />
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  Portfolio personnel — développeur front-end JavaScript chez Ankama Games (Dofus Touch).
+  Portfolio personnel - développeur front-end JavaScript chez Ankama Games (Dofus Touch).
 </p>
 
 ---
@@ -85,17 +85,17 @@ src/
 | Route | Contenu |
 |---|---|
 | `/` | Portfolio principal (SPA) |
-| `/projects/brawl-chess` | Dev blog — Brawl Chess (Love2D + Java) |
-| `/projects/brawl-chess-v2` | Dev blog — Brawl Chess V2 (Vue 3, en cours) |
-| `/projects/sporyx` | Dev blog — Sporyx (Godot + Java) |
-| `/projects/dependency-analyzer` | Dev blog — Dependency Analyzer (JS) |
+| `/projects/brawl-chess` | Dev blog - Brawl Chess (Love2D + Java) |
+| `/projects/brawl-chess-v2` | Dev blog - Brawl Chess V2 (Vue 3, en cours) |
+| `/projects/sporyx` | Dev blog - Sporyx (Godot + Java) |
+| `/projects/dependency-analyzer` | Dev blog - Dependency Analyzer (JS) |
 
 ---
 
 ## Décisions techniques
 
 **Pourquoi Vue 3 + TypeScript ?**
-Stack que j'utilise en dehors de mon travail au quotidien — projets perso en Vue 3, formation TypeScript. Le portfolio lui-même sert de vitrine de ces compétences.
+Stack que j'utilise en dehors de mon travail au quotidien - projets perso en Vue 3, formation TypeScript. Le portfolio lui-même sert de vitrine de ces compétences.
 
 **Pourquoi Pinia pour un simple toggle de thème ?**
 Le thème doit être accessible depuis la navbar (HomeView) et depuis les navbar des vues blog. Un store centralisé évite le prop-drilling et le duplicat de logique.
@@ -111,4 +111,4 @@ Le build génère un dossier `dist/`. Les images (`images/`) et vidéos (`videos
 
 ---
 
-*Basil L'Hôte — [LinkedIn](https://www.linkedin.com/in/basil-l-h%C3%B4te-a653b8213/) · [GitHub](https://github.com/LBasil)*
+*Basil L'Hôte - [LinkedIn](https://www.linkedin.com/in/basil-l-h%C3%B4te-a653b8213/) · [GitHub](https://github.com/LBasil)*

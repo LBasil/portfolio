@@ -26,7 +26,7 @@ const stats = [
 
           <p class="lead mb-3">
             Développeur front-end JavaScript chez <strong>Ankama Games</strong>, je travaille depuis novembre 2023
-            sur <strong>Dofus Touch</strong> — un MMORPG mobile à plusieurs millions de joueurs.
+            sur <strong>Dofus Touch</strong> - un MMORPG mobile à plusieurs millions de joueurs.
           </p>
 
           <p class="mb-3">
@@ -37,8 +37,8 @@ const stats = [
           </p>
 
           <p class="mb-5">
-            En parallèle, je construis mes projets perso en <strong>Vue 3 + TypeScript</strong> — principalement des
-            jeux — pour explorer des architectures que je ne touche pas dans mon travail au quotidien.
+            En parallèle, je construis mes projets perso en <strong>Vue 3 + TypeScript</strong> - principalement des
+            jeux - pour explorer des architectures que je ne touche pas dans mon travail au quotidien.
           </p>
 
           <!-- Stats row -->
