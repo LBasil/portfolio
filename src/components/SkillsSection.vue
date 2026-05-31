@@ -27,10 +27,10 @@ const groups: TechGroup[] = [
     techs: [
       { name: 'Vite', icon: 'fa-bolt', iconType: 'fas' },
       { name: 'Git', icon: 'fa-git-alt', iconType: 'fab' },
-      { name: 'REST API', icon: 'fa-plug', iconType: 'fas' },
       { name: 'Vue Router', icon: 'fa-route', iconType: 'fas' },
-      { name: 'Godot', icon: 'fa-gamepad', iconType: 'fas' },
-      { name: 'npm', icon: 'fa-npm', iconType: 'fab' },
+      { name: 'ESLint', icon: 'fa-code', iconType: 'fas' },
+      { name: 'YouTrack', icon: 'fa-tasks', iconType: 'fas' },
+      { name: 'Tests unitaires', icon: 'fa-vial', iconType: 'fas' }
     ]
   },
   {
