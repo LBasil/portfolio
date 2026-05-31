@@ -107,7 +107,7 @@ Bootstrap est suffisant pour ce périmètre. L'objectif était de produire quelq
 
 ## Déploiement
 
-Le build génère un dossier `dist/`. Les images (`images/`) et vidéos (`videos/`) du projet root sont référencées comme assets statiques et doivent être copiées à côté de `dist/` au déploiement, ou incluses via `npm run build:prod`.
+`npm run build` suffit — le plugin Vite `copyStaticAssets` copie automatiquement `images/` et `videos/` dans `dist/` à chaque build. Compatible Vercel, Netlify, ou tout hébergeur statique.
 
 ---
 

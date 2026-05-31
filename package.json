@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "build:prod": "vue-tsc && vite build && xcopy /E /I /Y images dist\\images && xcopy /E /I /Y videos dist\\videos",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit"
   },
