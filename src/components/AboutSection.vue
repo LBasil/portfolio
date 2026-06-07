@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useCountUp } from '@/composables/useCountUp'
 
+
+// TODO: Live update
 const contributions = useCountUp(16)
 const years         = useCountUp(2)
-const sideProjects  = useCountUp(13)
+const sideProjects  = useCountUp(14)
 
 const stats = [
   { countUp: contributions, suffix: '',  label: 'contributions',    sublabel: 'Dofus Touch' },
@@ -46,7 +48,7 @@ const stats = [
             <div
               v-for="stat in stats"
               :key="stat.label"
-              :ref="(el) => { stat.countUp.el.value = el as HTMLElement }"
+              :ref="(element) => { stat.countUp.el.value = element as HTMLElement | null }"
               class="col-4 col-md-auto"
             >
               <div class="stat-card">

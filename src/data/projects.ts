@@ -12,6 +12,16 @@ export const projects: Project[] = [
     blogUrl: '/projects/dependency-analyzer'
   },
   {
+    title: 'DejaVue',
+    description: 'A simple Vue documentation. Acts like a cheat sheet',
+    url: 'https://deja-vue.vercel.app/',
+    image: '/images/dejavue.png',
+    badges: ['TypeScript', 'VueJS', 'In-Progress'],
+    archived: false,
+    hasBlog: false,
+    blogUrl: ''
+  },
+  {
     title: 'Brawl chess V2',
     description: 'Mobile 1v1 chess battler like you never seen before.',
     url: '',

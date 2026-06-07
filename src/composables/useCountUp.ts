@@ -19,12 +19,17 @@ export function useCountUp(target: number, options: CountUpOptions = {}) {
     const startTime = performance.now()
     const step = (now: number) => {
       const progress = Math.min((now - startTime) / duration, 1)
-      // ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3)
-      displayed.value = parseFloat((eased * target).toFixed(decimals))
-      if (progress < 1) requestAnimationFrame(step)
-      else displayed.value = target
+      const current = parseFloat((eased * target).toFixed(decimals))
+      displayed.value = Math.min(target, current)
+
+      if (progress < 1) {
+        requestAnimationFrame(step)
+      } else {
+        displayed.value = target
+      }
     }
+
     requestAnimationFrame(step)
   }
 
