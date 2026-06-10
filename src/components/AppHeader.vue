@@ -25,8 +25,8 @@
       </div>
     </div>
 
-    <a href="#about" class="position-absolute bottom-0 start-50 translate-middle-x mb-5 scroll-down">
-      <i class="fas fa-chevron-down fa-2x"></i>
+    <a href="#about" class="position-absolute bottom-0 start-50 translate-middle-x mb-5 scroll-down" aria-label="Défiler vers la section À propos">
+      <i class="fas fa-chevron-down fa-2x" aria-hidden="true"></i>
     </a>
   </header>
 </template>

@@ -31,19 +31,19 @@ function isActive(sectionId: string) {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('about') }" href="#about">À propos</a>
+            <a class="nav-link" :class="{ active: isActive('about') }" :aria-current="isActive('about') ? 'true' : undefined" href="#about">À propos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('experience') }" href="#experience">Expérience</a>
+            <a class="nav-link" :class="{ active: isActive('experience') }" :aria-current="isActive('experience') ? 'true' : undefined" href="#experience">Expérience</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('portfolio') }" href="#portfolio">Portfolio</a>
+            <a class="nav-link" :class="{ active: isActive('portfolio') }" :aria-current="isActive('portfolio') ? 'true' : undefined" href="#portfolio">Portfolio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('skills') }" href="#skills">Compétences</a>
+            <a class="nav-link" :class="{ active: isActive('skills') }" :aria-current="isActive('skills') ? 'true' : undefined" href="#skills">Compétences</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('contact') }" href="#contact">Contact</a>
+            <a class="nav-link" :class="{ active: isActive('contact') }" :aria-current="isActive('contact') ? 'true' : undefined" href="#contact">Contact</a>
           </li>
           <li class="nav-item">
             <button class="btn btn-sm btn-outline-secondary ms-2" :aria-label="themeLabel" @click="themeStore.toggle()">

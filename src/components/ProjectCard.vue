@@ -34,9 +34,9 @@ function badgeClass(badge: string): string {
   <div class="col-lg-4 col-md-6">
     <div class="card project-card shadow-sm h-100">
       <img v-if="project.image" :src="project.image" class="card-img-top" :alt="project.title" loading="lazy">
-      <div v-else class="card-img-top placeholder-img d-flex align-items-center justify-content-center flex-column gap-2">
-        <i class="fas fa-gamepad fa-3x placeholder-icon"></i>
-        <span class="placeholder-label">En développement</span>
+      <div v-else class="card-img-top placeholder-img d-flex align-items-center justify-content-center flex-column gap-2" role="img" :aria-label="`Image non disponible pour ${project.title}`">
+        <i class="fas fa-gamepad fa-3x placeholder-icon" aria-hidden="true"></i>
+        <span class="placeholder-label" aria-hidden="true">En développement</span>
       </div>
 
       <div class="card-body d-flex flex-column">
@@ -55,8 +55,8 @@ function badgeClass(badge: string): string {
         </div>
 
         <div class="d-flex gap-2 flex-wrap">
-          <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener">
-            <i class="fas fa-arrow-up-right-from-square me-1"></i>Voir le projet
+          <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener" :aria-label="`Voir le projet ${project.title} (nouvelle fenêtre)`">
+            <i class="fas fa-arrow-up-right-from-square me-1" aria-hidden="true"></i>Voir le projet
           </a>
           <button v-if="project.hasBlog" class="btn btn-outline-secondary btn-sm" @click="openBlog">
             <i class="fas fa-book-open me-1"></i>Dev blog
@@ -101,21 +101,21 @@ function badgeClass(badge: string): string {
   letter-spacing: 0.02em;
 }
 
-/* Langages */
-.badge-js      { background: #f7df1e22; color: #b8860b; border: 1px solid #f7df1e66; }
-.badge-ts      { background: #3178c622; color: #3178c6; border: 1px solid #3178c655; }
-.badge-vue     { background: #42b88322; color: #27a167; border: 1px solid #42b88355; }
-.badge-love    { background: #e8405522; color: #c0392b; border: 1px solid #e8405555; }
-.badge-godot   { background: #47869922; color: #2e7da0; border: 1px solid #47869955; }
-.badge-api     { background: #6c5ce722; color: #6c5ce7; border: 1px solid #6c5ce755; }
+/* Langages — couleurs vérifiées ≥ 4.5:1 contre fond blanc */
+.badge-js      { background: #f7df1e22; color: #7a5500; border: 1px solid #f7df1e66; }
+.badge-ts      { background: #3178c622; color: #1a63b4; border: 1px solid #3178c655; }
+.badge-vue     { background: #42b88322; color: #1a7550; border: 1px solid #42b88355; }
+.badge-love    { background: #e8405522; color: #b02a1e; border: 1px solid #e8405555; }
+.badge-godot   { background: #47869922; color: #1e5f7a; border: 1px solid #47869955; }
+.badge-api     { background: #6c5ce722; color: #4e3fbf; border: 1px solid #6c5ce755; }
 
 /* Catégorie */
-.badge-game    { background: #a29bfe22; color: #7d6ee7; border: 1px solid #a29bfe55; }
+.badge-game    { background: #a29bfe22; color: #5040cc; border: 1px solid #a29bfe55; }
 
 /* Statut */
-.badge-wip     { background: #fd7e1422; color: #d9660a; border: 1px solid #fd7e1455; }
-.badge-done    { background: #20c99722; color: #18a07a; border: 1px solid #20c99755; }
-.badge-paused  { background: #adb5bd22; color: #6c757d; border: 1px solid #adb5bd55; }
+.badge-wip     { background: #fd7e1422; color: #a84c08; border: 1px solid #fd7e1455; }
+.badge-done    { background: #20c99722; color: #0d7558; border: 1px solid #20c99755; }
+.badge-paused  { background: #adb5bd22; color: #5a6470; border: 1px solid #adb5bd55; }
 .badge-default { background: rgba(var(--bs-secondary-rgb), 0.12); color: var(--bs-secondary); border: 1px solid rgba(var(--bs-secondary-rgb), 0.2); }
 
 [data-bs-theme="dark"] .badge-js     { color: #e6c200; }
@@ -124,4 +124,9 @@ function badgeClass(badge: string): string {
 [data-bs-theme="dark"] .badge-done   { color: #2ecc71; }
 [data-bs-theme="dark"] .badge-wip    { color: #fd9644; }
 [data-bs-theme="dark"] .badge-paused { color: #adb5bd; }
+[data-bs-theme="dark"] .badge-game   { color: #a29bfe; }
+[data-bs-theme="dark"] .badge-api    { color: #9d8fff; }
+[data-bs-theme="dark"] .badge-godot  { color: #47a5c9; }
+[data-bs-theme="dark"] .badge-love   { color: #f07070; }
+[data-bs-theme="dark"] .badge-js     { color: #e6c200; }
 </style>

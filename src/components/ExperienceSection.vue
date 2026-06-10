@@ -61,6 +61,7 @@ onUnmounted(() => {
           :key="f.value"
           class="btn btn-outline-primary filter-btn me-1"
           :class="{ active: activeFilter === f.value }"
+          :aria-pressed="activeFilter === f.value"
           @click="activeFilter = f.value; $nextTick(() => { timelineEl?.scrollTo({ left: 0 }); updateScrollState() })"
         >
           {{ f.label }}
@@ -80,7 +81,7 @@ onUnmounted(() => {
           <i class="fas fa-chevron-left"></i>
         </button>
 
-        <div ref="timelineEl" class="timeline-horizontal">
+        <div ref="timelineEl" class="timeline-horizontal" role="list" aria-label="Contributions Dofus Touch">
           <TimelineItem v-for="entry in filteredEntries" :key="entry.title" :entry="entry" />
         </div>
 

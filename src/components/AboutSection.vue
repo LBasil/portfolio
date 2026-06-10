@@ -13,9 +13,9 @@ const years         = useCountUp(yearsAtAnkama)
 const sideProjects  = useCountUp(projects.length)
 
 const stats = [
-  { countUp: contributions, suffix: '',  label: 'contributions',    sublabel: 'Dofus Touch' },
-  { countUp: years,         suffix: '+', label: 'ans chez Ankama',  sublabel: `Nov. 2023 → ${new Date().getFullYear()}` },
-  { countUp: sideProjects,  suffix: '',  label: 'projets perso',    sublabel: 'jeux, outils, expérimentations' },
+  { target: timelineEntries.length, countUp: contributions, suffix: '',  label: 'contributions',    sublabel: 'Dofus Touch' },
+  { target: yearsAtAnkama,          countUp: years,         suffix: '+', label: 'ans chez Ankama',  sublabel: `Nov. 2023 → ${new Date().getFullYear()}` },
+  { target: projects.length,        countUp: sideProjects,  suffix: '',  label: 'projets perso',    sublabel: 'jeux, outils, expérimentations' },
 ]
 </script>
 
@@ -56,12 +56,16 @@ const stats = [
               :ref="(element) => { stat.countUp.el.value = element as HTMLElement | null }"
               class="col-4 col-md-auto"
             >
-              <div class="stat-card">
-                <div class="stat-number">
+              <div
+                class="stat-card"
+                role="figure"
+                :aria-label="`${stat.target}${stat.suffix} ${stat.label} — ${stat.sublabel}`"
+              >
+                <div class="stat-number" aria-hidden="true">
                   {{ stat.countUp.displayed }}<span class="stat-suffix">{{ stat.suffix }}</span>
                 </div>
-                <div class="stat-label">{{ stat.label }}</div>
-                <div class="stat-sublabel">{{ stat.sublabel }}</div>
+                <div class="stat-label" aria-hidden="true">{{ stat.label }}</div>
+                <div class="stat-sublabel" aria-hidden="true">{{ stat.sublabel }}</div>
               </div>
             </div>
           </div>
@@ -110,7 +114,7 @@ const stats = [
 
 .stat-sublabel {
   font-size: 0.72rem;
-  color: var(--bs-secondary-color, #888);
+  color: var(--bs-secondary-color);
   margin-top: 0.15rem;
 }
 

@@ -33,14 +33,14 @@ const archivedProjects = computed(() => projects.filter((p) => p.archived))
           Prototypes et expérimentations - utiles pour voir l'évolution.
         </p>
 
-        <button class="btn btn-outline-secondary mt-3" @click="showArchives = !showArchives">
+        <button class="btn btn-outline-secondary mt-3" :aria-expanded="showArchives" aria-controls="archives-list" @click="showArchives = !showArchives">
           <i class="fas me-2" :class="showArchives ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
           {{ showArchives ? 'Masquer' : `Voir les ${archivedProjects.length} projets archivés` }}
         </button>
       </div>
 
       <Transition name="archives-fade">
-        <div v-if="showArchives" class="row g-4">
+        <div v-if="showArchives" id="archives-list" class="row g-4">
           <ProjectCard
             v-for="project in archivedProjects"
             :key="project.title"

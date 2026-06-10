@@ -39,10 +39,11 @@ async function copyEmail() {
               <i class="fab fa-linkedin-in me-2"></i>LinkedIn
             </a>
 
-            <button class="btn btn-secondary btn-lg rounded-pill px-4" @click="copyEmail">
-              <i class="fas me-2" :class="copied ? 'fa-check' : 'fa-envelope'"></i>
+            <button class="btn btn-secondary btn-lg rounded-pill px-4" :aria-label="copied ? 'Email copié dans le presse-papier' : 'Copier l\'adresse email'" @click="copyEmail">
+              <i class="fas me-2" :class="copied ? 'fa-check' : 'fa-envelope'" aria-hidden="true"></i>
               {{ copied ? 'Copié !' : 'basil.lhote@gmail.com' }}
             </button>
+            <span role="status" class="visually-hidden">{{ copied ? 'Adresse email copiée dans le presse-papier.' : '' }}</span>
           </div>
         </div>
       </div>

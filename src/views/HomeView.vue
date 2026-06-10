@@ -14,11 +14,13 @@ useScrollReveal()
 
 <template>
   <AppNavbar />
-  <AppHeader />
-  <AboutSection />
-  <ExperienceSection />
-  <PortfolioSection />
-  <SkillsSection />
-  <ContactSection />
+  <main id="main-content">
+    <AppHeader />
+    <AboutSection />
+    <ExperienceSection />
+    <PortfolioSection />
+    <SkillsSection />
+    <ContactSection />
+  </main>
   <AppFooter />
 </template>
