@@ -33,7 +33,7 @@ function badgeClass(badge: string): string {
 <template>
   <div class="col-lg-4 col-md-6">
     <div class="card project-card shadow-sm h-100">
-      <img v-if="project.image" :src="project.image" class="card-img-top" :alt="project.title">
+      <img v-if="project.image" :src="project.image" class="card-img-top" :alt="project.title" loading="lazy">
       <div v-else class="card-img-top placeholder-img d-flex align-items-center justify-content-center">
         <i class="fas fa-code fa-3x opacity-25"></i>
       </div>

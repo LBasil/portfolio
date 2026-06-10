@@ -12,7 +12,7 @@ const TYPE_LABELS: Record<string, string> = {
 
 <template>
   <div class="timeline-item">
-    <img :src="entry.image" :alt="entry.alt">
+    <img :src="entry.image" :alt="entry.alt" loading="lazy">
     <div class="timeline-content">
       <div class="d-flex align-items-center gap-2 mb-1">
         <span class="type-badge" :class="`type-${entry.type}`">{{ TYPE_LABELS[entry.type] }}</span>
