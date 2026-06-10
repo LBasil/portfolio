@@ -12,7 +12,7 @@
       </h1>
 
       <p class="lead mb-4">
-        JavaScript · Vue 3 · TypeScript = interfaces de jeu, debugging, gestion de features et outils web.
+        Je conçois les interfaces qui font jouer des millions de joueurs et je construis mes propres jeux à côté.
       </p>
 
       <div class="d-flex gap-3 justify-content-center flex-wrap">

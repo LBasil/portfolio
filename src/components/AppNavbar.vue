@@ -34,6 +34,9 @@ function isActive(sectionId: string) {
             <a class="nav-link" :class="{ active: isActive('about') }" href="#about">À propos</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" :class="{ active: isActive('experience') }" href="#experience">Expérience</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" :class="{ active: isActive('portfolio') }" href="#portfolio">Portfolio</a>
           </li>
           <li class="nav-item">

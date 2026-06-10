@@ -6,7 +6,7 @@
           <h2 class="section-title mb-4">Contact</h2>
 
           <p class="lead mb-2">
-            Développeur front-end disponible pour de nouvelles opportunités.
+            Développeur front-end en poste chez <strong>Ankama Games</strong>, ouvert aux nouvelles opportunités.
           </p>
           <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
             <span class="location-chip"><i class="fas fa-location-dot me-1"></i>Belgique</span>

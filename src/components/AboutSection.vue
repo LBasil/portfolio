@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { useCountUp } from '@/composables/useCountUp'
+import { timelineEntries } from '@/data/timeline'
+import { projects } from '@/data/projects'
 
+const ANKAMA_START = new Date('2023-11-01')
+const yearsAtAnkama = Math.floor(
+  (Date.now() - ANKAMA_START.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+)
 
-// TODO: Live update
-const contributions = useCountUp(16)
-const years         = useCountUp(2)
-const sideProjects  = useCountUp(14)
+const contributions = useCountUp(timelineEntries.length)
+const years         = useCountUp(yearsAtAnkama)
+const sideProjects  = useCountUp(projects.length)
 
 const stats = [
   { countUp: contributions, suffix: '',  label: 'contributions',    sublabel: 'Dofus Touch' },
-  { countUp: years,         suffix: '+', label: 'ans chez Ankama',  sublabel: 'Nov. 2023 → présent' },
+  { countUp: years,         suffix: '+', label: 'ans chez Ankama',  sublabel: `Nov. 2023 → ${new Date().getFullYear()}` },
   { countUp: sideProjects,  suffix: '',  label: 'projets perso',    sublabel: 'jeux, outils, expérimentations' },
 ]
 </script>
