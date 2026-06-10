@@ -34,8 +34,9 @@ function badgeClass(badge: string): string {
   <div class="col-lg-4 col-md-6">
     <div class="card project-card shadow-sm h-100">
       <img v-if="project.image" :src="project.image" class="card-img-top" :alt="project.title" loading="lazy">
-      <div v-else class="card-img-top placeholder-img d-flex align-items-center justify-content-center">
-        <i class="fas fa-code fa-3x opacity-25"></i>
+      <div v-else class="card-img-top placeholder-img d-flex align-items-center justify-content-center flex-column gap-2">
+        <i class="fas fa-gamepad fa-3x placeholder-icon"></i>
+        <span class="placeholder-label">En développement</span>
       </div>
 
       <div class="card-body d-flex flex-column">
@@ -69,7 +70,26 @@ function badgeClass(badge: string): string {
 <style scoped>
 .placeholder-img {
   height: 200px;
-  background: rgba(var(--bs-secondary-rgb), 0.08);
+  background: rgba(var(--bs-primary-rgb), 0.05);
+  border-bottom: 1px solid rgba(var(--bs-primary-rgb), 0.1);
+}
+
+.placeholder-icon {
+  color: var(--primary);
+  opacity: 0.3;
+}
+
+.placeholder-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.35;
+}
+
+[data-bs-theme="dark"] .placeholder-img {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .project-badge {

@@ -19,7 +19,7 @@ const groups: TechGroup[] = [
       { name: 'Vue 3', icon: 'fa-vuejs', iconType: 'fab' },
       { name: 'HTML5', icon: 'fa-html5', iconType: 'fab' },
       { name: 'CSS3 / Less', icon: 'fa-css3-alt', iconType: 'fab' },
-      { name: 'Pinia', icon: 'fa-database', iconType: 'fas' },
+      { name: 'Pinia', icon: 'fa-layer-group', iconType: 'fas' },
     ]
   },
   {

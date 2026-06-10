@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const copied = ref(false)
+
+async function copyEmail() {
+  await navigator.clipboard.writeText('basil.lhote@gmail.com')
+  copied.value = true
+  setTimeout(() => { copied.value = false }, 2000)
+}
+</script>
+
 <template>
   <section id="contact" class="py-5">
     <div class="container">
@@ -27,10 +39,10 @@
               <i class="fab fa-linkedin-in me-2"></i>LinkedIn
             </a>
 
-            <a href="mailto:basil.lhote@gmail.com"
-              class="btn btn-secondary btn-lg rounded-pill px-4">
-              <i class="fas fa-envelope me-2"></i>basil.lhote@gmail.com
-            </a>
+            <button class="btn btn-secondary btn-lg rounded-pill px-4" @click="copyEmail">
+              <i class="fas me-2" :class="copied ? 'fa-check' : 'fa-envelope'"></i>
+              {{ copied ? 'Copié !' : 'basil.lhote@gmail.com' }}
+            </button>
           </div>
         </div>
       </div>
