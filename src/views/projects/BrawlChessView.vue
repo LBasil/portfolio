@@ -7,15 +7,15 @@ import AppFooter from '@/components/AppFooter.vue'
 <template>
   <BlogNavbar />
 
-  <div class="container py-5 mt-5">
+  <main id="main-content" class="container py-5 mt-5">
     <h1 class="text-center mb-4">Brawl Chess</h1>
     <p class="text-center text-muted mb-5">
       Un jeu mobile en 2D développé avec Love2D. Suivez ici son évolution technique et créative.
     </p>
 
     <div class="text-center mt-5 mb-5">
-      <a href="https://github.com/LBasil/Brawl-Chess" target="_blank" class="btn btn-outline-secondary">
-        ← Lien vers le projet
+      <a href="https://github.com/LBasil/Brawl-Chess" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary" aria-label="Voir Brawl Chess sur GitHub (nouvelle fenêtre)">
+        Voir le projet sur GitHub
       </a>
     </div>
 
@@ -64,9 +64,9 @@ import AppFooter from '@/components/AppFooter.vue'
     </section>
 
     <div class="text-center mt-5">
-      <router-link to="/" class="btn btn-outline-secondary">← Retour au portfolio</router-link>
+      <router-link to="/" class="btn btn-outline-secondary">Retour au portfolio</router-link>
     </div>
-  </div>
+  </main>
 
   <AppFooter />
 </template>

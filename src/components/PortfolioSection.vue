@@ -34,7 +34,7 @@ const archivedProjects = computed(() => projects.filter((p) => p.archived))
         </p>
 
         <button class="btn btn-outline-secondary mt-3" :aria-expanded="showArchives" aria-controls="archives-list" @click="showArchives = !showArchives">
-          <i class="fas me-2" :class="showArchives ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+          <i class="fas me-2" :class="showArchives ? 'fa-chevron-up' : 'fa-chevron-down'" aria-hidden="true"></i>
           {{ showArchives ? 'Masquer' : `Voir les ${archivedProjects.length} projets archivés` }}
         </button>
       </div>

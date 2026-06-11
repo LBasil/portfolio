@@ -34,29 +34,41 @@
 
 <style scoped>
 .footer-copy {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .footer-link {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   font-size: 0.82rem;
   transition: color 0.2s;
+  border-radius: 3px;
 }
 
 .footer-link:hover {
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
+}
+
+.footer-link:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
 }
 
 .footer-social {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 1.1rem;
   transition: color 0.2s, transform 0.2s;
   display: inline-block;
+  border-radius: 3px;
 }
 
 .footer-social:hover {
   color: white;
   transform: translateY(-2px);
+}
+
+.footer-social:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
 }
 </style>

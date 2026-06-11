@@ -58,7 +58,7 @@ const stats = [
             >
               <div
                 class="stat-card"
-                role="figure"
+                role="group"
                 :aria-label="`${stat.target}${stat.suffix} ${stat.label} — ${stat.sublabel}`"
               >
                 <div class="stat-number" aria-hidden="true">

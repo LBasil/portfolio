@@ -45,10 +45,25 @@
     transition: top 0.15s ease;
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
     top: 0;
     outline: 3px solid white;
     outline-offset: 2px;
+}
+
+/* =======================
+   Focus visible (global)
+======================= */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* Supprime l'outline par défaut pour la souris uniquement */
+:focus:not(:focus-visible) {
+    outline: none;
 }
 
 /* =======================
@@ -230,6 +245,7 @@ body::before {
     font-weight: 500;
     padding: 0.5rem 1rem;
     position: relative;
+    border-radius: 4px;
 }
 
 .nav-link.active {
@@ -365,16 +381,6 @@ code {
 /* =======================
    Blog
 ======================= */
-.blog-header {
-    cursor: pointer;
-}
-
-.blog-header button {
-    font-size: 1.5rem;
-    color: #007bff;
-    background: none;
-    border: none;
-}
 
 /* =======================
    Archives

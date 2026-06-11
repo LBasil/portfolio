@@ -221,6 +221,9 @@
     }
 
     .file-item {
+      display: block;
+      width: 100%;
+      text-align: left;
       padding: 8px 10px;
       border-radius: 8px;
       background: linear-gradient(180deg, #00111a 0%, #00131c 100%);
@@ -228,6 +231,8 @@
       cursor: pointer;
       color: var(--muted);
       font-weight: 600;
+      font-family: inherit;
+      font-size: inherit;
     }
 
     .file-item:hover {
@@ -302,6 +307,14 @@
       color: var(--accent);
     }
 
+    .tab:focus-visible,
+    .nav-item:focus-visible,
+    .file-item:focus-visible,
+    .terminal-input button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     .chev {
       width: 18px;
       text-align: center;
@@ -345,11 +358,11 @@
     </div>
 
     <div class="tabs" role="tablist" aria-label="Sections">
-      <div class="tab active" data-tab="overview" role="tab" tabindex="0">Overview</div>
-      <div class="tab" data-tab="codex" role="tab" tabindex="0">Codex (Lore)</div>
-      <div class="tab" data-tab="terminal-tab" role="tab" tabindex="0">Terminal</div>
-      <div class="tab" data-tab="trello-tab" role="tab" tabindex="0">Trello (data)</div>
-      <div class="tab" data-tab="help-tab" role="tab" tabindex="0">Help</div>
+      <div class="tab active" data-tab="overview" role="tab" tabindex="0" aria-selected="true" aria-controls="overview">Overview</div>
+      <div class="tab" data-tab="codex" role="tab" tabindex="0" aria-selected="false" aria-controls="codex">Codex (Lore)</div>
+      <div class="tab" data-tab="terminal-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="terminal-tab">Terminal</div>
+      <div class="tab" data-tab="trello-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="trello-tab">Trello (data)</div>
+      <div class="tab" data-tab="help-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="help-tab">Help</div>
     </div>
 
     <div class="content">
@@ -357,11 +370,11 @@
       <nav class="left-nav" aria-label="Navigation interne Codex"> <!-- AJOUTÉ -->
         <div class="nav-group">
           <div class="nav-group-title">Sections principales</div>
-          <div class="nav-item" data-target="overview"><span class="chev">▸</span> Overview</div>
-          <div class="nav-item" data-target="codex"><span class="chev">▸</span> Codex (Lore)</div>
-          <div class="nav-item" data-target="terminal-tab"><span class="chev">▸</span> Terminal</div>
-          <div class="nav-item" data-target="trello-tab"><span class="chev">▸</span> Trello (data)</div>
-          <div class="nav-item" data-target="help-tab"><span class="chev">▸</span> Help</div>
+          <div class="nav-item" data-target="overview" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Overview</div>
+          <div class="nav-item" data-target="codex" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Codex (Lore)</div>
+          <div class="nav-item" data-target="terminal-tab" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Terminal</div>
+          <div class="nav-item" data-target="trello-tab" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Trello (data)</div>
+          <div class="nav-item" data-target="help-tab" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Help</div>
         </div>
 
         <div class="nav-group">
@@ -486,7 +499,7 @@
 
           <div class="terminal-input">
             <input id="terminal-input" aria-label="Terminal input" placeholder="> commande (ex: help)" />
-            <button id="term-send">Run</button>
+            <button id="term-send" type="button">Run</button>
           </div>
 
           <div style="margin-top:10px; color:var(--muted); font-size:0.86rem">
@@ -558,7 +571,7 @@
             <div style="display:flex;justify-content:space-between;align-items:center">
               <div style="font-weight:700">Détails</div>
               <div>
-                <button id="close-details" class="kbd" style="margin-right:6px">Fermer</button> <!-- AJOUTÉ -->
+                <button id="close-details" type="button" class="kbd" style="margin-right:6px">Fermer</button> <!-- AJOUTÉ -->
               </div>
             </div>
             <div id="details-content" style="margin-top:8px;color:var(--muted);font-size:0.93rem"></div>
@@ -605,57 +618,56 @@
     // -----------------------
     // TAB SWITCH
     // -----------------------
+    function activateTab(t) {
+      document.querySelectorAll('.tab').forEach(x => {
+        x.classList.remove('active');
+        x.setAttribute('aria-selected', 'false');
+      });
+      t.classList.add('active');
+      t.setAttribute('aria-selected', 'true');
+      const target = t.dataset.tab;
+      document.querySelectorAll('.view').forEach(v => { v.style.display = 'none'; });
+      const el = document.getElementById(target);
+      if (el) el.style.display = '';
+      if (target !== 'codex') closeDetailsArea();
+      document.querySelectorAll('.left-nav .nav-item').forEach(nav => nav.classList.remove('active'));
+    }
+
     document.querySelectorAll('.tab').forEach(t => {
-      t.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-        t.classList.add('active');
-        const target = t.dataset.tab;
-        // hide all views
-        document.querySelectorAll('.view').forEach(v => {
-          v.style.display = 'none';
-        });
-        // show target
-        const el = document.getElementById(target);
-        if (el) el.style.display = '';
-        // close details pane when switching away from codex (coherence)
-        if (target !== 'codex') {
-          closeDetailsArea();
-        }
-        // visually sync left-nav active state
-        document.querySelectorAll('.left-nav .nav-item').forEach(nav => nav.classList.remove('active'));
+      t.addEventListener('click', () => activateTab(t));
+      t.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateTab(t); }
       });
     });
 
     // -----------------------
     // LEFT NAV interactions
     // -----------------------
-    document.querySelectorAll('.left-nav .nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const target = item.dataset.target;
-        // If target refers to a main view id (like 'overview' or 'codex')
-        if (!target.startsWith('#')) {
-          // trigger the corresponding tab
-          const tabEl = document.querySelector('.tab[data-tab="' + target + '"]');
-          if (tabEl) tabEl.click();
-          // make left-nav item visually active
-          document.querySelectorAll('.left-nav .nav-item').forEach(n => n.classList.remove('active'));
-          item.classList.add('active');
-          // if codex selected, scroll to top
-          if (target === 'codex') {
-            const codex = document.getElementById('codex');
-            if (codex) codex.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        } else {
-          // internal anchor inside codex (like '#lore-principal')
-          const anchor = document.querySelector(target);
-          // ensure codex view is open
-          const tabEl = document.querySelector('.tab[data-tab="codex"]');
-          if (tabEl) tabEl.click();
-          // wait a tick then scroll
-          setTimeout(() => {
-            if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }, 80);
+    function activateNavItem(item) {
+      const target = item.dataset.target;
+      if (!target.startsWith('#')) {
+        const tabEl = document.querySelector('.tab[data-tab="' + target + '"]');
+        if (tabEl) activateTab(tabEl);
+        document.querySelectorAll('.left-nav .nav-item').forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
+        if (target === 'codex') {
+          const codex = document.getElementById('codex');
+          if (codex) codex.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+      } else {
+        const anchor = document.querySelector(target);
+        const tabEl = document.querySelector('.tab[data-tab="codex"]');
+        if (tabEl) activateTab(tabEl);
+        setTimeout(() => {
+          if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 80);
+      }
+    }
+
+    document.querySelectorAll('.left-nav .nav-item').forEach(item => {
+      item.addEventListener('click', () => activateNavItem(item));
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateNavItem(item); }
       });
     });
 
@@ -687,21 +699,20 @@ BaseX n'est pas un archipel d'île ordinaire. Cachée derrière sa beauté luxur
       }
     };
 
-    // populate sidebar file list (unchanged but with improved interaction)
+    // populate sidebar file list
     const fileList = document.getElementById('file-list');
     Object.keys(trelloIndex).forEach(key => {
-      const el = document.createElement('div');
+      const el = document.createElement('button');
+      el.type = 'button';
       el.className = 'file-item';
       el.textContent = key;
-      el.onclick = () => {
-        // show details in unique details-area
+      el.setAttribute('aria-label', `Voir les détails de ${key}`);
+      const handleFileClick = () => {
         openDetailsFor(key);
-        // switch to codex/tab as context
-        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-        document.querySelector('[data-tab="codex"]').classList.add('active');
-        document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
-        document.getElementById('codex').style.display = '';
+        const codexTab = document.querySelector('[data-tab="codex"]');
+        if (codexTab) activateTab(codexTab);
       };
+      el.addEventListener('click', handleFileClick);
       fileList.appendChild(el);
     });
 
@@ -862,10 +873,8 @@ Pour plus de détails: details <cardName> (ex: details "JudgeX")`
       // legacy public function kept for compatibility
       openDetailsFor(name);
       // ensure codex is visible
-      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-      document.querySelector('[data-tab="codex"]').classList.add('active');
-      document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
-      document.getElementById('codex').style.display = '';
+      const codexTab = document.querySelector('[data-tab="codex"]');
+      if (codexTab) activateTab(codexTab);
     }
     window.showDetails = showDetails; // expose globally (unchanged API)
 
