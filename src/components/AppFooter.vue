@@ -16,14 +16,14 @@
         </div>
 
         <div class="d-flex gap-3">
-          <a href="https://github.com/LBasil" target="_blank" rel="noopener" class="footer-social" aria-label="GitHub">
-            <i class="fab fa-github"></i>
+          <a href="https://github.com/LBasil" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="GitHub">
+            <i class="fab fa-github" aria-hidden="true"></i>
           </a>
-          <a href="https://www.linkedin.com/in/basil-l-hote-a653b8213" target="_blank" rel="noopener" class="footer-social" aria-label="LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
+          <a href="https://www.linkedin.com/in/basil-l-hote-a653b8213" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
           </a>
           <a href="mailto:basil.lhote@gmail.com" class="footer-social" aria-label="Email">
-            <i class="fas fa-envelope"></i>
+            <i class="fas fa-envelope" aria-hidden="true"></i>
           </a>
         </div>
 
@@ -34,11 +34,11 @@
 
 <style scoped>
 .footer-copy {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .footer-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
   font-size: 0.82rem;
   transition: color 0.2s;
@@ -49,7 +49,7 @@
 }
 
 .footer-social {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 1.1rem;
   transition: color 0.2s, transform 0.2s;
   display: inline-block;

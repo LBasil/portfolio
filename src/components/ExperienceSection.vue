@@ -114,7 +114,7 @@ onUnmounted(() => {
 }
 
 .filter-btn.active .filter-count {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.3);
   color: white;
 }
 
@@ -124,7 +124,7 @@ onUnmounted(() => {
 }
 
 [data-bs-theme="dark"] .filter-btn.active .filter-count {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   color: white;
 }
 
