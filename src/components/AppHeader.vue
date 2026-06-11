@@ -17,7 +17,7 @@
 
       <div class="d-flex gap-3 justify-content-center flex-wrap">
         <a href="#portfolio" class="btn game-btn px-4 py-3">
-          <i class="fas fa-laptop-code me-2" aria-hidden="true"></i>Voir mes projets
+          <span class="game-btn-content"><i class="fas fa-laptop-code me-2" aria-hidden="true"></i>Voir mes projets</span>
         </a>
         <a href="#contact" class="btn btn-outline-light px-4 py-3">
           <i class="fas fa-paper-plane me-2" aria-hidden="true"></i>Me contacter
