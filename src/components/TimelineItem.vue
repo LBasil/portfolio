@@ -20,7 +20,7 @@ const TYPE_LABELS: Record<string, string> = {
       </div>
       <h6>{{ entry.title }}</h6>
       <p>{{ entry.description }}</p>
-      <a :href="entry.articleUrl" class="btn btn-primary me-2" target="_blank" rel="noopener" :aria-label="`Voir l'article : ${entry.title} (nouvelle fenêtre)`">
+      <a :href="entry.articleUrl" class="btn btn-primary me-2" target="_blank" rel="noopener noreferrer" :aria-label="`Voir l'article : ${entry.title} (nouvelle fenêtre)`">
         Voir l'article
       </a>
     </div>

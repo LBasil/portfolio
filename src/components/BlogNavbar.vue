@@ -29,7 +29,7 @@ const themeLabel = computed(() => isDark.value ? 'Passer en mode clair' : 'Passe
           <li class="nav-item"><router-link class="nav-link" to="/#contact">Contact</router-link></li>
           <li class="nav-item">
             <button class="btn btn-sm btn-outline-secondary ms-2" :aria-label="themeLabel" @click="themeStore.toggle()">
-              <i class="fas" :class="themeIcon"></i>
+              <i class="fas" :class="themeIcon" aria-hidden="true"></i>
             </button>
           </li>
         </ul>

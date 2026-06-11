@@ -55,7 +55,7 @@ function badgeClass(badge: string): string {
         </div>
 
         <div class="d-flex gap-2 flex-wrap">
-          <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener" :aria-label="`Voir le projet ${project.title} (nouvelle fenêtre)`">
+          <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="`Voir le projet ${project.title} (nouvelle fenêtre)`">
             <i class="fas fa-arrow-up-right-from-square me-1" aria-hidden="true"></i>Voir le projet
           </a>
           <button v-if="project.hasBlog" class="btn btn-outline-secondary btn-sm" @click="openBlog">

@@ -16,7 +16,7 @@ function isActive(sectionId: string) {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top" :data-bs-theme="themeStore.theme">
+  <nav class="navbar navbar-expand-lg fixed-top" :data-bs-theme="themeStore.theme" aria-label="Navigation principale">
     <div class="container">
       <router-link class="navbar-brand d-flex align-items-center" to="/#header" aria-label="Accueil">
         <img src="/images/avatar.jpg" width="40" height="40" alt="Avatar Basil L'Hôte" class="rounded-circle me-2">
@@ -31,23 +31,23 @@ function isActive(sectionId: string) {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('about') }" :aria-current="isActive('about') ? 'true' : undefined" href="#about">À propos</a>
+            <a class="nav-link" :class="{ active: isActive('about') }" :aria-current="isActive('about') ? 'page' : undefined" href="#about">À propos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('experience') }" :aria-current="isActive('experience') ? 'true' : undefined" href="#experience">Expérience</a>
+            <a class="nav-link" :class="{ active: isActive('experience') }" :aria-current="isActive('experience') ? 'page' : undefined" href="#experience">Expérience</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('portfolio') }" :aria-current="isActive('portfolio') ? 'true' : undefined" href="#portfolio">Portfolio</a>
+            <a class="nav-link" :class="{ active: isActive('portfolio') }" :aria-current="isActive('portfolio') ? 'page' : undefined" href="#portfolio">Portfolio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('skills') }" :aria-current="isActive('skills') ? 'true' : undefined" href="#skills">Compétences</a>
+            <a class="nav-link" :class="{ active: isActive('skills') }" :aria-current="isActive('skills') ? 'page' : undefined" href="#skills">Compétences</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: isActive('contact') }" :aria-current="isActive('contact') ? 'true' : undefined" href="#contact">Contact</a>
+            <a class="nav-link" :class="{ active: isActive('contact') }" :aria-current="isActive('contact') ? 'page' : undefined" href="#contact">Contact</a>
           </li>
           <li class="nav-item">
             <button class="btn btn-sm btn-outline-secondary ms-2" :aria-label="themeLabel" @click="themeStore.toggle()">
-              <i class="fas" :class="themeIcon"></i>
+              <i class="fas" :class="themeIcon" aria-hidden="true"></i>
             </button>
           </li>
         </ul>

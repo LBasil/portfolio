@@ -21,22 +21,22 @@ async function copyEmail() {
             Développeur front-end en poste chez <strong>Ankama Games</strong>, ouvert aux nouvelles opportunités.
           </p>
           <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
-            <span class="location-chip"><i class="fas fa-location-dot me-1"></i>Belgique</span>
-            <span class="location-chip"><i class="fas fa-location-dot me-1"></i>Métropole Lilloise</span>
-            <span class="location-chip"><i class="fas fa-wifi me-1"></i>Remote</span>
+            <span class="location-chip"><i class="fas fa-location-dot me-1" aria-hidden="true"></i>Belgique</span>
+            <span class="location-chip"><i class="fas fa-location-dot me-1" aria-hidden="true"></i>Métropole Lilloise</span>
+            <span class="location-chip"><i class="fas fa-wifi me-1" aria-hidden="true"></i>Remote</span>
           </div>
 
           <div class="d-flex flex-wrap justify-content-center gap-3">
             <a href="https://github.com/LBasil"
               class="btn btn-dark btn-lg rounded-pill px-4"
-              target="_blank" rel="noopener">
-              <i class="fab fa-github me-2"></i>GitHub
+              target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github me-2" aria-hidden="true"></i>GitHub
             </a>
 
             <a href="https://www.linkedin.com/in/basil-l-hote-a653b8213"
               class="btn btn-primary btn-lg rounded-pill px-4"
-              target="_blank" rel="noopener">
-              <i class="fab fa-linkedin-in me-2"></i>LinkedIn
+              target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin-in me-2" aria-hidden="true"></i>LinkedIn
             </a>
 
             <button class="btn btn-secondary btn-lg rounded-pill px-4" :aria-label="copied ? 'Email copié dans le presse-papier' : 'Copier l\'adresse email'" @click="copyEmail">
