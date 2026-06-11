@@ -1,0 +1,529 @@
+/* =======================
+   Global Variables
+======================= */
+:root {
+    --neon-blue: #1e90ff;
+    --tiffany-blue: #97D8C4;
+    --anti-flash-white: #EFF2F1;
+    --xanthous: #F4B942;
+    --xanthous-light: #fbe4b7;
+    --crayola: #F9627D;
+    --black: #002233;
+
+    --primary: #4361ee;
+    --secondary: #3f37c9;
+    --dark: #212529;
+    --light: #f8f9fa;
+
+    --text-gradient: linear-gradient(90deg, var(--neon-blue), var(--crayola));
+    --gradient-animated: linear-gradient(90deg, var(--neon-blue), var(--crayola), var(--neon-blue));
+
+    scroll-behavior: smooth;
+}
+
+/* Dark Mode */
+[data-bs-theme="dark"] {
+    --primary: #4cc9f0;
+    --secondary: #4895ef;
+    --dark: #121212;
+}
+
+/* =======================
+   Skip link
+======================= */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    border-radius: 0 0 6px 6px;
+    z-index: 99999;
+    text-decoration: none;
+    transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
+/* =======================
+   Base Styles
+======================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: var(--light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-bs-theme="dark"] body {
+    color: white;
+    background-color: var(--dark);
+}
+
+/* =======================
+   Typography
+======================= */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+section p {
+    max-width: 700px;
+    margin: auto;
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.text-gradient {
+    background: var(--gradient-animated);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-drift 6s ease-in-out infinite;
+}
+
+@keyframes gradient-drift {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+}
+
+/* =======================
+   Scrollbar
+======================= */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+/* =======================
+   Header
+======================= */
+#header {
+    height: 100vh;
+    background: url('/images/background.png') no-repeat center/cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+#header h1 {
+    line-height: 1.3;
+}
+
+#header p {
+    max-width: 600px;
+    margin: auto;
+}
+
+#header .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+.z-index-2 {
+    z-index: 2;
+}
+
+.scroll-down {
+    color: white;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,20%,50%,80%,100% { transform: translateY(0) translateX(-50%); }
+    40% { transform: translateY(-20px) translateX(-50%); }
+    60% { transform: translateY(-10px) translateX(-50%); }
+}
+
+/* =======================
+   Top accent bar
+======================= */
+body::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-animated);
+    background-size: 200% 100%;
+    animation: gradient-drift 6s ease-in-out infinite;
+    z-index: 9999;
+}
+
+/* =======================
+   Navbar
+======================= */
+.navbar {
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+[data-bs-theme="dark"] .navbar {
+    background-color: rgba(33, 37, 41, 0.95) !important;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+[data-bs-theme="dark"] .navbar-brand,
+[data-bs-theme="dark"] .nav-link {
+    color: var(--light);
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+
+.nav-link.active {
+    color: var(--primary) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    width: calc(100% - 2rem);
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* =======================
+   Buttons
+======================= */
+.btn {
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.game-btn {
+    font-family: 'Press Start 2P', cursive;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    background-color: #BF2F56;
+    border: none;
+    border-radius: 50px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, var(--neon-blue), var(--crayola));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.game-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.game-btn:hover::before {
+    opacity: 1;
+}
+
+.btn-outline-light:hover {
+    color: var(--dark) !important;
+}
+
+/* =======================
+   Cards
+======================= */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.badge {
+    font-weight: 500;
+    margin: 0 0.5rem 0.5rem 0;
+}
+
+/* =======================
+   Code Blocks
+======================= */
+pre {
+    background: #f0f0f0;
+    color: #212529;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Fira Code', monospace;
+}
+
+code {
+    font-family: 'Fira Code', monospace;
+    background: rgba(0,0,0,0.05);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+}
+
+[data-bs-theme="dark"] pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+}
+
+[data-bs-theme="dark"] code {
+    background: rgba(255,255,255,0.05);
+}
+
+/* =======================
+   Blog
+======================= */
+.blog-header {
+    cursor: pointer;
+}
+
+.blog-header button {
+    font-size: 1.5rem;
+    color: #007bff;
+    background: none;
+    border: none;
+}
+
+/* =======================
+   Archives
+======================= */
+.archived-enter-active,
+.archived-leave-active {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.archived-enter-from,
+.archived-leave-to {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* =======================
+   Skills
+======================= */
+.skill-card {
+    border-radius: 10px;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+[data-bs-theme="dark"] .skill-card {
+    background: #1e1e1e;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+}
+
+.skill-icon {
+    color: var(--primary);
+}
+
+/* =======================
+   Timeline
+======================= */
+.timeline-horizontal {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.timeline-item {
+    min-width: 280px;
+    max-width: 280px;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+[data-bs-theme="dark"] .timeline-item {
+    background: #1e1e1e;
+}
+
+.timeline-item:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-item img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.timeline-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.timeline-date {
+    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.timeline-content h6 {
+    margin-bottom: 8px;
+}
+
+.timeline-content p {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.timeline-content .btn {
+    margin-top: auto;
+}
+
+/* =======================
+   Blog Timeline (vertical)
+======================= */
+.blog-timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid #dee2e6;
+    margin-left: 1rem;
+}
+
+.blog-timeline article {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.blog-timeline article::before {
+    content: "";
+    position: absolute;
+    top: 1.5rem;
+    left: -1.1rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: #0d6efd;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px white;
+}
+
+.blog-timeline article:last-of-type::before {
+    background-color: #00d8a6;
+    box-shadow: 0 0 0 4px white, 0 0 10px #00d8a6;
+}
+
+/* =======================
+   Footer
+======================= */
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 2rem 0;
+}
+
+/* =======================
+   Responsive
+======================= */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .game-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 1.25rem;
+    }
+}
