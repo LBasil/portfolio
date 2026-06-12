@@ -6,8 +6,13 @@ const props = defineProps<{ project: Project }>()
 const router = useRouter()
 
 function openBlog() {
-  if (props.project.blogUrl) {
-    router.push(props.project.blogUrl)
+  const url = props.project.blogUrl
+  if (!url) return
+  // Standalone HTML files live outside the SPA router — navigate directly
+  if (url.endsWith('.html') || url.startsWith('http')) {
+    window.location.href = url
+  } else {
+    router.push(url)
   }
 }
 
@@ -58,8 +63,8 @@ function badgeClass(badge: string): string {
           <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="`Voir le projet ${project.title} (nouvelle fenêtre)`">
             <i class="fas fa-arrow-up-right-from-square me-1" aria-hidden="true"></i>Voir le projet
           </a>
-          <button v-if="project.hasBlog" class="btn btn-outline-secondary btn-sm" @click="openBlog" :aria-label="`Voir le dev blog de ${project.title}`">
-            <i class="fas fa-book-open me-1" aria-hidden="true"></i>Dev blog
+          <button v-if="project.hasBlog" class="btn btn-outline-secondary btn-sm" @click="openBlog" :aria-label="`Voir ${project.blogLabel ?? 'le dev blog'} de ${project.title}`">
+            <i class="fas fa-book-open me-1" aria-hidden="true"></i>{{ project.blogLabel ?? 'Dev blog' }}
           </button>
         </div>
       </div>

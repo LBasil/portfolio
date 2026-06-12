@@ -1,908 +1,1922 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="utf-8" />
-  <title>Universe - BaseX / RushX / RogueX - Archives</title>
+  <title>X-Universe — Archives Scientifiques</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&family=Fira+Code:wght@400;600&display=swap"
-    rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="description" content="Archives expérimentales de l'univers X — BaseX, RushX, RogueX, BuildX" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
+    /* ======================================================
+       RESET & CUSTOM PROPERTIES
+    ====================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg: #07101a;
-      --panel: #0b1220;
-      --muted: #8fbcd8;
-      --accent: #00e6ff;
-      --accent-2: #f9627d;
-      --card: #071624;
-      --mono: 'Fira Code', monospace;
-      --title: 'Press Start 2P', cursive;
-      --max-width: 1400px;
-      --nav-width: 260px;
-      --right-width: 420px;
-      --read-width: 760px;
+      --bg:          #020c17;
+      --bg-panel:    #071828;
+      --bg-card:     #0a1f30;
+      --text:        #d4ecf7;
+      --text-dim:    #7aaecc;
+      --text-muted:  #3d6a84;
+      --cyan:        #00c8f0;
+      --cyan-glow:   rgba(0,200,240,0.12);
+      --green:       #00e888;
+      --red:         #ff2d5a;
+      --amber:       #ffb84d;
+      --orange:      #ff7c3a;
+      --border:      rgba(0,200,240,0.07);
+      --border-md:   rgba(0,200,240,0.16);
+      --border-hi:   rgba(0,200,240,0.38);
+      --font-t: 'Orbitron', monospace;
+      --font-m: 'Fira Code', monospace;
+      --font-b: 'Space Grotesk', system-ui, sans-serif;
+      --max-w: 1080px;
     }
 
-    * {
-      box-sizing: border-box
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      font-family: 'Orbitron', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #041018 0%, #081826 100%);
-      color: #eaf8ff;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      padding: 20px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .shell {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
-      border-radius: 12px;
-      padding: 18px;
-      border: 1px solid rgba(0, 230, 255, 0.06);
-      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+    /* ======================================================
+       FULL-EXPERIENCE ATMOSPHERE LAYERS
+    ====================================================== */
+    #bg-canvas {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
     }
 
-    .header {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
+    .fx-scanlines {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px
+      );
     }
 
-    .brand {
-      display: flex;
-      gap: 12px;
-      align-items: center;
+    .fx-grid {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,200,240,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,240,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%);
     }
 
-    .logo {
-      height: 54px;
-      width: 54px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent), #6af0ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #001219;
-      font-weight: 700;
-      box-shadow: 0 4px 14px rgba(0, 230, 255, 0.08);
-      font-family: var(--title);
+    /* ======================================================
+       MODE SELECTOR OVERLAY
+    ====================================================== */
+    #mode-selector {
+      position: fixed; inset: 0; z-index: 1000;
+      background: #010509;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 40px;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+    #mode-selector.hidden { opacity: 0; visibility: hidden; }
+
+    .ms-eyebrow {
+      font-family: var(--font-m);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
     }
 
-    .title {
-      font-family: var(--title);
-      color: var(--accent);
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      text-shadow: 0 2px 8px rgba(0, 230, 255, 0.06);
+    .ms-title {
+      font-family: var(--font-t);
+      font-size: clamp(1.6rem, 6vw, 3rem);
+      font-weight: 900;
+      color: var(--cyan);
+      letter-spacing: 0.08em;
+      text-align: center;
+      text-shadow: 0 0 40px rgba(0,200,240,0.35);
     }
 
-    .subtitle {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .tabs {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .tab {
-      padding: 10px 12px;
-      background: transparent;
-      border: 1px solid rgba(0, 230, 255, 0.06);
-      color: var(--muted);
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.78rem;
-    }
-
-    .tab.active {
-      background: linear-gradient(90deg, rgba(0, 230, 255, 0.06), rgba(249, 98, 125, 0.03));
-      color: var(--accent);
-      box-shadow: 0 6px 18px rgba(0, 230, 255, 0.045);
-      border-color: rgba(0, 230, 255, 0.18);
-    }
-
-    .content {
+    .ms-cards {
       display: grid;
-      grid-template-columns: var(--nav-width) 1fr var(--right-width);
-      gap: 18px;
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: min(580px, 90vw);
     }
+    @media (max-width: 480px) { .ms-cards { grid-template-columns: 1fr; } }
 
-    @media(max-width:1200px) {
-      .content {
-        grid-template-columns: 1fr var(--right-width);
-      }
-
-      .left-nav {
-        display: none;
-      }
-    }
-
-    @media(max-width:900px) {
-      .content {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        order: 2;
-      }
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
-      border-radius: 10px;
-      padding: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.02);
-      min-height: 320px;
-    }
-
-    h2.section-title {
-      font-family: var(--title);
-      color: var(--accent);
-      font-size: 0.85rem;
-      margin: 0 0 8px;
-    }
-
-    .card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
-      border-radius: 8px;
-      padding: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.02);
-      margin-bottom: 10px;
-      color: #eaf8ff;
-    }
-
-    .console {
-      background: #000814;
-      color: #cfeeff;
-      font-family: var(--mono);
-      padding: 12px;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent);
-      max-height: 400px;
-      overflow: auto;
-      white-space: pre-wrap;
-      font-size: 0.9rem;
-      line-height: 1.45;
-    }
-
-    .terminal-input {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-      align-items: center;
-    }
-
-    .terminal-input input {
-      flex: 1;
-      background: #00121b;
-      border: 1px solid rgba(0, 230, 255, 0.06);
-      color: var(--accent);
-      padding: 8px 10px;
-      border-radius: 6px;
-      outline: none;
-      font-family: var(--mono);
-    }
-
-    .terminal-input button {
-      background: var(--accent);
-      color: #001219;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: 700;
+    .ms-card {
+      border: 1px solid var(--border-md);
+      border-radius: 12px;
+      padding: 32px 24px;
       cursor: pointer;
+      background: var(--bg-panel);
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+      text-align: center;
+    }
+    .ms-card:hover { transform: translateY(-2px); }
+    .ms-card:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .ms-card.s:hover { border-color: var(--cyan); box-shadow: 0 0 24px rgba(0,200,240,0.1); }
+    .ms-card.f:hover { border-color: var(--green); box-shadow: 0 0 24px rgba(0,232,136,0.1); }
+
+    .ms-card-glyph { font-size: 2.2rem; margin-bottom: 14px; }
+    .ms-card-name {
+      font-family: var(--font-t);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .ms-card.s .ms-card-name { color: var(--cyan); }
+    .ms-card.f .ms-card-name { color: var(--green); }
+    .ms-card-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* ======================================================
+       BOOT SEQUENCE
+    ====================================================== */
+    #boot-overlay {
+      position: fixed; inset: 0; z-index: 900;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.8s ease;
+    }
+    #boot-overlay.gone { opacity: 0; pointer-events: none; }
+
+    .boot-term {
+      font-family: var(--font-m);
+      font-size: clamp(0.72rem, 1.8vw, 0.9rem);
+      line-height: 2;
+      max-width: 580px;
+      width: 90%;
     }
 
-    .sidebar {
+    .bl { display: block; opacity: 0; animation: bAppear 0.08s forwards; }
+    .bl-ok   { color: #00e888; }
+    .bl-warn { color: #ffb84d; }
+    .bl-err  { color: #ff2d5a; }
+    .bl-dim  { color: #4a7a96; }
+    .bl-info { color: #00c8f0; }
+    @keyframes bAppear { to { opacity: 1; } }
+
+    .boot-skip-hint {
+      position: absolute; bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-m); font-size: 0.7rem;
+      color: #3d6a84; letter-spacing: 0.1em;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+    /* ======================================================
+       MAIN APP
+    ====================================================== */
+    #app {
+      position: relative; z-index: 10;
+      opacity: 0; transition: opacity 0.9s ease;
+    }
+    #app.on { opacity: 1; }
+
+    /* ======================================================
+       TOP BAR
+    ====================================================== */
+    .topbar {
+      position: sticky; top: 0; z-index: 200;
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 24px;
+      background: rgba(2, 12, 23, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-status { display: flex; align-items: center; gap: 8px; flex: 1; }
+
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: blink-dot 1.6s step-end infinite;
+    }
+    @keyframes blink-dot { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .topbar-brand {
+      font-family: var(--font-t);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .topbar-actions { display: flex; gap: 8px; }
+
+    .tb-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px;
+      border: 1px solid var(--border-md);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-family: var(--font-m);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .tb-btn:hover { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-glow); }
+    .tb-btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+    /* Full XP only elements */
+    .full-only { display: none; }
+    body:not(.simple) .full-only { display: inline-flex; }
+
+    /* ======================================================
+       TIMELINE NAV
+    ====================================================== */
+    .tl-nav {
+      position: sticky; top: 44px; z-index: 190;
+      background: rgba(2, 12, 23, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tl-nav::-webkit-scrollbar { display: none; }
+
+    .tl-track {
+      display: flex; align-items: center;
+      padding: 14px 24px;
+      min-width: max-content;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      gap: 0;
+    }
+
+    .tl-node {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 5px; padding: 0 18px;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .tl-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--text-muted);
+      transition: background 0.25s, box-shadow 0.25s;
+    }
+    .tl-label {
+      font-family: var(--font-t);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .tl-node:hover .tl-dot, .tl-node.active .tl-dot {
+      background: var(--cyan);
+      box-shadow: 0 0 10px rgba(0,200,240,0.5);
+    }
+    .tl-node:hover .tl-label, .tl-node.active .tl-label { color: var(--cyan); }
+
+    .tl-line {
+      flex: 1; height: 1px; min-width: 40px;
+      background: linear-gradient(90deg, var(--border-md), var(--border));
+      margin-bottom: 15px;
+    }
+
+    /* ======================================================
+       HERO
+    ====================================================== */
+    .hero {
+      min-height: 88vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
       position: relative;
     }
 
-    .file-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .hero-eyebrow {
+      font-family: var(--font-m);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
     }
 
-    .file-item {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 8px 10px;
-      border-radius: 8px;
-      background: linear-gradient(180deg, #00111a 0%, #00131c 100%);
-      border: 1px solid rgba(0, 230, 255, 0.04);
-      cursor: pointer;
-      color: var(--muted);
-      font-weight: 600;
-      font-family: inherit;
-      font-size: inherit;
-    }
-
-    .file-item:hover {
-      background: #001a24;
-      color: var(--accent);
-      box-shadow: 0 6px 14px rgba(0, 230, 255, 0.03);
-    }
-
-    .meta {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 10px;
-    }
-
-    .kbd {
-      background: #00111a;
-      padding: 6px 8px;
-      border-radius: 6px;
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-      border: 1px solid rgba(0, 230, 255, 0.04);
-    }
-
-    .lore-block {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px dashed rgba(0, 230, 255, 0.04);
+    .hero-title {
+      font-family: var(--font-t);
+      font-size: clamp(2.6rem, 10vw, 6.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      position: relative;
+      display: inline-block;
       margin-bottom: 10px;
-      color: #dff7ff;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      max-width: var(--read-width);
     }
 
-    .left-nav {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.00));
-      border-radius: 8px;
-      padding: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.02);
-      position: sticky;
-      top: 18px;
-      height: calc(100vh - 90px);
-      overflow: auto;
+    .hero-title .x { color: var(--cyan); }
+
+    /* Glitch layers */
+    .glitch { position: relative; }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      font-family: inherit; font-size: inherit;
+      font-weight: inherit; letter-spacing: inherit;
+    }
+    .glitch::before {
+      color: var(--red);
+      clip-path: inset(35% 0 50% 0);
+      animation: glt-a 6s infinite linear;
+    }
+    .glitch::after {
+      color: var(--cyan);
+      clip-path: inset(70% 0 10% 0);
+      animation: glt-b 6s infinite linear;
+    }
+    @keyframes glt-a {
+      0%,85%,100% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translate(0); }
+      86% { clip-path: inset(20% 0 58% 0); opacity: 0.8; transform: translate(3px,0); }
+      88% { clip-path: inset(60% 0 22% 0); transform: translate(-2px,0); }
+      90% { clip-path: inset(40% 0 40% 0); opacity: 0.6; transform: translate(1px,0); }
+      92% { clip-path: inset(0 0 100% 0); opacity: 0; }
+    }
+    @keyframes glt-b {
+      0%,88%,100% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translate(0); }
+      89% { clip-path: inset(65% 0 15% 0); opacity: 0.7; transform: translate(-3px,0); }
+      91% { clip-path: inset(30% 0 50% 0); transform: translate(2px,0); }
+      93% { clip-path: inset(50% 0 35% 0); opacity: 0.5; transform: translate(-1px,0); }
+      95% { clip-path: inset(0 0 100% 0); opacity: 0; }
     }
 
-    .nav-group {
+    .hero-sub {
+      font-family: var(--font-m);
+      font-size: clamp(0.8rem, 2.2vw, 1rem);
+      color: var(--text-dim);
+      margin: 24px 0 32px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--border-md);
+      border-radius: 20px;
+      padding: 7px 20px;
+      font-family: var(--font-m);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 60px;
+    }
+
+    .hero-scroll {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-family: var(--font-m); font-size: 0.7rem;
+      color: var(--text-muted);
+      animation: float 2.4s ease-in-out infinite;
+    }
+    .hero-scroll::after { content: '↓'; color: var(--cyan); font-size: 1rem; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+    /* ======================================================
+       SECTION WRAPPER
+    ====================================================== */
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .x-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ======================================================
+       DOSSIER HEADER
+    ====================================================== */
+    .dos-header {
+      display: flex; align-items: flex-start; gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .dos-vert {
+      font-family: var(--font-m);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      letter-spacing: 0.18em;
+      flex-shrink: 0;
+      padding-top: 6px;
+      user-select: none;
+    }
+
+    .dos-title-wrap { flex: 1; min-width: 0; }
+
+    .stamp {
+      display: inline-block;
+      font-family: var(--font-m);
+      font-size: 0.62rem;
+      padding: 3px 9px;
+      border-radius: 3px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       margin-bottom: 12px;
     }
+    .stamp-r   { background: rgba(0,200,240,0.08);  color: var(--cyan);   border: 1px solid rgba(0,200,240,0.22); }
+    .stamp-c   { background: rgba(255,184,77,0.08); color: var(--amber);  border: 1px solid rgba(255,184,77,0.25); }
+    .stamp-ts  { background: rgba(255,45,90,0.08);  color: var(--red);    border: 1px solid rgba(255,45,90,0.25); }
+    .stamp-g   { background: rgba(0,232,136,0.08);  color: var(--green);  border: 1px solid rgba(0,232,136,0.25); }
 
-    .nav-group-title {
-      font-weight: 700;
-      color: var(--accent);
-      font-family: var(--title);
-      font-size: 0.85rem;
+    .dos-title {
+      font-family: var(--font-t);
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--text);
       margin-bottom: 6px;
     }
 
-    .nav-item {
+    .dos-caption {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ======================================================
+       CONTENT GRID
+    ====================================================== */
+    .cg {
+      display: grid;
+      grid-template-columns: 1fr 256px;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .cg { grid-template-columns: 1fr; }
+      .dos-vert { display: none; }
+    }
+
+    /* ======================================================
+       LORE CARDS
+    ====================================================== */
+    .lore-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 26px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lore-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+    }
+    .lore-card          ::before { background: linear-gradient(180deg, var(--cyan), transparent); }
+
+    .lore-card.danger   ::before { background: linear-gradient(180deg, var(--red), transparent); }
+    .lore-card.warn     ::before { background: linear-gradient(180deg, var(--amber), transparent); }
+    .lore-card.success  ::before { background: linear-gradient(180deg, var(--green), transparent); }
+
+    /* target pseudo differently */
+    .lore-card { border-left: 3px solid transparent; }
+    .lore-card.info   { border-left-color: var(--cyan); }
+    .lore-card.danger { border-left-color: var(--red); }
+    .lore-card.warn   { border-left-color: var(--amber); }
+    .lore-card.success{ border-left-color: var(--green); }
+
+    /* override the pseudo (clean approach) */
+    .lore-card::before { display: none; }
+
+    .lore-label {
+      font-family: var(--font-m);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .lore-card.info    .lore-label { color: var(--cyan); }
+    .lore-card.danger  .lore-label { color: var(--red); }
+    .lore-card.warn    .lore-label { color: var(--amber); }
+    .lore-card.success .lore-label { color: var(--green); }
+    .lore-card         .lore-label { color: var(--text-dim); }
+
+    .lore-body {
+      font-size: 0.95rem;
+      line-height: 1.78;
+      color: var(--text-dim);
+    }
+    .lore-body strong { color: var(--text); }
+    .lore-body em     { color: var(--cyan); font-style: normal; }
+    .lore-body p { margin-bottom: 14px; }
+    .lore-body p:last-child { margin-bottom: 0; }
+
+    /* ======================================================
+       ANNOTATION SIDEBAR
+    ====================================================== */
+    .anno-col {
+      display: flex; flex-direction: column; gap: 14px;
+      position: sticky; top: 120px;
+    }
+
+    .anno {
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .anno-lab {
+      font-family: var(--font-m);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 7px;
+    }
+    .anno-txt { font-size: 0.82rem; line-height: 1.65; }
+
+    .anno.note {
+      background: rgba(255,200,80,0.04);
+      border: 1px solid rgba(255,200,80,0.14);
+    }
+    .anno.note .anno-lab  { color: rgba(255,200,80,0.55); }
+    .anno.note .anno-txt  { color: rgba(255,220,130,0.65); }
+
+    .anno.tech {
+      background: rgba(0,200,240,0.03);
+      border: 1px solid rgba(0,200,240,0.1);
+    }
+    .anno.tech .anno-lab  { color: rgba(0,200,240,0.5); }
+    .anno.tech .anno-txt  { color: rgba(160,220,240,0.6); font-family: var(--font-m); font-size: 0.78rem; }
+
+    /* ======================================================
+       OVERVIEW FLOW
+    ====================================================== */
+    .flow {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px;
-      border-radius: 6px;
+      margin: 28px 0 20px;
+    }
+    @media (max-width: 620px) {
+      .flow { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); margin: 6px auto; }
+    }
+
+    .flow-node {
+      flex: 1;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      padding: 20px 16px;
+      text-align: center;
       cursor: pointer;
-      color: var(--muted);
+      transition: border-color 0.2s;
+    }
+    .flow-node:focus-visible { outline: 2px solid var(--cyan); }
+    .flow-node[data-x="basex"]:hover { border-color: var(--cyan); }
+    .flow-node[data-x="rushx"]:hover { border-color: var(--orange); }
+    .flow-node[data-x="roguex"]:hover { border-color: var(--red); }
+    .flow-node[data-x="buildx"]:hover { border-color: var(--green); }
+
+    .flow-node:first-child { border-radius: 8px 0 0 8px; }
+    .flow-node:last-child  { border-radius: 0 8px 8px 0; }
+
+    .flow-name {
+      font-family: var(--font-t);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 5px;
+    }
+    [data-x="basex"]  .flow-name { color: var(--cyan); }
+    [data-x="rushx"]  .flow-name { color: var(--orange); }
+    [data-x="roguex"] .flow-name { color: var(--red); }
+    [data-x="buildx"] .flow-name { color: var(--green); }
+
+    .flow-role { font-family: var(--font-m); font-size: 0.7rem; color: var(--text-muted); }
+
+    .flow-arrow {
+      display: flex; align-items: center; padding: 0 6px;
+      color: var(--text-muted); font-size: 1rem;
+      flex-shrink: 0; user-select: none;
     }
 
-    .nav-item:hover {
-      background: #00131a;
-      color: var(--accent);
+    /* ======================================================
+       CLASS COMPARISON (RushX)
+    ====================================================== */
+    .class-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
     }
+    @media (max-width: 540px) { .class-grid { grid-template-columns: 1fr; } }
 
-    .tab:focus-visible,
-    .nav-item:focus-visible,
-    .file-item:focus-visible,
-    .terminal-input button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
+    .class-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      transition: border-color 0.2s;
     }
+    .class-card.prim:hover { border-color: var(--orange); }
+    .class-card.tech:hover { border-color: var(--cyan); }
 
-    .chev {
-      width: 18px;
+    .class-name {
+      font-family: var(--font-t);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .class-card.prim .class-name { color: var(--orange); }
+    .class-card.tech .class-name { color: var(--cyan); }
+
+    .class-traits { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .class-traits li {
+      font-size: 0.82rem; color: var(--text-dim);
+      padding-left: 14px; position: relative;
+    }
+    .class-traits li::before { content: '›'; position: absolute; left: 0; color: var(--text-muted); }
+
+    /* ======================================================
+       MECHANIC GRID (RogueX)
+    ====================================================== */
+    .mech-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-top: 18px;
+    }
+    @media (max-width: 580px) { .mech-grid { grid-template-columns: 1fr; } }
+
+    .mech-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 14px;
       text-align: center;
-      font-family: var(--mono);
-      color: var(--muted);
+    }
+    .mech-icon { font-size: 1.7rem; margin-bottom: 10px; }
+    .mech-name { font-family: var(--font-m); font-size: 0.7rem; color: var(--cyan); margin-bottom: 7px; letter-spacing: 0.05em; }
+    .mech-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.55; }
+
+    /* ======================================================
+       ENGINE BARS (Notes)
+    ====================================================== */
+    .engine-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+
+    .engine-row {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 11px 14px;
+    }
+    .eng-name { font-family: var(--font-m); font-size: 0.82rem; color: var(--text); min-width: 72px; }
+    .eng-bar-bg { flex: 1; background: rgba(255,255,255,0.04); border-radius: 3px; height: 5px; }
+    .eng-bar { height: 100%; border-radius: 3px; transition: width 1.2s ease; }
+    .eng-bar.primary   { background: var(--cyan); }
+    .eng-bar.secondary { background: var(--orange); }
+    .eng-bar.tertiary  { background: var(--text-muted); }
+    .eng-status { font-size: 0.68rem; font-family: var(--font-m); color: var(--text-muted); white-space: nowrap; }
+    .eng-status.ok { color: var(--green); }
+
+    /* ======================================================
+       TERMINAL DOCK
+    ====================================================== */
+    #term-dock {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 500;
+      transform: translateY(100%);
+      transition: transform 0.42s cubic-bezier(0.22,1,0.36,1);
+    }
+    #term-dock.open { transform: translateY(0); }
+
+    .term-shell {
+      background: rgba(0, 4, 10, 0.96);
+      border-top: 1px solid rgba(0,200,240,0.2);
+      backdrop-filter: blur(20px);
+      display: flex; flex-direction: column;
+      max-height: 360px;
     }
 
-    .details-area {
-      margin-bottom: 10px;
-      display: none;
+    .term-titlebar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 14px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
+    .term-dots { display: flex; gap: 5px; }
+    .td { width: 10px; height: 10px; border-radius: 50%; }
+    .td-r { background: #ff5f56; } .td-y { background: #ffbd2e; } .td-g { background: #27c93f; }
 
-    .details-area.open {
-      display: block;
+    .term-name {
+      font-family: var(--font-m); font-size: 0.72rem;
+      color: var(--text-muted); flex: 1; text-align: center;
     }
+    .term-x {
+      background: none; border: none;
+      color: var(--text-muted); cursor: pointer;
+      padding: 2px 6px; border-radius: 4px; font-size: 0.88rem;
+    }
+    .term-x:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 
-    footer {
-      margin-top: 14px;
-      text-align: center;
-      color: var(--muted);
+    #term-out {
+      flex: 1; overflow-y: auto;
+      padding: 10px 16px;
+      font-family: var(--font-m);
       font-size: 0.8rem;
+      color: #9ecfdf;
+      line-height: 1.7;
+    }
+    #term-out::-webkit-scrollbar { width: 4px; }
+    #term-out::-webkit-scrollbar-thumb { background: var(--border-md); }
+
+    .tl-prompt { color: var(--green); }
+    .tl-out    { color: var(--text-dim); }
+    .tl-err    { color: var(--red); }
+    .tl-info   { color: var(--cyan); }
+
+    .term-in-row {
+      display: flex; gap: 8px; align-items: center;
+      padding: 8px 16px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .term-ps { font-family: var(--font-m); color: var(--green); font-size: 0.8rem; }
+    #term-in {
+      flex: 1; background: transparent;
+      border: none; outline: none;
+      color: var(--text); font-family: var(--font-m); font-size: 0.8rem;
+    }
+
+    /* FAB */
+    .term-fab {
+      position: fixed; bottom: 22px; right: 22px; z-index: 501;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-md);
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: var(--font-m); font-size: 0.78rem;
+      color: var(--text);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,200,240,0.06);
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .term-fab:hover {
+      border-color: var(--cyan); color: var(--cyan);
+      box-shadow: 0 4px 24px rgba(0,200,240,0.15), 0 0 0 1px rgba(0,200,240,0.15);
+    }
+    .term-fab:focus-visible { outline: 2px solid var(--cyan); }
+
+    .fab-label { font-weight: 500; }
+    .fab-hint {
+      font-size: 0.64rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border-md);
+      border-radius: 4px;
+      padding: 1px 5px;
+      letter-spacing: 0.04em;
+    }
+    .term-fab:hover .fab-hint { color: var(--cyan); border-color: rgba(0,200,240,0.3); }
+
+    /* ======================================================
+       FOOTER
+    ====================================================== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 24px;
+      text-align: center;
+    }
+    footer p { font-family: var(--font-m); font-size: 0.72rem; color: var(--text-muted); line-height: 1.9; }
+    footer a { color: var(--cyan); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer kbd {
+      font-family: var(--font-m);
+      background: var(--bg-panel);
+      border: 1px solid var(--border-md);
+      padding: 1px 6px; border-radius: 4px;
+      font-size: 0.72rem;
+    }
+
+    /* ======================================================
+       FULL EXPERIENCE — EFFECTS (disabled in simple mode)
+    ====================================================== */
+
+    /* Vignette */
+    .fx-vignette {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.55) 100%);
+    }
+
+    /* Hero glow ring */
+    .hero-glow {
+      position: absolute;
+      width: min(700px, 90vw); height: min(700px, 90vw);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,200,240,0.055) 0%, transparent 68%);
+      pointer-events: none;
+      animation: glow-pulse 5s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes glow-pulse {
+      0%,100% { transform: scale(1);    opacity: 0.7; }
+      50%      { transform: scale(1.08); opacity: 1; }
+    }
+
+    /* Card corner brackets (Full XP only) */
+    body:not(.simple) .lore-card {
+      overflow: visible;
+    }
+    body:not(.simple) .lore-card::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; right: -1px;
+      width: 14px; height: 14px;
+      border-bottom: 2px solid;
+      border-right: 2px solid;
+      border-color: inherit;
+      border-radius: 0 0 10px 0;
+      pointer-events: none;
+    }
+    body:not(.simple) .lore-card.info    { --corner-c: var(--cyan); }
+    body:not(.simple) .lore-card.danger  { --corner-c: var(--red); }
+    body:not(.simple) .lore-card.warn    { --corner-c: var(--amber); }
+    body:not(.simple) .lore-card.success { --corner-c: var(--green); }
+    body:not(.simple) .lore-card::after  { border-color: var(--corner-c, var(--border-md)); opacity: 0.6; }
+
+    /* Scroll reveal */
+    body:not(.simple) .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    body:not(.simple) .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger siblings */
+    body:not(.simple) .reveal:nth-child(2) { transition-delay: 0.08s; }
+    body:not(.simple) .reveal:nth-child(3) { transition-delay: 0.16s; }
+    body:not(.simple) .reveal:nth-child(4) { transition-delay: 0.24s; }
+
+    /* Timeline connector animated fill */
+    body:not(.simple) .tl-node.active ~ .tl-line {
+      background: linear-gradient(90deg, var(--cyan), var(--border));
+      box-shadow: 0 0 6px rgba(0,200,240,0.2);
+    }
+
+    /* Section title reveal flash */
+    body:not(.simple) .dos-title.flash-in {
+      animation: title-flash 0.5s ease forwards;
+    }
+    @keyframes title-flash {
+      0%   { color: var(--cyan); text-shadow: 0 0 20px rgba(0,200,240,0.8); }
+      100% { color: var(--text); text-shadow: none; }
+    }
+
+    /* RogueX scanning bar */
+    .scanning-bar {
+      position: absolute;
+      left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--red) 30%, rgba(255,45,90,0.6) 50%, var(--red) 70%, transparent 100%);
+      opacity: 0;
+      pointer-events: none;
+      animation: scan-sweep 6s ease-in-out infinite 2s;
+    }
+    @keyframes scan-sweep {
+      0%   { top: 0%;   opacity: 0; }
+      5%   { opacity: 0.5; }
+      95%  { opacity: 0.4; }
+      100% { top: 100%; opacity: 0; }
+    }
+    #roguex { position: relative; }
+
+    /* Ambient shimmer on anno.note */
+    body:not(.simple) .anno.note {
+      position: relative;
+      overflow: hidden;
+    }
+    body:not(.simple) .anno.note::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -60%;
+      width: 40%; height: 200%;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,200,80,0.04) 50%, transparent 60%);
+      animation: shimmer 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes shimmer { 0%,100% { left: -60%; } 50% { left: 120%; } }
+
+    /* Topbar right border glow pulse */
+    body:not(.simple) .topbar {
+      box-shadow: 0 1px 0 rgba(0,200,240,0.08), 0 2px 20px rgba(0,0,0,0.4);
+    }
+
+    /* Occasional full-page CRT flicker */
+    body:not(.simple)::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none;
+      background: rgba(0,200,240,0.015);
+      opacity: 0;
+      animation: crt-flicker 12s infinite;
+    }
+    @keyframes crt-flicker {
+      0%,94%,96%,98%,100% { opacity: 0; }
+      95%  { opacity: 1; }
+      97%  { opacity: 0.5; }
+      99%  { opacity: 0.8; }
+    }
+
+    /* ======================================================
+       SIMPLE MODE OVERRIDES
+    ====================================================== */
+    body.simple #bg-canvas,
+    body.simple .fx-scanlines,
+    body.simple .fx-grid,
+    body.simple .fx-vignette,
+    body.simple .hero-glow,
+    body.simple .scanning-bar,
+    body.simple .glitch::before,
+    body.simple .glitch::after,
+    body.simple .hero-scroll { display: none; }
+
+    body.simple .reveal { opacity: 1 !important; transform: none !important; }
+    body.simple::after { display: none; }
+
+    body.simple { background: #0d1c2a; }
+
+    body.simple .hero {
+      min-height: auto;
+      padding: 60px 24px 40px;
+    }
+    body.simple .hero-title {
+      font-size: clamp(2rem, 7vw, 4.5rem);
+    }
+    body.simple .lore-body {
+      font-size: 1rem;
+      line-height: 1.82;
+    }
+    body.simple .lore-card { padding: 30px; }
+    body.simple .status-dot { animation: none; }
+    body.simple .blink-dot { animation: none; }
+
+    /* ======================================================
+       ACCESSIBILITY
+    ====================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      .glitch::before, .glitch::after { animation: none; }
+      .hero-scroll { animation: none; }
+      .status-dot { animation: none; }
+      #bg-canvas { display: none; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
   </style>
 </head>
-
 <body>
 
-  <div class="shell" role="main" aria-label="Universe - BaseX archives">
-    <div class="header">
-      <div class="brand">
-        <div class="logo">BX</div>
+<!-- =====================================================
+     MODE SELECTOR
+===================================================== -->
+<div id="mode-selector" role="dialog" aria-modal="true" aria-label="Choisir le mode d'affichage">
+  <p class="ms-eyebrow">// initialisation du système</p>
+  <h1 class="ms-title">X-UNIVERSE</h1>
+  <div class="ms-cards">
+    <div class="ms-card s" id="btn-simple" tabindex="0" role="button"
+         aria-label="Mode simple — lecture confortable, sans animations">
+      <div class="ms-card-glyph">◻</div>
+      <div class="ms-card-name">Mode Simple</div>
+      <div class="ms-card-desc">Navigation claire, texte lisible et contrasté. Idéal pour une lecture confortable ou si les animations vous dérangent.</div>
+    </div>
+    <div class="ms-card f" id="btn-full" tabindex="0" role="button"
+         aria-label="Full Experience — immersif avec effets visuels et terminal">
+      <div class="ms-card-glyph">◈</div>
+      <div class="ms-card-name">Full Experience</div>
+      <div class="ms-card-desc">Effets visuels, terminal interactif, animations. Plongez dans les archives comme un chercheur accrédité.</div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     BOOT SEQUENCE (Full mode only)
+===================================================== -->
+<div id="boot-overlay" class="gone" aria-hidden="true">
+  <div class="boot-term" id="boot-term"></div>
+  <p class="boot-skip-hint">cliquez pour passer</p>
+</div>
+
+<!-- =====================================================
+     ATMOSPHERE LAYERS (Full mode)
+===================================================== -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="fx-scanlines" aria-hidden="true"></div>
+<div class="fx-grid" aria-hidden="true"></div>
+<div class="fx-vignette" aria-hidden="true"></div>
+
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
+<div id="app" aria-label="X-Universe — Archives Scientifiques">
+
+  <!-- TOP BAR -->
+  <header class="topbar" role="banner">
+    <div class="topbar-status">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="topbar-brand">X-UNIVERSE / ARCHIVES</span>
+    </div>
+    <nav class="topbar-actions" aria-label="Actions rapides">
+      <button class="tb-btn full-only" id="replay-btn" aria-label="Rejouer l'animation de démarrage" title="Rejouer le boot">
+        <span aria-hidden="true">↺</span> Boot
+      </button>
+      <button class="tb-btn" id="mode-toggle" aria-label="Basculer le mode d'affichage">
+        <span id="mode-icon" aria-hidden="true">◻</span>
+        <span id="mode-lbl">Simple</span>
+      </button>
+      <a href="/" class="tb-btn" aria-label="Retour au portfolio">← Portfolio</a>
+    </nav>
+  </header>
+
+  <!-- TIMELINE NAV -->
+  <nav class="tl-nav" aria-label="Navigation par section">
+    <div class="tl-track">
+      <a href="#basex"   class="tl-node active" data-node="basex"   aria-label="BaseX"><div class="tl-dot"></div><div class="tl-label">BASE-X</div></a>
+      <div class="tl-line" aria-hidden="true"></div>
+      <a href="#rushx"   class="tl-node"        data-node="rushx"   aria-label="RushX"><div class="tl-dot"></div><div class="tl-label">RUSH-X</div></a>
+      <div class="tl-line" aria-hidden="true"></div>
+      <a href="#roguex"  class="tl-node"        data-node="roguex"  aria-label="RogueX"><div class="tl-dot"></div><div class="tl-label">ROGUE-X</div></a>
+      <div class="tl-line" aria-hidden="true"></div>
+      <a href="#buildx"  class="tl-node"        data-node="buildx"  aria-label="BuildX"><div class="tl-dot"></div><div class="tl-label">BUILD-X</div></a>
+      <div class="tl-line" aria-hidden="true"></div>
+      <a href="#labo"    class="tl-node"        data-node="labo"    aria-label="Notes de laboratoire"><div class="tl-dot"></div><div class="tl-label">LABO</div></a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" aria-labelledby="hero-h1">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <p class="hero-eyebrow">// archives classifiées — accès niveau 3</p>
+    <h1 class="hero-title" id="hero-h1">
+      <span class="glitch" data-text="X-UNIVERSE" aria-label="X-Universe">
+        X-<span class="x">UNIVERSE</span>
+      </span>
+    </h1>
+    <p class="hero-sub">BaseX &nbsp;·&nbsp; RushX &nbsp;·&nbsp; RogueX &nbsp;·&nbsp; BuildX</p>
+    <p class="hero-tag">Source : notes Trello &amp; carnet de conception</p>
+    <div class="hero-scroll" aria-hidden="true">parcourir</div>
+  </section>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section id="overview" class="x-section" aria-labelledby="ov-h2">
+    <div class="wrap">
+      <h2 id="ov-h2" style="font-family:var(--font-t);font-size:clamp(1rem,3vw,1.3rem);color:var(--text-muted);letter-spacing:.1em;margin-bottom:20px;">
+        VUE D'ENSEMBLE — CYCLE EXPÉRIMENTAL
+      </h2>
+
+      <div class="flow" role="list" aria-label="Progression du cycle expérimental">
+        <div class="flow-node" data-x="basex" tabindex="0" role="listitem button" aria-label="BaseX — cobaye"
+             onclick="scrollTo('basex')" onkeydown="if(e.key==='Enter')scrollTo('basex')">
+          <div class="flow-name">BASE-X</div>
+          <div class="flow-role">// cobaye</div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node" data-x="rushx" tabindex="0" role="listitem button" aria-label="RushX — rejeté"
+             onclick="scrollTo('rushx')">
+          <div class="flow-name">RUSH-X</div>
+          <div class="flow-role">// rejeté</div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node" data-x="roguex" tabindex="0" role="listitem button" aria-label="RogueX — élu"
+             onclick="scrollTo('roguex')">
+          <div class="flow-name">ROGUE-X</div>
+          <div class="flow-role">// élu</div>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-node" data-x="buildx" tabindex="0" role="listitem button" aria-label="BuildX — créateur"
+             onclick="scrollTo('buildx')">
+          <div class="flow-name">BUILD-X</div>
+          <div class="flow-role">// créateur</div>
+        </div>
+      </div>
+
+      <div class="lore-card info reveal">
+        <div class="lore-label">// synopsis général</div>
+        <div class="lore-body">
+          <p>Le joueur commence sur <strong>BaseX</strong> en tant que cobaye. S'il devient trop fort ou instable pour l'expérience, il est expédié sur <strong>RushX</strong> — le dépotoir scientifique. S'il y survit et domine, il peut être sélectionné pour <strong>RogueX</strong>. Enfin, ceux qui gagnent la confiance des créateurs accèdent à <strong>BuildX</strong> ou <strong>BaseTacticX</strong> : ils cessent d'être de simples cobayes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BASE-X ===== -->
+  <section id="basex" class="x-section" aria-labelledby="basex-h2">
+    <div class="wrap">
+      <div class="dos-header">
+        <div class="dos-vert" aria-hidden="true">DOSSIER-001 · BASEX · CONFIDENTIEL</div>
+        <div class="dos-title-wrap">
+          <span class="stamp stamp-r">Accès Restreint</span>
+          <h2 class="dos-title" id="basex-h2">BASE<span style="color:var(--cyan)">-X</span></h2>
+          <p class="dos-caption">Terrain d'expérimentation primaire — phase d'acquisition des sujets</p>
+        </div>
+      </div>
+
+      <div class="cg">
         <div>
-          <div class="title">X-UNIVERSE - Experimental Archives</div>
-          <div class="subtitle">BaseX • RushX • RogueX - codex & devnotes</div>
-        </div>
-      </div>
+          <div class="lore-card info reveal">
+            <div class="lore-label">// environnement</div>
+            <div class="lore-body">
+              <p>BaseX n'est pas un archipel ordinaire. Cachée derrière une beauté luxuriante se dissimule un <strong>laboratoire secret à ciel ouvert</strong>. Le joueur y est déposé en tant que cobaye — enlevé, isolé, observé en permanence.</p>
+              <p>L'environnement est conçu pour tester les limites humaines : manipulation du climat, implants de surveillance, interactions contrôlées avec d'autres sujets. Chaque action est mesurée. Chaque défaillance, consignée.</p>
+            </div>
+          </div>
 
-      <div>
-        <div class="kbd">Sources: lore (texte) + Trello JSON import</div>
+          <div class="lore-card warn reveal">
+            <div class="lore-label">// mécaniques de jeu</div>
+            <div class="lore-body">
+              <p><strong>Récolte</strong> — deux approches : méthode <em>rapide</em> (volume) vs méthode <em>précise</em> (rendement optimal). Le joueur choisit selon sa situation et ses ressources disponibles.</p>
+              <p><strong>Crafting</strong> — système de blueprints et fragments. Les recettes doivent être découvertes ou acquises. Rien n'est donné ; tout se mérite dans le cadre de l'expérience.</p>
+              <p><strong>Gestion d'instances</strong> — plusieurs archipels, sélection dynamique de zones actives. L'environnement n'est pas statique : les zones évoluent avec les décisions du joueur.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="anno-col" aria-label="Notes techniques et annotations">
+          <div class="anno tech">
+            <div class="anno-lab">// note UX</div>
+            <div class="anno-txt">Home screen "Tap to play"<br>→ Clear cache<br>→ Server selector (tri pays)<br>→ Save local options</div>
+          </div>
+          <div class="anno tech">
+            <div class="anno-lab">// moteur cible</div>
+            <div class="anno-txt">Prototypes : Phaser / Love2D<br>Cible : <strong style="color:var(--cyan)">Godot</strong> (modulaire)<br>Archivé : Three.js, PixiJS</div>
+          </div>
+          <div class="anno note">
+            <div class="anno-lab">// slogan</div>
+            <div class="anno-txt">"Back to basics" — retour à l'essentiel. Avant les implants, avant la guerre. Juste la survie.</div>
+          </div>
+        </aside>
       </div>
     </div>
+  </section>
 
-    <div class="tabs" role="tablist" aria-label="Sections">
-      <div class="tab active" data-tab="overview" role="tab" tabindex="0" aria-selected="true" aria-controls="overview">Overview</div>
-      <div class="tab" data-tab="codex" role="tab" tabindex="0" aria-selected="false" aria-controls="codex">Codex (Lore)</div>
-      <div class="tab" data-tab="terminal-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="terminal-tab">Terminal</div>
-      <div class="tab" data-tab="trello-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="trello-tab">Trello (data)</div>
-      <div class="tab" data-tab="help-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="help-tab">Help</div>
-    </div>
-
-    <div class="content">
-      <!-- LEFT NAV (AJOUTÉ) -->
-      <nav class="left-nav" aria-label="Navigation interne Codex"> <!-- AJOUTÉ -->
-        <div class="nav-group">
-          <div class="nav-group-title">Sections principales</div>
-          <div class="nav-item" data-target="overview" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Overview</div>
-          <div class="nav-item" data-target="codex" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Codex (Lore)</div>
-          <div class="nav-item" data-target="terminal-tab" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Terminal</div>
-          <div class="nav-item" data-target="trello-tab" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Trello (data)</div>
-          <div class="nav-item" data-target="help-tab" role="button" tabindex="0"><span class="chev" aria-hidden="true">▸</span> Help</div>
-        </div>
-
-        <div class="nav-group">
-          <div class="nav-group-title">Autre</div>
-          <a href="./index.html" class="card" style="cursor:pointer">Retour au Portfolio</a>
-        </div>
-      </nav>
-
-      <!-- MAIN LEFT -->
-      <div class="panel" id="panel-main" aria-live="polite">
-        <!-- Overview -->
-        <div id="overview" class="view active">
-          <h2 class="section-title">Overview</h2>
-          <div class="lore-block">
-            <strong>Timeline</strong> - BaseX → RushX → RogueX → (BuildX / BaseTacticX).
-            <p style="margin-top:8px">
-              Le joueur commence sur <strong>BaseX</strong> comme cobaye. S’il devient trop fort ou instable, il est
-              envoyé sur <strong>RushX</strong> (dépotoir d’expériences). S'il domine RushX, il peut être sélectionné
-              pour <strong>RogueX</strong>. Enfin, ceux qui gagnent la confiance des créateurs accèdent à
-              <strong>BuildX</strong> ou <strong>BaseTacticX</strong> et cessent d’être de simples cobayes.
-            </p>
-          </div>
-
-          <h2 class="section-title">Rapide</h2>
-          <div class="card">
-            <strong>Univers</strong> - île chaotique, largage en capsule, ruines, mutants biologiques et technologiques.
-            (Voir "Codex" pour le texte complet.)
-          </div>
-
-          <h2 class="section-title">Méthode</h2>
-          <div class="card">
-            <ul>
-              <li>Design : itératif - prototypes en Phaser / Godot / Love2D, version cible : Godot (modulaire).</li>
-              <li>Gameplay : récolte (rapide / précis), crafting via blueprints, sélection dynamique de zones.</li>
-              <li>UX : Home screen "Tap to play", clear cache, serveur selector, save local options.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- CODEX / LORE -->
-        <div id="codex" class="view" style="display:none;">
-          <h2 class="section-title">Codex - Lore détaillé</h2>
-
-          <div class="lore-block" id="lore-master">
-            <!-- Insert the full, verbatim lore the user provided (kept paragraphs & headings) -->
-            <!-- IMPORTANT: ce texte est inchangé (RÈGLE D'OR respectée) -->
-            Le joueur commence sur BaseX, il est un cobaye. Le joueur devient trop fort / dangereux pour l’expérience,
-            il est envoyé sur RushX. Le joueur domine RushX, il lui est proposé d’aller sur RogueX. Le joueur a gagné la
-            confiance des créateurs, il peut aller sur BuildX ou bien BaseTacticX. Il n’est plus réellement un cobaye.
-
-            ---
-
-            <strong>Les tests ratés</strong>
-
-            RushX est un dépotoir scientifique. On y jette toutes les expériences considérées comme inutiles, instables
-            ou dangereuses. Ce ne sont pas seulement des individus faibles ou imparfaits : ce sont souvent des créations
-            qui ne correspondent plus aux attentes du projet global. Les tests ratés sont issus de divers programmes,
-            chacun ayant une approche différente de l’évolution humaine :
-
-            1. <strong>Origine des tests ratés</strong>
-
-            - Essais biologiques : tentatives de fusion entre l’humain et l’animal, ou entre l’humain et des matériaux
-            organiques synthétiques. Beaucoup développent des mutations inadaptées à la survie, comme des membres
-            inutilisables ou des instincts incontrôlables.
-            - Sujets de conditionnement mental : individus dont la psyché a été brisée par des tests de manipulation.
-            Certains sont devenus ultra-agressifs, d’autres vivent dans un état semi-hypnotique, incapables d’agir sans
-            stimulation extérieure.
-            - Déchets technologiques : les cobayes qui ont reçu des implants cybernétiques instables. Leur chair rejette
-            la technologie, ou inversement, leur corps se transforme en amas de métal non fonctionnel.
-
-            Chaque rejeté arrive sur RushX via des capsules de largage, une méthode brutale qui brise souvent quelques
-            os à l’atterrissage. L’île elle-même est un immense terrain d’expérimentation chaotique, couvert de ruines
-            de laboratoires, de faune mutée et de vestiges technologiques.
-
-            <strong>Les forts</strong>
-
-            La survie sur RushX ne dépend pas uniquement de la force brute. Les plus forts ne sont pas seulement les
-            plus puissants physiquement, mais ceux qui comprennent les règles de cet enfer.
-
-            <em>Classes de forts : Les combattants primitifs & les mutants technologiques</em>
-
-            <strong>Les combattants primitifs</strong>
-            - Rejetent la technologie, corps adapté, force et résistance accrues, instinct animal, maîtrise du combat
-            instinctif, sociétés tribales éphémères.
-
-            <strong>Les mutants technologiques</strong>
-            - Embrassent la techno, implants bricolés, sources d’énergie instables, solitaires, stratégie et adaptation.
-
-            <strong>L'instinct de survie sur RushX</strong>
-            - Les faibles ne survivent pas longtemps. La peur des sélections : tout le monde sait que des "élections"
-            ont lieu, mais personne ne sait vraiment comment être choisi.
-
-            <strong>Les élus : La sélection pour RogueX</strong>
-            - Qui ? Survivants exceptionnels, mutations rares, maîtrise techno, ou tirage aléatoire.
-            - Comment ? Observation par drones et capteurs.
-            - Rituel : dernier test entre candidats, extraction par capsule/portail lumineux, personne ne revient.
-
-            <strong>Conclusion</strong> : Une île en perpétuelle évolution où la frontière entre humanité et
-            monstruosité s’efface. Les scientifiques observent et attendent - leur but reste obscur.
-          </div>
-
-          <div class="card">
-            <strong>Notes de compréhension</strong>
-            <ul>
-              <li>RushX est une zone narrative riche - utile pour level design (zones de tests, ruines, points
-                d’intérêt).</li>
-              <li>Rituel/élection → excellente mécanique PvE/PvP : tournoi d’épreuves, sélection non-prévisible.</li>
-              <li>Mettre des "journaux scientifiques" et "logs de laboratoire" sur les cartes pour enrichir le lore en
-                jeu.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- TERMINAL -->
-        <div id="terminal-tab" class="view" style="display:none;">
-          <h2 class="section-title">Terminal (commande)</h2>
-
-          <div class="console" id="terminal-output" aria-live="polite">
-            Tapez <span class="kbd">help</span> pour la liste des commandes. Exemple : <span class="kbd">basex</span>
-            <span class="kbd">rushx</span> <span class="kbd">trello</span> <span class="kbd">details JudgeX</span>
-          </div>
-
-          <div class="terminal-input">
-            <input id="terminal-input" aria-label="Terminal input" placeholder="> commande (ex: help)" />
-            <button id="term-send" type="button">Run</button>
-          </div>
-
-          <div style="margin-top:10px; color:var(--muted); font-size:0.86rem">
-            Commandes simples disponibles: <span class="kbd">help</span>, <span class="kbd">basex</span>, <span
-              class="kbd">rushx</span>, <span class="kbd">roguex</span>, <span class="kbd">buildx</span>, <span
-              class="kbd">tests</span>, <span class="kbd">forts</span>, <span class="kbd">selection</span>, <span
-              class="kbd">trello</span>, <span class="kbd">details &lt;cardName&gt;</span>, <span
-              class="kbd">clear</span>.
-          </div>
-        </div>
-
-        <!-- TRELLO VIEW (detailed dump from JSON) -->
-        <div id="trello-tab" class="view" style="display:none;">
-          <h2 class="section-title">Trello - Extrait et synthèse</h2>
-
-          <div class="card">
-            <strong>Board</strong>: <em>BaseX</em> - (export JSON chargé). Données extraites : lists, cards, actions,
-            labels. Source: Trello JSON import. :contentReference[oaicite:1]{index=1}
-          </div>
-
-          <div class="card">
-            <strong>Cartes clés (extraits)</strong>
-            <ul>
-              <li><strong>Lore du jeu</strong> - résumé et slogan (Back to basics). Contient : manipulation climatique,
-                implants, alliés/ennemis. (card id: e0JomjEF). :contentReference[oaicite:2]{index=2}</li>
-              <li><strong>RushX</strong> - card créé 2024-10-15 (sous-projets). (card id: LIrisAUA).
-                :contentReference[oaicite:4]{index=4}</li>
-              <li><strong>JudgeX</strong> - prototype Reigns-like (card id: HtIbV6ly). Contenu: idée de gameplay "juger
-                sujets". :contentReference[oaicite:5]{index=5}</li>
-              <li><strong>BuildX / FarmX</strong> - sous-projets listés sur le board (création 2024-09).
-                :contentReference[oaicite:6]{index=6}</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <strong>Choix moteur</strong>: Godot = principal envisagé; prototypes en Phaser / Love2D; autres tests
-            (Three.js, PixiJS, Phaser 3 archivés). (extraits actions / archives). :contentReference[oaicite:7]{index=7}
-          </div>
-
-          <div class="card">
-            <strong>UX & Maquette</strong>: Figma link et notes d'UI (Home screen, server selector, clear cache, social
-            icons, minimisation d'interactions). :contentReference[oaicite:8]{index=8}
-          </div>
-        </div>
-
-        <!-- HELP -->
-        <div id="help-tab" class="view" style="display:none;">
-          <h2 class="section-title">Help</h2>
-          <div class="card">
-            <strong>Utilisation</strong>
-            <ol>
-              <li>Clique sur les <em>tabs</em> pour naviguer.</li>
-              <li>Dans <em>Terminal</em>, tape <code>help</code> pour la liste complète. Exemples : <code>basex</code>,
-                <code>rushx</code>, <code>details JudgeX</code>.
-              </li>
-              <li>Dans <em>Trello</em>, clique sur une carte pour voir le résumé extrait.</li>
-            </ol>
-          </div>
+  <!-- ===== RUSH-X ===== -->
+  <section id="rushx" class="x-section" aria-labelledby="rushx-h2">
+    <div class="wrap">
+      <div class="dos-header">
+        <div class="dos-vert" aria-hidden="true">DOSSIER-002 · RUSHX · CONFIDENTIEL DÉFENSE</div>
+        <div class="dos-title-wrap">
+          <span class="stamp stamp-c">Confidentiel</span>
+          <h2 class="dos-title" id="rushx-h2">RUSH<span style="color:var(--orange)">-X</span></h2>
+          <p class="dos-caption">Zone de confinement des sujets écartés — dépotoir scientifique actif</p>
         </div>
       </div>
 
-      <!-- RIGHT SIDEBAR -->
-      <aside class="sidebar">
-        <div class="panel">
-          <h3 class="section-title">Fichiers & cartes</h3>
+      <div class="cg">
+        <div>
+          <div class="lore-card danger reveal">
+            <div class="lore-label">// nature du lieu</div>
+            <div class="lore-body">
+              <p>RushX est un <strong>dépotoir scientifique</strong>. On y jette toutes les expériences considérées comme inutiles, instables ou dangereuses. Ce ne sont pas seulement des individus faibles ou imparfaits : ce sont souvent des créations qui ne correspondent plus aux attentes du projet global.</p>
+              <p>Chaque rejeté arrive par <em>capsule de largage</em> — méthode brutale qui brise souvent quelques os à l'atterrissage. L'île est un immense terrain chaotique : ruines de laboratoires, faune mutée, vestiges technologiques abandonnés.</p>
+            </div>
+          </div>
 
-          <!-- AJOUTÉ: details-area unique (prevents infinite appends) -->
-          <div id="details-area" class="details-area card" aria-live="polite"> <!-- AJOUTÉ -->
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="font-weight:700">Détails</div>
-              <div>
-                <button id="close-details" type="button" class="kbd" style="margin-right:6px">Fermer</button> <!-- AJOUTÉ -->
+          <div class="lore-card info reveal">
+            <div class="lore-label">// origine des tests ratés</div>
+            <div class="lore-body">
+              <p><strong>Essais biologiques</strong> — tentatives de fusion entre l'humain et l'animal, ou avec des matériaux organiques synthétiques. Beaucoup développent des mutations inadaptées à la survie : membres inutilisables, instincts incontrôlables.</p>
+              <p><strong>Sujets de conditionnement mental</strong> — individus dont la psyché a été brisée par des tests de manipulation. Certains sont devenus ultra-agressifs ; d'autres vivent dans un état semi-hypnotique, incapables d'agir sans stimulation extérieure.</p>
+              <p><strong>Déchets technologiques</strong> — cobayes ayant reçu des implants cybernétiques instables. Leur chair rejette la technologie, ou inversement, leur corps se transforme en amas de métal non fonctionnel.</p>
+            </div>
+          </div>
+
+          <div class="lore-card warn reveal">
+            <div class="lore-label">// classes dominantes</div>
+            <div class="lore-body">
+              <p>La survie sur RushX ne dépend pas uniquement de la force brute. Les plus forts ne sont pas les plus puissants physiquement : ce sont ceux qui <em>comprennent les règles de cet enfer</em>.</p>
+            </div>
+          </div>
+
+          <div class="class-grid" role="list" aria-label="Classes de survivants de RushX">
+            <div class="class-card prim reveal" role="listitem">
+              <div class="class-name">Combattants Primitifs</div>
+              <ul class="class-traits">
+                <li>Rejettent la technologie</li>
+                <li>Corps adapté — force &amp; résistance accrues</li>
+                <li>Instinct animal développé</li>
+                <li>Combat instinctif, maîtrisé</li>
+                <li>Sociétés tribales éphémères</li>
+              </ul>
+            </div>
+            <div class="class-card tech reveal" role="listitem">
+              <div class="class-name">Mutants Technologiques</div>
+              <ul class="class-traits">
+                <li>Embrassent la technologie</li>
+                <li>Implants bricolés &amp; modifiés</li>
+                <li>Sources d'énergie instables</li>
+                <li>Profil solitaire par nécessité</li>
+                <li>Stratégie &amp; adaptation constante</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="anno-col" aria-label="Annotations RushX">
+          <div class="anno note">
+            <div class="anno-lab">// note design</div>
+            <div class="anno-txt">RushX = zone narrative riche. Utile pour le level design : zones de tests, ruines actives, points d'intérêt stratégiques.</div>
+          </div>
+          <div class="anno note">
+            <div class="anno-lab">// mécanique potentielle</div>
+            <div class="anno-txt">Le rituel d'élection → excellente mécanique PvE/PvP : tournoi d'épreuves, sélection imprévisible.</div>
+          </div>
+          <div class="anno tech">
+            <div class="anno-lab">// ambiance</div>
+            <div class="anno-txt">Peur des sélections. Tout le monde sait que des "élections" ont lieu — personne ne sait vraiment comment être choisi.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROGUE-X ===== -->
+  <section id="roguex" class="x-section" aria-labelledby="roguex-h2">
+    <div class="scanning-bar" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="dos-header">
+        <div class="dos-vert" aria-hidden="true">DOSSIER-003 · ROGUEX · TOP SECRET</div>
+        <div class="dos-title-wrap">
+          <span class="stamp stamp-ts">Top Secret</span>
+          <h2 class="dos-title" id="roguex-h2">ROGUE<span style="color:var(--red)">-X</span></h2>
+          <p class="dos-caption">Sélection ultime — données en grande partie inaccessibles</p>
+        </div>
+      </div>
+
+      <div class="cg">
+        <div>
+          <div class="lore-card danger reveal">
+            <div class="lore-label">// protocole de sélection</div>
+            <div class="lore-body">
+              <p><strong>Qui est choisi ?</strong> Les survivants exceptionnels de RushX. Mutations rares. Maîtrise technologique avancée. Ou peut-être un tirage aléatoire. Les critères exacts restent délibérément obscurs — c'est une part du design psychologique de l'expérience.</p>
+              <p><strong>Comment ?</strong> Observation continue par <em>drones et capteurs</em> disséminés dans l'ensemble de la zone. Les sujets ne savent pas qu'ils sont évalués en permanence.</p>
+              <p><strong>Le rituel</strong> — un dernier test oppose les candidats entre eux. Ensuite : extraction par capsule ou portail lumineux. Aucun sujet n'est jamais revenu raconter ce qu'il se passe de l'autre côté.</p>
+            </div>
+          </div>
+
+          <div class="lore-card info reveal">
+            <div class="lore-label">// tension narrative</div>
+            <div class="lore-body">
+              <p>Les critères de sélection restent l'une des grandes inconnues de l'univers. On sait qu'ils existent. On sait qu'ils fonctionnent. Mais leur logique échappe aux sujets eux-mêmes.</p>
+              <p>Cette ambiguïté est au cœur de la tension : vaut-il mieux être fort et visible, ou discret et stratégique ? Faut-il chercher à être choisi, ou la sélection trouve-t-elle d'elle-même ceux qu'elle veut ?</p>
+            </div>
+          </div>
+
+          <div class="mech-grid" role="list" aria-label="Mécaniques de sélection">
+            <div class="mech-item reveal" role="listitem">
+              <div class="mech-icon" aria-hidden="true">👁</div>
+              <div class="mech-name">Observation</div>
+              <div class="mech-desc">Drones &amp; capteurs surveillent chaque action, chaque décision</div>
+            </div>
+            <div class="mech-item reveal" role="listitem">
+              <div class="mech-icon" aria-hidden="true">⚔</div>
+              <div class="mech-name">Rituel</div>
+              <div class="mech-desc">Épreuve finale entre les candidats présélectionnés</div>
+            </div>
+            <div class="mech-item reveal" role="listitem">
+              <div class="mech-icon" aria-hidden="true">◎</div>
+              <div class="mech-name">Extraction</div>
+              <div class="mech-desc">Portail lumineux ou capsule — aucun retour documenté</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="anno-col" aria-label="Annotations RogueX">
+          <div class="anno note">
+            <div class="anno-lab">// conclusion narrative</div>
+            <div class="anno-txt">Une île en perpétuelle évolution où la frontière entre humanité et monstruosité s'efface. Les scientifiques observent et attendent — leur but reste obscur.</div>
+          </div>
+          <div class="anno tech">
+            <div class="anno-lab">// note lore</div>
+            <div class="anno-txt">Intégrer des "journaux scientifiques" et "logs de laboratoire" sur les cartes pour enrichir le lore en jeu directement.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BUILD-X ===== -->
+  <section id="buildx" class="x-section" aria-labelledby="buildx-h2">
+    <div class="wrap">
+      <div class="dos-header">
+        <div class="dos-vert" aria-hidden="true">DOSSIER-004 · BUILDX · ACCÈS CRÉATEUR</div>
+        <div class="dos-title-wrap">
+          <span class="stamp stamp-g">Accès Créateur</span>
+          <h2 class="dos-title" id="buildx-h2">BUILD<span style="color:var(--green)">-X</span></h2>
+          <p class="dos-caption">Phase finale — le cobaye devient architecte</p>
+        </div>
+      </div>
+
+      <div class="cg">
+        <div>
+          <div class="lore-card success reveal">
+            <div class="lore-label">// statut du joueur</div>
+            <div class="lore-body">
+              <p>BuildX marque la <strong>fin du cycle cobaye</strong>. Le joueur a gagné la confiance des créateurs. Il n'est plus testé — il <em>participe</em>.</p>
+              <p>Deux branches possibles : <strong>BuildX</strong> (construction, architecture, créativité) et <strong>BaseTacticX</strong> (stratégie multi-base, tactique à grande échelle). Dans les deux cas, le joueur cesse d'être un sujet passif pour devenir un acteur du système expérimental lui-même.</p>
+            </div>
+          </div>
+
+          <div class="lore-card info reveal">
+            <div class="lore-label">// prototype adjacent — JudgeX</div>
+            <div class="lore-body">
+              <p><strong>JudgeX</strong> est un concept inspiré de <em>Reigns</em> : le joueur incarne cette fois un roi et prend des décisions sur ses sujets. Jugement, conséquences, gouvernance d'une île expérimentale.</p>
+              <p>Ce n'est plus la survie qui prime, mais la décision. Un changement radical de perspective — de cobaye jugé à juge lui-même. La boucle se ferme.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="anno-col" aria-label="Annotations BuildX">
+          <div class="anno note">
+            <div class="anno-lab">// idée clé</div>
+            <div class="anno-txt">Outils de build (construction player-driven), tactique multi-base. Le joueur influence l'architecture du projet global.</div>
+          </div>
+          <div class="anno note">
+            <div class="anno-lab">// JudgeX</div>
+            <div class="anno-txt">Prototype Reigns-like — jugez vos sujets. Incarnez un roi, prenez des décisions, subissez les conséquences.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NOTES DE LABO ===== -->
+  <section id="labo" class="x-section" aria-labelledby="labo-h2">
+    <div class="wrap">
+      <div class="dos-header">
+        <div class="dos-vert" aria-hidden="true">NOTES INTERNES · TECHNIQUE · ARCHIVÉ</div>
+        <div class="dos-title-wrap">
+          <span class="stamp stamp-r">Notes Internes</span>
+          <h2 class="dos-title" id="labo-h2" style="font-size:clamp(1.6rem,4vw,2.6rem);">
+            Notes de <span style="color:var(--cyan)">Laboratoire</span>
+          </h2>
+          <p class="dos-caption">Choix techniques, moteurs de jeu, prototypes archivés</p>
+        </div>
+      </div>
+
+      <div class="cg">
+        <div>
+          <div class="lore-card info reveal">
+            <div class="lore-label">// choix moteur de jeu</div>
+            <div class="engine-list" role="list" aria-label="Moteurs de jeu évalués">
+              <div class="engine-row reveal" role="listitem">
+                <div class="eng-name">Godot</div>
+                <div class="eng-bar-bg"><div class="eng-bar primary" style="width:90%" aria-label="Score 90%"></div></div>
+                <div class="eng-status ok">→ Recommandé</div>
+              </div>
+              <div class="engine-row reveal" role="listitem">
+                <div class="eng-name">Phaser</div>
+                <div class="eng-bar-bg"><div class="eng-bar secondary" style="width:62%" aria-label="Score 62%"></div></div>
+                <div class="eng-status">Prototypes web</div>
+              </div>
+              <div class="engine-row reveal" role="listitem">
+                <div class="eng-name">Love2D</div>
+                <div class="eng-bar-bg"><div class="eng-bar tertiary" style="width:38%" aria-label="Score 38%"></div></div>
+                <div class="eng-status">Petits tests</div>
               </div>
             </div>
-            <div id="details-content" style="margin-top:8px;color:var(--muted);font-size:0.93rem"></div>
           </div>
 
-          <div class="file-list" id="file-list">
-            <!-- dynamically populated -->
-          </div>
-
-          <div class="meta">
-            <div>Source JSON : <code>basex.json</code> - importé et utilisé pour enrichir le contenu.
-              :contentReference[oaicite:9]{index=9}</div>
-            <div style="margin-top:8px;"><strong>Quick commands</strong></div>
-            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
-              <div class="kbd">basex</div>
-              <div class="kbd">rushx</div>
-              <div class="kbd">roguex</div>
-              <div class="kbd">buildx</div>
-              <div class="kbd">trello</div>
+          <div class="lore-card warn reveal">
+            <div class="lore-label">// prototypes archivés</div>
+            <div class="lore-body">
+              <p>Three.js, PixiJS, Phaser 3 — prototypes expérimentaux, archivés. Ces approches ont été testées pour valider des concepts spécifiques avant de retenir Godot comme cible principale.</p>
+              <p>La philosophie appliquée : <em>prototyper vite, valider le concept, puis consolider</em>. Ne pas s'attacher à un outil tant que l'idée de jeu n'est pas elle-même prouvée.</p>
             </div>
           </div>
         </div>
 
-        <div class="panel" style="margin-top:12px">
-          <h3 class="section-title">Détails rapide</h3>
-          <div class="card">
-            <strong>Engine (pros/cons)</strong>
-            <ul>
-              <li><strong>Godot</strong> - open, lightweight, good for mobile & desktop (recommended).</li>
-              <li><strong>Phaser</strong> - fast for web prototypes.</li>
-              <li><strong>Love2D</strong> - small experiments (existing prototypes).</li>
-            </ul>
+        <aside class="anno-col" aria-label="Annotations techniques laboratoire">
+          <div class="anno tech">
+            <div class="anno-lab">// avantages Godot</div>
+            <div class="anno-txt">Open source<br>Léger &amp; performant<br>Mobile &amp; desktop<br>Modulaire<br>GDScript accessible</div>
           </div>
-        </div>
-      </aside>
+          <div class="anno tech">
+            <div class="anno-lab">// UX design notes</div>
+            <div class="anno-txt">Figma : maquettes UI<br>Home, Server selector<br>Clear cache, social icons<br>Minimisation interactions</div>
+          </div>
+        </aside>
+      </div>
     </div>
+  </section>
 
-    <footer>
-      Données intégrées depuis le Trello JSON uploadé :: sources arhives.
-    </footer>
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <p>X-UNIVERSE — Archives personnelles &amp; notes de conception</p>
+      <p>Source : Trello board BaseX &nbsp;·&nbsp; Conception 2024–2025</p>
+      <p style="margin-top:10px">
+        <a href="/">← Retour au portfolio</a>
+        &nbsp;&nbsp;·&nbsp;&nbsp;
+        Terminal interactif disponible — bouton en bas à droite
+      </p>
+    </div>
+  </footer>
+
+</div><!-- #app -->
+
+<!-- =====================================================
+     TERMINAL DOCK
+===================================================== -->
+<div id="term-dock" role="complementary" aria-label="Terminal interactif X-Universe">
+  <div class="term-shell">
+    <div class="term-titlebar">
+      <div class="term-dots" aria-hidden="true">
+        <div class="td td-r"></div>
+        <div class="td td-y"></div>
+        <div class="td td-g"></div>
+      </div>
+      <div class="term-name">x-universe-terminal — bash</div>
+      <button class="term-x" id="term-close" aria-label="Fermer le terminal">✕</button>
+    </div>
+    <div id="term-out" role="log" aria-live="polite" aria-label="Sortie du terminal"></div>
+    <div class="term-in-row">
+      <span class="term-ps" aria-hidden="true">user@xarchives:~$</span>
+      <input type="text" id="term-in"
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             aria-label="Entrez une commande" placeholder="help" />
+    </div>
   </div>
+</div>
 
-  <script>
-    // -----------------------
-    // TAB SWITCH
-    // -----------------------
-    function activateTab(t) {
-      document.querySelectorAll('.tab').forEach(x => {
-        x.classList.remove('active');
-        x.setAttribute('aria-selected', 'false');
-      });
-      t.classList.add('active');
-      t.setAttribute('aria-selected', 'true');
-      const target = t.dataset.tab;
-      document.querySelectorAll('.view').forEach(v => { v.style.display = 'none'; });
-      const el = document.getElementById(target);
-      if (el) el.style.display = '';
-      if (target !== 'codex') closeDetailsArea();
-      document.querySelectorAll('.left-nav .nav-item').forEach(nav => nav.classList.remove('active'));
+<button class="term-fab" id="term-fab" aria-label="Ouvrir le terminal interactif" aria-expanded="false" aria-controls="term-dock">
+  <span aria-hidden="true">▸_</span>
+  <span class="fab-label">Terminal</span>
+  <span class="fab-hint full-only" aria-hidden="true">` ou clic</span>
+</button>
+
+<!-- =====================================================
+     SCRIPTS
+===================================================== -->
+<script>
+/* ==========================================================
+   X-UNIVERSE — Main Script
+========================================================== */
+
+const STORE_KEY = 'xu-mode-v2';
+
+// DOM refs
+const msEl     = document.getElementById('mode-selector');
+const bootEl   = document.getElementById('boot-overlay');
+const bootTerm = document.getElementById('boot-term');
+const appEl    = document.getElementById('app');
+const modeBtn  = document.getElementById('mode-toggle');
+const modeIcon = document.getElementById('mode-icon');
+const modeLbl  = document.getElementById('mode-lbl');
+const termDock = document.getElementById('term-dock');
+const termFab  = document.getElementById('term-fab');
+const termIn   = document.getElementById('term-in');
+const termOut  = document.getElementById('term-out');
+const termClose = document.getElementById('term-close');
+
+let mode = null;
+let termOpen = false;
+let cmdHistory = [];
+let histPos = -1;
+
+/* ---- Helpers ---- */
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ---- Mode ---- */
+function pickMode(m) {
+  mode = m;
+  localStorage.setItem(STORE_KEY, m);
+  applyMode(m);
+  msEl.classList.add('hidden');
+  if (m === 'full') runBoot();
+  else showApp();
+}
+
+function applyMode(m) {
+  if (m === 'simple') {
+    document.body.classList.add('simple');
+    modeIcon.textContent = '◈';
+    modeLbl.textContent  = 'Full XP';
+  } else {
+    document.body.classList.remove('simple');
+    modeIcon.textContent = '◻';
+    modeLbl.textContent  = 'Simple';
+    initCanvas();
+  }
+}
+
+document.getElementById('btn-simple').addEventListener('click',   () => pickMode('simple'));
+document.getElementById('btn-full').addEventListener('click',     () => pickMode('full'));
+document.getElementById('btn-simple').addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); pickMode('simple'); } });
+document.getElementById('btn-full').addEventListener('keydown',   e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); pickMode('full'); } });
+
+modeBtn.addEventListener('click', () => {
+  mode = mode === 'full' ? 'simple' : 'full';
+  localStorage.setItem(STORE_KEY, mode);
+  applyMode(mode);
+});
+
+/* ---- Boot Sequence ---- */
+const BOOT_LINES = [
+  { t:'X-UNIVERSE ARCHIVE SYSTEM v2.4.1',                    c:'bl-ok',   d:0   },
+  { t:'-- UNKNOWN LABORATORY -- ALL RIGHTS RESERVED --',     c:'bl-dim',  d:160 },
+  { t:'',                                                     c:'',        d:280 },
+  { t:'Initializing memory modules...',                       c:'',        d:400 },
+  { t:'[OK]   Core memory: 128 petabytes allocated',         c:'bl-ok',   d:580 },
+  { t:'[OK]   Subject database: 4 291 entries loaded',       c:'bl-ok',   d:740 },
+  { t:'[WARN] 3 dossiers partiellement classifiés',          c:'bl-warn', d:920 },
+  { t:'',                                                     c:'',        d:1040},
+  { t:'Loading sector data...',                               c:'',        d:1120},
+  { t:'[OK]   BaseX  — sector ONLINE',                       c:'bl-ok',   d:1270},
+  { t:'[OK]   RushX  — sector ONLINE (unstable subjects)',   c:'bl-ok',   d:1440},
+  { t:'[ERR]  RogueX — CLASSIFIED — access restricted',      c:'bl-err',  d:1620},
+  { t:'[OK]   BuildX — sector partially accessible',         c:'bl-ok',   d:1800},
+  { t:'',                                                     c:'',        d:1960},
+  { t:'Authenticating credentials...',                        c:'',        d:2040},
+  { t:'[OK]   Access granted — Level 3 clearance',           c:'bl-ok',   d:2280},
+  { t:'',                                                     c:'',        d:2400},
+  { t:'>>> Launching X-Universe Archive Interface...',        c:'bl-info', d:2520},
+];
+
+function runBoot() {
+  bootEl.classList.remove('gone');
+
+  BOOT_LINES.forEach(({ t, c, d }) => {
+    setTimeout(() => {
+      const el = document.createElement('span');
+      el.className = `bl ${c}`.trim();
+      el.textContent = t;
+      bootTerm.appendChild(el);
+      bootTerm.appendChild(document.createElement('br'));
+    }, d);
+  });
+
+  const total = BOOT_LINES[BOOT_LINES.length - 1].d + 700;
+  setTimeout(closeBoot, total);
+}
+
+function closeBoot() {
+  bootEl.style.opacity = '0';
+  setTimeout(() => { bootEl.classList.add('gone'); showApp(); }, 800);
+}
+
+bootEl.addEventListener('click', closeBoot);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !bootEl.classList.contains('gone')) closeBoot();
+});
+
+function showApp() {
+  appEl.classList.add('on');
+  termLine('info', 'X-Universe Terminal — bienvenue. Tapez "help" pour démarrer.');
+  // Kick off scroll-triggered effects after app is visible
+  requestAnimationFrame(() => {
+    initReveal();
+    if (!document.body.classList.contains('simple')) initTitleFlash();
+  });
+}
+
+
+/* ---- Timeline active node ---- */
+const tlNodes   = document.querySelectorAll('.tl-node');
+const sections  = ['basex','rushx','roguex','buildx','labo'];
+
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tlNodes.forEach(n => n.classList.toggle('active', n.dataset.node === e.target.id));
     }
+  });
+}, { rootMargin: '-38% 0px -38% 0px' });
 
-    document.querySelectorAll('.tab').forEach(t => {
-      t.addEventListener('click', () => activateTab(t));
-      t.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateTab(t); }
-      });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) secObs.observe(el);
+});
+
+/* ---- Terminal ---- */
+const CMDS = {
+  help: () => [
+    ['info','══════════════════════════════════════'],
+    ['info','  X-UNIVERSE TERMINAL — AIDE'],
+    ['info','══════════════════════════════════════'],
+    ['out', '  help         Afficher cette aide'],
+    ['out', '  basex        Résumé de BaseX'],
+    ['out', '  rushx        Lore de RushX'],
+    ['out', '  roguex       Info sur RogueX'],
+    ['out', '  buildx       BuildX & BaseTacticX'],
+    ['out', '  judgex       Prototype JudgeX'],
+    ['out', '  classes      Classes dominantes de RushX'],
+    ['out', '  selection    Mécanique de sélection RogueX'],
+    ['out', '  engines      Comparaison moteurs de jeu'],
+    ['out', '  clear        Vider le terminal'],
+    ['info','──────────────────────────────────────'],
+  ],
+  basex: () => [
+    ['info','[DOSSIER-001] BASE-X // CONFIDENTIEL'],
+    ['out', 'Environnement : île-laboratoire à ciel ouvert.'],
+    ['out', 'Statut joueur : COBAYE. Surveillance totale.'],
+    ['out', 'Mécaniques : récolte (rapide/précis), crafting (blueprints),'],
+    ['out', '             gestion d\'instances (archipels).'],
+    ['out', 'Slogan : "Back to basics"'],
+  ],
+  rushx: () => [
+    ['info','[DOSSIER-002] RUSH-X // CONFIDENTIEL DÉFENSE'],
+    ['out', 'Dépotoir scientifique — sujets instables, dangereux, inutiles.'],
+    ['out', 'Arrivée : capsule de largage (atterrissage brutal).'],
+    ['out', 'Terrain : ruines de labo, faune mutée, vestiges techno.'],
+    ['out', ''],
+    ['out', 'Tests ratés :'],
+    ['out', '  - Essais biologiques (hybrides inadaptés)'],
+    ['out', '  - Conditionnement mental (psyché brisée)'],
+    ['out', '  - Implants rejetés (chair vs métal)'],
+  ],
+  roguex: () => [
+    ['info','[DOSSIER-003] ROGUE-X // TOP SECRET'],
+    ['err', '  ⚠ Données partiellement classifiées.'],
+    ['out', 'Sélection : surveillance par drones & capteurs.'],
+    ['out', 'Critères : survie, mutation rare, maîtrise techno, ou aléatoire.'],
+    ['out', 'Rituel : épreuve finale entre candidats.'],
+    ['out', 'Extraction : capsule ou portail lumineux.'],
+    ['out', 'Aucun retour documenté.'],
+  ],
+  buildx: () => [
+    ['info','[DOSSIER-004] BUILD-X // ACCÈS CRÉATEUR'],
+    ['out', 'Fin du cycle cobaye. Confiance des créateurs acquise.'],
+    ['out', 'BuildX      → Construction, architecture, créativité.'],
+    ['out', 'BaseTacticX → Stratégie multi-base, tactique globale.'],
+    ['out', 'Le joueur n\'est plus sujet — il est acteur du système.'],
+  ],
+  judgex: () => [
+    ['info','[PROTOTYPE] JUDGE-X // CONCEPT'],
+    ['out', 'Inspiré de Reigns. Incarnez un roi.'],
+    ['out', 'Prenez des décisions sur vos sujets.'],
+    ['out', 'Subissez les conséquences de chaque choix.'],
+    ['out', 'De cobaye jugé... à juge lui-même. La boucle se ferme.'],
+  ],
+  classes: () => [
+    ['info','[RUSHX] CLASSES DOMINANTES'],
+    ['out', ''],
+    ['out', '  Combattants Primitifs :'],
+    ['out', '    Rejettent la techno. Force brute. Tribus éphémères.'],
+    ['out', '    Instinct animal. Combat instinctif.'],
+    ['out', ''],
+    ['out', '  Mutants Technologiques :'],
+    ['out', '    Embrassent la techno. Implants bricolés.'],
+    ['out', '    Solitaires. Stratégie & adaptation constante.'],
+  ],
+  selection: () => [
+    ['info','[ROGUEX] MÉCANIQUE DE SÉLECTION'],
+    ['out', '  1. Observation   — drones, capteurs, surveillance permanente.'],
+    ['out', '  2. Épreuve finale — candidats s\'affrontent.'],
+    ['out', '  3. Extraction    — portail ou capsule. Sans retour.'],
+    ['err', '  Critères exacts : CLASSIFIÉS.'],
+  ],
+  engines: () => [
+    ['info','[NOTES] MOTEURS DE JEU'],
+    ['out', '  Godot  ██████████  90% — RECOMMANDÉ (open, mobile, modulaire)'],
+    ['out', '  Phaser ███████     62% — Prototypes web rapides'],
+    ['out', '  Love2D ████        38% — Petits tests / expériences'],
+    ['out', '  Archivé : Three.js, PixiJS, Phaser 3'],
+  ],
+  clear: () => { termOut.innerHTML = ''; return []; },
+};
+
+function termLine(type, text) {
+  const d = document.createElement('div');
+  d.className = `tl-${type}`;
+  d.textContent = text;
+  termOut.appendChild(d);
+  termOut.scrollTop = termOut.scrollHeight;
+}
+
+function runCmd(raw) {
+  const cmd = raw.trim().toLowerCase();
+  if (!cmd) return;
+  termLine('prompt', `user@xarchives:~$ ${raw}`);
+  cmdHistory.unshift(raw);
+  histPos = -1;
+
+  const fn = CMDS[cmd];
+  if (fn) {
+    const lines = fn();
+    if (lines) lines.forEach(([t, txt]) => termLine(t, txt));
+  } else {
+    termLine('err', `Commande inconnue : "${cmd}". Tapez "help".`);
+  }
+}
+
+termIn && termIn.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    runCmd(termIn.value);
+    termIn.value = '';
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    histPos = Math.min(histPos + 1, cmdHistory.length - 1);
+    if (cmdHistory[histPos] !== undefined) termIn.value = cmdHistory[histPos];
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    histPos = Math.max(histPos - 1, -1);
+    termIn.value = histPos >= 0 ? cmdHistory[histPos] : '';
+  }
+});
+
+function toggleTerm() {
+  termOpen = !termOpen;
+  termDock.classList.toggle('open', termOpen);
+  termFab.setAttribute('aria-expanded', String(termOpen));
+  if (termOpen) setTimeout(() => termIn && termIn.focus(), 350);
+}
+
+termFab  && termFab.addEventListener('click', toggleTerm);
+termClose && termClose.addEventListener('click', toggleTerm);
+
+document.addEventListener('keydown', e => {
+  const tag = document.activeElement.tagName;
+  if (e.key === '`' && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+    e.preventDefault();
+    toggleTerm();
+  }
+  if (e.key === 'Escape' && termOpen) toggleTerm();
+});
+
+/* ---- Replay boot ---- */
+function replayBoot() {
+  if (mode !== 'full') return;
+  // Close terminal if open
+  if (termOpen) toggleTerm();
+  // Fade out app
+  appEl.classList.remove('on');
+  // Clear previous boot lines
+  bootTerm.innerHTML = '';
+  // Show boot overlay
+  bootEl.style.opacity = '1';
+  bootEl.classList.remove('gone');
+
+  BOOT_LINES.forEach(({ t, c, d }) => {
+    setTimeout(() => {
+      const el = document.createElement('span');
+      el.className = `bl ${c}`.trim();
+      el.textContent = t;
+      bootTerm.appendChild(el);
+      bootTerm.appendChild(document.createElement('br'));
+    }, d);
+  });
+
+  const total = BOOT_LINES[BOOT_LINES.length - 1].d + 700;
+  setTimeout(() => {
+    bootEl.style.opacity = '0';
+    setTimeout(() => {
+      bootEl.classList.add('gone');
+      appEl.classList.add('on');
+    }, 800);
+  }, total);
+}
+
+const replayBtn = document.getElementById('replay-btn');
+replayBtn && replayBtn.addEventListener('click', replayBoot);
+
+/* ---- Flow node keyboard nav ---- */
+document.querySelectorAll('.flow-node').forEach(n => {
+  n.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      scrollTo(n.dataset.x);
+    }
+  });
+});
+
+/* ---- Scroll Reveal ---- */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    revealObs.unobserve(e.target);
+  });
+}, { rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
+
+function initReveal() {
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+}
+
+/* ---- Section title flash ---- */
+const titleFlashObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const t = e.target.querySelector('.dos-title');
+    if (t && !t.classList.contains('flash-in')) {
+      t.classList.add('flash-in');
+    }
+    titleFlashObs.unobserve(e.target);
+  });
+}, { threshold: 0.2 });
+
+function initTitleFlash() {
+  document.querySelectorAll('.x-section').forEach(s => titleFlashObs.observe(s));
+}
+
+/* ---- Enhanced particle canvas with connections ---- */
+let _canvasRunning = false;
+function initCanvas() {
+  if (_canvasRunning) return;
+  const c = document.getElementById('bg-canvas');
+  if (!c || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  _canvasRunning = true;
+  const ctx = c.getContext('2d');
+  let W, H, pts = [];
+
+  function resize() {
+    W = c.width  = window.innerWidth;
+    H = c.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COUNT = Math.min(120, Math.floor((window.innerWidth * window.innerHeight) / 10000));
+  for (let i = 0; i < COUNT; i++) {
+    pts.push({
+      x:  Math.random() * (W || 1440),
+      y:  Math.random() * (H || 900),
+      r:  Math.random() * 1.2 + 0.2,
+      o:  Math.random() * 0.45 + 0.08,
+      s:  Math.random() * 0.1  + 0.015,
+      dx: (Math.random() - 0.5) * 0.05,
     });
+  }
 
-    // -----------------------
-    // LEFT NAV interactions
-    // -----------------------
-    function activateNavItem(item) {
-      const target = item.dataset.target;
-      if (!target.startsWith('#')) {
-        const tabEl = document.querySelector('.tab[data-tab="' + target + '"]');
-        if (tabEl) activateTab(tabEl);
-        document.querySelectorAll('.left-nav .nav-item').forEach(n => n.classList.remove('active'));
-        item.classList.add('active');
-        if (target === 'codex') {
-          const codex = document.getElementById('codex');
-          if (codex) codex.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const CONNECT_DIST = 100;
+
+  (function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Connection lines
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x;
+        const dy = pts[i].y - pts[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECT_DIST) {
+          const alpha = (1 - dist / CONNECT_DIST) * 0.06;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = `rgba(0,200,240,${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
         }
-      } else {
-        const anchor = document.querySelector(target);
-        const tabEl = document.querySelector('.tab[data-tab="codex"]');
-        if (tabEl) activateTab(tabEl);
-        setTimeout(() => {
-          if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 80);
       }
     }
 
-    document.querySelectorAll('.left-nav .nav-item').forEach(item => {
-      item.addEventListener('click', () => activateNavItem(item));
-      item.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateNavItem(item); }
-      });
-    });
-
-    // -----------------------
-    // Trello index & details handling
-    // -----------------------
-    const trelloIndex = {
-      "Lore du jeu": {
-        title: "Lore du jeu",
-        text: `Slogan EN : Back to basics
-Slogan FR :
-BaseX n'est pas un archipel d'île ordinaire. Cachée derrière sa beauté luxuriante se cache un laboratoire secret. Le Joueur : Vous êtes un cobaye, enlevé. Expériences: manipulation du climat, implants de surveillance. Alliés/Ennemis: autres cobayes. (source: Trello card 'Lore du jeu')`,
-        cite: ":contentReference[oaicite:11]{index=11}"
-      },
-      "RushX": {
-        title: "RushX",
-        text: `RushX = dépôt d'expériences rejetées. Arrivée par capsule, ruines de labo, faune mutée, implants défaillants. Les plus forts s'adaptent : deux familles (Combattants primitifs vs Mutants technologiques). (source: Trello / lore)`,
-        cite: ":contentReference[oaicite:13]{index=13}"
-      },
-      "JudgeX": {
-        title: "JudgeX",
-        text: `Prototype 'JudgeX' inspiré de Reigns - incarnez un roi et prenez des décisions sur vos sujets (inspirations listées). (source: Trello card JudgeX)`,
-        cite: ":contentReference[oaicite:14]{index=14}"
-      },
-      "BuildX": {
-        title: "BuildX",
-        text: `BuildX: phase où le joueur n'est plus cobaye. Rôle: créer, construire, influencer l'architecture du projet.`,
-        cite: ":contentReference[oaicite:15]{index=15}"
-      }
-    };
-
-    // populate sidebar file list
-    const fileList = document.getElementById('file-list');
-    Object.keys(trelloIndex).forEach(key => {
-      const el = document.createElement('button');
-      el.type = 'button';
-      el.className = 'file-item';
-      el.textContent = key;
-      el.setAttribute('aria-label', `Voir les détails de ${key}`);
-      const handleFileClick = () => {
-        openDetailsFor(key);
-        const codexTab = document.querySelector('[data-tab="codex"]');
-        if (codexTab) activateTab(codexTab);
-      };
-      el.addEventListener('click', handleFileClick);
-      fileList.appendChild(el);
-    });
-
-    // -----------------------
-    // Terminal logic
-    // -----------------------
-    const out = document.getElementById('terminal-output');
-    const input = document.getElementById('terminal-input');
-    const sendBtn = document.getElementById('term-send');
-
-    const commands = {
-      help: () => (
-        `COMMANDES:
-help
-basex      -> Résumé & design notes de BaseX
-rushx      -> Description complète de RushX (tests ratés, classes)
-roguex     -> Info sur RogueX (sélection)
-buildx     -> BuildX / BaseTacticX - fin du cycle
-tests      -> Détails tests ratés (origines / implants / conditionnement)
-forts      -> Classes dominantes
-selection  -> Mécanique d'election pour RogueX
-trello     -> Liste des cartes extraites
-details <name> -> Détails sur une carte (ex: details 'JudgeX')
-clear      -> Vider le terminal`
-      ),
-      basex: () => (
-        `BASEX - Design notes:
-- Joueur = cobaye, environnement = laboratoire à ciel ouvert.
-- Mécaniques: récolte (rapide / précis), crafting (blueprints/fragments), gestion d'instances (archipels).
-- UX: Home screen "Tap to play", clear cache, serveur selector (tri par pays).
-- Engine notes: prototypes en Phaser & Love2D, version cible : Godot.`
-      ),
-      rushx: () => (
-        `RUSHX - DEPOTOIR (détails):
-- Arrivée par capsule (atterrissage brutal).
-- Ruines de labs, faune mutée, vestiges techno.
-- Tests ratés: fusions biologiques, conditionnement mental, implants rejetés.
-- Sociétés: combattants primitifs (tribus) vs mutants technologiques (bricolage cybernétique).
-- Éléments de level design: zones d'ejection, camps tribaux, carcasses techno.`
-      ),
-      roguex: () => (
-        `ROGUEX - L'INCONNU
-- Île plus cruelle, mystérieuse.
-- Sélection par drones, ritual final.
-- Transport par capsule/portail lumineux = extraction.
-- Aucun retours documentés; fin du cycle expérimentale.`
-      ),
-      buildx: () => (
-        `BUILDX / BASETACTICX
-- Statut: plus créateur que cobaye.
-- Rôles: architecte, constructeur, stratège.
-- Idées: outils de build (construction player-driven), tactique multi-base.`
-      ),
-      tests: () => (
-        `TESTS RATÉS - ORIGINES
-- Essais biologiques: hybrides inadaptés.
-- Conditionnement mental: sujets brisés.
-- Déchets techno: implants rejetés, chair/métal hybrides.`
-      ),
-      forts: () => (
-        `LES FORTS - CLASSES
-- Combattants primitifs: force brute, tribus, adaptatifs.
-- Mutants technologiques: implants, énergie instable, solitaires.`
-      ),
-      selection: () => (
-        `SELECTION POUR ROGUEX
-- Observation continue par drones.
-- Critères: survie exceptionnelle, mutation rare, maîtrise techno, ou aléatoire.
-- Rituel: ultime épreuve vs autres candidats.`
-      ),
-      trello: () => (
-        `TRELLO - CARTES EXTRACTÉES:
-- Lore du jeu (slogan + objectifs).
-- RushX, JudgeX, BuildX, FarmX.
-Pour plus de détails: details <cardName> (ex: details "JudgeX")`
-      ),
-      // details handler is special below
-      clear: () => {
-        out.innerText = '';
-      }
-    };
-
-    function appendOut(text) {
-      out.innerText += "\n" + text;
-      out.scrollTop = out.scrollHeight;
+    // Dots
+    for (const p of pts) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,200,240,${p.o})`;
+      ctx.fill();
+      p.y -= p.s;
+      p.x += p.dx;
+      if (p.y < -2)  { p.y = H + 2; p.x = Math.random() * W; }
+      if (p.x < -2)  p.x = W + 2;
+      if (p.x > W + 2) p.x = -2;
     }
 
-    function runCommand(raw) {
-      if (!raw) return;
-      const parts = raw.trim().split(/\s+/);
-      const key = parts[0].toLowerCase();
-      if (key === 'details') {
-        const name = raw.trim().slice(8).trim();
-        if (!name) { appendOut("Usage: details <cardName>"); return; }
-        if (trelloIndex[name]) {
-          // show in details-area and also append to terminal
-          openDetailsFor(name);
-          appendOut("=== " + trelloIndex[name].title + " ===\n" + trelloIndex[name].text + "\n" + trelloIndex[name].cite);
-        } else {
-          appendOut("Carte non trouvée: " + name + ". Tape 'trello' pour la liste.");
-        }
-        return;
-      }
-      if (commands[key]) {
-        const res = commands[key];
-        if (typeof res === 'function') {
-          const outText = res();
-          if (outText) appendOut(outText);
-        } else {
-          appendOut(res);
-        }
-      } else {
-        appendOut("Commande inconnue. Tape 'help'.");
-      }
-    }
+    requestAnimationFrame(draw);
+  })();
+}
 
-    sendBtn && sendBtn.addEventListener('click', () => {
-      runCommand(input.value);
-      input.value = '';
-    });
-    input && input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { runCommand(input.value); input.value = ''; }
-    });
-
-    // Initialize terminal with help prompt
-    appendOut("Terminal Ready. Tape 'help' pour démarrer.");
-
-    // -----------------------
-    // DETAILS AREA handling
-    // - single details area prevents infinite appends
-    // - does not remove original lore; it's an additional read-only panel
-    // -----------------------
-    const detailsArea = document.getElementById('details-area');
-    const detailsContent = document.getElementById('details-content');
-    const closeDetailsBtn = document.getElementById('close-details');
-
-    function openDetailsFor(name) {
-      const item = trelloIndex[name];
-      if (!item) return;
-      // Fill content (do not alter user lore)
-      detailsContent.innerHTML = `<strong>${escapeHtml(item.title)}</strong><pre style="white-space:pre-wrap;margin-top:8px;font-family:${getComputedStyle(document.body).fontFamily};">${escapeHtml(item.text)}</pre><div style="font-size:0.8rem;margin-top:8px;color:var(--muted)">${escapeHtml(item.cite)}</div>`;
-      detailsArea.classList.add('open');
-    }
-
-    function closeDetailsArea() {
-      if (detailsArea) detailsArea.classList.remove('open');
-    }
-
-    closeDetailsBtn && closeDetailsBtn.addEventListener('click', closeDetailsArea);
-
-    // Protect against duplicates when previous versions appended many nodes:
-    // We do not insert elements into the lore-master; we only show/update the details-area.
-
-    // -----------------------
-    // Utility: show details in Codex (original behavior replaced to avoid duplicates)
-    // -----------------------
-    function showDetails(name) {
-      // legacy public function kept for compatibility
-      openDetailsFor(name);
-      // ensure codex is visible
-      const codexTab = document.querySelector('[data-tab="codex"]');
-      if (codexTab) activateTab(codexTab);
-    }
-    window.showDetails = showDetails; // expose globally (unchanged API)
-
-    // -----------------------
-    // Simple escape for inserted content (prevent accidental HTML injection)
-    // -----------------------
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/[&<>"']/g, function (m) {
-        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
-      });
-    }
-
-    // -----------------------
-    // Accessibility: allow Enter on file items to open details
-    // -----------------------
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        // close details or reset to overview
-        closeDetailsArea();
-        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-        document.querySelector('[data-tab="overview"]').classList.add('active');
-        document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
-        document.getElementById('overview').style.display = '';
-      }
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+/* ---- Init ---- */
+(function init() {
+  const saved = localStorage.getItem(STORE_KEY);
+  if (saved) {
+    mode = saved;
+    applyMode(saved);
+    msEl.classList.add('hidden');
+    if (saved === 'full') runBoot();
+    else showApp();
+  }
+  // else: mode selector stays visible
+})();
+</script>
 </body>
-
 </html>

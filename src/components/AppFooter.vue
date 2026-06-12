@@ -8,11 +8,14 @@
           <i class="fab fa-vuejs mx-1" style="color: #42b883;"></i>Vue 3 + TypeScript
         </p>
 
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3 flex-wrap justify-content-center">
           <a href="#about" class="footer-link">À propos</a>
           <a href="#experience" class="footer-link">Expérience</a>
           <a href="#portfolio" class="footer-link">Projets</a>
           <a href="#contact" class="footer-link">Contact</a>
+          <a href="/universe.html" class="footer-link footer-link-universe" aria-label="X-Universe — archives de conception">
+            <i class="fas fa-flask me-1" aria-hidden="true" style="font-size:0.8em;"></i>X-Universe
+          </a>
         </div>
 
         <div class="d-flex gap-3">
@@ -52,6 +55,13 @@
 .footer-link:focus-visible {
   outline: 2px solid white;
   outline-offset: 3px;
+}
+
+.footer-link-universe {
+  color: #47a5c9 !important;
+}
+.footer-link-universe:hover {
+  color: #7dd3f0 !important;
 }
 
 .footer-social {

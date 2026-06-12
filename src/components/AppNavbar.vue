@@ -40,6 +40,11 @@ function isActive(sectionId: string) {
             <a class="nav-link" :class="{ active: isActive('portfolio') }" :aria-current="isActive('portfolio') ? 'page' : undefined" href="#portfolio">Portfolio</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link nav-link-universe" href="/universe.html" aria-label="X-Universe — archives de conception">
+              <i class="fas fa-flask me-1" aria-hidden="true"></i>X-Universe
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" :class="{ active: isActive('skills') }" :aria-current="isActive('skills') ? 'page' : undefined" href="#skills">Compétences</a>
           </li>
           <li class="nav-item">
@@ -55,3 +60,23 @@ function isActive(sectionId: string) {
     </div>
   </nav>
 </template>
+
+<style scoped>
+.nav-link-universe {
+  color: #47a5c9 !important;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+  transition: opacity 0.2s, color 0.2s;
+}
+.nav-link-universe:hover {
+  opacity: 1;
+  color: #6dd5f5 !important;
+}
+[data-bs-theme="light"] .nav-link-universe {
+  color: #1a6fa8 !important;
+}
+[data-bs-theme="light"] .nav-link-universe:hover {
+  color: #0d5490 !important;
+}
+</style>

@@ -4,9 +4,9 @@ import { fileURLToPath, URL } from 'node:url'
 import { cpSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-// Copies root-level static asset folders into dist/ after every build.
-// Required because images/ and videos/ live at the project root (not in public/)
-// so Vite never picks them up automatically.
+// Copies root-level static assets into dist/ after every build.
+// Required because images/, videos/, and standalone HTML pages live at the project
+// root (not in public/) so Vite never picks them up automatically.
 function copyStaticAssets(): Plugin {
   return {
     name: 'copy-static-assets',
@@ -16,6 +16,13 @@ function copyStaticAssets(): Plugin {
         const src = resolve(__dirname, dir)
         if (existsSync(src)) {
           cpSync(src, resolve(__dirname, 'dist', dir), { recursive: true })
+        }
+      }
+      // Standalone HTML pages that live outside the Vue SPA
+      for (const file of ['universe.html']) {
+        const src = resolve(__dirname, file)
+        if (existsSync(src)) {
+          cpSync(src, resolve(__dirname, 'dist', file))
         }
       }
     }

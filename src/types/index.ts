@@ -7,6 +7,7 @@ export interface Project {
   archived: boolean
   hasBlog?: boolean
   blogUrl?: string
+  blogLabel?: string
 }
 
 export interface TimelineEntry {
