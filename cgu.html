@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Conditions Générales d'Utilisation — Basil L'Hôte</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --paper: #f4efe2;
+    --paper-dark: #e9e1cc;
+    --ink: #2b2620;
+    --ink-dim: #6b6252;
+    --red: #8c2b26;
+    --red-bright: #b3372f;
+    --gold: #a1792c;
+    --line: rgba(43,38,32,0.16);
+    --font-title: 'Playfair Display', Georgia, serif;
+    --font-body: 'EB Garamond', Georgia, serif;
+    --font-admin: 'Courier Prime', 'Courier New', monospace;
+    --max-w: 760px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--paper-dark);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(43,38,32,0.03), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(43,38,32,0.03), transparent 45%);
+  }
+
+  /* ============ PROGRESS BAR ============ */
+  #progress-track {
+    position: fixed; top: 0; left: 0; right: 0; height: 6px;
+    background: rgba(43,38,32,0.12);
+    z-index: 500;
+  }
+  #progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    transition: width 0.05s linear;
+  }
+  #progress-label {
+    position: fixed; top: 10px; right: 14px; z-index: 500;
+    font-family: var(--font-admin);
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ============ LETTERHEAD ============ */
+  header.letterhead {
+    max-width: var(--max-w);
+    margin: 56px auto 0;
+    padding: 0 24px 28px;
+    text-align: center;
+    border-bottom: 3px double var(--ink);
+  }
+
+  .seal {
+    width: 84px; height: 84px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    border: 3px solid var(--red);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    color: var(--red);
+    font-family: var(--font-admin);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1.15;
+    transform: rotate(-8deg);
+    opacity: 0.88;
+  }
+  .seal::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid var(--red);
+    border-radius: 50%;
+  }
+
+  header.letterhead h1 {
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin: 0 0 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .doc-ref {
+    font-family: var(--font-admin);
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .meta-bar {
+    max-width: var(--max-w);
+    margin: 18px auto 0;
+    padding: 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    justify-content: center;
+    font-family: var(--font-admin);
+    font-size: 0.76rem;
+    color: var(--ink-dim);
+  }
+  .meta-bar strong { color: var(--ink); }
+
+  /* ============ DOCUMENT BODY ============ */
+  .sheet {
+    max-width: var(--max-w);
+    margin: 34px auto 0;
+    background: var(--paper);
+    padding: 44px clamp(22px, 6vw, 64px) 56px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 18px 40px rgba(0,0,0,0.14);
+    position: relative;
+  }
+  .sheet::before {
+    content: '';
+    position: absolute; inset: 10px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+  }
+
+  .intro {
+    font-style: italic;
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    padding-bottom: 22px;
+    margin-bottom: 26px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  article.clause { margin-bottom: 30px; }
+  article.clause h2 {
+    font-family: var(--font-title);
+    font-size: 1.18rem;
+    margin: 0 0 10px;
+    color: var(--red);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  article.clause h2 .num {
+    font-family: var(--font-admin);
+    font-size: 0.85rem;
+    color: var(--gold);
+  }
+  article.clause p {
+    font-size: 1.06rem;
+    line-height: 1.75;
+    margin: 0 0 12px;
+  }
+  article.clause ul {
+    margin: 0 0 12px;
+    padding-left: 26px;
+    font-size: 1.06rem;
+    line-height: 1.75;
+  }
+  article.clause ul li { margin-bottom: 6px; }
+
+  .sub-clause {
+    margin: 14px 0 0 0;
+    padding-left: 18px;
+    border-left: 2px solid var(--line);
+  }
+  .sub-clause h3 {
+    font-family: var(--font-admin);
+    font-size: 0.92rem;
+    color: var(--ink);
+    margin: 0 0 6px;
+    font-weight: 700;
+  }
+  .sub-clause p { font-size: 1.02rem; }
+
+  #clause-4-2 {
+    background: rgba(140,43,38,0.05);
+    border: 1px dashed var(--red);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-top: 10px;
+  }
+
+  /* ============ ACCEPTANCE ============ */
+  .accept-zone {
+    max-width: var(--max-w);
+    margin: 0 auto 100px;
+    padding: 30px 24px 0;
+    text-align: center;
+  }
+  .accept-zone p.note {
+    font-family: var(--font-admin);
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+    margin-bottom: 18px;
+  }
+
+  #accept-btn {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 16px 34px;
+    border-radius: 3px;
+    border: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s;
+  }
+  #accept-btn:not(:disabled):hover {
+    background: var(--red);
+    border-color: var(--red);
+    transform: translateY(-2px);
+  }
+  #accept-btn:disabled {
+    background: transparent;
+    color: var(--ink-dim);
+    border-color: var(--line);
+    cursor: not-allowed;
+  }
+
+  /* ============ OVERLAY (gauntlet + quiz) ============ */
+  .overlay {
+    position: fixed; inset: 0; z-index: 900;
+    background: rgba(20,16,10,0.72);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .overlay.visible { display: flex; }
+
+  .overlay-card {
+    background: var(--paper);
+    max-width: 460px;
+    width: 100%;
+    border-radius: 4px;
+    padding: 34px 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    border: 1px solid var(--line);
+    position: relative;
+  }
+
+  .overlay-eyebrow {
+    font-family: var(--font-admin);
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .overlay-card h3 {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+  }
+  .overlay-card p.sub {
+    color: var(--ink-dim);
+    font-size: 0.98rem;
+    margin: 0 0 22px;
+    min-height: 1.4em;
+  }
+
+  .overlay-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 52px;
+  }
+
+  .ov-btn {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 11px 26px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 2px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    transition: background 0.15s, color 0.15s;
+  }
+  .ov-btn.primary {
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    z-index: 2;
+  }
+  .ov-btn.primary:hover { background: var(--red); border-color: var(--red); }
+  .ov-btn.dodge {
+    position: relative;
+  }
+  .ov-btn.dodge.armed { position: absolute; z-index: 1; }
+
+  /* ============ QUIZ ============ */
+  .quiz-progress {
+    font-family: var(--font-admin);
+    font-size: 0.72rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .quiz-opt {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    text-align: left;
+    padding: 12px 16px;
+    border: 1.5px solid var(--line);
+    background: var(--paper-dark);
+    color: var(--ink);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .quiz-opt:hover { border-color: var(--gold); }
+  .quiz-opt.correct { background: #d8e6d0; border-color: #4a7a3a; }
+  .quiz-opt.wrong { background: #eecfcb; border-color: var(--red); }
+  .quiz-opt:disabled { cursor: default; }
+
+  .quiz-feedback {
+    font-family: var(--font-admin);
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+    margin-top: 14px;
+    min-height: 1.2em;
+  }
+
+  .result-badge {
+    font-size: 2.4rem;
+    margin-bottom: 6px;
+  }
+  .result-score {
+    font-family: var(--font-admin);
+    color: var(--gold);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-family: var(--font-admin);
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    padding: 30px 20px 60px;
+  }
+  .footer-note a { color: var(--ink-dim); }
+
+  @media (max-width: 600px) {
+    header.letterhead { margin-top: 40px; }
+    .overlay-btns { flex-direction: column; align-items: stretch; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="progress-track"><div id="progress-fill"></div></div>
+  <div id="progress-label">0% lu</div>
+
+  <header class="letterhead">
+    <div class="seal">RÉPUBLIQUE<br>DU<br>PORTFOLIO</div>
+    <h1>Conditions Générales d'Utilisation</h1>
+    <div class="doc-ref">Réf. CGU‑2026‑004.2 — Version 4.2.1 — Entrée en vigueur immédiate, même rétroactivement</div>
+  </header>
+
+  <div class="meta-bar">
+    <span>Temps de lecture estimé : <strong id="reading-time">…</strong></span>
+    <span>Longueur : <strong id="word-count">…</strong> mots</span>
+    <span>Dernière mise à jour : <strong>26 août 2026</strong></span>
+  </div>
+
+  <main class="sheet" id="doc-content">
+
+    <p class="intro">
+      Bienvenue. Vous vous apprêtez à consulter les Conditions Générales d'Utilisation (ci-après les « CGU »)
+      du site portfolio de Basil L'Hôte (ci-après « l'Auteur », « moi », ou « le développeur qui a passé plus
+      de temps sur cette page que sur son CV »). Ces CGU ont été rédigées avec le plus grand sérieux possible —
+      c'est-à-dire assez peu. Elles n'ont strictement aucune valeur juridique. Elles ont, en revanche, une
+      valeur comique certaine, à condition d'aller jusqu'au bout, ce qui, statistiquement, n'arrivera pas.
+    </p>
+
+    <article class="clause">
+      <h2><span class="num">Art. 1</span> Objet</h2>
+      <p>
+        Les présentes CGU ont pour objet de définir les modalités et conditions dans lesquelles le Site met
+        à disposition de l'Utilisateur un ensemble de projets, de compétences et d'une chronologie professionnelle,
+        ainsi que les droits et obligations des parties dans ce cadre. En naviguant sur ce Site, l'Utilisateur
+        accepte que la molette de sa souris devienne, pour les prochaines minutes, son unique et fidèle alliée.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 2</span> Définitions</h2>
+      <ul>
+        <li><strong>Utilisateur</strong> : toute personne physique, morale, ou recruteur en pause déjeuner, consultant le Site.</li>
+        <li><strong>Contenu</strong> : l'ensemble des textes, images, animations et private jokes présents sur le Site.</li>
+        <li><strong>Café</strong> : unité de mesure légale de la productivité de l'Auteur (1 café ≈ 47 lignes de code, en moyenne, hors refactoring).</li>
+        <li><strong>Silence radio</strong> : absence de réponse d'un recruteur pendant une durée strictement supérieure à celle qu'il aurait mise à répondre s'il avait sincèrement souhaité recruter l'Auteur.</li>
+        <li><strong>Section 4.2</strong> : disposition dont l'existence est niée par 97 % des Utilisateurs qui prétendent pourtant l'avoir lue.</li>
+      </ul>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 3</span> Acceptation</h2>
+      <p>
+        L'accès et l'utilisation du Site impliquent l'acceptation pleine et entière des présentes CGU. Si
+        l'Utilisateur n'est pas d'accord avec l'une des dispositions ci-après, il est libre de fermer cet
+        onglet — mais qu'il sache qu'un onglet fermé est un onglet qui ne reviendra jamais lire l'Article 4.2.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 4</span> Propriété intellectuelle</h2>
+      <div class="sub-clause">
+        <h3>4.1 — Code source</h3>
+        <p>
+          L'ensemble du code, des textes et des animations présents sur ce Site est la propriété de l'Auteur,
+          à l'exception du CSS du bouton du bas, trouvé sur un forum en 2019 et jamais retouché depuis, par
+          peur superstitieuse de tout casser.
+        </p>
+      </div>
+      <div class="sub-clause" id="clause-4-2">
+        <h3>4.2 — Clause du silence radio</h3>
+        <p>
+          Tout Utilisateur ayant la qualité de recruteur, chasseur de tête ou responsable RH, et ayant consulté
+          l'intégralité du Site, s'engage moralement à répondre à l'Auteur dans un délai de quinze (15) jours
+          ouvrés suivant toute candidature — faute de quoi il s'expose, lors d'un éventuel futur entretien, à
+          devoir offrir le café (cf. Art. 2) et présenter des excuses sincères sous forme de carte postale
+          physique. Cette clause n'a aucune valeur contraignante, ce qui ne l'empêche pas d'être, de loin, la
+          plus importante du présent document.
+        </p>
+      </div>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 5</span> Utilisation autorisée</h2>
+      <p>
+        Le Site peut être consulté, partagé, mis en favori, ou montré fièrement à sa mère. Il est en revanche
+        déconseillé de l'utiliser comme fond d'écran, pour des raisons de lisibilité. Le forker dans le seul
+        but de remplacer « Basil » par son propre prénom est toléré, sauf mention contraire explicite de
+        l'Auteur — généralement obtenue autour d'un café (cf. Art. 2).
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 6</span> Comportements interdits</h2>
+      <ul>
+        <li>Affirmer que React est objectivement meilleur que Vue, sans nuance ni contexte ;</li>
+        <li>Juger l'indentation d'un fichier sans avoir consulté la configuration Prettier associée ;</li>
+        <li>Consulter ce Site avec Internet Explorer, par respect pour l'Auteur et pour soi-même ;</li>
+        <li>Faire défiler cette page en moins de quarante-cinq secondes puis prétendre l'avoir lue en entier (cf. Art. 13, détection du mensonge).</li>
+      </ul>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 7</span> Cookies</h2>
+      <p>
+        Ce Site n'utilise aucun cookie de tracking. L'Auteur, en revanche, consomme en moyenne trois cookies
+        — les vrais, ceux qu'on mange — par session de développement intense. Aucune donnée relative à ces
+        cookies n'est partagée avec des tiers, mais l'Auteur reconnaît un léger sentiment de culpabilité
+        nutritionnelle.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 8</span> Données personnelles</h2>
+      <p>
+        Conformément au Règlement Général sur la Protection des Données et à toute réglementation équivalente
+        applicable sur la Lune (cf. Art. 14), l'Auteur ne collecte aucune donnée personnelle via ce Site —
+        si ce n'est, silencieusement, le nombre de fois où l'Utilisateur a cliqué sur « annuler » avant d'oser
+        cliquer sur « J'ai lu et j'accepte ».
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 9</span> Pauses café obligatoires</h2>
+      <p>
+        Le temps de lecture estimé des présentes CGU, affiché en haut de cette page, intègre un coefficient
+        correctif tenant compte des pauses café obligatoires prévues par le présent article. Toute lecture
+        effectuée sans pause café est considérée comme non conforme et n'engage pas la responsabilité de
+        l'Auteur quant à la bonne compréhension du texte.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 10</span> Limitation de responsabilité</h2>
+      <p>
+        L'Auteur ne saurait être tenu responsable : (i) des bugs visuels causés par un écran trop petit, trop
+        grand, ou tenu à l'envers ; (ii) d'une perte de temps de travail consécutive à la découverte de cette
+        page par un collègue ; (iii) de tout sentiment de vertige provoqué par la longueur du présent document
+        — pourtant annoncée dès le départ, en toute transparence.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 11</span> Force majeure</h2>
+      <p>
+        Sont considérés comme cas de force majeure, au sens des présentes CGU : une panne d'Internet Explorer,
+        une invasion de zombies, Mercure rétrograde, une mise à jour npm qui casse tout sans raison apparente,
+        et plus généralement tout événement rendant impossible l'exécution des obligations contractuelles — y
+        compris l'obligation implicite de répondre aux candidatures (cf. Art. 4.2).
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 12</span> Disponibilité du Site</h2>
+      <p>
+        Le Site est disponible 24 heures sur 24 et 7 jours sur 7, sauf pendant les démonstrations en direct,
+        où une loi non écrite mais universellement vérifiée impose qu'au moins une fonctionnalité cesse de
+        fonctionner devant témoins.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 13</span> Détection du mensonge</h2>
+      <p>
+        Le présent Site intègre un système de détection statistique du mensonge, fondé sur le temps réellement
+        passé à faire défiler cette page. Toute tentative de cliquer sur le bouton d'acceptation avant la fin
+        de la lecture effective du document sera courtoisement, mais fermement, contrecarrée — voir bouton
+        grisé ci-dessous.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 14</span> Droit applicable et juridiction</h2>
+      <p>
+        Les présentes CGU sont soumises au droit applicable sur la Lune, à défaut de traité international
+        couvrant plus précisément la situation. Tout litige relatif à leur interprétation sera tranché à
+        l'amiable, de préférence lors d'une partie de Mölkky, ou à défaut devant toute juridiction
+        suffisamment amusée par l'idée d'être saisie pour ce motif.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 15</span> Modification des CGU</h2>
+      <p>
+        L'Auteur se réserve le droit de modifier les présentes CGU à tout moment, sans préavis — y compris
+        pendant que l'Utilisateur lit cette phrase précise, ce qui, techniquement, vient de se produire.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 16</span> Résiliation</h2>
+      <p>
+        Les présentes CGU cessent de produire effet dès lors que l'Utilisateur ferme cet onglet, redémarre
+        son ordinateur, ou envisage sérieusement une reconversion en berger — option de plus en plus tentante
+        à ce stade de la lecture.
+      </p>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 17</span> Dispositions diverses</h2>
+      <div class="sub-clause">
+        <h3>17.1</h3>
+        <p>Si l'une des clauses des présentes CGU est déclarée nulle, les autres clauses continuent de s'appliquer, avec la même absence de valeur juridique qu'auparavant.</p>
+      </div>
+      <div class="sub-clause">
+        <h3>17.2</h3>
+        <p>Le présent article ne contient aucune information supplémentaire utile. Il existe uniquement pour allonger le document, conformément à l'objectif annoncé en introduction.</p>
+      </div>
+      <div class="sub-clause">
+        <h3>17.3</h3>
+        <p><strong>Cette clause est identique à la clause 17.2, mais en gras, pour plus de solennité.</strong></p>
+      </div>
+      <div class="sub-clause">
+        <h3>17.4</h3>
+        <p><em>Cette clause est identique à la clause 17.2, mais en italique, par souci de diversité stylistique.</em></p>
+      </div>
+    </article>
+
+    <article class="clause">
+      <h2><span class="num">Art. 18</span> Contact</h2>
+      <p>
+        Pour toute question relative aux présentes CGU, ou pour signaler qu'il est arrivé jusqu'ici, l'Utilisateur
+        peut contacter l'Auteur via la section Contact du site principal — ou simplement en lui offrant le café
+        mentionné à l'Article 2.
+      </p>
+    </article>
+
+  </main>
+
+  <div class="accept-zone">
+    <p class="note" id="accept-note">Le bouton se déverrouille une fois la lecture terminée (100% ci-dessus).</p>
+    <button id="accept-btn" disabled>J'ai lu et j'accepte</button>
+  </div>
+
+  <p class="footer-note">Document généré à des fins strictement décoratives. Aucune licorne n'a été blessée durant sa rédaction. <a href="/">← Retour au site</a></p>
+
+  <!-- ============ GAUNTLET OVERLAY ============ -->
+  <div class="overlay" id="gauntlet-overlay">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow" id="gauntlet-step-label">Vérification 1/5</div>
+      <h3 id="gauntlet-question">Es-tu sûr ?</h3>
+      <p class="sub" id="gauntlet-sub"></p>
+      <div class="overlay-btns" id="gauntlet-btns">
+        <button class="ov-btn" id="gauntlet-no">Non</button>
+        <button class="ov-btn primary" id="gauntlet-yes">Oui</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ QUIZ OVERLAY ============ -->
+  <div class="overlay" id="quiz-overlay">
+    <div class="overlay-card" id="quiz-card">
+      <div class="quiz-progress" id="quiz-progress">Question 1/5</div>
+      <h3 id="quiz-question">…</h3>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  // ---------- Progress bar ----------
+  var fill = document.getElementById('progress-fill');
+  var label = document.getElementById('progress-label');
+  var acceptBtn = document.getElementById('accept-btn');
+  var acceptNote = document.getElementById('accept-note');
+
+  function updateProgress() {
+    var doc = document.documentElement;
+    var scrollTop = window.scrollY || doc.scrollTop;
+    var scrollHeight = doc.scrollHeight - doc.clientHeight;
+    var pct = scrollHeight > 0 ? Math.min(100, Math.round((scrollTop / scrollHeight) * 100)) : 100;
+    fill.style.width = pct + '%';
+    label.textContent = pct + '% lu';
+    if (pct >= 99) {
+      acceptBtn.disabled = false;
+      acceptNote.textContent = 'Lecture certifiée complète. Vous pouvez continuer.';
+    } else {
+      acceptBtn.disabled = true;
+      acceptNote.textContent = 'Le bouton se déverrouille une fois la lecture terminée (100% ci-dessus).';
+    }
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+
+  // ---------- Word count / fake reading time ----------
+  var content = document.getElementById('doc-content');
+  var words = content.textContent.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('word-count').textContent = words.toLocaleString('fr-FR');
+  var minutes = Math.max(1, Math.round(words / 70)); // rythme lent, pauses café obligatoires (Art. 9)
+  document.getElementById('reading-time').textContent = minutes + ' minutes';
+
+  updateProgress();
+
+  // ---------- Gauntlet (confirmation) ----------
+  var gauntletSteps = [
+    { q: 'Es-tu sûr ?', sub: '', dodge: true },
+    { q: 'Vraiment vraiment sûr ?', sub: 'Cette hésitation est louche.' },
+    { q: 'Tu connais la Section 4.2 par cœur ?', sub: 'Aucune pression.' },
+    { q: 'Tu as bien fermé Netflix pendant ta lecture ?', sub: 'On ne juge pas.' },
+    { q: 'Prêt(e) pour une petite vérification ?', sub: 'Rien de méchant, juré.', dodge: true }
+  ];
+  var gauntletIndex = 0;
+
+  var gOverlay = document.getElementById('gauntlet-overlay');
+  var gStepLabel = document.getElementById('gauntlet-step-label');
+  var gQuestion = document.getElementById('gauntlet-question');
+  var gSub = document.getElementById('gauntlet-sub');
+  var gYes = document.getElementById('gauntlet-yes');
+  var gNo = document.getElementById('gauntlet-no');
+  var gBtns = document.getElementById('gauntlet-btns');
+
+  var dodgeQuips = [
+    "Raté !", "Presque !", "Ah non.", "Encore raté.", "Il faut cliquer sur Oui, en fait."
+  ];
+  var dodgeCount = 0;
+
+  function resetDodge() {
+    gNo.classList.remove('dodge', 'armed');
+    gNo.style.position = '';
+    gNo.style.left = '';
+    gNo.style.top = '';
+    dodgeCount = 0;
+  }
+
+  function armDodge() {
+    gNo.classList.add('dodge', 'armed');
+  }
+
+  function dodgeAway(e) {
+    var card = gBtns.getBoundingClientRect();
+    var btn = gNo.getBoundingClientRect();
+    var maxX = card.width - btn.width - 4;
+    var maxY = card.height - btn.height - 4;
+    var x = Math.random() * Math.max(0, maxX);
+    var y = Math.random() * Math.max(0, maxY);
+    gNo.style.left = x + 'px';
+    gNo.style.top = y + 'px';
+    dodgeCount++;
+    gSub.textContent = dodgeQuips[Math.min(dodgeCount - 1, dodgeQuips.length - 1)];
+  }
+
+  function showGauntletStep(i) {
+    var step = gauntletSteps[i];
+    gStepLabel.textContent = 'Vérification ' + (i + 1) + '/' + gauntletSteps.length;
+    gQuestion.textContent = step.q;
+    gSub.textContent = step.sub || '';
+    resetDodge();
+    if (step.dodge) {
+      armDodge();
+      gNo.onmouseenter = dodgeAway;
+      gNo.ontouchstart = function (e) { e.preventDefault(); dodgeAway(e); };
+    } else {
+      gNo.onmouseenter = null;
+      gNo.ontouchstart = null;
+    }
+  }
+
+  gNo.addEventListener('click', function (e) {
+    var step = gauntletSteps[gauntletIndex];
+    if (step.dodge) {
+      // Only reachable on touch devices where hover doesn't dodge in time.
+      dodgeAway(e);
+      return;
+    }
+    gSub.textContent = "Bon, d'accord, mais on continue quand même.";
+  });
+
+  gYes.addEventListener('click', function () {
+    gauntletIndex++;
+    if (gauntletIndex < gauntletSteps.length) {
+      showGauntletStep(gauntletIndex);
+    } else {
+      gOverlay.classList.remove('visible');
+      startQuiz();
+    }
+  });
+
+  acceptBtn.addEventListener('click', function () {
+    if (acceptBtn.disabled) return;
+    gauntletIndex = 0;
+    showGauntletStep(0);
+    gOverlay.classList.add('visible');
+  });
+
+  // ---------- Quiz ----------
+  var quizQuestions = [
+    {
+      q: "Selon l'Article 2, que vaut approximativement 1 « café » ?",
+      options: ["3 commits", "47 lignes de code", "Un sprint entier", "Un café, littéralement, sans unité de mesure"],
+      correct: 1
+    },
+    {
+      q: "D'après l'Article 4.2, que risque un recruteur en cas de silence radio prolongé ?",
+      options: ["Une amende de 500 €", "Offrir un café et une carte postale d'excuses", "Rien, cet article n'existe pas", "Des excuses publiques sur LinkedIn"],
+      correct: 1
+    },
+    {
+      q: "Quel droit régit les présentes CGU selon l'Article 14 ?",
+      options: ["Le droit français uniquement", "Le règlement intérieur d'Ankama", "Le droit applicable sur la Lune", "Le droit du travail belge"],
+      correct: 2
+    },
+    {
+      q: "Lequel de ces évènements N'EST PAS cité comme cas de force majeure (Article 11) ?",
+      options: ["Mercure rétrograde", "Une invasion de zombies", "Une panne de café", "Une mise à jour npm qui casse tout"],
+      correct: 2
+    },
+    {
+      q: "Que contient réellement l'Article 17.2 ?",
+      options: ["Une clause de non-concurrence", "La recette du café de l'Auteur", "Un lien vers le CV", "Aucune information utile, juste pour allonger le document"],
+      correct: 3
+    }
+  ];
+
+  var quizIndex = 0;
+  var score = 0;
+
+  var qOverlay = document.getElementById('quiz-overlay');
+  var qCard = document.getElementById('quiz-card');
+  var qProgress = document.getElementById('quiz-progress');
+  var qQuestion = document.getElementById('quiz-question');
+  var qOptions = document.getElementById('quiz-options');
+  var qFeedback = document.getElementById('quiz-feedback');
+
+  function startQuiz() {
+    quizIndex = 0;
+    score = 0;
+    qOverlay.classList.add('visible');
+    renderQuizQuestion();
+  }
+
+  function renderQuizQuestion() {
+    var item = quizQuestions[quizIndex];
+    qProgress.textContent = 'Question ' + (quizIndex + 1) + '/' + quizQuestions.length;
+    qQuestion.textContent = item.q;
+    qFeedback.textContent = '';
+    qOptions.innerHTML = '';
+    item.options.forEach(function (opt, i) {
+      var b = document.createElement('button');
+      b.className = 'quiz-opt';
+      b.textContent = opt;
+      b.addEventListener('click', function () { answerQuiz(i); });
+      qOptions.appendChild(b);
+    });
+  }
+
+  function answerQuiz(i) {
+    var item = quizQuestions[quizIndex];
+    var buttons = qOptions.querySelectorAll('.quiz-opt');
+    buttons.forEach(function (b) { b.disabled = true; });
+    buttons[item.correct].classList.add('correct');
+    if (i === item.correct) {
+      score++;
+      qFeedback.textContent = 'Exact.';
+    } else {
+      buttons[i].classList.add('wrong');
+      qFeedback.textContent = 'Raté — relis l\'article concerné.';
+    }
+    setTimeout(function () {
+      quizIndex++;
+      if (quizIndex < quizQuestions.length) {
+        renderQuizQuestion();
+      } else {
+        renderResult();
+      }
+    }, 1100);
+  }
+
+  function renderResult() {
+    var tier;
+    if (score <= 1) tier = { emoji: '🙈', title: 'Signataire Aveugle', text: "Tu as cliqué plus vite que tu n'as lu. C'est humain." };
+    else if (score <= 3) tier = { emoji: '📐', title: 'Lecteur en Diagonale', text: "Un effort honnête, mais la Section 4.2 te résiste encore." };
+    else if (score === 4) tier = { emoji: '⚖️', title: 'Juriste Amateur', text: 'Impressionnant. Presque suspect.' };
+    else tier = { emoji: '🏆', title: 'Grand Maître des CGU', text: "Tu es officiellement la seule personne à avoir lu des CGU en entier, volontairement." };
+
+    qCard.innerHTML =
+      '<div class="result-badge">' + tier.emoji + '</div>' +
+      '<div class="result-score">Score : ' + score + '/' + quizQuestions.length + '</div>' +
+      '<h3>' + tier.title + '</h3>' +
+      '<p class="sub">' + tier.text + '</p>' +
+      '<div class="overlay-btns">' +
+        '<button class="ov-btn" id="quiz-retry">Retenter</button>' +
+        '<button class="ov-btn primary" id="quiz-home">Retour au site</button>' +
+      '</div>';
+
+    document.getElementById('quiz-retry').addEventListener('click', startQuiz);
+    document.getElementById('quiz-home').addEventListener('click', function () {
+      window.location.href = '/';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -19,7 +19,7 @@ function copyStaticAssets(): Plugin {
         }
       }
       // Standalone HTML pages that live outside the Vue SPA
-      for (const file of ['universe.html']) {
+      for (const file of ['universe.html', 'cgu.html']) {
         const src = resolve(__dirname, file)
         if (existsSync(src)) {
           cpSync(src, resolve(__dirname, 'dist', file))
