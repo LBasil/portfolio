@@ -13,6 +13,7 @@
           <a href="#experience" class="footer-link">Expérience</a>
           <a href="#portfolio" class="footer-link">Projets</a>
           <a href="#contact" class="footer-link">Contact</a>
+          <a href="/cgu.html" class="footer-link">CGU</a>
           <a href="/universe.html" class="footer-link footer-link-universe" aria-label="X-Universe — archives de conception">
             <i class="fas fa-flask me-1" aria-hidden="true" style="font-size:0.8em;"></i>X-Universe
           </a>
