@@ -2,6 +2,16 @@ import type { Project } from '@/types'
 
 export const projects: Project[] = [
   {
+    title: 'PokéBooster',
+    description: 'Ouvrez des boosters Pokémon de tous les sets depuis 1999, avec les vrais taux de drop, et complétez votre classeur.',
+    url: 'https://pokemon-booster-game.vercel.app/',
+    repoUrl: 'https://github.com/LBasil/pokemon-booster-game',
+    image: '/images/pokebooster.png',
+    badges: ['VueJS', 'Supabase', 'Game', 'Finished'],
+    archived: false,
+    hasBlog: false
+  },
+  {
     title: 'Dependency Analyzer',
     description: 'Outil de visualisation des dépendances entre composants.',
     url: 'https://github.com/LBasil/analyze-dependencies',

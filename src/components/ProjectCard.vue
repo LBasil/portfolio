@@ -63,6 +63,9 @@ function badgeClass(badge: string): string {
           <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="`Voir le projet ${project.title} (nouvelle fenêtre)`">
             <i class="fas fa-arrow-up-right-from-square me-1" aria-hidden="true"></i>Voir le projet
           </a>
+          <a v-if="project.repoUrl" :href="project.repoUrl" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="`Voir le code source de ${project.title} sur GitHub (nouvelle fenêtre)`">
+            <i class="fab fa-github me-1" aria-hidden="true"></i>GitHub
+          </a>
           <button v-if="project.hasBlog" class="btn btn-outline-secondary btn-sm" @click="openBlog" :aria-label="`Voir ${project.blogLabel ?? 'le dev blog'} de ${project.title}`">
             <i class="fas fa-book-open me-1" aria-hidden="true"></i>{{ project.blogLabel ?? 'Dev blog' }}
           </button>
