@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const copied = ref(false)
 
 async function copyEmail() {
@@ -15,15 +17,13 @@ async function copyEmail() {
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center">
-          <h2 class="section-title mb-4">Contact</h2>
+          <h2 class="section-title mb-4">{{ t('contact.title') }}</h2>
 
-          <p class="lead mb-2">
-            Développeur front-end en poste chez <strong>Ankama Games</strong>, ouvert aux nouvelles opportunités.
-          </p>
+          <p class="lead mb-2" v-html="t('contact.lead')"></p>
           <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
-            <span class="location-chip"><i class="fas fa-location-dot me-1" aria-hidden="true"></i>Belgique</span>
-            <span class="location-chip"><i class="fas fa-location-dot me-1" aria-hidden="true"></i>Métropole Lilloise</span>
-            <span class="location-chip"><i class="fas fa-wifi me-1" aria-hidden="true"></i>Remote</span>
+            <span class="location-chip"><i class="fas fa-location-dot me-1" aria-hidden="true"></i>{{ t('contact.belgium') }}</span>
+            <span class="location-chip"><i class="fas fa-location-dot me-1" aria-hidden="true"></i>{{ t('contact.lille') }}</span>
+            <span class="location-chip"><i class="fas fa-wifi me-1" aria-hidden="true"></i>{{ t('contact.remote') }}</span>
           </div>
 
           <div class="d-flex flex-wrap justify-content-center gap-3">
@@ -39,11 +39,15 @@ async function copyEmail() {
               <i class="fab fa-linkedin-in me-2" aria-hidden="true"></i>LinkedIn
             </a>
 
-            <button class="btn btn-secondary btn-lg rounded-pill px-4" :aria-label="copied ? 'Email copié dans le presse-papier' : 'Copier l\'adresse email'" @click="copyEmail">
+            <a href="/CV-Basil-LHote.pdf" class="btn btn-outline-primary btn-lg rounded-pill px-4" download>
+              <i class="fas fa-file-arrow-down me-2" aria-hidden="true"></i>{{ t('contact.cv') }}
+            </a>
+
+            <button class="btn btn-secondary btn-lg rounded-pill px-4" :aria-label="copied ? t('contact.copiedAria') : t('contact.copy')" @click="copyEmail">
               <i class="fas me-2" :class="copied ? 'fa-check' : 'fa-envelope'" aria-hidden="true"></i>
-              {{ copied ? 'Copié !' : 'basil.lhote@gmail.com' }}
+              {{ copied ? t('contact.copied') : 'basil.lhote@gmail.com' }}
             </button>
-            <span role="status" class="visually-hidden">{{ copied ? 'Adresse email copiée dans le presse-papier.' : '' }}</span>
+            <span role="status" class="visually-hidden">{{ copied ? t('contact.copiedStatus') : '' }}</span>
           </div>
         </div>
       </div>

@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { TimelineFilter } from '@/types'
 import { timelineEntries } from '@/data/timeline'
 import TimelineItem from '@/components/TimelineItem.vue'
 
+const { t } = useI18n()
+
 const activeFilter = ref<TimelineFilter>('all')
 
-const filters: { label: string; value: TimelineFilter }[] = [
-  { label: 'Tout', value: 'all' },
-  { label: 'MAJ', value: 'maj' },
-  { label: 'Devblogs', value: 'devblog' },
-  { label: 'Lives', value: 'live' }
-]
+const filters = computed<{ label: string; value: TimelineFilter }[]>(() => [
+  { label: t('experience.filterAll'), value: 'all' },
+  { label: t('experience.filterMaj'), value: 'maj' },
+  { label: t('experience.filterDevblog'), value: 'devblog' },
+  { label: t('experience.filterLive'), value: 'live' }
+])
 
 const filteredEntries = computed(() =>
   activeFilter.value === 'all'
@@ -46,13 +49,11 @@ onUnmounted(() => {
 <template>
   <section id="experience" class="py-5">
     <div class="container">
-      <h2 class="section-title text-center mb-2">Expérience Professionnelle</h2>
+      <h2 class="section-title text-center mb-2">{{ t('experience.title') }}</h2>
 
-      <p class="text-center text-muted mb-1">
-        <strong>Ankama Games</strong> · Développeur front-end · Dofus Touch
-      </p>
+      <p class="text-center text-muted mb-1" v-html="t('experience.subtitle')"></p>
       <p class="text-center text-muted small mb-4">
-        Novembre 2023 → aujourd'hui &nbsp;·&nbsp; {{ timelineEntries.length }} contributions
+        {{ t('experience.period') }} &nbsp;·&nbsp; {{ t('experience.count', { n: timelineEntries.length }) }}
       </p>
 
       <div class="text-center mb-4">
@@ -75,23 +76,23 @@ onUnmounted(() => {
         <button
           class="scroll-arrow scroll-arrow-left"
           :class="{ visible: canScrollLeft }"
-          aria-label="Précédent"
+          :aria-label="t('experience.prev')"
           @click="scrollBy('left')"
         >
-          <i class="fas fa-chevron-left"></i>
+          <i class="fas fa-chevron-left" aria-hidden="true"></i>
         </button>
 
-        <div ref="timelineEl" class="timeline-horizontal" role="list" aria-label="Contributions Dofus Touch">
+        <div ref="timelineEl" class="timeline-horizontal" role="list" :aria-label="t('experience.listAria')">
           <TimelineItem v-for="entry in filteredEntries" :key="entry.title" :entry="entry" />
         </div>
 
         <button
           class="scroll-arrow scroll-arrow-right"
           :class="{ visible: canScrollRight }"
-          aria-label="Suivant"
+          :aria-label="t('experience.next')"
           @click="scrollBy('right')"
         >
-          <i class="fas fa-chevron-right"></i>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
         </button>
 
         <div class="fade-left"  :class="{ visible: canScrollLeft }"></div>

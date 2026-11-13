@@ -1,0 +1,46 @@
+/* GÉNÉRÉ par scripts/subset-icons.mjs : ne pas modifier à la main (npm run icons). */
+@font-face { font-family: 'FA Solid'; font-style: normal; font-weight: 900; font-display: block; src: url('../fonts/fa-solid-subset.woff2') format('woff2'); }
+@font-face { font-family: 'FA Brands'; font-style: normal; font-weight: 400; font-display: block; src: url('../fonts/fa-brands-subset.woff2') format('woff2'); }
+
+.fas, .fab { display: inline-block; font-style: normal; font-variant: normal; line-height: 1; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.fas { font-family: 'FA Solid'; font-weight: 900; }
+.fab { font-family: 'FA Brands'; font-weight: 400; }
+
+.fa-2x { font-size: 2em; line-height: 0.5em; vertical-align: -0.0625em; }
+.fa-3x { font-size: 3em; line-height: 0.5em; vertical-align: -0.0625em; }
+
+.fa-arrow-up-right-from-square::before { content: "\f08e"; }
+.fa-bolt::before { content: "\f0e7"; }
+.fa-book-open::before { content: "\f518"; }
+.fa-check::before { content: "\f00c"; }
+.fa-chevron-down::before { content: "\f078"; }
+.fa-chevron-left::before { content: "\f053"; }
+.fa-chevron-right::before { content: "\f054"; }
+.fa-chevron-up::before { content: "\f077"; }
+.fa-code::before { content: "\f121"; }
+.fa-css3-alt::before { content: "\f38b"; }
+.fa-database::before { content: "\f1c0"; }
+.fa-envelope::before { content: "\f0e0"; }
+.fa-file-arrow-down::before { content: "\f56d"; }
+.fa-file-code::before { content: "\f1c9"; }
+.fa-flask::before { content: "\f0c3"; }
+.fa-gamepad::before { content: "\f11b"; }
+.fa-git-alt::before { content: "\f841"; }
+.fa-github::before { content: "\f09b"; }
+.fa-html5::before { content: "\f13b"; }
+.fa-js::before { content: "\f3b8"; }
+.fa-laptop-code::before { content: "\f5fc"; }
+.fa-layer-group::before { content: "\f5fd"; }
+.fa-linkedin-in::before { content: "\f0e1"; }
+.fa-location-dot::before { content: "\f3c5"; }
+.fa-masks-theater::before { content: "\f630"; }
+.fa-mobile-screen::before { content: "\f3cf"; }
+.fa-moon::before { content: "\f186"; }
+.fa-paper-plane::before { content: "\f1d8"; }
+.fa-route::before { content: "\f4d7"; }
+.fa-sun::before { content: "\f185"; }
+.fa-tasks::before { content: "\f0ae"; }
+.fa-tower-broadcast::before { content: "\f519"; }
+.fa-vial::before { content: "\f492"; }
+.fa-vuejs::before { content: "\f41f"; }
+.fa-wifi::before { content: "\f1eb"; }

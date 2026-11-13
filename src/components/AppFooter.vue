@@ -1,21 +1,27 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <footer class="py-4 bg-dark text-light">
     <div class="container">
       <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
 
         <p class="mb-0 small footer-copy">
-          © {{ new Date().getFullYear() }} Basil L'Hôte &nbsp;·&nbsp; Fait avec
-          <i class="fab fa-vuejs mx-1" style="color: #42b883;"></i>Vue 3 + TypeScript
+          © {{ new Date().getFullYear() }} {{ t('nav.brand') }} &nbsp;·&nbsp; {{ t('footer.madeWith') }}
+          <i class="fab fa-vuejs mx-1" style="color: #42b883;" aria-hidden="true"></i>Vue 3 + TypeScript
         </p>
 
         <div class="d-flex gap-3 flex-wrap justify-content-center">
-          <a href="#about" class="footer-link">À propos</a>
-          <a href="#experience" class="footer-link">Expérience</a>
-          <a href="#portfolio" class="footer-link">Projets</a>
-          <a href="#contact" class="footer-link">Contact</a>
-          <a href="/cgu.html" class="footer-link">CGU</a>
-          <a href="/universe.html" class="footer-link footer-link-universe" aria-label="X-Universe — archives de conception">
-            <i class="fas fa-flask me-1" aria-hidden="true" style="font-size:0.8em;"></i>X-Universe
+          <router-link to="/#about" class="footer-link">{{ t('nav.about') }}</router-link>
+          <router-link to="/#experience" class="footer-link">{{ t('nav.experience') }}</router-link>
+          <router-link to="/#portfolio" class="footer-link">{{ t('nav.portfolio') }}</router-link>
+          <router-link to="/#contact" class="footer-link">{{ t('nav.contact') }}</router-link>
+          <a href="/cgu.html" class="footer-link">{{ t('footer.cgu') }}</a>
+          <a href="/universe.html" class="footer-link footer-link-universe" :aria-label="t('footer.universeAria')">
+            <i class="fas fa-flask me-1" aria-hidden="true" style="font-size:0.8em;"></i>{{ t('footer.universe') }}
           </a>
         </div>
 

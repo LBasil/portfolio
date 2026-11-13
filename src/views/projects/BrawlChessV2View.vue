@@ -7,7 +7,7 @@ import AppFooter from '@/components/AppFooter.vue'
 <template>
   <BlogNavbar />
 
-  <div class="container py-5 mt-5">
+  <main id="main-content" lang="fr" class="container py-5 mt-5">
     <h1 class="text-center mb-4">Brawl Chess V2</h1>
     <p class="text-center text-muted mb-5">
       Un jeu mobile en 2D développé avec Vue.js. Suivez ici son évolution technique et créative.
@@ -501,7 +501,7 @@ Tour suivant</code></pre>
     <div class="text-center mt-5">
       <router-link to="/" class="btn btn-outline-secondary">← Retour au portfolio</router-link>
     </div>
-  </div>
+  </main>
 
   <AppFooter />
 </template>
