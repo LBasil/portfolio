@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import type { Project } from '@/types'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { useLocale } from '@/composables/useLocale'
 
 const props = defineProps<{ project: Project }>()
 const router = useRouter()
+const { t } = useI18n()
+const { localize } = useLocale()
 
 function openBlog() {
   const url = props.project.blogUrl
@@ -14,6 +18,10 @@ function openBlog() {
   } else {
     router.push(url)
   }
+}
+
+function blogLabel(): string {
+  return props.project.blogLabel ? localize(props.project.blogLabel) : t('card.blog')
 }
 
 const BADGE_CLASSES: Record<string, string> = {
@@ -30,8 +38,22 @@ const BADGE_CLASSES: Record<string, string> = {
   Paused:             'badge-paused',
 }
 
+// Seuls les badges d'état et de genre sont traduits ; les noms de technologies restent tels quels.
+const BADGE_LABEL_KEYS: Record<string, string> = {
+  Game:                'badge.game',
+  'In-Progress':       'badge.inProgress',
+  Finished:            'badge.finished',
+  'Prototype finished':'badge.prototypeFinished',
+  Paused:              'badge.paused',
+}
+
 function badgeClass(badge: string): string {
   return BADGE_CLASSES[badge] ?? 'badge-default'
+}
+
+function badgeLabel(badge: string): string {
+  const key = BADGE_LABEL_KEYS[badge]
+  return key ? t(key) : badge
 }
 </script>
 
@@ -39,14 +61,14 @@ function badgeClass(badge: string): string {
   <div class="col-lg-4 col-md-6">
     <div class="card project-card shadow-sm h-100">
       <img v-if="project.image" :src="project.image" class="card-img-top" :alt="project.title" loading="lazy">
-      <div v-else class="card-img-top placeholder-img d-flex align-items-center justify-content-center flex-column gap-2" role="img" :aria-label="`Image non disponible pour ${project.title}`">
+      <div v-else class="card-img-top placeholder-img d-flex align-items-center justify-content-center flex-column gap-2" role="img" :aria-label="t('card.placeholderAria', { title: project.title })">
         <i class="fas fa-gamepad fa-3x placeholder-icon" aria-hidden="true"></i>
-        <span class="placeholder-label" aria-hidden="true">En développement</span>
+        <span class="placeholder-label" aria-hidden="true">{{ t('card.placeholder') }}</span>
       </div>
 
       <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ project.title }}</h5>
-        <p class="card-text flex-grow-1 text-muted small">{{ project.description }}</p>
+        <p class="card-text flex-grow-1 text-muted small">{{ localize(project.description) }}</p>
 
         <div class="mb-3">
           <span
@@ -55,19 +77,19 @@ function badgeClass(badge: string): string {
             class="project-badge me-1 mb-1"
             :class="badgeClass(badge)"
           >
-            {{ badge }}
+            {{ badgeLabel(badge) }}
           </span>
         </div>
 
         <div class="d-flex gap-2 flex-wrap">
-          <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="`Voir le projet ${project.title} (nouvelle fenêtre)`">
-            <i class="fas fa-arrow-up-right-from-square me-1" aria-hidden="true"></i>Voir le projet
+          <a v-if="project.url" :href="project.url" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="t('card.viewAria', { title: project.title })">
+            <i class="fas fa-arrow-up-right-from-square me-1" aria-hidden="true"></i>{{ t('card.view') }}
           </a>
-          <a v-if="project.repoUrl" :href="project.repoUrl" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="`Voir le code source de ${project.title} sur GitHub (nouvelle fenêtre)`">
-            <i class="fab fa-github me-1" aria-hidden="true"></i>GitHub
+          <a v-if="project.repoUrl" :href="project.repoUrl" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener noreferrer" :aria-label="t('card.codeAria', { title: project.title })">
+            <i class="fab fa-github me-1" aria-hidden="true"></i>{{ t('card.code') }}
           </a>
-          <button v-if="project.hasBlog" class="btn btn-outline-secondary btn-sm" @click="openBlog" :aria-label="`Voir ${project.blogLabel ?? 'le dev blog'} de ${project.title}`">
-            <i class="fas fa-book-open me-1" aria-hidden="true"></i>{{ project.blogLabel ?? 'Dev blog' }}
+          <button v-if="project.hasBlog" class="btn btn-outline-secondary btn-sm" @click="openBlog" :aria-label="t('card.blogAria', { label: blogLabel(), title: project.title })">
+            <i class="fas fa-book-open me-1" aria-hidden="true"></i>{{ blogLabel() }}
           </button>
         </div>
       </div>

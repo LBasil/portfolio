@@ -1,47 +1,55 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { useLocale } from '@/composables/useLocale'
+import type { LocalizedText } from '@/i18n'
+
+const { t } = useI18n()
+const { localize } = useLocale()
+
 interface Tech {
-  name: string
+  name: string | LocalizedText
   icon: string
   iconType?: 'fab' | 'fas'
 }
 
 interface TechGroup {
-  title: string
+  titleKey: string
   techs: Tech[]
 }
 
 const groups: TechGroup[] = [
   {
-    title: 'Langages & Frameworks',
+    titleKey: 'skills.languages',
     techs: [
       { name: 'JavaScript', icon: 'fa-js', iconType: 'fab' },
-      { name: 'TypeScript', icon: 'fa-js', iconType: 'fab' },
+      { name: 'TypeScript', icon: 'fa-file-code', iconType: 'fas' },
       { name: 'Vue 3', icon: 'fa-vuejs', iconType: 'fab' },
+      { name: 'Pinia', icon: 'fa-layer-group', iconType: 'fas' },
       { name: 'HTML5', icon: 'fa-html5', iconType: 'fab' },
       { name: 'CSS3 / Less', icon: 'fa-css3-alt', iconType: 'fab' },
-      { name: 'Pinia', icon: 'fa-layer-group', iconType: 'fas' },
     ]
   },
   {
-    title: 'Outillage',
+    titleKey: 'skills.tooling',
     techs: [
       { name: 'Vite', icon: 'fa-bolt', iconType: 'fas' },
       { name: 'Git', icon: 'fa-git-alt', iconType: 'fab' },
       { name: 'Vue Router', icon: 'fa-route', iconType: 'fas' },
       { name: 'ESLint', icon: 'fa-code', iconType: 'fas' },
       { name: 'YouTrack', icon: 'fa-tasks', iconType: 'fas' },
-      { name: 'Tests unitaires', icon: 'fa-vial', iconType: 'fas' }
+      { name: { fr: 'Tests unitaires', en: 'Unit testing' }, icon: 'fa-vial', iconType: 'fas' },
+      { name: 'Vitest', icon: 'fa-vial', iconType: 'fas' },
+      { name: 'Playwright', icon: 'fa-masks-theater', iconType: 'fas' },
+      { name: 'GitHub Actions', icon: 'fa-github', iconType: 'fab' },
     ]
   },
   {
-    title: 'Approche',
+    titleKey: 'skills.backend',
     techs: [
-      { name: 'Clean code', icon: 'fa-code', iconType: 'fas' },
-      { name: 'Performance', icon: 'fa-gauge-high', iconType: 'fas' },
-      { name: 'Responsive', icon: 'fa-mobile-screen', iconType: 'fas' },
-      { name: 'UX fluide', icon: 'fa-wand-magic-sparkles', iconType: 'fas' },
-      { name: 'Autonomie', icon: 'fa-person-running', iconType: 'fas' },
-      { name: 'Travail en équipe', icon: 'fa-people-group', iconType: 'fas' },
+      { name: 'Supabase', icon: 'fa-database', iconType: 'fas' },
+      { name: 'PostgreSQL', icon: 'fa-database', iconType: 'fas' },
+      { name: { fr: 'Temps réel', en: 'Realtime' }, icon: 'fa-tower-broadcast', iconType: 'fas' },
+      { name: 'PWA', icon: 'fa-mobile-screen', iconType: 'fas' },
     ]
   }
 ]
@@ -50,20 +58,20 @@ const groups: TechGroup[] = [
 <template>
   <section id="skills" class="py-5">
     <div class="container">
-      <h2 class="section-title text-center mb-5">Compétences</h2>
+      <h2 class="section-title text-center mb-5">{{ t('skills.title') }}</h2>
 
       <div class="row g-4">
-        <div v-for="group in groups" :key="group.title" class="col-md-4">
+        <div v-for="group in groups" :key="group.titleKey" class="col-md-4">
           <div class="skill-card h-100 p-4">
-            <h3 class="h6 text-uppercase fw-bold mb-4 skill-group-title">{{ group.title }}</h3>
+            <h3 class="h6 text-uppercase fw-bold mb-4 skill-group-title">{{ t(group.titleKey) }}</h3>
             <div class="d-flex flex-wrap gap-2">
               <span
                 v-for="tech in group.techs"
-                :key="tech.name"
+                :key="localize(tech.name)"
                 class="tech-pill"
               >
-                <i :class="[tech.iconType ?? 'fas', tech.icon, 'me-1']"></i>
-                {{ tech.name }}
+                <i :class="[tech.iconType ?? 'fas', tech.icon, 'me-1']" aria-hidden="true"></i>
+                {{ localize(tech.name) }}
               </span>
             </div>
           </div>

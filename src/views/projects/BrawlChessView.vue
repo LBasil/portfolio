@@ -7,7 +7,7 @@ import AppFooter from '@/components/AppFooter.vue'
 <template>
   <BlogNavbar />
 
-  <main id="main-content" class="container py-5 mt-5">
+  <main id="main-content" lang="fr" class="container py-5 mt-5">
     <h1 class="text-center mb-4">Brawl Chess</h1>
     <p class="text-center text-muted mb-5">
       Un jeu mobile en 2D développé avec Love2D. Suivez ici son évolution technique et créative.

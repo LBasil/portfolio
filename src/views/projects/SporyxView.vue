@@ -16,7 +16,7 @@ function showImage(src: string) {
 <template>
   <BlogNavbar />
 
-  <div class="container py-5 mt-5">
+  <div id="main-content" lang="fr" class="container py-5 mt-5">
     <h1 class="text-center mb-4">Sporyx</h1>
     <p class="text-center text-muted mb-5">
       Un jeu mobile 3D développé avec Godot. Suivez ici son évolution technique et créative.
@@ -183,11 +183,11 @@ func rebuild_wall():
           <div class="row g-3 mb-3">
             <div v-for="n in [1, 2, 3]" :key="n" class="col-md-4">
               <img
-                :src="`/images/proto${n}.png`"
+                :src="`/images/proto${n}.webp`"
                 class="img-fluid rounded border"
                 :alt="`Prototype Sporyx ${n}`"
                 style="cursor:zoom-in;"
-                @click="showImage(`/images/proto${n}.png`)"
+                @click="showImage(`/images/proto${n}.webp`)"
               >
             </div>
           </div>
@@ -201,14 +201,14 @@ func rebuild_wall():
           <h6>🎨 Fond 2D</h6>
           <p>Premier test avec un fond 2D fixe. J'ai eu des soucis avec le personnage 3D passant parfois derrière.</p>
           <div class="text-center mb-3">
-            <img src="/images/fond2d-test.png" class="img-fluid rounded border" alt="Test fond 2D"
-              style="cursor:zoom-in; max-height: 300px;" @click="showImage('/images/fond2d-test.png')">
+            <img src="/images/fond2d-test.webp" class="img-fluid rounded border" alt="Test fond 2D"
+              style="cursor:zoom-in; max-height: 300px;" @click="showImage('/images/fond2d-test.webp')">
           </div>
           <h6>🌌 Fond 3D</h6>
           <p>Deuxième essai avec un environnement 3D très simple en arrière-plan.</p>
           <div class="text-center mb-3">
-            <img src="/images/fond3d-test.png" class="img-fluid rounded border" alt="Test fond 3D"
-              style="cursor:zoom-in; max-height: 300px;" @click="showImage('/images/fond3d-test.png')">
+            <img src="/images/fond3d-test.webp" class="img-fluid rounded border" alt="Test fond 3D"
+              style="cursor:zoom-in; max-height: 300px;" @click="showImage('/images/fond3d-test.webp')">
           </div>
         </BlogArticle>
 

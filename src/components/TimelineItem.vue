@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { useLocale } from '@/composables/useLocale'
 import type { TimelineEntry } from '@/types'
 
 defineProps<{ entry: TimelineEntry }>()
 
-const TYPE_LABELS: Record<string, string> = {
-  maj:     'MÀJ',
-  devblog: 'Devblog',
-  live:    'Live',
+const { t } = useI18n()
+const { localize, formatMonth } = useLocale()
+
+const TYPE_KEYS: Record<TimelineEntry['type'], string> = {
+  maj:     'timeline.typeMaj',
+  devblog: 'timeline.typeDevblog',
+  live:    'timeline.typeLive',
 }
 </script>
 
@@ -15,13 +20,13 @@ const TYPE_LABELS: Record<string, string> = {
     <img :src="entry.image" :alt="entry.alt" loading="lazy">
     <div class="timeline-content">
       <div class="d-flex align-items-center gap-2 mb-1">
-        <span class="type-badge" :class="`type-${entry.type}`">{{ TYPE_LABELS[entry.type] }}</span>
-        <span class="timeline-date">{{ entry.date }}</span>
+        <span class="type-badge" :class="`type-${entry.type}`">{{ t(TYPE_KEYS[entry.type]) }}</span>
+        <span class="timeline-date">{{ formatMonth(entry.date) }}</span>
       </div>
       <h6>{{ entry.title }}</h6>
-      <p>{{ entry.description }}</p>
-      <a :href="entry.articleUrl" class="btn btn-primary me-2" target="_blank" rel="noopener noreferrer" :aria-label="`Voir l'article : ${entry.title} (nouvelle fenêtre)`">
-        Voir l'article
+      <p>{{ localize(entry.description) }}</p>
+      <a :href="entry.articleUrl" class="btn btn-primary me-2" target="_blank" rel="noopener noreferrer" :aria-label="t('timeline.readAria', { title: entry.title })">
+        {{ t('timeline.read') }}
       </a>
     </div>
   </div>

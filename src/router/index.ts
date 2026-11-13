@@ -10,6 +10,11 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/projects/pokebooster',
+      name: 'pokebooster',
+      component: () => import('@/views/projects/PokeBoosterView.vue')
+    },
+    {
       path: '/projects/sporyx',
       name: 'sporyx',
       component: () => import('@/views/projects/SporyxView.vue')

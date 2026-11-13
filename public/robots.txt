@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /cgu.html
+
+Sitemap: https://portfolio-delta-tawny-25.vercel.app/sitemap.xml
