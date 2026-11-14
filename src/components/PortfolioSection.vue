@@ -19,7 +19,7 @@ const archivedProjects = computed(() => projects.filter((p) => p.archived))
 
       <p class="text-center mb-5 text-muted" v-html="t('projects.intro')"></p>
 
-      <div class="row g-4">
+      <div class="row g-4 justify-content-center">
         <ProjectCard v-for="project in activeProjects" :key="project.title" :project="project" />
       </div>
     </div>
