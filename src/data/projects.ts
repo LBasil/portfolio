@@ -19,8 +19,8 @@ export const projects: Project[] = [
   {
     title: 'Dependency Analyzer',
     description: {
-      fr: 'Outil de visualisation des dépendances entre composants.',
-      en: 'Tool to visualise dependencies between components.'
+      fr: 'Outil en ligne de commande et page de visualisation des dépendances entre fichiers (JS, TS, Vue). Tests et CI GitHub Actions.',
+      en: 'Command-line tool and visualisation page for dependencies between files (JS, TS, Vue). Tests and GitHub Actions CI.'
     },
     url: 'https://github.com/LBasil/analyze-dependencies',
     image: '/images/dependency_analyzer.webp',
@@ -32,8 +32,8 @@ export const projects: Project[] = [
   {
     title: 'DejaVue',
     description: {
-      fr: 'Documentation Vue minimaliste, pensée comme une cheat sheet.',
-      en: 'Minimalist Vue documentation, designed as a cheat sheet.'
+      fr: 'Documentation Vue minimaliste, pensée comme une cheat sheet. TypeScript, build vérifié par la CI.',
+      en: 'Minimalist Vue documentation, designed as a cheat sheet. TypeScript, build checked by CI.'
     },
     url: 'https://deja-vue.vercel.app/',
     repoUrl: 'https://github.com/LBasil/DejaVue',
@@ -58,10 +58,35 @@ export const projects: Project[] = [
     blogUrl: ''
   },
   {
+    title: 'Trans-France Express',
+    description: {
+      fr: 'Jeu de plateau à deux joueurs dans le navigateur : cartes wagon, routes, tunnels, ferrys, destinations secrètes. JavaScript sans dépendance, règles documentées et 12 tests.',
+      en: 'Two-player board game in the browser: wagon cards, routes, tunnels, ferries, secret destinations. Dependency-free JavaScript, documented rules and 12 tests.'
+    },
+    url: 'https://les-aventuriers-du-rail.vercel.app/',
+    repoUrl: 'https://github.com/LBasil/Les-aventuriers-du-rail',
+    badges: ['JavaScript', 'Game', 'Finished'],
+    archived: false,
+    hasBlog: false,
+    blogUrl: ''
+  },
+  {
+    title: 'Git Timeline',
+    description: {
+      fr: "API Node (Express, isomorphic-git) qui lit l'historique d'un dépôt Git et interface Vue 3 : choix de la branche, pagination, filtre. Tests d'API, CI. La visualisation des branches reste à faire.",
+      en: 'Node API (Express, isomorphic-git) that reads a Git repository history, with a Vue 3 interface: branch picker, pagination, filter. API tests, CI. Branch visualisation is still to do.'
+    },
+    repoUrl: 'https://github.com/LBasil/Git-TImeline',
+    badges: ['VueJS', 'Express', 'In-Progress'],
+    archived: false,
+    hasBlog: false,
+    blogUrl: ''
+  },
+  {
     title: 'Brawl chess V2',
     description: {
-      fr: "Jeu de combat d'échecs 1v1 mobile comme vous n'en avez jamais vu.",
-      en: 'A 1v1 mobile chess-fighting game like you have never seen.'
+      fr: "Jeu de combat d'échecs 1v1 mobile. Client Vue, serveur Express testé (10 tests d'API), IA simple en face.",
+      en: 'A 1v1 mobile chess-fighting game. Vue client, tested Express server (10 API tests), simple AI opponent.'
     },
     url: '',
     image: '',
@@ -73,8 +98,8 @@ export const projects: Project[] = [
   {
     title: 'Digivolution Network',
     description: {
-      fr: 'Suivi simplifié de vos Digimon dans Digimon World Next Order.',
-      en: 'Simple tracking of your Digimon in Digimon World Next Order.'
+      fr: 'Suivi simplifié de vos Digimon dans Digimon World Next Order. Données des évolutions vérifiées par des tests automatiques, CI.',
+      en: 'Simple tracking of your Digimon in Digimon World Next Order. Evolution data checked by automated tests, CI.'
     },
     url: 'https://digivolution-newtork.vercel.app/',
     repoUrl: 'https://github.com/LBasil/Digivolution-Newtork',
@@ -86,8 +111,8 @@ export const projects: Project[] = [
   {
     title: 'Brawl chess',
     description: {
-      fr: "Le prototype original du jeu de combat d'échecs 1v1 mobile.",
-      en: 'The original prototype of the 1v1 mobile chess-fighting game.'
+      fr: "Le prototype original du jeu de combat d'échecs 1v1 mobile : client Lua (LÖVE), serveur Java dont les règles des pièces sont testées en CI.",
+      en: 'The original prototype of the 1v1 mobile chess-fighting game: Lua (LÖVE) client, Java server whose piece rules are tested in CI.'
     },
     url: 'https://github.com/LBasil/Brawl-Chess',
     image: '/images/brawl_chess.webp',
@@ -122,8 +147,8 @@ export const projects: Project[] = [
   {
     title: 'Pokemon Card Viewer',
     description: {
-      fr: 'Application de visualisation de cartes Pokémon via une API externe.',
-      en: 'App to browse Pokémon cards through an external API.'
+      fr: 'Visionneuse de cartes Pokémon (API pokemontcg.io) : recherche, collection et decks, erreurs réseau gérées, accessible au clavier, tests.',
+      en: 'Pokémon card viewer (pokemontcg.io API): search, collection and decks, network errors handled, keyboard accessible, tests.'
     },
     url: 'https://pokemon-card-viewer-ashy.vercel.app/',
     repoUrl: 'https://github.com/LBasil/pokemon-card-viewer',
@@ -134,8 +159,8 @@ export const projects: Project[] = [
   {
     title: 'Reigns - Prototype',
     description: {
-      fr: 'Prototype inspiré du jeu Reigns : Her Majesty.',
-      en: 'Prototype inspired by the game Reigns: Her Majesty.'
+      fr: 'Prototype inspiré du jeu Reigns : Her Majesty. Données des cartes vérifiées par des tests.',
+      en: 'Prototype inspired by the game Reigns: Her Majesty. Card data checked by tests.'
     },
     url: 'https://reigns-prototype.vercel.app/',
     repoUrl: 'https://github.com/LBasil/reigns-prototype',
