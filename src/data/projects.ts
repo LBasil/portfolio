@@ -65,6 +65,7 @@ export const projects: Project[] = [
     },
     url: 'https://les-aventuriers-du-rail.vercel.app/',
     repoUrl: 'https://github.com/LBasil/Les-aventuriers-du-rail',
+    image: '/images/trans-france-express.webp',
     badges: ['JavaScript', 'Game', 'Finished'],
     archived: false,
     hasBlog: false,
@@ -77,6 +78,7 @@ export const projects: Project[] = [
       en: 'Node API (Express, isomorphic-git) that reads a Git repository history, with a Vue 3 interface: branch picker, pagination, filter. API tests, CI. Branch visualisation is still to do.'
     },
     repoUrl: 'https://github.com/LBasil/Git-TImeline',
+    image: '/images/git-timeline.webp',
     badges: ['VueJS', 'Express', 'In-Progress'],
     archived: false,
     hasBlog: false,
